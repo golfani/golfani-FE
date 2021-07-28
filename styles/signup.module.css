@@ -1,0 +1,165 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #F4F4F4;
+}
+
+.container > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 800px;
+    height: 100%;
+    background-color: #fff;
+}
+
+.sns_box {
+    width: 300px;
+    margin-bottom: 20px;
+}
+.sns_main_txt {
+    display: block;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+}
+
+.sns_sub_txt {
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    color: black;
+}
+
+.kakao_login_btn {
+    display: inline-block;
+    margin-top: 15px;
+    text-align: center;
+    line-height: 50px;
+    width: 100%;
+    height: 50px;
+    background-color: #F6DB48;
+    font-weight: bold;
+    font-size: 14px;
+    color: black;
+    cursor: pointer;
+}
+
+.naver_login_btn {
+    display: inline-block;
+    margin-top: 15px;
+    text-align: center;
+    line-height: 50px;
+    width: 100%;
+    height: 50px;
+    background-color: #3CD95E;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+}
+
+.form_box {
+    width: 300px;
+    margin-bottom: 30px;
+}
+
+.input_box {
+    margin-bottom: 20px;
+}
+
+.input_title_txt {
+    display: inline-block;
+    color: black;
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.input {
+    display: inline-block;
+    font-size: 15px;
+    border: #dadada 1px solid;
+    outline-color: cornflowerblue;
+    padding: 2px 10px;
+    width: 100%;
+    height: 50px;
+    appearance: none;
+}
+
+.birth_box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.birth_input {
+    display: inline-block;
+    font-size: 15px;
+    border: #dadada 1px solid;
+    outline-color: cornflowerblue;
+    padding: 2px 10px;
+    width: 90px;
+    height: 50px;
+}
+
+.email_send_txt {
+    margin: 3px 0;
+    font-size: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.code_box {
+    display: inline-block;
+    height: 40px;
+    margin-top: 10px;
+}
+
+.code_input {
+    display: inline-block;
+    font-size: 12px;
+    border: #dadada 1px solid;
+    outline-color: cornflowerblue;
+    padding: 2px 10px;
+    width: 130px;
+    height: 30px;
+}
+
+.code_ok_btn {
+    display: inline-block;
+    width: 40px;
+    height: 30px;
+    background-color: cornflowerblue;
+    color: white;
+    font-size: 12px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 0.32rem;
+}
+
+.input_success_txt {
+    text-align: right;
+    font-size: 12px;
+    color: cornflowerblue;
+}
+
+.input_error_txt {
+    font-size: 12px;
+    color: red;
+}
+
+.signup_btn {
+    width: 100%;
+    height: 50px;
+    font-size: 15px;
+    color: white;
+    background-color: cornflowerblue;
+    border: none;
+    outline: none;
+    padding: 0;
+}
