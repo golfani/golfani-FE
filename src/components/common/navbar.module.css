@@ -1,0 +1,39 @@
+.container {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 80px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.container > div {
+    width: 800px;
+    height: 80px;
+    background-color: #fff;
+    border-bottom: black 2px solid;
+}
+
+.nav_box {
+    display: flex;
+    padding: 0 20px;
+}
+
+.logo_txt {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 40px;
+}
+
+.icon_box {
+    display: flex;
+    justify-content: space-between;
+    width: 60px;
+    margin-left: auto;
+    margin-top: 40px;
+}
+
+.icon {
+    font-size: 25px;
+    cursor: pointer;
+}
