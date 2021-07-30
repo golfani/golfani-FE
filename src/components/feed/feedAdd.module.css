@@ -1,0 +1,45 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    height: 100%;
+}
+
+.main_txt {
+    font-weight: bold;
+    font-size: 25px;
+    margin-right: 10px;
+    color: black;
+}
+
+.sub_txt {
+    font-size: 12px;
+    color: gray;
+}
+
+.component_box {
+    margin: 10px 0;
+}
+
+.button_box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.prev_btn {
+    width: 60px;
+    height: 30px;
+    border: none;
+    border-radius: 0.32rem;
+    background-color: black;
+    color: white;
+}
+
+.next_btn {
+    width: 60px;
+    height: 30px;
+    border: none;
+    border-radius: 0.32rem;
+    background-color: cornflowerblue;
+    color: white;
+}
