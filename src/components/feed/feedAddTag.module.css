@@ -1,0 +1,45 @@
+.tag_box {
+    margin-bottom: 10px;
+}
+
+.tag_input_box_active{
+    display: inline-block;
+    position: relative;
+    width: auto;
+    height: 30px;
+    border-radius: 10px;
+    line-height: 30px;
+    padding: 0 10px;
+    background-color: #eff0f2;
+    color: black;
+}
+
+.tag_input_box_inactive {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+}
+
+.tag_input_inactive {
+    width: 300px;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.tag_input_active {
+    font-size: 15px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.tag_input_active:focus::placeholder {
+    color: transparent;
+}
+
+.hidden {
+    display: none;
+}
