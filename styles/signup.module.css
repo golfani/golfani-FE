@@ -151,6 +151,7 @@
 .input_error_txt {
     font-size: 12px;
     color: red;
+    display: block;
 }
 
 .signup_btn {

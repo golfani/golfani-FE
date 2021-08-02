@@ -1,39 +1,113 @@
 import style from "styles/signup.module.css";
 import {useForm} from "react-hook-form";
-import * as yup from 'yup';
 import {yupResolver} from "@hookform/resolvers/yup";
-import {regExpEmail, regExpId, regExpPw} from "src/utils/regExpUtil";
+import {authEmail, Member, signUp, validateById} from "src/apis/Member";
+import {signUpSchema} from "../src/utils/yupUtill";
+import {ChangeEvent, useState} from "react";
+import {useRouter} from "next/router";
 
-const schema = yup.object({
-    id : yup.string().trim().required('필수 항목입니다.').matches(regExpId,'아이디는 5 ~ 15자 사이여야 합니다.'),
-    password : yup.string().trim().required('필수 항목입니다.').matches(regExpPw,'특수문자, 영어, 숫자를 포함한 8 ~ 15자 사이여야 합니다.'),
-    checkPw : yup.string().oneOf([yup.ref('password'), null],'비밀번호가 일치하지 않습니다.').required('필수 항목입니다.'),
-    name : yup.string().required('필수 항목입니다.'),
-    gender : yup.string().oneOf(['남자','여자'],'성별을 선택해 주세요.').required('필수 항목입니다.'),
-    year : yup.number().required('필수 항목입니다.').typeError("연도를 숫자4자리로 적어주세요."),
-    month : yup.number().required('필수 항목입니다.').typeError("숫자로 적어주세요."),
-    day : yup.number().required('필수 항목입니다.').typeError("숫자로 적어주세요."),
-    email : yup.string().required('필수 항목입니다.').matches(regExpEmail,'이메일 형식에 맞지 않습니다.')
-})
+type FormData = {
+    id : string,
+    password : string,
+    checkPw : string,
+    name : string,
+    gender : string,
+    year : number,
+    month : number,
+    day : number,
+    email : string
+    authCode : number,
+}
 
 const SignUp = () : JSX.Element=> {
-    const {register, getValues, handleSubmit, formState : {errors}} = useForm({
-        resolver : yupResolver(schema),
+    const {register,getValues, handleSubmit, formState : {errors}} = useForm<FormData>({
+        resolver : yupResolver(signUpSchema),
         mode : "onChange",
     });
+    const id = register("id"); // input id 변수입니다.
+    const [duplicate, setDuplicate] = useState(false); // 아이디 중복검사 변수입니다.
+    const [authCode , setAuthCode] = useState<number | null>(null); // 이메일 인증코드 변수입니다.
+    const [auth, setAuth] = useState<boolean | null | undefined>(false); // 이메일 인증 변수입니다.
+    const [readOnly, setReadOnly] = useState(false); // input readOnly 상태 관리 변수입니다.
+    const router = useRouter();
 
-    const onSubmit = (data : any) => {
-        console.log(data);
+    // ID 중복 검사
+    const onValidateId = async (e : ChangeEvent) => {
+        try {
+            const response = await validateById(getValues('id'))
+            const data = response.data;
+            if(data) {
+                setDuplicate(true);
+            }
+            else {
+                setDuplicate(false);
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 
-    const sendMail = () => {
-        if(errors.email || getValues('email').trim.length === 0) {
+    // 이메일 인증코드 받기
+    const sendMail = async () => {
+        if(errors.email || getValues('email').trim().length === 0) {
             console.log("이메일 입력");
         }
         else {
-            console.log(getValues('email'));
+            try {
+                const response = await authEmail(getValues('email'));
+                if(response.status === 200) {
+                    setAuthCode(Number(response.data));
+                }
+                else if(response.status === 409) {
+                    setAuthCode(null);
+                }
+            }
+            catch (error) {
+                console.log(error)
+            }
         }
     }
+
+    // 인증코드로 인증하기
+    const onAuth = () => {
+        if(authCode) {
+            if(authCode.toString() === getValues("authCode").toString()) {
+                setReadOnly(true);
+                setAuth(true);
+            }
+            else {
+                setReadOnly(false);
+                setAuth(null);
+            }
+        }
+    };
+
+    // 회원가입 버튼 클릭
+    const onSubmit = async (data : FormData) => {
+        const member  : Member = {
+            user_id : data.id,
+            password : data.password,
+            username : data.name,
+            gender : data.gender,
+            year : data.year,
+            month : data.month,
+            day : data.day,
+            email : data.email
+        }
+
+        if (auth) {
+            try {
+                console.log(data);
+                const response = await signUp(member);
+                if (response.status === 200) {
+                    router.push("/");
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    };
 
     return (
         <div className={style.container}>
@@ -48,8 +122,9 @@ const SignUp = () : JSX.Element=> {
                 <form className={style.form_box} onSubmit={handleSubmit(onSubmit)}>
                     <div className={style.input_box}>
                         <span className={style.input_title_txt}>아이디</span>
-                        <input className={style.input} {...register("id")}/>
+                        <input name="id" onChange={(e)=>{id.onChange(e); onValidateId(e)}} className={style.input} ref={id.ref}/>
                         <span className={style.input_error_txt}>{errors.id?.message}</span>
+                        {duplicate && <span className={style.input_error_txt}>중복된 아이디입니다.</span>}
                     </div>
                     <div className={style.input_box}>
                         <span className={style.input_title_txt}>비밀번호</span>
@@ -70,8 +145,8 @@ const SignUp = () : JSX.Element=> {
                         <span className={style.input_title_txt}>성별</span>
                         <select className={style.input} {...register("gender")}>
                             <option value={undefined}>선택안함</option>
-                            <option value="남자">남자</option>
-                            <option value="여자">여자</option>
+                            <option value="male">남자</option>
+                            <option value="female">여자</option>
                         </select>
                         <span className={style.input_error_txt}>{errors.gender?.message}</span>
                     </div>
@@ -87,17 +162,19 @@ const SignUp = () : JSX.Element=> {
                     <div className={style.input_box}>
                         <span className={style.input_title_txt}>본인인증</span>
                         <div>
-                            <input className={style.input} placeholder="@email.com" {...register("email")}/>
+                            <input readOnly={readOnly} className={style.input} placeholder="@email.com" {...register("email")}/>
                             <span className={style.input_error_txt}>{errors.email?.message}</span>
                             <div>
                                 <span className={style.email_send_txt} onClick={sendMail}>인증코드 전송</span>
                             </div>
                             <div className={style.code_box}>
                                 <div>
-                                    <input className={style.code_input} placeholder="인증번호 입력 (6자리)"/>
-                                    <button type="button" className={style.code_ok_btn}>확인</button>
+                                    <input readOnly={readOnly} className={style.code_input} placeholder="인증번호 입력 (6자리)" {...register("authCode")}/>
+                                    <button onClick={onAuth} type="button" className={style.code_ok_btn}>확인</button>
                                 </div>
-                                <span className={style.input_success_txt}>인증되었습니다.</span>
+                                {auth && <span className={style.input_success_txt}>인증되었습니다.</span>}
+                                {auth || <span className={style.input_error_txt}>본인인증이 완료되지 않았습니다.</span>}
+                                {auth === null && <span className={style.input_error_txt}>인증번호가 일치하지 않습니다.</span>}
                             </div>
                         </div>
                     </div>
