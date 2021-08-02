@@ -12,3 +12,8 @@ export const signUpSchema = yup.object({
     day : yup.number().required('필수 항목입니다.').typeError("숫자로 적어주세요."),
     email : yup.string().required('필수 항목입니다.').matches(regExpEmail,'이메일 형식에 맞지 않습니다.')
 })
+
+export const loginSchema = yup.object({
+    id : yup.string().trim().required('아이디를 입력해주세요.'),
+    password : yup.string().trim().required('비밀번호를 입력해주세요.'),
+})
