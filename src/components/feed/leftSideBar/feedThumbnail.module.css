@@ -1,0 +1,22 @@
+.container {
+    width: 300px;
+    animation: fadeIn 5s;
+    animation-fill-mode: forwards;
+}
+
+.img {
+    width: 100px;
+    height: 100px;
+    border: 1px solid white;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
