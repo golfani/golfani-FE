@@ -1,0 +1,30 @@
+.container {
+
+}
+.container_menu_inactive {
+    animation: slideOut 1s;
+    animation-fill-mode: forwards;
+}
+
+.container_menu_active {
+    animation: slideIn 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes slideIn {
+    from {
+        margin-left: 0;
+    }
+    to {
+        margin-left: 500px;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        margin-left: 500px;
+    }
+    to {
+        margin-left: 0px;
+    }
+}
