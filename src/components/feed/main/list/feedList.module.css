@@ -1,0 +1,7 @@
+.container {
+    width: 640px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}

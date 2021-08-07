@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+}
+
+.user_txt {
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.reply_txt {
+    font-size: 14px;
+}
+
+.like_box {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+}
+
+.like_icon {
+    width: 12px;
+    height: 12px;
+}
