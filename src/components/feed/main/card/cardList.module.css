@@ -1,0 +1,15 @@
+.container {
+    width: 610px;
+    height: auto;
+    display: flex;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.card_box {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
