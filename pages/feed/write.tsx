@@ -1,11 +1,11 @@
-import NavBar from "src/components/common/NavBar";
+import FeedNavBar from "src/components/feed/FeedNavBar";
 import FeedAdd from "src/components/feed/add/FeedAdd";
 import style from "styles/feed.module.css"
 
 const FeedWrite = () : JSX.Element => {
     return (
         <div className={style.container}>
-            <NavBar/>
+            <FeedNavBar/>
             <FeedAdd/>
         </div>
     );

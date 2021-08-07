@@ -1,11 +1,11 @@
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
-import style from './navbar.module.css'
-import TagSearch from "../feed/TagSearch";
-import FeedStyleTab from "../feed/FeedStyleTab";
+import style from './feedNavbar.module.css'
+import TagSearch from "./TagSearch";
+import FeedStyleTab from "./FeedStyleTab";
 import {useRouter} from "next/router";
 
-const NavBar = () : JSX.Element => {
+const FeedNavBar = () : JSX.Element => {
     const router = useRouter();
 
     const onClickLogin = () => {
@@ -34,4 +34,4 @@ const NavBar = () : JSX.Element => {
     );
 }
 
-export default NavBar;
+export default FeedNavBar;
