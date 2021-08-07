@@ -1,0 +1,19 @@
+.tab_box {
+    display: flex;
+    width: 80px;
+    height: 30px;
+    margin-left: 10px;
+    border-radius: 0.32rem;
+    border: 1px solid #bdbdbd;
+    background-color: white;
+    align-items: center;
+}
+
+.icon_box {
+    width: 100%;
+    height: 100%;
+    line-height: 40px;
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+}
