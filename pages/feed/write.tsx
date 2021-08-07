@@ -1,8 +1,8 @@
 import NavBar from "src/components/common/NavBar";
-import FeedAdd from "src/components/feed/FeedAdd";
+import FeedAdd from "src/components/feed/add/FeedAdd";
 import style from "styles/feed.module.css"
 
-const Write = () : JSX.Element => {
+const FeedWrite = () : JSX.Element => {
     return (
         <div className={style.container}>
             <NavBar/>
@@ -11,4 +11,4 @@ const Write = () : JSX.Element => {
     );
 };
 
-export default Write;
+export default FeedWrite;
