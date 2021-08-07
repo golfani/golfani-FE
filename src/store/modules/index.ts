@@ -6,6 +6,8 @@ import logger from "redux-logger";
 import {all} from "@redux-saga/core/effects";
 import {loginSaga} from "./login/saga";
 import {createWrapper} from "next-redux-wrapper";
+import feedType from "./feedType/feedType";
+import feedMenu from "./feedMenu/feedMenu";
 
 interface SagaStore extends Store {
     sagaTask? : Task;
@@ -13,7 +15,9 @@ interface SagaStore extends Store {
 
 // rootReducer 생성
 const rootReducer = combineReducers({
-    login : login
+    login : login,
+    feedType : feedType,
+    feedMenu : feedMenu
 })
 
 // 스토어 생성
