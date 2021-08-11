@@ -4,7 +4,7 @@ import style from "styles/feed.module.css"
 
 const FeedWrite = () : JSX.Element => {
     return (
-        <div className={style.container}>
+        <div className={style.write_container}>
             <FeedNavBar/>
             <FeedAdd/>
         </div>

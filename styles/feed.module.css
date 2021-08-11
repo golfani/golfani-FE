@@ -12,3 +12,10 @@
     padding: 81px 60px 30px;
     margin-top: 30px;
 }
+
+.write_container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 110px;
+}
