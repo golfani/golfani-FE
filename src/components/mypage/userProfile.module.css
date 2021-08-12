@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.img {
+    width: 150px;
+    height: 150px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+.user_txt {
+    display: inline-block;
+    font-weight: 500;
+    font-size: 18px;
+}
