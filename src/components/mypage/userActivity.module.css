@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.category_box {
+    margin: 0 30px;
+    text-align: center;
+}
+
+.category_txt {
+    display: block;
+    font-size: 16px;
+}
+
+.count_txt {
+    font-size: 14px;
+    font-weight: 500;
+}
