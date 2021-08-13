@@ -3,6 +3,8 @@ import MyPageNavbar from "src/components/mypage/MyPageNavbar";
 import UserProfile from "src/components/mypage/UserProfile";
 import UserActivity from "src/components/mypage/UserActivity";
 import UserFeed from "src/components/mypage/UserFeed";
+import UserItem from "src/components/mypage/UserItem";
+import UserInfo from "src/components/mypage/UserInfo";
 
 const MyPage = () : JSX.Element => {
     return (
@@ -12,6 +14,8 @@ const MyPage = () : JSX.Element => {
                 <UserProfile/>
                 <UserActivity/>
                 <UserFeed/>
+                <UserItem/>
+                <UserInfo/>
             </div>
         </div>
     );
