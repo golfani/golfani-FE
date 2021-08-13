@@ -10,4 +10,4 @@ const Achievements = () : JSX.Element => {
     );
 };
 
-export default Achievements
+export default Achievements;
