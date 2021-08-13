@@ -1,0 +1,40 @@
+.container {
+    width: 100%;
+    height: 150px;
+}
+
+.item_row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.item_box {
+    display: flex;
+    width: 120px;
+    align-items: center;
+    padding: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.item_box + .item_box {
+    margin-left: 20px;
+}
+
+.img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.brand_txt {
+    color: black;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.count_txt {
+    color: black;
+    font-weight: 500;
+}
