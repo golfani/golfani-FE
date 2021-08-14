@@ -1,0 +1,158 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title_txt {
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    font-size: 35px;
+    font-weight: bold;
+    line-height: 50px;
+    letter-spacing: -0.03rem;
+    margin: 20px 0 15px;
+    border-radius: 8px;
+}
+
+.title_sub_txt {
+    font-size: 20px;
+    letter-spacing: -0.03rem;
+    margin-bottom: 40px;
+}
+
+.gcti_info_box {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.gcti_box {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.img {
+    display: inline-block;
+    width: 100%;
+    height: 120px;
+}
+
+.gcti_txt {
+    color: black;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.gcti_sub_txt {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 16px;
+    color: #292929;
+    font-weight: 500;
+}
+
+.graph_box {
+    display: flex;
+    height: 200px;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.graph_row {
+    display: flex;
+    height: 30px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.bias_box {
+    display: flex;
+    width: 301px;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.bias_active_txt {
+    width: 60px;
+    font-size: 14px;
+    font-weight: 600;
+    color: black;
+    user-select: none;
+}
+
+.bias_inactive_txt {
+    width: 60px;
+    font-size: 14px;
+    color: #ababab;
+    user-select: none;
+}
+
+.left_bias {
+    display: inline-block;
+    width: 150px;
+    height: 10px;
+    background-color: transparent;
+}
+
+.left_bias_active {
+    display: inline-block;
+    width: 150px;
+    height: 10px;
+    background-color: #ff6969;
+}
+
+.right_bias {
+    display: inline-block;
+    width: 150px;
+    height: 10px;
+    background-color: transparent;
+}
+
+.right_bias_active {
+    display: inline-block;
+    width: 150px;
+    height: 10px;
+    background-color: #5757ff;
+}
+
+.divider {
+    display: inline-block;
+    width: 1px;
+    height: 30px;
+    background-color: black;
+}
+
+.retry_txt {
+    margin-top: auto;
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    font-weight: 500;
+    color: cornflowerblue;
+    cursor: pointer;
+}
+
+.recommend_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recommend_txt {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.recommend_icon {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
