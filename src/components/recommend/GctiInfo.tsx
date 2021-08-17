@@ -3,7 +3,11 @@ import Image from "next/image";
 import img from "public/img.png";
 import ArrowDropDownCircleRoundedIcon from '@material-ui/icons/ArrowDropDownCircleRounded';
 
-const GctiInfo = () : JSX.Element => {
+interface GctiInfoProps {
+    scrollToRef : () => void;
+}
+
+const GctiInfo = ({scrollToRef} : GctiInfoProps) : JSX.Element => {
     return (
         <div className={style.container}>
             <h1 className={style.title_txt}>골프 장비추천</h1>
@@ -55,7 +59,7 @@ const GctiInfo = () : JSX.Element => {
             </div>
             <div className={style.recommend_box}>
                 <span className={style.recommend_txt}>장비 추천받기</span>
-                <ArrowDropDownCircleRoundedIcon className={style.recommend_icon} color={"info"}/>
+                <ArrowDropDownCircleRoundedIcon onClick={scrollToRef} className={style.recommend_icon} color={"info"}/>
             </div>
         </div>
     );
