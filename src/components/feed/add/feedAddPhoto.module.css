@@ -55,7 +55,7 @@
 
 .img_box {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap : wrap;
     justify-content: space-between;
     margin-left: auto;
     width: 250px;
@@ -73,13 +73,9 @@
 
 .img {
     display: block;
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border: 1px solid gray;
     border-radius: 0.32rem;
-    cursor: pointer;
-}
-
-.img_delete_btn {
     cursor: pointer;
 }

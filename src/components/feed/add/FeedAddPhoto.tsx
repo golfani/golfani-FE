@@ -25,7 +25,6 @@ const FeedAddPhoto = () : JSX.Element => {
         return (
             <div key={imgUrl} className={style.img_sub_box}>
                 <img src={imgUrl} className={style.img}/>
-                <RemoveCircleIcon className={style.img_delete_btn} color="error" fontSize={"small"}/>
             </div>
         )
     })
@@ -34,7 +33,7 @@ const FeedAddPhoto = () : JSX.Element => {
         <div className={style.container}>
             <div className={style.title_box}>
                 <span className={style.main_txt}>사진 넣기</span>
-                <span className={style.sub_txt}>최대 5장 까지 사진을 넣을 수 있습니다</span>
+                <span className={style.sub_txt}>최대 6장 까지 사진을 넣을 수 있습니다</span>
             </div>
             <div className={style.main_box}>
                 <label className={style.addPhoto_btn} htmlFor="input" >사진 추가</label>
