@@ -2,12 +2,27 @@
     margin-bottom: 10px;
 }
 
+.tag_item {
+    display: inline-block;
+    width: auto;
+    height: 30px;
+    border-radius: 12px;
+    line-height: 30px;
+    padding: 0px 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: #6a8cbe;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+}
+
 .tag_input_box_active{
     display: inline-block;
     position: relative;
     width: auto;
     height: 30px;
-    border-radius: 10px;
+    border-radius: 12px;
     line-height: 30px;
     padding: 0 10px;
     background-color: #eff0f2;
@@ -22,7 +37,7 @@
 }
 
 .tag_input_inactive {
-    width: 300px;
+    width: 150px;
     font-size: 15px;
     border: none;
     outline: none;
