@@ -8,6 +8,7 @@ import {loginSaga} from "./login/saga";
 import {createWrapper} from "next-redux-wrapper";
 import feedType from "./feedType/feedType";
 import feedMenu from "./feedMenu/feedMenu";
+import feedAdd from "./feedAdd/feedAdd";
 
 interface SagaStore extends Store {
     sagaTask? : Task;
@@ -17,7 +18,8 @@ interface SagaStore extends Store {
 const rootReducer = combineReducers({
     login : login,
     feedType : feedType,
-    feedMenu : feedMenu
+    feedMenu : feedMenu,
+    feedAdd : feedAdd,
 })
 
 // 스토어 생성
@@ -26,7 +28,7 @@ export const store = () => {
     const sagaMiddleware = createSagaMiddleware();
     const store = configureStore({
         reducer : rootReducer,
-        middleware : getDefaultMiddleware().concat(sagaMiddleware).concat(logger)
+        middleware : [sagaMiddleware,logger]
     });
 
     (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga);
