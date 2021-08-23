@@ -1,8 +1,11 @@
 import style from './feedAddContents.module.css';
 import FeedAddTag from "./FeedAddTag";
+import useFeedAdd from "src/store/modules/feedAdd/feedAddHook";
 
 
 const FeedAddContents = () : JSX.Element => {
+    const {feedAddState, onSetContent ,onToggleReplyActive, onToggleLikesActive} = useFeedAdd();
+
     return (
         <div className={style.container}>
             <div className={style.title_box}>
@@ -11,21 +14,26 @@ const FeedAddContents = () : JSX.Element => {
             </div>
             <FeedAddTag/>
             <div className={style.contents_box}>
-                <textarea className={style.textarea} placeholder="내용을 입력하세요"/>
+                <textarea
+                    className={style.textarea}
+                    onChange={(e)=>onSetContent(e.target.value)}
+                    defaultValue={feedAddState.content}
+                    placeholder="내용을 입력하세요"
+                />
                 <div className={style.option_box}>
                     <span className={style.option_title_txt}>피드 설정</span>
                     <div className={style.option_sub_box}>
                         <span className={style.option_txt}>댓글 기능 해제</span>
                         <label className={style.switch}>
-                            <input className={style.option_input} type='checkbox'/>
-                            <span className={style.slider_round}></span>
+                            <input checked={!feedAddState.isReplyActive} className={style.option_input} type='checkbox'/>
+                            <span onClick={onToggleReplyActive} className={style.slider_round}></span>
                         </label>
                     </div>
                     <div className={style.option_sub_box}>
                         <span className={style.option_txt}>좋아요 숨기기</span>
                         <label className={style.switch}>
-                            <input className={style.option_input} type='checkbox'/>
-                            <span className={style.slider_round}></span>
+                            <input checked={!feedAddState.isLikesActive} className={style.option_input} type='checkbox'/>
+                            <span onClick={onToggleLikesActive} className={style.slider_round}></span>
                         </label>
                     </div>
                 </div>

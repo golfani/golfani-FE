@@ -1,7 +1,9 @@
 import React, {FormEvent, useState} from "react";
 import style from "./feedAddTag.module.css";
+import useFeedAdd from "src/store/modules/feedAdd/feedAddHook";
 
 const FeedAddTag = () : JSX.Element=> {
+    const {feedAddState, onAddTag, onDeleteTag} = useFeedAdd();
     const [value ,setValue] = useState("");
     const [size ,setSize] = useState(1);
     const [tagBoxClassName , setTagBoxClassName] = useState(style.tag_input_box_inactive);
@@ -30,11 +32,11 @@ const FeedAddTag = () : JSX.Element=> {
         setTagClassName(style.tag_input_active);
     }
 
-    const onAddTagList = () => {
+    const handleAddTag = () => {
         if(value.trim().length > 0) {
             const item = value.replace( /(\s*)/g, "");
-            if(tagList.indexOf(item) === -1) {
-                setTagList(tagList.concat(item)); // space 제거
+            if(feedAddState.tagList.indexOf(item) === -1) {
+                onAddTag(item);
             }
             initTagInput();
             return;
@@ -44,20 +46,16 @@ const FeedAddTag = () : JSX.Element=> {
 
     const handleSubmit = (event : FormEvent) => {
         event.preventDefault();
-        onAddTagList();
+        handleAddTag();
     }
 
     const handleClickTag = (id : number) => {
         onDeleteTag(id);
     }
 
-    const onDeleteTag = (id : number) => {
-        setTagList((tagList)=> tagList.filter((item,index)=> index !== id));
-    }
-
     return (
         <div className={style.tag_box}>
-            {tagList.map((item,index) =>
+            {feedAddState.tagList.map((item,index) =>
                 <span
                     key={item}
                     className={style.tag_item}
