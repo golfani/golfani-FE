@@ -1,6 +1,7 @@
 import style from './feedAddPhoto.module.css'
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, useEffect, useState} from "react";
+import Modal from "../../modals/Modal";
 
 const FeedAddPhoto = () : JSX.Element => {
     const [imgFile, setImgFile] = useState<Array<File>>([]);
@@ -12,6 +13,7 @@ const FeedAddPhoto = () : JSX.Element => {
             return;
         }
         if(imgFile.length>=6) {
+            alert("최대 6장 업로드 가능합니다.")
             return;
         }
         const file : File = input.files[0]; // file 추출하기
@@ -21,10 +23,19 @@ const FeedAddPhoto = () : JSX.Element => {
         setImgFileUrl(imgFileUrl.concat(fileUrl));
     }
 
+    const handleClickImage = (id : number) => {
+        onDeleteImage(id);
+    }
+
+    const onDeleteImage = (id : number) => {
+        setImgFile((imgFile)=> imgFile.filter((file,index)=> index !== id ));
+        setImgFileUrl((imgFileUrl)=> imgFileUrl.filter((url,index)=> index !== id ));
+    }
+
     const renderInputImg = imgFileUrl.map((imgUrl,index)=> {
         return (
             <div key={imgUrl} className={style.img_sub_box}>
-                <img src={imgUrl} className={style.img}/>
+                <img src={imgUrl} className={style.img} onClick={()=>handleClickImage(index)}/>
             </div>
         )
     })
