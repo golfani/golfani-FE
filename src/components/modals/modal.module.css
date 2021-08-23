@@ -1,0 +1,51 @@
+.modal_open {
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.modal_close {
+    display: none;
+}
+
+.modal_box {
+    display: flex;
+    flex-direction: column;
+    width: 260px;
+    height: 100px;
+    max-width: 350px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 10px 20px;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+.msg_box {
+    margin-top: 25px;
+    font-size: 14px;
+}
+
+.button_box {
+    display: flex;
+    margin-top: auto;
+}
+
+.cancel_btn {
+    color: #ff6969;
+    background: transparent;
+    font-size: 12px;
+}
+
+.ok_btn {
+    color: cornflowerblue;
+    background: transparent;
+    margin-left: auto;
+    font-size: 12px;
+}
