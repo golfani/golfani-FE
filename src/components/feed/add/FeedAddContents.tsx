@@ -25,14 +25,14 @@ const FeedAddContents = () : JSX.Element => {
                     <div className={style.option_sub_box}>
                         <span className={style.option_txt}>댓글 기능 해제</span>
                         <label className={style.switch}>
-                            <input checked={!feedAddState.isReplyActive} className={style.option_input} type='checkbox'/>
+                            <input defaultChecked={!feedAddState.isReplyActive} className={style.option_input} type='checkbox'/>
                             <span onClick={onToggleReplyActive} className={style.slider_round}></span>
                         </label>
                     </div>
                     <div className={style.option_sub_box}>
                         <span className={style.option_txt}>좋아요 숨기기</span>
                         <label className={style.switch}>
-                            <input checked={!feedAddState.isLikesActive} className={style.option_input} type='checkbox'/>
+                            <input defaultChecked={!feedAddState.isLikesActive} className={style.option_input} type='checkbox'/>
                             <span onClick={onToggleLikesActive} className={style.slider_round}></span>
                         </label>
                     </div>
