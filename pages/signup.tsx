@@ -2,7 +2,7 @@ import style from "styles/signup.module.css";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {authEmail, Member, signUp, validateById} from "src/apis/Member";
-import {signUpSchema} from "../src/utils/yupUtill";
+import {signUpSchema} from "../src/utils/yupUtil";
 import {ChangeEvent, useState} from "react";
 import {useRouter} from "next/router";
 
