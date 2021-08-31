@@ -5,6 +5,8 @@ import {useState} from "react";
 import {useRouter} from "next/router";
 import Modal from "src/components/modals/Modal";
 import useFeedAdd from "src/store/modules/feedAdd/feedAddHook";
+import {registerFeed} from "src/apis/Feed";
+import LoadingModal from "src/components/modals/LoadingModal";
 
 enum FEED_COMPONENT {
     ADD_PHOTO,
@@ -17,8 +19,9 @@ const FeedAdd = () : JSX.Element => {
     const [component, setComponent] = useState<FEED_COMPONENT>(FEED_COMPONENT.ADD_PHOTO);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalMsg, setModalMsg] = useState("");
+    const [loadingModalOpen, setLoadingModalOpen] = useState(false);
 
-    const onNext = () => {
+    const onNext = async () => {
         if(component === FEED_COMPONENT.ADD_PHOTO) {
             if(feedAddState.imgList.length > 0) {
                 setComponent(FEED_COMPONENT.ADD_CONTENTS);
@@ -34,7 +37,16 @@ const FeedAdd = () : JSX.Element => {
                 setModalOpen(true)
             }
             else {
-                // Todo 피드 작성 API 연동
+                try {
+                    setLoadingModalOpen(true);
+                    const response = await registerFeed(feedAddState);
+                    router.push("/feed")
+                }
+                catch (e) {
+                    setModalOpen(true);
+                    setModalMsg("잠시후 다시 시도해주세요.");
+                    console.log(e);
+                }
             }
         }
     }
@@ -75,6 +87,7 @@ const FeedAdd = () : JSX.Element => {
                 message= {modalMsg}
                 onSubmit={onModalSubmit}
             />
+            <LoadingModal open={loadingModalOpen}/>
         </div>
     );
 };
