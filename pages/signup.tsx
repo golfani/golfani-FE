@@ -56,12 +56,7 @@ const SignUp = () : JSX.Element=> {
         else {
             try {
                 const response = await authEmail(getValues('email'));
-                if(response.status === 200) {
-                    setAuthCode(Number(response.data));
-                }
-                else if(response.status === 409) {
-                    setAuthCode(null);
-                }
+                setAuthCode(Number(response.data));
             }
             catch (error) {
                 console.log(error)
@@ -71,6 +66,7 @@ const SignUp = () : JSX.Element=> {
 
     // 인증코드로 인증하기
     const onAuth = () => {
+        console.log(authCode);
         if(authCode) {
             if(authCode.toString() === getValues("authCode").toString()) {
                 setReadOnly(true);
@@ -86,7 +82,7 @@ const SignUp = () : JSX.Element=> {
     // 회원가입 버튼 클릭
     const onSubmit = async (data : FormData) => {
         const member  : Member = {
-            user_id : data.id,
+            userId : data.id,
             password : data.password,
             username : data.name,
             gender : data.gender,
@@ -98,7 +94,7 @@ const SignUp = () : JSX.Element=> {
 
         if (auth) {
             try {
-                console.log(data);
+                console.log(member);
                 const response = await signUp(member);
                 if (response.status === 200) {
                     router.push("/");
@@ -145,8 +141,8 @@ const SignUp = () : JSX.Element=> {
                         <span className={style.input_title_txt}>성별</span>
                         <select className={style.input} {...register("gender")}>
                             <option value={undefined}>선택안함</option>
-                            <option value="male">남자</option>
-                            <option value="female">여자</option>
+                            <option value="MALE">남자</option>
+                            <option value="FEMALE">여자</option>
                         </select>
                         <span className={style.input_error_txt}>{errors.gender?.message}</span>
                     </div>
