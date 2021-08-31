@@ -5,7 +5,7 @@ import {LoginMember} from "src/apis/Member";
 import {useRouter} from "next/router";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {loginSchema} from "src/utils/yupUtill";
+import {loginSchema} from "src/utils/yupUtil";
 import Link from "next/link";
 
 const Login = () : JSX.Element => {

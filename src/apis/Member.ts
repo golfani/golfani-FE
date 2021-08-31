@@ -1,8 +1,7 @@
 import axios from "axios";
 
-
 export type Member = {
-    user_id : string
+    userId : string
     password : string | null
     username : string
     gender : string
@@ -25,7 +24,7 @@ const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/member`;
  * @param member_id
  */
 export const validateById = async (memberId : string) => {
-    const response = await axios.get<boolean>(`${API_URL}/${memberId}`)
+    const response = await axios.get<boolean>(`${API_URL}/duplicate/${memberId}`)
     return response;
 }
 
@@ -35,7 +34,7 @@ export const validateById = async (memberId : string) => {
  */
 export const authEmail = async (email : string) => {
     const data = {
-        email : email
+        userEmail : email
     }
     const response = await axios.post<string>(`${API_URL}/email`,data);
     return response;
