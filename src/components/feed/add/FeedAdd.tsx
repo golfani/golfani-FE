@@ -7,6 +7,7 @@ import Modal from "src/components/modals/Modal";
 import useFeedAdd from "src/store/modules/feedAdd/feedAddHook";
 import {registerFeed} from "src/apis/Feed";
 import LoadingModal from "src/components/modals/LoadingModal";
+import {registerTag} from "../../../apis/Tag";
 
 enum FEED_COMPONENT {
     ADD_PHOTO,
@@ -39,11 +40,12 @@ const FeedAdd = () : JSX.Element => {
             else {
                 try {
                     setLoadingModalOpen(true);
-                    const response = await registerFeed(feedAddState);
+                    const tagResponse = await registerTag(feedAddState.tagList);
+                    const feedResponse = await registerFeed(feedAddState);
                     router.push("/feed")
                 }
                 catch (e) {
-                    setModalOpen(true);
+                    setModalOpen(false);
                     setModalMsg("잠시후 다시 시도해주세요.");
                     console.log(e);
                 }
