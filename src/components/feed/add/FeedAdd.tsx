@@ -45,8 +45,9 @@ const FeedAdd = () : JSX.Element => {
                     router.push("/feed")
                 }
                 catch (e) {
-                    setModalOpen(false);
-                    setModalMsg("잠시후 다시 시도해주세요.");
+                    setLoadingModalOpen(false);
+                    setModalOpen(true);
+                    setModalMsg("[에러발생] 잠시후 다시 시도해주세요.");
                     console.log(e);
                 }
             }
