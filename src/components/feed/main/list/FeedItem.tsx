@@ -4,21 +4,28 @@ import FeedMain from "./FeedMain";
 import FeedReply from "./FeedReply";
 import FeedLike from "./FeedLike";
 import {useState} from "react";
+import {IPages} from "src/domain/Page";
+import {IFeedContent} from "src/apis/Feed";
 
-const FeedItem = () : JSX.Element => {
-    const [focus, setFocus] = useState(false);
+interface IFeedItemProps {
+    pages : Array<IPages<IFeedContent>> | undefined
+}
 
-    const onFocus = () =>{
-        setFocus(true);
-    }
+const FeedItem = ({pages} : IFeedItemProps) : JSX.Element => {
 
     return(
-        <div className={style.container}>
-            <FeedLike/>
-            <FeedImg focus={focus}/>
-            <FeedMain/>
-            <FeedReply onFocus={onFocus}/>
-        </div>
+        <>
+            {pages?.map((page)=> (
+                page.content.map((feed)=> (
+                    <div className={style.container} key={feed.id}>
+                        <FeedLike feed={feed}/>
+                        <FeedImg />
+                        <FeedMain/>
+                        <FeedReply />
+                    </div>
+                ))
+            ))}
+        </>
     );
 };
 

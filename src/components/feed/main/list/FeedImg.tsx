@@ -34,9 +34,10 @@ const settings = {
     nextArrow : <CustomNextArrow/>,
     prevArrow : <CustomPrevArrow/>
 };
-const FeedImg = ({focus} : any) : JSX.Element => {
+
+const FeedImg = () : JSX.Element => {
     return (
-        <div className={focus ? style.hide : style.container}>
+        <div className={style.container}>
             <Slider {...settings}>
                 <div>
                     <img className={style.img} src={faker.image.avatar()}/>
