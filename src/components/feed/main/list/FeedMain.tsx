@@ -1,24 +1,36 @@
 import style from './feedMain.module.css';
 import * as faker from "faker";
-import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
+import {IFeedContent} from "src/apis/Feed";
+import {dateDiff} from "src/utils/dateUtil";
 
-const FeedMain =() : JSX.Element => {
+interface IFeedMainProps {
+    feed : IFeedContent
+}
+
+const FeedMain =({feed} : IFeedMainProps) : JSX.Element => {
+
+    const renderTagList = feed.tag.split("#").map((item,index) => {
+        if(index > 0) {
+            return (
+                <span key={item} className={style.tag_txt}>{`#${item}`}</span>
+            )
+        }
+    });
+
     return (
         <div className={style.container}>
             <div className={style.user_box}>
                 <img className={style.img} src={faker.image.avatar()}/>
                 <div className={style.user_sub_box}>
-                    <span className={style.user_id_txt}>{faker.name.firstName()}</span>
-                    <span className={style.time_txt}>10시간 전</span>
+                    <span className={style.user_id_txt}>{feed.userId}</span>
+                    <span className={style.time_txt}>{dateDiff(feed.modifiedTime)}</span>
                 </div>
             </div>
             <div className={style.main_txt}>
-                <span>오랜만에 필드나오니깐 너무 좋다 ㅎㅎ<br/>코로나 빨리 종식 되길...</span>
+                <span>{feed.content}</span>
             </div>
             <div className={style.tag_box}>
-                <span className={style.tag_txt}>#오랜만에필드</span>
-                <span className={style.tag_txt}>#골프</span>
-                <span className={style.tag_txt}>#GOTD</span>
+                {renderTagList}
             </div>
         </div>
     );

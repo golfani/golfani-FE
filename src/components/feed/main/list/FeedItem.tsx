@@ -3,7 +3,6 @@ import FeedImg from "./FeedImg";
 import FeedMain from "./FeedMain";
 import FeedReply from "./FeedReply";
 import FeedLike from "./FeedLike";
-import {useState} from "react";
 import {IPages} from "src/domain/Page";
 import {IFeedContent} from "src/apis/Feed";
 
@@ -20,8 +19,8 @@ const FeedItem = ({pages} : IFeedItemProps) : JSX.Element => {
                     <div className={style.container} key={feed.id}>
                         <FeedLike feed={feed}/>
                         <FeedImg />
-                        <FeedMain/>
-                        <FeedReply />
+                        <FeedMain feed={feed}/>
+                        <FeedReply feed={feed}/>
                     </div>
                 ))
             ))}

@@ -13,10 +13,12 @@ interface IFeedRegister {
 export interface IFeedContent {
     id : number
     content : string
-    memberId : number
+    userId : string
     isReplyActive : boolean
     isLikesActive : boolean
     tag : string
+    createTime : string
+    modifiedTime : string
 }
 
 // API 주소입니다.
