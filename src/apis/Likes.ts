@@ -54,3 +54,22 @@ export const getUserIsFeedLikes = async (userId : string, feedId : number) => {
     const response = await axios.get(`${API_URL}/feed/${feedId}/${userId}`);
     return response.data;
 }
+
+/**
+ * 해당 댓글에 대한 좋아요 수를 반환해주는 API
+ * @param replyId
+ */
+export const getReplyLikes = async (replyId : number) => {
+    const response = await axios.get(`${API_URL}/total/reply/${replyId}`);
+    return response.data;
+}
+
+/**
+ * 해당 댓글에 유저가 좋아요를 눌렀는지 확인하는 API
+ * @param userId
+ * @param replyId
+ */
+export const getUserIsReplyLikes = async (userId : string, replyId : number) => {
+    const response = await axios.get(`${API_URL}/reply/${replyId}/${userId}`);
+    return response.data;
+}
