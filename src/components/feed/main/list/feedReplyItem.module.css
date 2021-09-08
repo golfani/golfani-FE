@@ -9,17 +9,29 @@
     font-weight: 500;
 }
 
-.reply_txt {
-    font-size: 14px;
+.reply_content_box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-.sub_box {
+.reply_main_box {
     display: flex;
-    margin-left: auto;
+}
+
+.text_box {
+    max-width: 400px;
+}
+
+.reply_txt {
+    display: inline-block;
+    font-size: 14px;
 }
 
 .bottom_box {
     display: flex;
+    margin-top: 3px;
+    margin-bottom: 5px;
 }
 
 .show_reply_txt {
@@ -48,8 +60,16 @@
 .date_txt {
     color: gray;
     font-size: 12px;
+    margin-left: auto;
 }
 
 .reply_add_box {
     width: 400px;
+}
+
+.userTag_txt {
+    display: inline-block;
+    font-size: 14px;
+    color: cornflowerblue;
+    margin-right: 5px;
 }

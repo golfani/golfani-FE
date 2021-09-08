@@ -8,6 +8,7 @@ export interface IReplyRegister {
     postId : number | null
     feedId : number | null
     referenceId : number | null
+    referencedUser : string | null
     payload : string
     userId : string
 }
@@ -17,6 +18,7 @@ export interface IReplyDto {
     postId : number | null
     feedId : number | null
     referenceId : number | null
+    referencedUser : string | null
     payload : string
     userId : string
     createTime : string
@@ -27,11 +29,13 @@ export const registerReply = async (type : TReply,
                                     id : number | null,
                                     payload : string,
                                     userId : string,
-                                    refId : number | null = null) => {
+                                    refId : number | null = null,
+                                    refUserId : string | null = null) => {
     const data : IReplyRegister = {
         postId : null,
         feedId : null,
         referenceId : null,
+        referencedUser : null,
         payload : payload,
         userId : userId,
     }
@@ -40,10 +44,12 @@ export const registerReply = async (type : TReply,
     else if (type === "FEED_REPLY") {
         data.feedId = id;
         data.referenceId = refId;
+        data.referencedUser = refUserId;
     }
     else if (type === "POST_REPLY") {
         data.postId = id;
         data.referenceId = refId;
+        data.referencedUser = refUserId;
     }
 
     const response = await axios.post(API_URL,data);
@@ -69,10 +75,19 @@ export const getFeedReply = async (feedId : number, page : number = 0, size : nu
 }
 
 /**
- *
+ * 해당 Ref ID 를 참조하는 답글들을 요청하는 API
  * @param refId
  */
 export const getReply = async (refId : number) => {
     const response = await axios.get(`${API_URL}/ref/${refId}`);
+    return response.data;
+}
+
+/**
+ *
+ * @param replyId
+ */
+export const getTotalReply = async (replyId : number) => {
+    const response = await axios.get(`${API_URL}/total/reply/${replyId}`);
     return response.data;
 }

@@ -7,7 +7,7 @@ const FeedReplyAdd =({feedId} : IFeedReplyAddProps) => {
     return(
         <div className={style.container}>
             <GitHubIcon className={style.icon}/>
-            <FeedReplyAddInput feedId={feedId} replyId={null}/>
+            <FeedReplyAddInput feedId={feedId} refId={null} refUser={null}/>
         </div>
     );
 };

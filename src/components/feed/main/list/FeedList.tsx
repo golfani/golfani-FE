@@ -8,7 +8,6 @@ const FeedList = () : JSX.Element => {
     const {data, fetchNextPage, hasNextPage} = useInfiniteQuery<IPages<IFeedContent>,Error>('feed',({pageParam = ''})=>getFeed(pageParam),{
         getNextPageParam : (lastPage) => {
             const currentPage = lastPage.pageable.pageNumber;
-            console.log(currentPage);
             if(currentPage + 1 >= lastPage.totalPages) {
                 return undefined
             }

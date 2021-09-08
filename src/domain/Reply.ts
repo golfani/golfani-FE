@@ -6,5 +6,6 @@ export interface IReplyProps {
 
 export interface IFeedReplyAddProps {
     feedId : number | null
-    replyId : number | null
+    refId : number | null
+    refUser : string | null
 }
