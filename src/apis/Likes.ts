@@ -1,5 +1,4 @@
 import axios from "axios";
-import {use} from "ast-types";
 
 const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/likes`;
 
@@ -11,6 +10,7 @@ export interface ILikesDto {
     replyId : number | null
     userId : string
     likes : boolean | null
+    type : TLikes
 }
 
 /**
@@ -26,12 +26,12 @@ export const registerLikes = async (type : TLikes, id : number, userId : string)
         replyId : null,
         userId : userId,
         likes : null,
+        type : type
     }
     if (type === "FEED") data.feedId = id;
     else if (type === "POST") data.postId = id;
     else if (type === "REPLY") data.replyId = id;
 
-    console.log(data);
     const response = await axios.post(API_URL,data);
     return response;
 }
