@@ -127,7 +127,7 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
             </div>
             <DetailMenuModal open={detailMenuModalOpen}
                              setOpen={setDetailMenuModalOpen}
-                             reply={reply}
+                             target={reply}
                              type={"FEED_REPLY"}
             />
         </div>

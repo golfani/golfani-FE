@@ -53,3 +53,12 @@ export const getFeed = async (page : number = 0) => {
     const response = await axios.get(`${API_URL}?page=${page}&size=1`)
     return response.data;
 }
+
+/**
+ * 피드 삭제 요청하는 API
+ * @param feedId
+ */
+export const deleteFeed = async (feedId : number) => {
+    const response = await axios.delete(`${API_URL}/${feedId}`);
+    return response.data;
+}
