@@ -21,6 +21,7 @@ const FeedReplyAddInput = ({feedId, refId, refUser} : IFeedReplyAddProps) : JSX.
             setReplyPayload("");
             await queryClient.invalidateQueries(['feedReply',feedId]);
             await queryClient.invalidateQueries(['reply',refId]);
+            await queryClient.invalidateQueries(['totalReply',refId]);
         }
     },[replyMutation])
 
