@@ -3,5 +3,6 @@
  */
 
 export const tagListToString = (tagList : string[]) : string => {
-    return '#'+tagList.join('#')
+
+    return tagList.length ? '#' + tagList.join('#') : ''
 }
