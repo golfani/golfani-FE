@@ -10,9 +10,12 @@ import {IReplyProps} from "src/domain/Reply";
 import FeedReplyAddInput from "./FeedReplyAddInput";
 import {getReply, getTotalReply, IReplyDto} from "src/apis/Reply";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import DetailMenuModal from "src/components/modals/DetailMenuModal";
 
 
 const FeedReplyItem = ({reply} : IReplyProps) => {
+    const [detailMenuModalOpen, setDetailMenuModalOpen] = useState(false);
     const [showReply , setShowReply] = useState(false);
     const [enableReplyQuery, setEnableReplyQuery] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
@@ -79,6 +82,10 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
 
     handleClickRefOutSide(ref,hideReplyAdd);
 
+    const handleClickDetailMenu = () => {
+        setDetailMenuModalOpen(true);
+    }
+
     return (
         <div className={style.container}>
             <span className={style.user_txt}>{reply.userId}</span>
@@ -93,7 +100,7 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
                 <div className={style.bottom_box}>
                     {reply.referenceId
                         ? <></>
-                        : totalReplyQuery.data && <span className={style.show_reply_txt}
+                        : !totalReplyQuery.data || <span className={style.show_reply_txt}
                           onClick={handleClickShowReply}>{showReply ? '닫기' : `답글보기(${totalReplyQuery.data})`}</span>
                     }
                     <ReplyRoundedIcon onClick={handleClickAddReply} className={style.reply_icon} color={'primary'}/>
@@ -102,6 +109,7 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
                         : <FavoriteBorderOutlinedIcon onClick={handleClickLikes} className={style.like_icon} color={'error'}/>
                     }
                     <span className={style.like_txt}>{replyLikesQuery.data}</span>
+                    <MoreHorizIcon className={style.sub_menu_icon} onClick={handleClickDetailMenu}/>
                 </div>
                 {isReplyAdd
                     ?
@@ -112,11 +120,16 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
                 }
                 {showReply && replyQuery.data
                     ? replyQuery.data.map((reply)=> (
-                        <FeedReplyItem reply={reply}/>
+                        <FeedReplyItem reply={reply} key={reply.id}/>
                     ))
                     : <></>
                 }
             </div>
+            <DetailMenuModal open={detailMenuModalOpen}
+                             setOpen={setDetailMenuModalOpen}
+                             reply={reply}
+                             type={"FEED_REPLY"}
+            />
         </div>
     );
 };

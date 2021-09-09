@@ -32,6 +32,7 @@
     display: flex;
     margin-top: 3px;
     margin-bottom: 5px;
+    text-align: start;
 }
 
 .show_reply_txt {
@@ -58,10 +59,26 @@
 }
 
 .date_txt {
+    margin-left: auto;
     color: gray;
     font-size: 12px;
-    margin-left: auto;
 }
+
+.sub_menu_icon {
+    color: gray;
+    margin-left: auto;
+    cursor: pointer;
+    transform: translateY(-50%);
+}
+
+.sub_menu_icon:hover{
+    color: black;
+    margin-left: auto;
+    cursor: pointer;
+    transform: translateY(-50%);
+}
+
+
 
 .reply_add_box {
     width: 400px;

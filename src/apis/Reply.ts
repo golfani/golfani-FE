@@ -84,10 +84,19 @@ export const getReply = async (refId : number) => {
 }
 
 /**
- *
+ * 답글의 총 개수를 요청하는 API
  * @param replyId
  */
 export const getTotalReply = async (replyId : number) => {
-    const response = await axios.get(`${API_URL}/total/reply/${replyId}`);
+    const response = await axios.get(`${API_URL}/total/ref/${replyId}`);
+    return response.data;
+}
+
+/**
+ * 댓글 지우기를 요청하는 API
+ * @param replyId
+ */
+export const deleteReply = async (replyId : number) => {
+    const response = await axios.delete(`${API_URL}/${replyId}`);
     return response.data;
 }

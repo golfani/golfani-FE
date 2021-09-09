@@ -1,0 +1,55 @@
+.modal_open {
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0, 0.2);
+    z-index: 2;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.modal_close {
+    display: none;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 150px;
+    border-radius: 12px;
+    background: white;
+}
+
+.menu_red_btn {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    color: red;
+}
+
+.menu_black_btn {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    color: black;
+}
+
+.menu_black_btn ~ * {
+    border-top: 1px solid gray;
+}
+
+.menu_red_btn ~ * {
+    border-top: 1px solid gray;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background: gray;
+}
