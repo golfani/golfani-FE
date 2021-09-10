@@ -103,7 +103,7 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
                         : !totalReplyQuery.data || <span className={style.show_reply_txt}
                           onClick={handleClickShowReply}>{showReply ? '닫기' : `답글보기(${totalReplyQuery.data})`}</span>
                     }
-                    <ReplyRoundedIcon onClick={handleClickAddReply} className={style.reply_icon} color={'primary'}/>
+                    <span onClick={handleClickAddReply} className={style.add_reply_txt} color={'primary'}>답글달기</span>
                     {userIsReplyLikesQuery.data?.likes
                         ? <FavoriteIcon onClick={handleClickLikes} className={style.like_icon} color={'error'}/>
                         : <FavoriteBorderOutlinedIcon onClick={handleClickLikes} className={style.like_icon} color={'error'}/>

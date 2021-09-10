@@ -40,6 +40,11 @@
     font-size: 12px;
     margin-right: 5px;
     cursor: pointer;
+    user-select: none;
+}
+
+.show_reply_txt:hover {
+    color: black;
 }
 
 .like_icon {
@@ -52,10 +57,16 @@
     font-size: 12px;
 }
 
-.reply_icon {
-    font-size: 15px;
+.add_reply_txt {
+    font-size: 12px;
     margin-right: 5px;
     cursor: pointer;
+    user-select: none;
+    color: gray;
+}
+
+.add_reply_txt:hover {
+    color: black;
 }
 
 .date_txt {
@@ -77,8 +88,6 @@
     cursor: pointer;
     transform: translateY(-50%);
 }
-
-
 
 .reply_add_box {
     width: 400px;
