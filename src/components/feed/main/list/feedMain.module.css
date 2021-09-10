@@ -34,6 +34,7 @@
 }
 
 .tag_txt {
+    line-height: 30px;
     padding: 5px 7px;
     border-radius: 12px;
     background-color: #e5e5e5;
