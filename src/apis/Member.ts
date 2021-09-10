@@ -36,8 +36,22 @@ export const authEmail = async (email : string) => {
     const data = {
         userEmail : email
     }
-    const response = await axios.post<string>(`${API_URL}/email`,data);
+    const response = await axios.post(`${API_URL}/email`,data);
     return response;
+}
+
+/**
+ * 인증코드를 확인하는 API 요청입니다.
+ * @param email
+ * @param code
+ */
+export const fetchAuthCode = async (email : string, code : string) => {
+    const data = {
+        email : email,
+        code : code
+    }
+    const response = await axios.post(`${API_URL}/authcode`,data);
+    return response.data;
 }
 
 /**

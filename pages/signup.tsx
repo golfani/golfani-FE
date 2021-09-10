@@ -1,7 +1,7 @@
 import style from "styles/signup.module.css";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {authEmail, Member, signUp, validateById} from "src/apis/Member";
+import {authEmail, fetchAuthCode, Member, signUp, validateById} from "src/apis/Member";
 import {signUpSchema} from "../src/utils/yupUtil";
 import {ChangeEvent, useState} from "react";
 import {useRouter} from "next/router";
@@ -26,7 +26,6 @@ const SignUp = () : JSX.Element=> {
     });
     const id = register("id"); // input id 변수입니다.
     const [duplicate, setDuplicate] = useState(false); // 아이디 중복검사 변수입니다.
-    const [authCode , setAuthCode] = useState<number | null>(null); // 이메일 인증코드 변수입니다.
     const [auth, setAuth] = useState<boolean | null | undefined>(false); // 이메일 인증 변수입니다.
     const [readOnly, setReadOnly] = useState(false); // input readOnly 상태 관리 변수입니다.
     const router = useRouter();
@@ -56,7 +55,6 @@ const SignUp = () : JSX.Element=> {
         else {
             try {
                 const response = await authEmail(getValues('email'));
-                setAuthCode(Number(response.data));
             }
             catch (error) {
                 console.log(error)
@@ -65,19 +63,29 @@ const SignUp = () : JSX.Element=> {
     }
 
     // 인증코드로 인증하기
-    const onAuth = () => {
-        console.log(authCode);
+    const onAuth = async () => {
+        const authCode = getValues('authCode');
         if(authCode) {
-            if(authCode.toString() === getValues("authCode").toString()) {
-                setReadOnly(true);
-                setAuth(true);
+            try {
+                const response = await fetchAuthCode(getValues('email'), authCode.toString());
+                if(response) {
+                    setReadOnly(true);
+                    setAuth(true);
+                }
+                else {
+                    setReadOnly(false);
+                    setAuth(null);
+                }
             }
-            else {
-                setReadOnly(false);
-                setAuth(null);
+            catch (e) {
+                console.log(e);
             }
         }
     };
+
+    const handleClickAuthCode = async () => {
+        await onAuth();
+    }
 
     // 회원가입 버튼 클릭
     const onSubmit = async (data : FormData) => {
@@ -166,7 +174,7 @@ const SignUp = () : JSX.Element=> {
                             <div className={style.code_box}>
                                 <div>
                                     <input readOnly={readOnly} className={style.code_input} placeholder="인증번호 입력 (6자리)" {...register("authCode")}/>
-                                    <button onClick={onAuth} type="button" className={style.code_ok_btn}>확인</button>
+                                    <button onClick={handleClickAuthCode} type="button" className={style.code_ok_btn}>확인</button>
                                 </div>
                                 {auth && <span className={style.input_success_txt}>인증되었습니다.</span>}
                                 {auth || <span className={style.input_error_txt}>본인인증이 완료되지 않았습니다.</span>}
