@@ -6,6 +6,7 @@ import FeedLike from "./FeedLike";
 import {IPages} from "src/domain/Page";
 import {IFeedContent} from "src/apis/Feed";
 import FeedDetailMenu from "./FeedDetailMenu";
+import FeedSideMenu from "./FeedSideMenu";
 
 interface IFeedItemProps {
     pages : Array<IPages<IFeedContent>> | undefined
@@ -18,11 +19,10 @@ const FeedItem = ({pages} : IFeedItemProps) : JSX.Element => {
             {pages?.map((page)=> (
                 page.content.map((feed)=> (
                     <div className={style.container} key={feed.id}>
-                        <FeedLike feed={feed}/>
-                        <FeedDetailMenu feed={feed}/>
+                        <FeedSideMenu feed={feed}/>
                         <FeedImg />
                         <FeedMain feed={feed}/>
-                        <FeedReply feed={feed}/>
+                        { feed.isReplyActive && <FeedReply feed={feed}/> }
                     </div>
                 ))
             ))}
