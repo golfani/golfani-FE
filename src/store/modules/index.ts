@@ -9,6 +9,8 @@ import {createWrapper} from "next-redux-wrapper";
 import feedType from "./feedType/feedType";
 import feedMenu from "./feedMenu/feedMenu";
 import feedAdd from "./feedAdd/feedAdd";
+import {tagSaga} from "./tag/saga";
+import tag from "./tag/tag";
 
 interface SagaStore extends Store {
     sagaTask? : Task;
@@ -20,6 +22,7 @@ const rootReducer = combineReducers({
     feedType : feedType,
     feedMenu : feedMenu,
     feedAdd : feedAdd,
+    tag : tag,
 })
 
 // 스토어 생성
@@ -37,7 +40,7 @@ export const store = () => {
 
 export type RootState = ReturnType<typeof rootReducer>;
 export default function* rootSaga() {
-    yield all([loginSaga()]);
+    yield all([loginSaga(),tagSaga()]);
 }
 
 export const wrapper = createWrapper(store, {

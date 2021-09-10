@@ -6,6 +6,7 @@ const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/tag`;
 export interface ITagDto {
     id : number
     tagName : string
+    totalCount : number
 }
 
 /**
