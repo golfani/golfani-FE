@@ -1,8 +1,10 @@
 import style from './feedImg.module.css';
-import * as faker from "faker";
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import {IFeedProps} from "src/domain/Feed";
+import {useQuery} from "react-query";
+import {getFeedPicture, getPictureFile, IPictureDto, PICTURE_API_URL} from "src/apis/Picture";
 
 
 const CustomNextArrow = ({className, style, onClick} : any) : JSX.Element=> {
@@ -32,22 +34,22 @@ const settings = {
     slidesToShow: 1,
     slidesToScroll: 1,
     nextArrow : <CustomNextArrow/>,
-    prevArrow : <CustomPrevArrow/>
+    prevArrow : <CustomPrevArrow/>,
 };
 
-const FeedImg = () : JSX.Element => {
+const FeedImg = ({feed} : IFeedProps) : JSX.Element => {
+    const imageQuery = useQuery<IPictureDto[]>(['feedImg',feed.id],()=>getFeedPicture(feed.id), {
+        staleTime : 1000 * 60 * 10
+    })
+
     return (
         <div className={style.container}>
             <Slider {...settings}>
-                <div>
-                    <img className={style.img} src={faker.image.avatar()}/>
-                </div>
-                <div>
-                    <img className={style.img} src={faker.image.avatar()}/>
-                </div>
-                <div>
-                    <img className={style.img} src={faker.image.avatar()}/>
-                </div>
+                {imageQuery.data?.map((image)=> (
+                    <div key={image.id}>
+                        <img className={style.img} src={getPictureFile(image.path,image.filename)}/>
+                    </div>
+                ))}
             </Slider>
         </div>
     );

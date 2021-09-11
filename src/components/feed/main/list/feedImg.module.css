@@ -15,6 +15,7 @@
     height: 550px;
     border-top-left-radius: 0.32rem;
     user-select: none;
+    object-fit: contain;
 }
 
 @keyframes fadeOut {
@@ -29,4 +30,8 @@
         opacity: 0;
         display: none;
     }
+}
+
+.next_arrow {
+    color: red;
 }

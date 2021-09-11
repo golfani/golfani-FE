@@ -20,7 +20,7 @@ const FeedItem = ({pages} : IFeedItemProps) : JSX.Element => {
                 page.content.map((feed)=> (
                     <div className={style.container} key={feed.id}>
                         <FeedSideMenu feed={feed}/>
-                        <FeedImg />
+                        <FeedImg feed={feed}/>
                         <FeedMain feed={feed}/>
                         { feed.isReplyActive && <FeedReply feed={feed}/> }
                     </div>
