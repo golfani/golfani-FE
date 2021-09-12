@@ -21,8 +21,9 @@ export interface IReplyDto {
     referencedUser : string | null
     payload : string
     userId : string
-    createTime : string
+    createdTime : string
     modifiedTime : string
+    likesCount : number
 }
 
 export const registerReply = async (type : TReply,

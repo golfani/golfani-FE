@@ -23,7 +23,7 @@ const FeedMain =({feed} : IFeedMainProps) : JSX.Element => {
                 <img className={style.img} src={faker.image.avatar()}/>
                 <div className={style.user_sub_box}>
                     <span className={style.user_id_txt}>{feed.userId}</span>
-                    <span className={style.time_txt}>{dateDiff(feed.modifiedTime)}</span>
+                    <span className={style.time_txt}>{dateDiff(feed.createdTime)}</span>
                 </div>
             </div>
             <div className={style.main_txt}>

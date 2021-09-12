@@ -95,7 +95,7 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
                         {showRefUserTag()}
                         <span className={style.reply_txt}>{reply.payload}</span>
                     </div>
-                    <span className={style.date_txt}>{(dateDiff(reply.modifiedTime))}</span>
+                    <span className={style.date_txt}>{(dateDiff(reply.createdTime))}</span>
                 </div>
                 <div className={style.bottom_box}>
                     {reply.referenceId

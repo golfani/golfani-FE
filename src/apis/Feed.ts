@@ -17,8 +17,9 @@ export interface IFeedContent {
     isReplyActive : boolean
     isLikesActive : boolean
     tag : string
-    createTime : string
+    createdTime : string
     modifiedTime : string
+    likesCount : number
 }
 
 // API 주소입니다.

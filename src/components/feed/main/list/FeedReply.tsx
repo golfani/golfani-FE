@@ -2,9 +2,9 @@ import style from './feedReply.module.css';
 import FeedReplyItem from "./FeedReplyItem";
 import FeedReplyAdd from "./FeedReplyAdd";
 import {IFeedProps} from "src/domain/Feed";
-import {useInfiniteQuery, useQuery} from "react-query";
+import {useInfiniteQuery} from "react-query";
 import {IPages} from "src/domain/Page";
-import {getFeedReply, getFeedReplyCount, IReplyDto} from "src/apis/Reply";
+import {getFeedReply, IReplyDto} from "src/apis/Reply";
 
 const FeedReply = ({feed} : IFeedProps) => {
     const replyQuery = useInfiniteQuery<IPages<IReplyDto>,Error>(['feedReply',feed.id],({pageParam = ''}) =>  getFeedReply(feed.id,pageParam), {
