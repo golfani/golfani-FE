@@ -6,6 +6,8 @@
     width: 150px;
     height: 150px;
     border-radius: 8px;
+    border: 1px solid gray;
+    object-fit: cover;
 }
 
 .user_box {
@@ -27,9 +29,12 @@
 }
 
 .main_box {
+    display: inline-block;
     width: 150px;
+    max-height: 55px;
+    overflow: hidden;
     margin-top: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .main_txt {
@@ -50,7 +55,7 @@
     display: flex;
     height: 20px;
     line-height: 20px;
-    font-size: 10px;
+    font-size: 12px;
     color: gray;
 }
 
@@ -60,5 +65,5 @@
 }
 
 .icon {
-    width: 18px;
+    width: 15px;
 }

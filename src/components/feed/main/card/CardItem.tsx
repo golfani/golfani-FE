@@ -2,29 +2,48 @@ import style from './cardItem.module.css';
 import * as faker from "faker";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import {IFeedProps} from "src/domain/Feed";
+import {useQuery} from "react-query";
+import {getFeedPicture, getPictureFile, IPictureDto} from "src/apis/Picture";
+import {getFeedReplyCount} from "src/apis/Reply";
 
-const CardItem = () : JSX.Element => {
+const CardItem = ({feed} : IFeedProps) : JSX.Element => {
+    const imageQuery = useQuery<IPictureDto[]>(['feedImg',feed.id],()=>getFeedPicture(feed.id), {
+        staleTime : 1000 * 60 * 10
+    })
+
+    const replyTotalQuery = useQuery(['feedReplyCount',feed.id], ()=>getFeedReplyCount(feed.id), {
+        staleTime : 1000 * 60
+    })
+
+    const renderTagList = feed.tag.split('#').map((tag,index)=> {
+        if(index > 0) {
+            return (
+                <span key={tag} className={style.main_txt}>{tag}</span>
+            )
+        }
+    });
+
     return (
         <div className={style.container}>
-            <img className={style.thumbnail_img} src={faker.image.avatar()}/>
+            { imageQuery.data &&
+                <img className={style.thumbnail_img} src={getPictureFile(imageQuery.data[0].path,imageQuery.data[0].filename)}/>
+            }
             <div className={style.user_box}>
                 <img className={style.user_img} src={faker.image.avatar()}/>
-                <span className={style.user_id_txt}>{faker.name.firstName()}</span>
+                <span className={style.user_id_txt}>{feed.userId}</span>
             </div>
             <div className={style.main_box}>
-                <span className={style.main_txt}>#골프asdasdasd</span>
-                <span className={style.main_txt}>#골프</span>
-                <span className={style.main_txt}>#골프</span>
-                <span className={style.main_txt}>#골프</span>
+                {renderTagList}
             </div>
             <div className={style.icon_box}>
                 <div className={style.icon_sub_box}>
                     <FavoriteBorderIcon className={style.icon} color={'error'} fontSize={"small"}/>
-                    <span>15</span>
+                    <span>{feed.likesCount}</span>
                 </div>
                 <div className={style.icon_sub_box}>
                     <ChatBubbleOutlineIcon className={style.icon} color={'primary'} fontSize={"small"}/>
-                    <span>5</span>
+                    <span>{replyTotalQuery.data}</span>
                 </div>
             </div>
         </div>

@@ -50,8 +50,8 @@ export const registerFeed = async (feedAddState : IFeedAddState) => {
  * Pageable 된 피드리스트를 요청하는 API
  * @param page
  */
-export const getFeed = async (page : number = 0) => {
-    const response = await axios.get(`${API_URL}?page=${page}&size=1`)
+export const getFeed = async (page : number = 0, size : number = 10) => {
+    const response = await axios.get(`${API_URL}?page=${page}&size=${size}`)
     return response.data;
 }
 
