@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import {IFeedProps} from "src/domain/Feed";
 import {useQuery} from "react-query";
 import {getFeedPicture, getPictureFile, IPictureDto, PICTURE_API_URL} from "src/apis/Picture";
-
+import Image from 'next/image';
 
 const CustomNextArrow = ({className, style, onClick} : any) : JSX.Element=> {
     return (
@@ -47,7 +47,7 @@ const FeedImg = ({feed} : IFeedProps) : JSX.Element => {
             <Slider {...settings}>
                 {imageQuery.data?.map((image)=> (
                     <div key={image.id}>
-                        <img className={style.img} src={getPictureFile(image.path,image.filename)}/>
+                        <Image className={style.img} src={getPictureFile(image.path,image.filename) as any} width={600} height={550}/>
                     </div>
                 ))}
             </Slider>

@@ -6,6 +6,7 @@ import {IFeedProps} from "src/domain/Feed";
 import {useQuery} from "react-query";
 import {getFeedPicture, getPictureFile, IPictureDto} from "src/apis/Picture";
 import {getFeedReplyCount} from "src/apis/Reply";
+import Image from 'next/image'
 
 const CardItem = ({feed} : IFeedProps) : JSX.Element => {
     const imageQuery = useQuery<IPictureDto[]>(['feedImg',feed.id],()=>getFeedPicture(feed.id), {
@@ -27,7 +28,8 @@ const CardItem = ({feed} : IFeedProps) : JSX.Element => {
     return (
         <div className={style.container}>
             { imageQuery.data &&
-                <img className={style.thumbnail_img} src={getPictureFile(imageQuery.data[0].path,imageQuery.data[0].filename)}/>
+                <Image className={style.thumbnail_img} src={getPictureFile(imageQuery.data[0].path,imageQuery.data[0].filename) as any}
+                width={150} height={150}/>
             }
             <div className={style.user_box}>
                 <img className={style.user_img} src={faker.image.avatar()}/>
