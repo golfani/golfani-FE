@@ -1,12 +1,12 @@
 import style from './feedReply.module.css';
 import FeedReplyItem from "./FeedReplyItem";
 import FeedReplyAdd from "./FeedReplyAdd";
-import {IFeedProps} from "src/domain/Feed";
 import {useInfiniteQuery} from "react-query";
 import {IPages} from "src/domain/Page";
 import {getFeedReply, IReplyDto} from "src/apis/Reply";
+import {IFeedItemProps} from "./FeedItem";
 
-const FeedReply = ({feed} : IFeedProps) => {
+const FeedReply = ({feed, isModal} : IFeedItemProps) => {
     const replyQuery = useInfiniteQuery<IPages<IReplyDto>,Error>(['feedReply',feed.id],({pageParam = ''}) =>  getFeedReply(feed.id,pageParam), {
         getNextPageParam : (lastPage ) => {
             const currentPage = lastPage.pageable.pageNumber;
@@ -24,12 +24,15 @@ const FeedReply = ({feed} : IFeedProps) => {
 
     return (
         <div className={style.container}>
-            {replyQuery.data?.pages.map((page)=> (
-                page.content.map((reply)=> (
-                    <FeedReplyItem key={reply.id} reply={reply}/>
-                ))
-            ))}
+            <div className={isModal ? style.reply_box :""}>
+                {replyQuery.data?.pages.map((page)=> (
+                    page.content.map((reply)=> (
+                        <FeedReplyItem key={reply.id} reply={reply}/>
+                    ))
+                ))}
+            </div>
             {replyQuery.hasNextPage && <span className={style.reply_more_txt} onClick={handleClickMore}>댓글 더보기...</span> }
+            {isModal ? replyQuery.hasNextPage || <span className={style.blank_reply_more_txt}></span> :<></>}
             <div className={style.divider}></div>
             <FeedReplyAdd feedId={feed.id} refId={null} refUser={null}/>
         </div>

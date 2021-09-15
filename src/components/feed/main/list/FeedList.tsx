@@ -18,7 +18,11 @@ const FeedList = () : JSX.Element => {
 
     return (
         <div className={style.container}>
-            <FeedItem pages={data?.pages}/>
+            {data?.pages.map((page)=> (
+                page.content.map((feed)=> (
+                    <FeedItem feed={feed} isModal={false}/>
+                ))
+            ))}
         </div>
     )
 }

@@ -7,8 +7,11 @@ import {useQuery} from "react-query";
 import {getFeedPicture, getPictureFile, IPictureDto} from "src/apis/Picture";
 import {getFeedReplyCount} from "src/apis/Reply";
 import Image from 'next/image'
+import FeedModal from "src/components/modals/FeedModal";
+import {useCallback, useState} from "react";
 
 const CardItem = ({feed} : IFeedProps) : JSX.Element => {
+    const [feedModalOpen,setFeedModalOpen] = useState(false);
     const imageQuery = useQuery<IPictureDto[]>(['feedImg',feed.id],()=>getFeedPicture(feed.id), {
         staleTime : 1000 * 60 * 10
     })
@@ -25,11 +28,18 @@ const CardItem = ({feed} : IFeedProps) : JSX.Element => {
         }
     });
 
+    const handleImageClick = useCallback(()=> {
+        setFeedModalOpen((feedModalOpen)=> true);
+    },[feedModalOpen])
+
     return (
         <div className={style.container}>
             { imageQuery.data &&
-                <Image className={style.thumbnail_img} src={getPictureFile(imageQuery.data[0].path,imageQuery.data[0].filename) as any}
-                width={150} height={150}/>
+            <Image className={style.thumbnail_img} src={getPictureFile(imageQuery.data[0].path,imageQuery.data[0].filename) as any}
+                   width={150}
+                   height={150}
+                   onClick={handleImageClick}
+            />
             }
             <div className={style.user_box}>
                 <img className={style.user_img} src={faker.image.avatar()}/>
@@ -48,6 +58,7 @@ const CardItem = ({feed} : IFeedProps) : JSX.Element => {
                     <span>{replyTotalQuery.data}</span>
                 </div>
             </div>
+            <FeedModal open={feedModalOpen} feed={feed} setOpen={setFeedModalOpen}/>
         </div>
     );
 };
