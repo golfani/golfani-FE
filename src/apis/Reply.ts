@@ -94,10 +94,10 @@ export const getTotalReply = async (replyId : number) => {
 }
 
 /**
- * 댓글 지우기를 요청하는 API
+ * 피드 댓글 지우기를 요청하는 API
  * @param replyId
  */
-export const deleteReply = async (replyId : number) => {
-    const response = await axios.delete(`${API_URL}/${replyId}`);
+export const deleteFeedReply = async (replyId : number) => {
+    const response = await axios.delete(`${API_URL}/feed/${replyId}`);
     return response.data;
 }

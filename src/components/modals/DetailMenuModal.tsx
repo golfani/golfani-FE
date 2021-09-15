@@ -1,6 +1,6 @@
 import style from './detailMenuModal.module.css';
 import {useMutation, useQueryClient} from "react-query";
-import {deleteReply, IReplyDto} from "src/apis/Reply";
+import {deleteFeedReply, IReplyDto} from "src/apis/Reply";
 import {useCallback, useRef} from "react";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import {deleteFeed, IFeedContent} from "src/apis/Feed";
@@ -19,13 +19,13 @@ const userId = "gudwh14";
 const DetailMenuModal = (props : DetailMenuModalProps) : JSX.Element=> {
     const ref = useRef<HTMLDivElement>(null);
     const queryClient = useQueryClient();
-    const deleteReplyMutate = useMutation(()=> deleteReply(props.target.id));
+    const deleteFeedReplyMutate = useMutation(()=> deleteFeedReply(props.target.id));
     const deleteFeedMutate = useMutation(() => deleteFeed(props.target.id));
 
     const onDeleteTarget = useCallback(async ()=> {
         try {
             if(props.type === 'FEED_REPLY') {
-                const response = await deleteReplyMutate.mutateAsync();
+                const response = await deleteFeedReplyMutate.mutateAsync();
             }
             else if(props.type === 'FEED') {
                 const response = await deleteFeedMutate.mutateAsync();
@@ -46,7 +46,7 @@ const DetailMenuModal = (props : DetailMenuModalProps) : JSX.Element=> {
                 await queryClient.invalidateQueries('feed');
             }
         }
-    },[deleteReplyMutate])
+    },[deleteFeedReplyMutate])
 
     const onCloseModal = () => {
         props.setOpen(false);
