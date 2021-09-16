@@ -9,10 +9,10 @@ const FeedStyleTab = () : JSX.Element => {
     return (
         <div className={style.tab_box}>
             <div onClick={onChangeListView} className={style.icon_box}>
-                <ViewDayOutlinedIcon color={type ? 'disabled' : 'primary'}/>
+                <ViewDayOutlinedIcon color={type === 'LIST' ? 'primary' : 'disabled'}/>
             </div>
             <div onClick={onChangeCardView} className={style.icon_box}>
-                <ViewModuleOutlinedIcon color={type ? 'primary' : 'disabled'}/>
+                <ViewModuleOutlinedIcon color={type === 'LIST' ? 'disabled' : 'primary'}/>
             </div>
         </div>
     );

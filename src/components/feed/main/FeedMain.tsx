@@ -10,7 +10,7 @@ const FeedMain = () : JSX.Element => {
 
     return (
         <div className={menu === null ? style.container : menu ? style.container_menu_active : style.container_menu_inactive}>
-            {type ? <CardList/> : <FeedList/>}
+            {type === 'LIST'? <FeedList/> : <CardList/>}
         </div>
     );
 };
