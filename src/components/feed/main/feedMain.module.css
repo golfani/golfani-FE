@@ -16,13 +16,13 @@
         margin-left: 0;
     }
     to {
-        margin-left: 500px;
+        margin-left: 540px;
     }
 }
 
 @keyframes slideOut {
     from {
-        margin-left: 500px;
+        margin-left: 540px;
     }
     to {
         margin-left: 0px;
