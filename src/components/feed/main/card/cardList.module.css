@@ -1,6 +1,26 @@
 .container {
     width: 610px;
     height: auto;
+}
+
+.hotView_txt {
+    display: inline-block;
+    width: 610px;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    user-select: none;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.card_container {
+    width: 610px;
+    height: auto;
     display: flex;
     background-color: #fff;
     padding: 20px;
