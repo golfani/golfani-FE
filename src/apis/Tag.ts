@@ -10,17 +10,17 @@ export interface ITagDto {
 }
 
 /**
- * 태그를 등록하는 API
+ * 태그를 등록하는 API -> 미사용
  * @param tagList
  */
-export const registerTag = async (tagList : string[]) => {
-    const data = {
-        tagName : tagListToString(tagList)
-    }
-
-    const response = await axios.post(API_URL,data);
-    return response;
-}
+// export const registerTag = async (tagList : string[]) => {
+//     const data = {
+//         tagName : tagListToString(tagList)
+//     }
+//
+//     const response = await axios.post(API_URL,data);
+//     return response;
+// }
 
 /**
  * 해당 글자가 포함된 태그리스트들을 요청하는 API
