@@ -74,7 +74,24 @@ export const getHotFeed = async (page : number = 0, size : number = 6) => {
     return response.data;
 }
 
+/**
+ * 해당 태그가 포함된 피드 리스트 요청하는 API
+ * @param page
+ * @param size
+ * @param search
+ */
 export const getTagSearchFeed = async (page : number = 0, size : number = 6, search : string) => {
     const response = await axios.get(`${API_URL}/tag?tag=${search}`);
+    return response.data;
+}
+
+/**
+ * 해당 유저의 피드 리스트를 요청하는 API
+ * @param page
+ * @param size
+ * @param userId
+ */
+export const getUserFeed = async (page : number = 0, size : number = 6, userId : string) => {
+    const response = await axios.get(`${API_URL}/recent/${userId}?page=${page}&size=${size}`);
     return response.data;
 }
