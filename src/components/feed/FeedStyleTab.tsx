@@ -7,19 +7,24 @@ import {useRouter} from "next/router";
 const FeedStyleTab = () : JSX.Element => {
     const {type, onChangeCardView, onChangeListView} = useFeedType();
     const router = useRouter();
+    const {search} = router.query;
 
     const onRoute = () => {
-        router.push('feed');
+       if(search) {
+           // const url = window.location;
+           // url.assign("http://localhost:3000/feed");
+           router.push('/routing');
+       }
     }
 
     const handleClickListView = () => {
-        onRoute();
         onChangeListView();
+        onRoute();
     }
 
     const handleClickCardView = () => {
-        onRoute();
         onChangeCardView();
+        onRoute();
     }
 
     return (
