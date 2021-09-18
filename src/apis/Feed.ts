@@ -73,3 +73,8 @@ export const getHotFeed = async (page : number = 0, size : number = 6) => {
     const response = await axios.get(`${API_URL}/hot?page=${page}&size=${size}`);
     return response.data;
 }
+
+export const getTagSearchFeed = async (page : number = 0, size : number = 6, search : string) => {
+    const response = await axios.get(`${API_URL}/tag?tag=${search}`);
+    return response.data;
+}
