@@ -6,8 +6,22 @@ import {GetServerSideProps} from "next";
 import {QueryClient} from "react-query";
 import {getFeed} from "src/apis/Feed";
 import {dehydrate} from "react-query/hydration";
+import {useRouter} from "next/router";
+import useFeedType from "src/store/modules/feedType/feedTypeHook";
+import {useEffect} from "react";
 
 const Feed = () : JSX.Element => {
+    const router = useRouter();
+    const feedType = useFeedType();
+    const {search} = router.query;
+
+    const onChangeFeedType = () =>{
+        feedType.onChangeSearchView();
+    }
+
+    useEffect(()=> {
+        search && onChangeFeedType();
+    },[search])
 
     return (
         <div className={style.home_container}>

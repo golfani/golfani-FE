@@ -29,6 +29,7 @@
 
 .search_box {
     position: absolute;
+    overflow: auto;
     top: 40px;
     left: 0;
     width: 300px;
@@ -43,4 +44,67 @@
 
 .hide {
     display: none;
+}
+
+.tag_search_box {
+    display: flex;
+    margin-bottom: 3px;
+}
+
+.tag_search_txt_box {
+    display: flex;
+    width: 270px;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    padding: 2px;
+}
+
+.tag_search_txt_box:hover{
+    background-color: #e7e7e7;
+}
+
+.tag_search_txt {
+    display: block;
+    max-width: 250px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.tag_search_total_txt {
+    color: gray;
+    font-size: 13px;
+}
+
+.recent_tag_box {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.recent_tag_title_txt {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.recent_tag_txt {
+    max-width: 240px;
+    font-weight: 500;
+    font-size: 14px;
+    color: gray;
+    cursor: pointer;
+}
+
+.recent_tag_txt:hover{
+    color: black;
+}
+
+.recent_tag_delete_btn {
+    margin-left: auto;
+    color: gray;
+    font-size: 12px;
+    background-color: white;
+}
+
+.recent_tag_delete_btn:hover {
+    color: black;
 }
