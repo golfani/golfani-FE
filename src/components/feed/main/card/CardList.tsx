@@ -1,12 +1,16 @@
 import style from './cardList.module.css';
 import CardItem from "./CardItem";
 import {useInfiniteQuery} from "react-query";
-import {getFeed, getHotFeed,IFeedContent} from "src/apis/Feed";
+import {getFeed, getHotFeed,IFeedContent, getTagSearchFeed} from "src/apis/Feed";
 import {IPages} from "src/domain/Page";
 import useFeedType from "src/store/modules/feedType/feedTypeHook";
+import {useRouter} from "next/router";
 
 const CardList = () : JSX.Element => {
     const {type} = useFeedType();
+    const router = useRouter();
+    const {search} = router.query;
+
     const feedQuery = useInfiniteQuery<IPages<IFeedContent>>('feed',({pageParam = ''})=>getFeed(pageParam,10), {
         getNextPageParam : (lastPage) => {
             const currentPage = lastPage.pageable.pageNumber;
@@ -31,10 +35,23 @@ const CardList = () : JSX.Element => {
         enabled : type === 'HOT'
     })
 
+    const searchFeedQuery = useInfiniteQuery<IPages<IFeedContent>>(['searchFeed',search],({pageParam = ''})=>getTagSearchFeed(pageParam,6,search as string), {
+        getNextPageParam : (lastPage) => {
+            const currentPage = lastPage.pageable.pageNumber;
+            if(currentPage + 1 >= lastPage.totalPages) {
+                return undefined;
+            }
+            return currentPage + 1;
+        },
+        staleTime : 1000 * 60 * 10,
+        enabled : type === 'SEARCH'
+    })
+
     console.log(type);
     return (
         <div className={style.container}>
-            {type === 'HOT' && <span className={style.hotView_txt}>인기 피드게시물</span>}
+            {type === 'HOT' && <span className={style.titleView_txt}>인기 피드게시물</span>}
+            {type === 'SEARCH' && <span className={style.titleView_txt}>{`#${search} 검색결과`}</span>}
             <div className={style.card_container}>
                 <div className={style.card_box}>
                     {
@@ -51,6 +68,16 @@ const CardList = () : JSX.Element => {
                             page.content.map((feed)=> (
                                 <CardItem key={feed.id} feed={feed}/>
                             ))
+                        ))
+                    }
+                    {
+                        type === 'SEARCH' &&
+                        searchFeedQuery.data?.pages.map((page)=> (
+                            page.content.length !== 0
+                                ? page.content.map((feed) => (
+                                    <CardItem key={feed.id} feed={feed}/>
+                                ))
+                                : <span key={0} className={style.notFound_txt}>{`#${search} 태그를 가진 게시물이 존재하지 않습니다`}</span>
                         ))
                     }
                 </div>

@@ -3,7 +3,7 @@
     height: auto;
 }
 
-.hotView_txt {
+.titleView_txt {
     display: inline-block;
     width: 610px;
     text-align: center;
@@ -32,4 +32,10 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+}
+
+.notFound_txt {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
 }
