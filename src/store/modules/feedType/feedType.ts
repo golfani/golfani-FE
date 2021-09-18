@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-type TFeedType = "LIST" | "CARD" | "HOT"
+type TFeedType = "LIST" | "CARD" | "HOT" | "SEARCH"
 
 export interface IFeedTypeState {
     type : TFeedType
@@ -22,9 +22,12 @@ export const feedTypeSlice = createSlice({
         },
         changeHotView(state : IFeedTypeState) {
             state.type = "HOT"
+        },
+        changeSearchView(state : IFeedTypeState) {
+            state.type = "SEARCH"
         }
     },
 });
 
 export default feedTypeSlice.reducer;
-export const {changeListView, changeCardView, changeHotView} = feedTypeSlice.actions
+export const {changeListView, changeCardView, changeHotView, changeSearchView} = feedTypeSlice.actions
