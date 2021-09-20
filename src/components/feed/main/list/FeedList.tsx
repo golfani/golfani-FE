@@ -3,6 +3,7 @@ import FeedItem from "./FeedItem";
 import {useInfiniteQuery} from "react-query";
 import {getFeed, IFeedContent} from "src/apis/Feed";
 import {IPages} from "src/domain/Page";
+import {useEffect} from "react";
 
 const FeedList = () : JSX.Element => {
     const {data, fetchNextPage, hasNextPage} = useInfiniteQuery<IPages<IFeedContent>,Error>('feed',({pageParam = ''})=>getFeed(pageParam),{
@@ -15,6 +16,11 @@ const FeedList = () : JSX.Element => {
         },
         staleTime : 1000 * 10
     })
+
+    // 스크롤 맨위로 이동
+    useEffect(()=> {
+        window.scrollTo(0,0);
+    },[])
 
     return (
         <div className={style.container}>

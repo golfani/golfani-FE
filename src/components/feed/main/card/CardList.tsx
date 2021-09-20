@@ -5,11 +5,17 @@ import {getFeed, getHotFeed,IFeedContent, getTagSearchFeed} from "src/apis/Feed"
 import {IPages} from "src/domain/Page";
 import useFeedType from "src/store/modules/feedType/feedTypeHook";
 import {useRouter} from "next/router";
+import {useEffect} from "react";
 
 const CardList = () : JSX.Element => {
     const {type} = useFeedType();
     const router = useRouter();
     const {search} = router.query;
+
+    // 스크롤 맨위로 이동
+    useEffect(()=> {
+        window.scrollTo(0,0);
+    },[])
 
     const feedQuery = useInfiniteQuery<IPages<IFeedContent>>('feed',({pageParam = ''})=>getFeed(pageParam,10), {
         getNextPageParam : (lastPage) => {
