@@ -43,7 +43,7 @@ const FeedLike = ({feed} : IFeedLikeProps) : JSX.Element => {
                 ? <FavoriteIcon fontSize={'small'} color={'error'}/>
                 : <FavoriteBorderOutlinedIcon fontSize={'small'} color={'error'}/>
             }
-            <span>{totalLikesQuery.data}</span>
+            <span className={style.like_number_txt}>{totalLikesQuery.data}</span>
         </div>
     );
 };
