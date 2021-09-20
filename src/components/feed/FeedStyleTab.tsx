@@ -3,9 +3,11 @@ import ViewDayOutlinedIcon from '@material-ui/icons/ViewDayOutlined';
 import style from './feedStyleTab.module.css';
 import useFeedType from "src/store/modules/feedType/feedTypeHook";
 import {useRouter} from "next/router";
+import useFeedMenu from "src/store/modules/feedMenu/feedMenuHook";
 
 const FeedStyleTab = () : JSX.Element => {
     const {type, onChangeCardView, onChangeListView} = useFeedType();
+    const feedMenu = useFeedMenu();
     const router = useRouter();
     const {search} = router.query;
 
@@ -14,6 +16,7 @@ const FeedStyleTab = () : JSX.Element => {
            // const url = window.location;
            // url.assign("http://localhost:3000/feed");
            router.push('/routing');
+           feedMenu.onInitMenu();
        }
     }
 

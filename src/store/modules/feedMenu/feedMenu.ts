@@ -14,9 +14,12 @@ export const feedMenuSlice = createSlice({
     reducers : {
         changeMenu(state : FeedMenuState, action : PayloadAction<number>) {
             state.menu = action.payload;
+        },
+        initMenu(state) {
+            state.menu = null;
         }
     }
 })
 
 export default feedMenuSlice.reducer;
-export const {changeMenu} = feedMenuSlice.actions;
+export const {changeMenu, initMenu} = feedMenuSlice.actions;

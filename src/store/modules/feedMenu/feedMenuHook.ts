@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../index";
-import {changeMenu} from './feedMenu'
+import {changeMenu,initMenu} from './feedMenu'
 
 const useFeedMenu = () => {
     const menu = useSelector((state : RootState)=> state.feedMenu.menu);
@@ -11,7 +11,11 @@ const useFeedMenu = () => {
         dispatch(changeMenu(menu));
     }
 
-    return {menu, onChangeMenu};
+    const onInitMenu = () => {
+        dispatch(initMenu())
+    }
+
+    return {menu, onChangeMenu, onInitMenu};
 }
 
 export default useFeedMenu;
