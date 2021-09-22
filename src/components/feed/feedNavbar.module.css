@@ -10,7 +10,7 @@
     z-index: 10;
 }
 
-.container > div {
+.navbar_box {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -39,6 +39,10 @@
     align-items: center;
     width: 60px;
     margin-right: 30px;
+}
+
+.myMenu_box {
+    position: relative;
 }
 
 .icon {

@@ -4,9 +4,24 @@ import style from './feedNavbar.module.css'
 import TagSearch from "./TagSearch";
 import FeedStyleTab from "./FeedStyleTab";
 import {useRouter} from "next/router";
+import MyMenu from "../common/MyMenu";
+import {useRef, useState} from "react";
+import {handleClickRefOutSide} from "../../utils/clickUtil";
 
 const FeedNavBar = () : JSX.Element => {
+    const [myMenuOpen, setMyMenuOpen] = useState(false);
+    const targetRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
+
+    const onCloseMyMenu = () => {
+        setMyMenuOpen((myMenuOpen)=> false);
+    }
+
+    const handleClickMyMenu = () => {
+        setMyMenuOpen((myMenuOpen)=> !myMenuOpen);
+    }
+
+    handleClickRefOutSide(targetRef,onCloseMyMenu);
 
     const onClickLogin = () => {
         router.push("/login");
@@ -14,7 +29,7 @@ const FeedNavBar = () : JSX.Element => {
 
     return (
       <div className={style.container}>
-          <div>
+          <div className={style.navbar_box}>
               <span className={style.logo_txt}>DAILY SHOT</span>
               <div className={style.feed_box}>
                   <TagSearch/>
@@ -22,7 +37,10 @@ const FeedNavBar = () : JSX.Element => {
               </div>
               <div className={style.user_box}>
                   <div className={style.icon_box}>
-                      <AccountCircleOutlinedIcon className={style.icon}/>
+                      <div className={style.myMenu_box} ref={targetRef}>
+                        <AccountCircleOutlinedIcon className={style.icon} onClick={handleClickMyMenu}/>
+                        <MyMenu open={myMenuOpen}/>
+                      </div>
                       <FavoriteBorderOutlinedIcon className={style.icon}/>
                   </div>
                   <div>
