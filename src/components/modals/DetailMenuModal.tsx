@@ -1,11 +1,12 @@
 import style from './detailMenuModal.module.css';
 import {useMutation, useQueryClient} from "react-query";
 import {deleteFeedReply, IReplyDto} from "src/apis/Reply";
-import {useCallback, useRef} from "react";
+import {useCallback, useRef, useState} from "react";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import {deleteFeed, IFeedContent} from "src/apis/Feed";
+import ReportModal from "./ReportModal";
 
-type TRef = "FEED" | "POST" | "FEED_REPLY" | "POST_REPLY"
+export type TRef = "FEED" | "POST" | "FEED_REPLY" | "POST_REPLY"
 
 export interface DetailMenuModalProps {
     open : boolean
@@ -21,6 +22,7 @@ const DetailMenuModal = (props : DetailMenuModalProps) : JSX.Element=> {
     const queryClient = useQueryClient();
     const deleteFeedReplyMutate = useMutation(()=> deleteFeedReply(props.target.id));
     const deleteFeedMutate = useMutation(() => deleteFeed(props.target.id));
+    const [reportModalOpen, setReportModalOpen] = useState(false);
 
     const onDeleteTarget = useCallback(async ()=> {
         try {
@@ -56,6 +58,18 @@ const DetailMenuModal = (props : DetailMenuModalProps) : JSX.Element=> {
         await onDeleteTarget();
     }
 
+    const onOpenReportModal = () => {
+        setReportModalOpen((reportModalOpen)=> true);
+    }
+
+    const onCloseReportModal = () => {
+        setReportModalOpen((reportModalOpen)=> false);
+    }
+
+    const handleClickReport = () => {
+        onOpenReportModal();
+    }
+
     handleClickRefOutSide(ref,onCloseModal);
 
     return (
@@ -64,7 +78,8 @@ const DetailMenuModal = (props : DetailMenuModalProps) : JSX.Element=> {
                     {props.target.userId === userId &&
                     <button className={style.menu_black_btn} onClick={handleClickDelete}>삭제</button>
                 }
-                <button className={style.menu_red_btn}>신고</button>
+                <button className={style.menu_red_btn} onClick={handleClickReport}>신고</button>
+                <ReportModal open={reportModalOpen} targetId={props.target.id} type={props.type} onCloseModal={onCloseReportModal}/>
             </div>
         </div>
     );
