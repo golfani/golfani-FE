@@ -15,12 +15,12 @@ const Feed = () : JSX.Element => {
     const feedType = useFeedType();
     const {search} = router.query;
 
-    const onChangeFeedType = () =>{
-        feedType.onChangeSearchView();
-    }
-
     useEffect(()=> {
-        search && onChangeFeedType();
+        search
+            ? feedType.onChangeSearchView()
+            : feedType.type === 'LIST' || feedType.type === 'SEARCH'
+                ? feedType.onChangeListView()
+                : feedType.onChangeCardView();
     },[search])
 
     return (
