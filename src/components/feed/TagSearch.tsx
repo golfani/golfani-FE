@@ -76,6 +76,7 @@ const TagSearch = (): JSX.Element => {
     // 검색 태그 초기화
     const onInitInput = () => {
         setTagName("");
+        tag.onInitTagList();
     }
 
     const handleChangeInput = (e: ChangeEvent) => {
