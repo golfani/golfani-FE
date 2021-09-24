@@ -1,0 +1,45 @@
+.modal_open {
+    display: flex;
+    position: fixed;
+    width: max-content;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /*border: 1px solid gray;*/
+    border-radius: 5px;
+    padding: 10px 10px;
+    background-color: #8729ff;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 2px rgba(0,0,0, 0.2);
+    user-select: none;
+    animation: fadeIn 500ms;
+    animation-fill-mode: forwards;
+    z-index: 100;
+}
+
+.heart_icon {
+    color : #ff5151;
+    margin-right: 5px;
+}
+
+.msg_txt {
+    display: inline-block;
+    width: auto;
+    color: white;
+}
+
+.action_txt {
+    color : yellow;
+    font-weight: 500;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
