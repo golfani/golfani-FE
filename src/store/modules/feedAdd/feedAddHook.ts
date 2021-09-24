@@ -1,12 +1,16 @@
 import {IFeedAddState, IImg} from "./feedAdd";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../index";
-import {addImg,deleteImg,addTag,deleteTag,setContent,toggleLikesActive,toggleReplyActive} from "./feedAdd";
+import {initFeedAddState,addImg,deleteImg,addTag,deleteTag,setContent,toggleLikesActive,toggleReplyActive} from "./feedAdd";
 
 const useFeedAdd = () => {
     const feedAddState : IFeedAddState = useSelector((state : RootState) => state.feedAdd);
 
     const dispatch = useDispatch();
+
+    const onInit = () => {
+        dispatch(initFeedAddState());
+    }
 
     const onAddImg = (img : IImg) => {
         dispatch(addImg(img));
@@ -36,7 +40,7 @@ const useFeedAdd = () => {
         dispatch(toggleReplyActive());
     }
 
-    return {feedAddState,onAddImg,onDeleteImg,onAddTag,onDeleteTag,onSetContent,onToggleLikesActive,onToggleReplyActive}
+    return {feedAddState,onInit,onAddImg,onDeleteImg,onAddTag,onDeleteTag,onSetContent,onToggleLikesActive,onToggleReplyActive}
 }
 
 export default useFeedAdd;

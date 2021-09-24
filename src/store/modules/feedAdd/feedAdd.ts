@@ -27,6 +27,14 @@ export const feedAddSlice = createSlice({
     name : 'feedAdd',
     initialState : initialState,
     reducers : {
+        initFeedAddState (state : IFeedAddState) {
+            state.memberId = null;
+            state.content = "";
+            state.imgList = [];
+            state.tagList = [];
+            state.isLikesActive = true;
+            state.isReplyActive = true;
+        },
         addImg (state : IFeedAddState, action : PayloadAction<IImg>) {
             state.imgList.push(action.payload);
         },
@@ -52,4 +60,4 @@ export const feedAddSlice = createSlice({
 })
 
 export default feedAddSlice.reducer;
-export const {addImg,deleteImg,addTag,deleteTag,setContent,toggleLikesActive,toggleReplyActive} = feedAddSlice.actions
+export const {initFeedAddState,addImg,deleteImg,addTag,deleteTag,setContent,toggleLikesActive,toggleReplyActive} = feedAddSlice.actions
