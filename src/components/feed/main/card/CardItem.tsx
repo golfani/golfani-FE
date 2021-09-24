@@ -49,10 +49,13 @@ const CardItem = ({feed} : IFeedProps) : JSX.Element => {
                 {renderTagList}
             </div>
             <div className={style.icon_box}>
-                <div className={style.icon_sub_box}>
-                    <FavoriteBorderIcon className={style.icon} color={'error'} fontSize={"small"}/>
-                    <span>{feed.likesCount}</span>
-                </div>
+                {feed.isLikesActive ?
+                    <div className={style.icon_sub_box}>
+                        <FavoriteBorderIcon className={style.icon} color={'error'} fontSize={"small"}/>
+                        <span>{feed.likesCount}</span>
+                    </div>
+                    : <></>
+                }
                 <div className={style.icon_sub_box}>
                     <ChatBubbleOutlineIcon className={style.icon} color={'primary'} fontSize={"small"}/>
                     <span>{replyTotalQuery.data}</span>
