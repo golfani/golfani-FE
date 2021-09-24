@@ -27,7 +27,9 @@ const FeedMain =({feed} : IFeedMainProps) : JSX.Element => {
                 </div>
             </div>
             <div className={style.main_txt}>
-                <span>{feed.content}</span>
+                {feed.content.split('\n').map((text,index)=> (
+                    <span className={style.content_txt} key={index}>{text}</span>
+                ))}
             </div>
             <div className={style.tag_box}>
                 {renderTagList}
