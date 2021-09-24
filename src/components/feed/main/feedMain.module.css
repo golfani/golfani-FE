@@ -28,3 +28,22 @@
         margin-left: 0px;
     }
 }
+
+.write_box {
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #8729ff;
+    right: 20px;
+    bottom: 20px;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 12px 28px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+.write_icon {
+    color: white;
+}
