@@ -1,5 +1,5 @@
 import createSagaMiddleware, {Task} from "@redux-saga/core";
-import {combineReducers, Store} from "redux";
+import {applyMiddleware, combineReducers, createStore, Store} from "redux";
 import login from "./login/login";
 import {configureStore, getDefaultMiddleware} from "@reduxjs/toolkit";
 import logger from "redux-logger";
@@ -11,6 +11,7 @@ import feedMenu from "./feedMenu/feedMenu";
 import feedAdd from "./feedAdd/feedAdd";
 import {tagSaga} from "./tag/saga";
 import tag from "./tag/tag";
+
 
 interface SagaStore extends Store {
     sagaTask? : Task;
@@ -27,12 +28,32 @@ const rootReducer = combineReducers({
 
 // 스토어 생성
 export const store = () => {
+    const isClient = typeof window !== 'undefined';
     // saga 미들웨어 생성
     const sagaMiddleware = createSagaMiddleware();
-    const store = configureStore({
-        reducer : rootReducer,
-        middleware : [sagaMiddleware,logger]
-    });
+    let store;
+
+    if(isClient) {
+        const { persistReducer } = require('redux-persist');
+        const storage = require('redux-persist/lib/storage/session').default;
+
+        const persistConfig = {
+            key : 'root',
+            storage,
+            whitelist : ["login"]
+        };
+        store = createStore(
+            persistReducer(persistConfig,rootReducer),
+            applyMiddleware(sagaMiddleware)
+        );
+
+    }
+    else {
+        store = configureStore({
+            reducer: rootReducer,
+            middleware: [sagaMiddleware]
+        });
+    }
 
     (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga);
     return store;
