@@ -2,13 +2,10 @@ import {PayloadAction} from "@reduxjs/toolkit";
 import {login, LoginMember} from "src/apis/Member";
 import {call, put, takeEvery} from "@redux-saga/core/effects";
 import {loginAsync, loginAsyncSuccess, loginAsyncError, IUser} from './login';
-import {setAxiosToken} from "src/utils/axiosUtil";
-
 
 function* handleLoginSaga(action : PayloadAction<LoginMember>) {
     try {
         const user : IUser = yield call(login, action.payload);
-        yield setAxiosToken(user.accessToken);
         yield put(loginAsyncSuccess(user));
     }
     catch (error) {
