@@ -1,10 +1,16 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {LoginMember} from "src/apis/Member";
 
-type LoginState = {
+export interface IUser {
+    userId : string
+    accessToken : string
+    refreshToken : string
+}
+
+interface ILoginState  {
     loading : boolean
     isLoggedIn : boolean
-    user : string | null
+    user : IUser | null
     error : LoginError | null
 }
 
@@ -12,7 +18,7 @@ type LoginError = {
     error : string
 }
 
-const initialState : LoginState = {
+const initialState : ILoginState = {
     loading : false,
     isLoggedIn : false,
     user : null,
@@ -23,20 +29,19 @@ export const loginSlice = createSlice({
     name : 'login',
     initialState : initialState,
     reducers : {
-        loginAsync(state : LoginState , action : PayloadAction<LoginMember>) {
+        loginAsync(state : ILoginState , action : PayloadAction<LoginMember>) {
             state.loading = true;
             state.user = null;
             state.isLoggedIn = false;
             state.error = null;
         },
-        loginAsyncSuccess(state : LoginState, action : PayloadAction<string>) {
+        loginAsyncSuccess(state : ILoginState, action : PayloadAction<IUser>) {
             state.loading = false;
             state.user = action.payload;
             state.isLoggedIn = true;
             state.error = null;
-            localStorage.setItem('logged', action.payload);
         },
-        loginAsyncError(state : LoginState, action : PayloadAction<LoginError>) {
+        loginAsyncError(state : ILoginState, action : PayloadAction<LoginError>) {
             state.loading =false;
             state.user = null;
             state.error = action.payload;

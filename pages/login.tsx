@@ -19,7 +19,7 @@ const Login = () : JSX.Element => {
 
     const handleLogin = () => {
         const member : LoginMember = {
-            memberId : getValues('id'),
+            userId : getValues('id'),
             password : getValues('password')
         }
         loginMember(member);
@@ -27,10 +27,9 @@ const Login = () : JSX.Element => {
 
     useEffect(()=> {
         if(isLoggedIn) {
-            router.push("/");
+            router.back();
         }
     },[isLoggedIn])
-
 
     return (
         <div className={style.container}>

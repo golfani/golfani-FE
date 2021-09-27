@@ -1,4 +1,5 @@
 import axios from "axios";
+import {IUser} from "../store/modules/login/login";
 
 export type Member = {
     userId : string
@@ -12,7 +13,7 @@ export type Member = {
 }
 
 export type LoginMember = {
-    memberId: string,
+    userId: string,
     password: string
 }
 
@@ -69,6 +70,13 @@ export const signUp = async (member : Member) => {
  * @param password
  */
 export const login = async (member : LoginMember) => {
-    const response = await axios.post(`${API_URL}/login`,member)
-    return response.data;
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/login`,member,{
+        withCredentials : true
+    })
+    const user : IUser = {
+        userId : member.userId,
+        accessToken : response.headers['access-token'],
+        refreshToken : response.headers['refresh-token'],
+    }
+    return user;
 }
