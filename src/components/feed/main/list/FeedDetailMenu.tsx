@@ -1,15 +1,19 @@
 import style from './feedDetailMenu.module.css';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import DetailMenuModal from "src/components/modals/DetailMenuModal";
 import {IFeedProps} from "src/domain/Feed";
 
-const FeedDetailMenu = ({feed} : IFeedProps) : JSX.Element => {
+const FeedDetailMenu = ({feed}: IFeedProps): JSX.Element => {
     const [detailMenuModalOpen, setDetailMenuModalOpen] = useState(false);
 
-    const onOpenModal = useCallback(()=> {
-        setDetailMenuModalOpen((detailMenuModalOpen)=> true);
-    },[detailMenuModalOpen])
+    const onOpenModal = useCallback(() => {
+        setDetailMenuModalOpen((detailMenuModalOpen) => true);
+    }, [detailMenuModalOpen])
+
+    const onCloseModal = () => {
+        setDetailMenuModalOpen(false);
+    };
 
     const handleClickMenu = () => {
         onOpenModal();
@@ -18,7 +22,9 @@ const FeedDetailMenu = ({feed} : IFeedProps) : JSX.Element => {
     return (
         <div className={style.container} onClick={handleClickMenu}>
             <MoreHorizIcon/>
-            <DetailMenuModal open={detailMenuModalOpen} setOpen={setDetailMenuModalOpen} target={feed} type={"FEED"}/>
+            {detailMenuModalOpen &&
+            <DetailMenuModal open={detailMenuModalOpen} onCloseModal={onCloseModal} target={feed} type={"FEED"}/>
+            }
         </div>
     );
 };
