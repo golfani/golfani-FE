@@ -2,11 +2,16 @@
     position: relative;
     display: flex;
     width: 300px;
-    height: 30px;
+    height: 40px;
     align-items: center;
-    padding: 0 5px;
-    background-color: #e0e0e0;
+    padding: 0 10px;
+    background-color: white;
+    border: 1px solid #e9ecef;
     border-radius: 0.32rem;
+}
+
+.container:focus-within {
+    border: 1px solid #8729ff;
 }
 
 .input {
@@ -21,6 +26,8 @@
 }
 
 .input::placeholder {
+    color: #cbcbcb;
+    font-weight: 400;
 }
 
 .form_box {
@@ -30,15 +37,15 @@
 .search_box {
     position: absolute;
     overflow: auto;
-    top: 40px;
+    top: 45px;
     left: 0;
     width: 300px;
-    height: 150px;
-    /*border: 1px solid gray;*/
+    height: 200px;
+    border: 1px solid black;
     border-radius: 0.2rem;
     padding: 10px 15px;
     z-index: 100;
-    box-shadow: 0 0 1px;
+    box-shadow: 0 0 0 rgba(0,0,0.2);
     background-color: white;
 }
 

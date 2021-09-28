@@ -109,11 +109,10 @@ const TagSearch = (): JSX.Element => {
     return (
         <>
             <div className={style.container} ref={tagRef}>
-                <SearchIcon/>
                 <form className={style.form_box} onSubmit={handleSubmit}>
                     <input onFocus={handleFocus}
                            className={style.input}
-                           placeholder="#태그 검색"
+                           placeholder="원하는 #태그를 검색해 보세요!"
                            value={tagName}
                            onChange={handleChangeInput}
                     />
@@ -147,6 +146,7 @@ const TagSearch = (): JSX.Element => {
                         }
                     </div>
                 </form>
+                <SearchIcon/>
             </div>
         </>
     )

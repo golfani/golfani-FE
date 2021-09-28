@@ -2,12 +2,12 @@
     display: inline-block;
     position: absolute;
     top: 40px;
-    left: 0;
+    right: -50px;
     width: 200px;
     height: auto;
     background-color: white;
     border-radius: 8px;
-    border: 1px solid gray;
+    border: 1px solid #d0d7de;
 }
 
 .modal_close {
@@ -24,16 +24,16 @@
 }
 
 .menu_btn ~ .menu_btn {
-    border-top: 1px solid black;
+    border-top: 1px solid #d0d7de;
     border-radius: 0px;
 }
 
 .menu_btn:hover {
-    background-color: #f5f6f7;
+    background-color: #8729ff;
+    color: white;
 }
 
 .menu_btn:nth-last-child(1) {
-    color: red;
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
 }
