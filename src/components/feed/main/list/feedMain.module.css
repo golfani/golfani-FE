@@ -33,7 +33,7 @@
 
 .tag_box {
     font-size: 13px;
-    color : cornflowerblue;
+    color : white;
     margin-bottom: 5px;
 }
 
@@ -41,7 +41,7 @@
     line-height: 30px;
     padding: 5px 7px;
     border-radius: 12px;
-    background-color: #e5e5e5;
+    background-color: #8729ff;
     margin-right: 5px;
     user-select: none;
     cursor: pointer;

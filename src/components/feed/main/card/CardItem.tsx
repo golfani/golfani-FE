@@ -23,7 +23,7 @@ const CardItem = ({feed} : IFeedProps) : JSX.Element => {
     const renderTagList = feed.tag.split('#').map((tag,index)=> {
         if(index > 0) {
             return (
-                <span key={tag} className={style.main_txt}>{tag}</span>
+                <span key={tag} className={style.main_txt}>{`#${tag}`}</span>
             )
         }
     });
