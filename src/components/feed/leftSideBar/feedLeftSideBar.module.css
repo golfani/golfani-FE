@@ -2,7 +2,7 @@
     position: fixed;
     left: 60px;
     width: 250px;
-    height: 300px;
+    height: auto;
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
@@ -28,9 +28,19 @@
     border-bottom: 1px solid #f1f3f5;
     cursor: pointer;
     user-select: none;
-    color: cornflowerblue;
+    color: #8729ff;
     background-color: #f5f6f7;
     border-radius: inherit;
+}
+
+.menu_box_active:nth-child(1) {
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+}
+
+.menu_box_active:nth-last-child(1) {
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
 }
 
 .menu_txt {
