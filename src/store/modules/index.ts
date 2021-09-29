@@ -11,6 +11,7 @@ import feedMenu from "./feedMenu/feedMenu";
 import feedAdd from "./feedAdd/feedAdd";
 import {tagSaga} from "./tag/saga";
 import tag from "./tag/tag";
+import notice from "./notice/notice";
 
 
 interface SagaStore extends Store {
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
     feedMenu : feedMenu,
     feedAdd : feedAdd,
     tag : tag,
+    notice : notice,
 })
 
 // 스토어 생성
@@ -35,23 +37,23 @@ export const store = () => {
 
     if(isClient) {
         const { persistReducer } = require('redux-persist');
-        const storage = require('redux-persist/lib/storage/session').default;
+        const storage = require('redux-persist/lib/storage').default;
 
         const persistConfig = {
             key : 'root',
             storage,
-            whitelist : ["login"]
+            whitelist : ["login","notice"]
         };
         store = createStore(
             persistReducer(persistConfig,rootReducer),
-            applyMiddleware(sagaMiddleware)
+            applyMiddleware(sagaMiddleware,logger)
         );
 
     }
     else {
         store = configureStore({
             reducer: rootReducer,
-            middleware: [sagaMiddleware]
+            middleware: [sagaMiddleware,logger]
         });
     }
 
