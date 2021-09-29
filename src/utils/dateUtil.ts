@@ -1,5 +1,5 @@
 
-export const dateDiff = (date : string) : string => {
+export const dateDiff = (date : string | Date) : string => {
     const now = new Date();
     const target = new Date(date);
 
