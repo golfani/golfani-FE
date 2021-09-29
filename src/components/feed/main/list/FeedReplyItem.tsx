@@ -53,6 +53,10 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
         }
     },[registerLikesMutate])
 
+    const onCloseDetailModal = () => {
+        setDetailMenuModalOpen(false);
+    }
+
     const handleClickLikes = async () => {
         await onRegisterLikes();
     }
@@ -125,11 +129,13 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
                     : <></>
                 }
             </div>
+            {detailMenuModalOpen &&
             <DetailMenuModal open={detailMenuModalOpen}
-                             setOpen={setDetailMenuModalOpen}
+                             onCloseModal={onCloseDetailModal}
                              target={reply}
                              type={"FEED_REPLY"}
             />
+            }
         </div>
     );
 };
