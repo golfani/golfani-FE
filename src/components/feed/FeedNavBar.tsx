@@ -8,22 +8,37 @@ import MyMenu from "../common/MyMenu";
 import {useRef, useState} from "react";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import useLogin from "src/store/modules/login/loginHook";
+import Notice from "../common/notice/Notice";
+import useNotice from "src/store/modules/notice/noticeHook";
 
 const FeedNavBar = () : JSX.Element => {
     const login = useLogin();
+    const notice = useNotice();
     const [myMenuOpen, setMyMenuOpen] = useState(false);
-    const targetRef = useRef<HTMLDivElement>(null);
+    const [noticeOpen, setNoticeOpen] = useState(false);
+    const myOpenRef = useRef<HTMLDivElement>(null);
+    const noticeRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
 
     const onCloseMyMenu = () => {
         setMyMenuOpen((myMenuOpen)=> false);
     }
 
+    const onCloseNotice = () => {
+        setNoticeOpen(false);
+    }
+
     const handleClickMyMenu = () => {
         setMyMenuOpen((myMenuOpen)=> !myMenuOpen);
     }
 
-    handleClickRefOutSide(targetRef,onCloseMyMenu);
+    const handleClickNotice = () => {
+        setNoticeOpen((noticeOpen)=> !noticeOpen);
+        notice.onReadCommonNotice();
+    }
+
+    handleClickRefOutSide(myOpenRef,onCloseMyMenu);
+    handleClickRefOutSide(noticeRef,onCloseNotice);
 
     const onClickLogin = () => {
         router.push("/login");
@@ -41,12 +56,15 @@ const FeedNavBar = () : JSX.Element => {
                   {login.isLoggedIn
                       ?
                       <div className={style.icon_box}>
-                          <div className={style.myMenu_box} ref={targetRef}>
-                              <AccountCircleOutlinedIcon className={style.icon} onClick={handleClickMyMenu}/>
+                          <div className={style.menu_box} ref={myOpenRef}>
+                              <AccountCircleOutlinedIcon className={style.icon} onClick={handleClickMyMenu} fontSize={'inherit'}/>
+                              <span className={style.notice_count}>{notice.countNewMessage()}</span>
                               <MyMenu open={myMenuOpen}/>
                           </div>
-                          <div>
-                            <FavoriteBorderOutlinedIcon className={style.icon}/>
+                          <div className={style.menu_box} ref={noticeRef}>
+                              <FavoriteBorderOutlinedIcon className={style.icon} onClick={handleClickNotice} fontSize={'inherit'}/>
+                              {notice.countNewNotice() !== 0 && <span className={style.notice_count}>{notice.countNewNotice()}</span>}
+                              {noticeOpen && <Notice/>}
                           </div>
                       </div>
                       :

@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.img {
+    border-radius: 30%;
+    margin-right: 5px;
+}
+
+.userId_txt {
+    font-weight: 600;
+}
+
+.content_box {
+    font-size: 13px;
+}
+
+.content_txt {
+    color: #8729ff;
+    margin-right: 3px;
+    font-weight: 500;
+}
+
+.date_txt {
+    font-size: 12px;
+    color: gray;
+}
