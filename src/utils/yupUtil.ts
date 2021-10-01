@@ -17,3 +17,12 @@ export const loginSchema = yup.object({
     id : yup.string().trim().required('아이디를 입력해주세요.'),
     password : yup.string().trim().required('비밀번호를 입력해주세요.'),
 })
+
+export const emailSchema = yup.object({
+    email : yup.string().required('이메일을 입력해 주세요.').matches(regExpEmail,'이메일 형식에 맞지 않습니다.')
+});
+
+export const passwordSchema = yup.object({
+    password : yup.string().trim().required('필수 항목입니다.').matches(regExpPw,'특수문자, 영어, 숫자를 포함한 8 ~ 15자 사이여야 합니다.'),
+    checkPassword : yup.string().oneOf([yup.ref('password'), null],'비밀번호가 일치하지 않습니다.').required('필수 항목입니다.'),
+});
