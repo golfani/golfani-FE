@@ -49,8 +49,12 @@ const Login = () : JSX.Element => {
                         <button className={style.login_btn} type="submit">로그인</button>
                     </form>
                     <div className={style.link_box}>
-                        <span className={style.link_txt}>아이디 찾기</span>
-                        <span className={style.link_txt}>비밀번호 찾기</span>
+                        <Link href={'/member/findId'}>
+                            <span className={style.link_txt}>아이디 찾기</span>
+                        </Link>
+                        <Link href={'/member/findPw'}>
+                            <span className={style.link_txt}>비밀번호 찾기</span>
+                        </Link>
                         <Link href={"/signup"}>
                             <span className={style.link_txt}>회원가입</span>
                         </Link>
