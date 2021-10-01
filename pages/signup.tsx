@@ -1,7 +1,7 @@
 import style from "styles/signup.module.css";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {authEmail, fetchAuthCode, Member, signUp, validateById} from "src/apis/Member";
+import {authEmail, fetchAuthCode, ISignUpMember, signUp, validateById} from "src/apis/Member";
 import {signUpSchema} from "../src/utils/yupUtil";
 import {ChangeEvent, useState} from "react";
 import {useRouter} from "next/router";
@@ -89,7 +89,7 @@ const SignUp = () : JSX.Element=> {
 
     // 회원가입 버튼 클릭
     const onSubmit = async (data : FormData) => {
-        const member  : Member = {
+        const member  : ISignUpMember = {
             userId : data.id,
             password : data.password,
             username : data.name,
