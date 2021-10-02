@@ -1,0 +1,46 @@
+.user_box {
+    display: flex;
+}
+
+.icon_box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70px;
+}
+
+.menu_box {
+    font-size: 26px;
+    position: relative;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.notice_count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    padding: 3px;
+    min-width: 18px;
+    top: -5px;
+    left: 15px;
+    background-color: #de4343;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    user-select: none;
+}
+
+.login_btn {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 12px;
+    border: 1px solid #DBDBDB;
+    color: black;
+    cursor: pointer;
+}
