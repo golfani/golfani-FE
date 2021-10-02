@@ -134,7 +134,7 @@ export const findUserIdByEmail = async (email : string) => {
  * @param email
  */
 export const findUserPw = async (userId : string, email : string) => {
-    const response = await axios.get(`${API_URL}/find/password?email=${email}&userId=${userId}`);
+    const response = await axios.get(`${API_URL}/find/password?email=${email}&user_id=${userId}`);
     return response;
 }
 
