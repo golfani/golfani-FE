@@ -1,0 +1,48 @@
+.logo_box {
+    display: flex;
+}
+
+.logo_txt {
+    display: inline-block;
+    font-size: 25px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 30px;
+}
+
+.link_box {
+    display: flex;
+}
+
+.list_item {
+    height: 35px;
+    line-height: 30px;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 500;
+    color: gray;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.list_item_active {
+    height: 35px;
+    line-height: 30px;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 15px;
+    color: #8729ff;
+    border-bottom: 3px solid #8729ff;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.list_item:hover {
+    color: black;
+    border-bottom: 3px solid #8729ff;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}

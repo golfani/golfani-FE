@@ -69,7 +69,7 @@ const TagSearch = (): JSX.Element => {
     // 검색한 태그 페이지로 이동하기
     const onRoute = (tag: string) => {
         onHideSearchBox();
-        router.push(`feed?search=${tag}`);
+        router.push(`/feed?search=${tag}`);
         onInitInput();
     }
 

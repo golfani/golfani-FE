@@ -1,5 +1,5 @@
 import style from 'styles/mypage.module.css'
-import MyPageNavbar from "src/components/mypage/MyPageNavbar";
+import Navbar from "src/components/common/navbar/Navbar";
 import UserProfile from "src/components/mypage/UserProfile";
 import UserActivity from "src/components/mypage/UserActivity";
 import UserFeed from "src/components/mypage/UserFeed";
@@ -9,7 +9,7 @@ import UserInfo from "src/components/mypage/UserInfo";
 const Profile = () : JSX.Element => {
     return (
         <div className={style.container}>
-            <MyPageNavbar/>
+            <Navbar/>
             <div className={style.main_container}>
                 <UserProfile/>
                 <UserActivity/>

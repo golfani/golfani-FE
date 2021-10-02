@@ -12,18 +12,13 @@
     z-index: 10;
 }
 
-.container > div {
+.header_box {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 1000px;
     height: 80px;
     background-color: #fff;
-}
-
-.logo_txt {
-    font-size: 20px;
-    font-weight: bold;
 }
 
 .feed_box {

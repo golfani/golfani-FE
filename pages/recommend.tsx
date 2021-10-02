@@ -1,6 +1,6 @@
 import style from 'styles/recommend.module.css';
 import GctiInfo from "src/components/recommend/GctiInfo";
-import MyPageNavbar from "src/components/mypage/MyPageNavbar";
+import Navbar from "src/components/common/navbar/Navbar";
 import RecommendList from "src/components/recommend/RecommendList";
 import {useRef} from "react";
 
@@ -12,7 +12,7 @@ const Recommend = () : JSX.Element => {
 
     return (
         <div className={style.container}>
-            <MyPageNavbar/>
+            <Navbar/>
             <div className={style.main_container}>
                 <GctiInfo scrollToRef={scrollToRef}/>
                 <RecommendList recommendRef={recommendRef}/>
