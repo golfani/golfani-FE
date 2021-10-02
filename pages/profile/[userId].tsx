@@ -6,7 +6,7 @@ import UserFeed from "src/components/mypage/UserFeed";
 import UserItem from "src/components/mypage/UserItem";
 import UserInfo from "src/components/mypage/UserInfo";
 
-const MyPage = () : JSX.Element => {
+const Profile = () : JSX.Element => {
     return (
         <div className={style.container}>
             <MyPageNavbar/>
@@ -21,4 +21,4 @@ const MyPage = () : JSX.Element => {
     );
 };
 
-export default MyPage;
+export default Profile;
