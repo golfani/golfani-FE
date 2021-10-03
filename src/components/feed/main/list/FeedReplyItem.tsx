@@ -3,7 +3,6 @@ import {useMutation, useQuery, useQueryClient} from "react-query";
 import {dateDiff} from "src/utils/dateUtil";
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ReplyRoundedIcon from '@material-ui/icons/ReplyRounded';
 import {getReplyLikes, getUserIsReplyLikes, ILikesDto, registerLikes} from "src/apis/Likes";
 import {useCallback, useRef, useState} from "react";
 import {IReplyProps} from "src/domain/Reply";
@@ -109,8 +108,8 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
                     }
                     <span onClick={handleClickAddReply} className={style.add_reply_txt} color={'primary'}>답글달기</span>
                     {userIsReplyLikesQuery.data?.likes
-                        ? <FavoriteIcon onClick={handleClickLikes} className={style.like_icon} color={'error'}/>
-                        : <FavoriteBorderOutlinedIcon onClick={handleClickLikes} className={style.like_icon} color={'error'}/>
+                        ? <FavoriteIcon onClick={handleClickLikes} className={style.like_icon} fontSize={"inherit"} color={'error'}/>
+                        : <FavoriteBorderOutlinedIcon onClick={handleClickLikes} className={style.like_icon} fontSize={"inherit"} color={'error'}/>
                     }
                     <span className={style.like_txt}>{replyLikesQuery.data}</span>
                     <MoreHorizIcon className={style.sub_menu_icon} onClick={handleClickDetailMenu}/>
