@@ -37,7 +37,10 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
             if (props.type === 'FEED_REPLY') {
                 const target: IReplyDto = props.target as IReplyDto;
                 await queryClient.invalidateQueries(['feedReply', target.feedId]);
-                await queryClient.invalidateQueries(['reply', target.id]);
+                if(target.referenceId) {
+                    await queryClient.invalidateQueries(['reply', target.referenceId]);
+                    await queryClient.invalidateQueries(['totalReply', target.referenceId]);
+                }
                 await props.onCloseModal;
             } else if (props.type === "FEED") {
                 const target: IFeedContent = props.target as IFeedContent;
