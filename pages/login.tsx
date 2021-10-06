@@ -30,7 +30,7 @@ const Login = () : JSX.Element => {
         if(getCookie('userId')) {
             router.back();
         }
-    },)
+    },[]);
 
     return (
         <div className={style.container}>
