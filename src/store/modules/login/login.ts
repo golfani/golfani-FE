@@ -10,7 +10,6 @@ export interface IUser {
 interface ILoginState  {
     loading : boolean
     isLoggedIn : boolean
-    user : IUser | null
     error : LoginError | null
 }
 
@@ -21,7 +20,6 @@ type LoginError = {
 const initialState : ILoginState = {
     loading : false,
     isLoggedIn : false,
-    user : null,
     error : null
 }
 
@@ -31,19 +29,17 @@ export const loginSlice = createSlice({
     reducers : {
         loginAsync(state : ILoginState , action : PayloadAction<LoginMember>) {
             state.loading = true;
-            state.user = null;
             state.isLoggedIn = false;
             state.error = null;
         },
-        loginAsyncSuccess(state : ILoginState, action : PayloadAction<IUser>) {
+        loginAsyncSuccess(state : ILoginState) {
             state.loading = false;
-            state.user = action.payload;
             state.isLoggedIn = true;
             state.error = null;
         },
         loginAsyncError(state : ILoginState, action : PayloadAction<LoginError>) {
             state.loading =false;
-            state.user = null;
+            state.isLoggedIn = false;
             state.error = action.payload;
         }
     }

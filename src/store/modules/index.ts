@@ -42,7 +42,7 @@ export const store = () => {
         const persistConfig = {
             key : 'root',
             storage,
-            whitelist : ["login","notice"]
+            whitelist : ['notice']
         };
         store = createStore(
             persistReducer(persistConfig,rootReducer),
