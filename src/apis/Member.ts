@@ -1,5 +1,6 @@
 import axios from "axios";
-import {IUser} from "../store/modules/login/login";
+import {IUser} from "src/store/modules/login/login";
+import {getCookie} from "src/utils/cookieUtil";
 
 export interface IMember {
     id : number
@@ -165,4 +166,17 @@ export const modifyMemberPassword = async (userId : string, password : string) =
     catch (e) {
         console.log(e);
     }
+}
+
+/**
+ * accessToken 재발급 요청 API
+ * @param userId
+ */
+export const regenerateAccessToken = async (userId : string) => {
+    const response = await axios.get(`${API_URL}/refresh?user_id=${userId}`,{
+        headers : {
+            Authorization : `Bearer ${getCookie('refreshToken')}`,
+        }
+    })
+    return response;
 }
