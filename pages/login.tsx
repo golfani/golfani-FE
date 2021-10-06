@@ -7,6 +7,7 @@ import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {loginSchema} from "src/utils/yupUtil";
 import Link from "next/link";
+import {getCookie} from "../src/utils/cookieUtil";
 
 const Login = () : JSX.Element => {
     const {loginMember,error, isLoggedIn} = useLogin();
@@ -26,7 +27,7 @@ const Login = () : JSX.Element => {
     }
 
     useEffect(()=> {
-        if(isLoggedIn) {
+        if(isLoggedIn || getCookie('userId')) {
             router.back();
         }
     },[isLoggedIn])

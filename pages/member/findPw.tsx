@@ -6,7 +6,7 @@ import {emailSchema, passwordSchema} from "src/utils/yupUtil";
 import {FormEvent, useEffect, useState} from "react";
 import {authMailForFindUser, fetchAuthCode, findUserPw, modifyMemberPassword, validateById} from "src/apis/Member";
 import {useRouter} from "next/router";
-import useLogin from "src/store/modules/login/loginHook";
+import {getCookie} from "src/utils/cookieUtil";
 
 interface IEmailForm {
     email : string
@@ -33,7 +33,6 @@ const FindPw = () : JSX.Element => {
     const [authCodeError, setAuthCodeError] = useState('');
     const [isCertified, setIsCertified] = useState(false);
     const router = useRouter();
-    const login = useLogin();
 
     const onValidUserId = async () => {
         try {
@@ -119,7 +118,7 @@ const FindPw = () : JSX.Element => {
     }
 
     useEffect(()=> {
-        if(login.isLoggedIn) {
+        if(getCookie('userId')) {
             router.push('/');
         }
     },[])

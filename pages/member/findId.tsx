@@ -7,6 +7,7 @@ import {authMailForFindUser, fetchAuthCode, findUserIdByEmail} from "src/apis/Me
 import Link from 'next/link';
 import useLogin from "src/store/modules/login/loginHook";
 import {useRouter} from "next/router";
+import {getCookie} from "../../src/utils/cookieUtil";
 
 interface IForm {
     email : string
@@ -22,7 +23,6 @@ const FindId = () : JSX.Element => {
     const [authCode, setAuthCode] = useState('');
     const [authCodeError, setAuthCodeError] = useState('');
     const router = useRouter();
-    const login = useLogin();
 
     const onSendEmail = async (data : IForm) => {
         try {
@@ -60,7 +60,7 @@ const FindId = () : JSX.Element => {
     }
 
     useEffect(()=> {
-        if(login.isLoggedIn) {
+        if(getCookie('userId')) {
             router.push('/');
         }
     },[])

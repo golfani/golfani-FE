@@ -3,14 +3,14 @@ import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined"
 import MyMenu from "../MyMenu";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import Notice from "../notice/Notice";
-import useLogin from "src/store/modules/login/loginHook";
 import useNotice from "src/store/modules/notice/noticeHook";
 import {useRef, useState} from "react";
 import {useRouter} from "next/router";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
+import {getCookie} from "src/utils/cookieUtil";
 
 const NavbarMenu = () => {
-    const login = useLogin();
+    const userId = getCookie('userId')
     const notice = useNotice();
     const [myMenuOpen, setMyMenuOpen] = useState(false);
     const [noticeOpen, setNoticeOpen] = useState(false);
@@ -43,7 +43,7 @@ const NavbarMenu = () => {
     }
     return (
         <div className={style.user_box}>
-            {login.isLoggedIn
+            {userId
                 ?
                 <div className={style.icon_box}>
                     <div className={style.menu_box} ref={myOpenRef}>
