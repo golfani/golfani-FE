@@ -1,7 +1,7 @@
 import style from './myMenu.module.css';
 import {useRouter} from "next/router";
 import useNotice from "src/store/modules/notice/noticeHook";
-import {getCookie} from "src/utils/cookieUtil";
+import {getCookie, removeCookie} from "src/utils/cookieUtil";
 
 interface IMyMenuProps {
     open : boolean
@@ -20,6 +20,13 @@ const MyMenu = (props : IMyMenuProps) : JSX.Element => {
         router.push('/message');
     }
 
+    const handleClickLogout = () => {
+        removeCookie('userId');
+        removeCookie('refreshToken');
+        // 페이지 새로고침하여 JS 리로딩
+        router.reload();
+    }
+
     return (
         <div className={props.open ? style.modal_open : style.modal_close}>
             <button className={style.menu_btn} onClick={handleClickProfile}>PROFILE</button>
@@ -27,7 +34,7 @@ const MyMenu = (props : IMyMenuProps) : JSX.Element => {
                 <span >MESSAGE</span>
                 <span className={style.message_count}>{notice.countNewMessage()}</span>
             </div>
-            <button className={style.menu_btn}>로그아웃</button>
+            <button className={style.menu_btn} onClick={handleClickLogout}>로그아웃</button>
         </div>
     );
 };
