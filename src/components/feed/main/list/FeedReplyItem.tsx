@@ -24,7 +24,7 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
         staleTime : 1000 * 60
     })
 
-    const userIsReplyLikesQuery = useQuery<ILikesDto>(['isReplyLikes',reply.id], () => getUserIsReplyLikes("gudwh14",reply.id), {
+    const userIsReplyLikesQuery = useQuery<ILikesDto>(['isReplyLikes',reply.id], () => getUserIsReplyLikes(reply.id), {
         staleTime : 1000 * 60
     })
 
@@ -37,7 +37,7 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
         staleTime : 1000 * 60
     })
 
-    const registerLikesMutate = useMutation(()=> registerLikes("REPLY", reply.id, "gudwh14"));
+    const registerLikesMutate = useMutation(()=> registerLikes("REPLY", reply.id));
 
     const onRegisterLikes = useCallback(async () => {
         try {

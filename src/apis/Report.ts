@@ -1,8 +1,11 @@
 import {TTarget} from "../domain/Common";
 import {TRef} from "../components/modals/DetailMenuModal";
 import axios from "axios";
+import {getCookie} from "src/utils/cookieUtil";
+import {securityAxios} from "../security/axios";
 
 const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/report`;
+const userId = getCookie('userId');
 
 export type TReportType = 'REPORT_AD' | 'REPORT_ABUSE' | 'REPORT_PORN' | 'REPORT_REPEAT';
 
@@ -18,6 +21,7 @@ interface IReportDto {
 }
 
 /**
+ * NEED AUTH
  * 신고 접수하는 API
  * @param target
  * @param targetId
@@ -27,7 +31,6 @@ interface IReportDto {
  */
 export const registerReport = async (target : TRef,
                                      targetId : number,
-                                     userId : string,
                                      description : string,
                                      reportType : TReportType) => {
     const reportDto : IReportDto = {
@@ -54,6 +57,6 @@ export const registerReport = async (target : TRef,
         reportDto.targetType = 'REPLY';
     }
 
-    const response = await axios.post(API_URL,reportDto);
+    const response = await securityAxios.post(API_URL,reportDto);
     return response;
 }

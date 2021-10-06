@@ -4,10 +4,11 @@ import FeedThumbnail from "./FeedThumbnail";
 import {useInfiniteQuery} from "react-query";
 import {IPages} from "src/domain/Page";
 import {getUserFeed, IFeedContent} from "src/apis/Feed";
+import {getCookie} from "src/utils/cookieUtil";
 
 
-const userId = "gudwh14"
 const MyFeed = () : JSX.Element => {
+    const userId = getCookie('userId');
     const myFeedQuery = useInfiniteQuery<IPages<IFeedContent>>(['userFeed',userId],()=>getUserFeed(0,6,userId),{
         staleTime : 1000 * 60
     })

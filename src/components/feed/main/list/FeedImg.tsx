@@ -47,7 +47,7 @@ const FeedImg = ({feed} : IFeedProps) : JSX.Element => {
     });
     const [toastModalOpen, setToastModalOpen] = useState(false);
 
-    const likeMutation = useMutation(()=> registerLikes("FEED",feed.id,"gudwh14"));
+    const likeMutation = useMutation(()=> registerLikes("FEED",feed.id));
 
     const onRegisterLikes = useCallback( async ()=> {
         const isLike = queryClient.getQueryData(['isFeedLikes',feed.id]);

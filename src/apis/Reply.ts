@@ -1,6 +1,9 @@
 import axios from "axios";
+import {securityAxios} from "src/security/axios";
+import {getCookie} from "../utils/cookieUtil";
 
 const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/reply`;
+const userId = getCookie('userId');
 
 type TReply = "FEED" | "POST" | "FEED_REPLY" | "POST_REPLY"
 
@@ -26,10 +29,18 @@ export interface IReplyDto {
     likesCount : number
 }
 
+/**
+ * NEED AUTH
+ * 댓글 작성하는 API
+ * @param type
+ * @param id
+ * @param payload
+ * @param refId
+ * @param refUserId
+ */
 export const registerReply = async (type : TReply,
                                     id : number | null,
                                     payload : string,
-                                    userId : string,
                                     refId : number | null = null,
                                     refUserId : string | null = null) => {
     const data : IReplyRegister = {
@@ -53,7 +64,7 @@ export const registerReply = async (type : TReply,
         data.referencedUser = refUserId;
     }
 
-    const response = await axios.post(API_URL,data);
+    const response = await securityAxios.post(API_URL,data);
     return response.data;
 }
 
@@ -94,10 +105,11 @@ export const getTotalReply = async (replyId : number) => {
 }
 
 /**
+ * NEED AUTH
  * 피드 댓글 지우기를 요청하는 API
  * @param replyId
  */
 export const deleteFeedReply = async (replyId : number) => {
-    const response = await axios.delete(`${API_URL}/feed/${replyId}`);
+    const response = await securityAxios.delete(`${API_URL}/feed/${replyId}`);
     return response.data;
 }

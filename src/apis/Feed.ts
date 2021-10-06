@@ -1,6 +1,8 @@
 import {IFeedAddState} from "src/store/modules/feedAdd/feedAdd";
 import axios from "axios";
 import {tagListToString} from "src/utils/tagUtil";
+import {securityAxios} from "src/security/axios";
+import {getCookie} from "src/utils/cookieUtil";
 
 interface IFeedRegister {
     userId : string
@@ -24,14 +26,16 @@ export interface IFeedContent {
 
 // API 주소입니다.
 const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/feed`;
+const userId = getCookie('userId');
 
 /**
+ * NEED AUTH
  * 피드 작성 API 요청입니다.
  * @param feedAddState
  */
 export const registerFeed = async (feedAddState : IFeedAddState) => {
     const feedDTO : IFeedRegister = {
-        userId : "gudwh14",
+        userId : userId,
         content : feedAddState.content,
         tag : tagListToString(feedAddState.tagList),
         isReplyActive : feedAddState.isReplyActive,
@@ -42,7 +46,7 @@ export const registerFeed = async (feedAddState : IFeedAddState) => {
     feedAddState.imgList.forEach((imgItem)=> formData.append("uploadFiles",imgItem.imgFile))
     formData.append("feedDto", JSON.stringify(feedDTO));
 
-    const response = await axios.post(`${API_URL}/`,formData);
+    const response = await securityAxios.post(`${API_URL}/`,formData);
     return response;
 }
 
@@ -56,11 +60,12 @@ export const getFeed = async (page : number = 0, size : number = 10) => {
 }
 
 /**
+ * NEED AUTH
  * 피드 삭제 요청하는 API
  * @param feedId
  */
 export const deleteFeed = async (feedId : number) => {
-    const response = await axios.delete(`${API_URL}/${feedId}`);
+    const response = await securityAxios.delete(`${API_URL}/${feedId}`);
     return response.data;
 }
 

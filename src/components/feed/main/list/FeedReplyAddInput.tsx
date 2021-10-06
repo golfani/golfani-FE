@@ -7,8 +7,8 @@ import {IFeedReplyAddProps} from "src/domain/Reply";
 const FeedReplyAddInput = ({feedId, refId, refUser} : IFeedReplyAddProps) : JSX.Element => {
     const queryClient = useQueryClient();
     const [replyPayload, setReplyPayload] = useState("");
-    const commentMutation = useMutation(()=>registerReply("FEED",feedId,replyPayload,"gudwh14"));
-    const replyMutation = useMutation(()=>registerReply("FEED_REPLY",feedId,replyPayload,"jjo97",refId,refUser));
+    const commentMutation = useMutation(()=>registerReply("FEED",feedId,replyPayload));
+    const replyMutation = useMutation(()=>registerReply("FEED_REPLY",feedId,replyPayload,refId,refUser));
 
     const onRegisterReply = useCallback(async ()=> {
         try {

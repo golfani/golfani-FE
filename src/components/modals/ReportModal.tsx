@@ -12,8 +12,6 @@ interface IReportModalProps {
     onCloseModal : ()=> void
 }
 
-const userId = "gudwh14";
-
 const ReportModal = (props : IReportModalProps) : JSX.Element => {
     const [reportType, setReportType] = useState<string>();
     const [description, setDescription] = useState('');
@@ -26,7 +24,7 @@ const ReportModal = (props : IReportModalProps) : JSX.Element => {
     const handleReport = async () => {
         if (reportType) {
             try {
-                const response = await registerReport(props.type, props.targetId, userId, description, reportType as TReportType);
+                const response = await registerReport(props.type, props.targetId, description, reportType as TReportType);
                 if (response.data) {
                     alert('신고가 접수되었습니다.');
                 } else {

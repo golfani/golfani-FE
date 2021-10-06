@@ -5,6 +5,7 @@ import {useCallback, useRef, useState} from "react";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import {deleteFeed, IFeedContent} from "src/apis/Feed";
 import ReportModal from "./ReportModal";
+import {getCookie} from "src/utils/cookieUtil";
 
 export type TRef = "FEED" | "POST" | "FEED_REPLY" | "POST_REPLY"
 
@@ -15,9 +16,8 @@ export interface DetailMenuModalProps {
     type: TRef
 }
 
-const userId = "gudwh14";
-
 const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
+    const userId = getCookie('userId');
     const ref = useRef<HTMLDivElement>(null);
     const queryClient = useQueryClient();
     const deleteFeedReplyMutate = useMutation(() => deleteFeedReply(props.target.id));

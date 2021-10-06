@@ -1,7 +1,9 @@
 import axios from "axios";
+import {getCookie} from "src/utils/cookieUtil";
+import {securityAxios} from "src/security/axios";
 
 const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/likes`;
-
+const userId = getCookie('userId');
 type TLikes = "FEED" | "POST" | "REPLY";
 
 export interface ILikesDto {
@@ -17,9 +19,8 @@ export interface ILikesDto {
  * 좋아요 등록,취소 요청하는 API 입니다.
  * @param type
  * @param id
- * @param userId
  */
-export const registerLikes = async (type : TLikes, id : number, userId : string) => {
+export const registerLikes = async (type : TLikes, id : number) => {
     const data : ILikesDto = {
         postId : null,
         feedId : null,
@@ -32,7 +33,7 @@ export const registerLikes = async (type : TLikes, id : number, userId : string)
     else if (type === "POST") data.postId = id;
     else if (type === "REPLY") data.replyId = id;
 
-    const response = await axios.post(API_URL,data);
+    const response = await securityAxios.post(API_URL,data);
     return response;
 }
 
@@ -50,7 +51,7 @@ export const getFeedLikes = async (feedId : number) => {
  * @param memberId
  * @param feedId
  */
-export const getUserIsFeedLikes = async (userId : string, feedId : number) => {
+export const getUserIsFeedLikes = async (feedId : number) => {
     const response = await axios.get(`${API_URL}/feed/${feedId}/${userId}`);
     return response.data;
 }
@@ -69,7 +70,7 @@ export const getReplyLikes = async (replyId : number) => {
  * @param userId
  * @param replyId
  */
-export const getUserIsReplyLikes = async (userId : string, replyId : number) => {
+export const getUserIsReplyLikes = async (replyId : number) => {
     const response = await axios.get(`${API_URL}/reply/${replyId}/${userId}`);
     return response.data;
 }

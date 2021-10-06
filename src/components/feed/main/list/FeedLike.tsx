@@ -15,10 +15,10 @@ const FeedLike = ({feed} : IFeedLikeProps) : JSX.Element => {
     const totalLikesQuery = useQuery<number,Error>(['feedLikes',feed.id], () => getFeedLikes(feed.id),{
         staleTime : 1000 * 60
     })
-    const userIsFeedLikes = useQuery<ILikesDto,Error>(['isFeedLikes',feed.id], () => getUserIsFeedLikes("gudwh14",feed.id),{
+    const userIsFeedLikes = useQuery<ILikesDto,Error>(['isFeedLikes',feed.id], () => getUserIsFeedLikes(feed.id),{
         staleTime : 1000 * 60
     })
-    const mutation = useMutation(()=> registerLikes("FEED",feed.id,"gudwh14"));
+    const mutation = useMutation(()=> registerLikes("FEED",feed.id));
 
     const onRegisterLikes = useCallback( async ()=> {
         try {
