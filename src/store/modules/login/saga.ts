@@ -20,6 +20,7 @@ function* handleLoginSaga(action : PayloadAction<LoginMember>) {
             maxAge : 60 * 60 * 24 * 7,
         });
         yield put(loginAsyncSuccess());
+        yield window.location.reload();
     }
     catch (error) {
         yield put(loginAsyncError({error : "아이디, 비밀번호가 일치하지 않습니다."}));
