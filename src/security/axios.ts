@@ -26,7 +26,7 @@ securityAxios.interceptors.response.use((config) => {
                 if (error.response.body === '재발급 실패') {
                     removeCookie('userId');
                     removeCookie('refreshToken');
-                    window.location.href = "http://localhost:3000/login";
+                    window.location.href = 'login';
                     alert('로그인 세션 만료, 다시 로그인 해주세요');
                 }
             }
@@ -35,7 +35,7 @@ securityAxios.interceptors.response.use((config) => {
             return Promise.reject(error);
         }
     } else {
-        window.location.href = "http://localhost:3000/login";
+        window.location.href = 'login';
     }
     return Promise.reject(error);
 });
