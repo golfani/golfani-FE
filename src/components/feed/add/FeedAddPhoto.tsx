@@ -1,9 +1,8 @@
 import style from './feedAddPhoto.module.css'
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import {ChangeEvent, useEffect, useState} from "react";
-import Modal from "../../modals/Modal";
-import useFeedAdd from "../../../store/modules/feedAdd/feedAddHook";
-import {IImg} from "../../../store/modules/feedAdd/feedAdd";
+import {ChangeEvent, useState} from "react";
+import useFeedAdd from "src/store/modules/feedAdd/feedAddHook";
+import {IImg} from "src/store/modules/feedAdd/feedAdd";
+import {dataURLtoFile} from "src/utils/fileUtil";
 
 const FeedAddPhoto = () : JSX.Element => {
     const [imgFile, setImgFile] = useState<Array<File>>([]);
@@ -22,12 +21,37 @@ const FeedAddPhoto = () : JSX.Element => {
         }
         const file : File = input.files[0]; // file 추출하기
         const fileUrl = URL.createObjectURL(file); // file 로 URL 만들기
+        let canvas = window.document.createElement('canvas');
+        let ctx = canvas.getContext('2d');
+        let canvasImage = new Image();
+        canvasImage.src = fileUrl;
+        const maxWidth = 1280;
+        const maxHeight = 1280;
 
-        const img : IImg = {
-            imgFile : file,
-            imgFileUrl : fileUrl
+        canvasImage.onload = () => {
+            let width = canvasImage.width;
+            let height = canvasImage.height;
+            if(width> height) {
+                if(width > maxWidth) {
+                    height = height * maxWidth / width;
+                    width = maxWidth;
+                }
+            } else {
+                if(height > maxHeight) {
+                    width = width * maxHeight / height;
+                    height = maxHeight;
+                }
+            }
+            canvas.width = width;
+            canvas.height = height;
+            ctx?.drawImage(canvasImage, 0 ,0, width, height);
+            const resizeImageUrl = canvas.toDataURL(file.type, 0.75);
+            const img : IImg = {
+                imgFile : dataURLtoFile(resizeImageUrl,file.name),
+                imgFileUrl : resizeImageUrl
+            }
+            onAddImg(img);
         }
-        onAddImg(img);
     }
 
     const handleClickImage = (id : number) => {
