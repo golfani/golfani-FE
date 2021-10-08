@@ -23,7 +23,7 @@ securityAxios.interceptors.response.use((config) => {
                 securityAxios.defaults.headers.common['Authorization'] = `Bearer ${response.data}`;
                 return securityAxios(originalRequest);
             } catch (e) {
-                if (error.response.body === '재발급 실패') {
+                if (e.response.data === '재발급 실패') {
                     removeCookie('userId');
                     removeCookie('refreshToken');
                     window.location.href = 'login';
