@@ -59,3 +59,14 @@
         opacity: 1;
     }
 }
+
+.nothing_show_txt {
+    display: inline-block;
+    width: 100%;
+    line-height: 200px;
+    text-align: center;
+    user-select: none;
+    font-size: 20px;
+    letter-spacing: -1px;
+    color: #bababa;
+}

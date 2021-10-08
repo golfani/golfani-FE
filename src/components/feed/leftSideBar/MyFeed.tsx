@@ -26,11 +26,16 @@ const MyFeed = () : JSX.Element => {
             </div>
             <div className={style.thumbnail_box}>
                 {
-                    myFeedQuery.data?.pages.map((page)=>(
-                        page.content.map((feed)=> (
-                            <FeedThumbnail feed={feed}/>
-                        ))
-                    ))
+                    myFeedQuery.data?.pages.map((page)=> {
+                        if(page.content.length) {
+                            page.content.map((feed) => (
+                                <FeedThumbnail feed={feed}/>
+                            ))
+                        }
+                        else {
+                            return <span className={style.nothing_show_txt}>피드가 존재하지 않습니다</span>
+                        }
+                    })
                 }
             </div>
         </div>
