@@ -28,8 +28,8 @@ const MyFeed = () : JSX.Element => {
                 {
                     myFeedQuery.data?.pages.map((page)=> {
                         if(page.content.length) {
-                            page.content.map((feed) => (
-                                <FeedThumbnail feed={feed}/>
+                            return page.content.map((feed : IFeedContent) => (
+                                <FeedThumbnail key={feed.id} feed={feed}/>
                             ))
                         }
                         else {
