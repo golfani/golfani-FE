@@ -78,4 +78,5 @@
     border: 1px solid gray;
     border-radius: 0.32rem;
     cursor: pointer;
+    object-fit: cover;
 }
