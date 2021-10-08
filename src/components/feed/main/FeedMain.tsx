@@ -6,18 +6,20 @@ import useFeedMenu from "src/store/modules/feedMenu/feedMenuHook";
 import AddIcon from '@material-ui/icons/Add';
 import {useRouter} from "next/router";
 import {useEffect} from "react";
+import {getCookie} from "src/utils/cookieUtil";
 
 const FeedMain = () : JSX.Element => {
     const {type} = useFeedType();
     const {menu,onInitMenu} = useFeedMenu();
     const router = useRouter();
+    const userId = getCookie('userId');
 
     useEffect(()=> {
         onInitMenu();
     },[])
 
     const handleClickWrite = () => {
-        router.push('feed/write');
+        userId ? router.push('/feed/write') : router.push('/login');
     }
 
     return (
