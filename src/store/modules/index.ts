@@ -12,6 +12,7 @@ import feedAdd from "./feedAdd/feedAdd";
 import {tagSaga} from "./tag/saga";
 import tag from "./tag/tag";
 import notice from "./notice/notice";
+import chatRoom from "./chat/chatRoom";
 
 
 interface SagaStore extends Store {
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
     feedAdd : feedAdd,
     tag : tag,
     notice : notice,
+    chatRoom : chatRoom,
 })
 
 // 스토어 생성
@@ -46,14 +48,14 @@ export const store = () => {
         };
         store = createStore(
             persistReducer(persistConfig,rootReducer),
-            applyMiddleware(sagaMiddleware,logger)
+            applyMiddleware(sagaMiddleware)
         );
 
     }
     else {
         store = configureStore({
             reducer: rootReducer,
-            middleware: [sagaMiddleware,logger]
+            middleware: [sagaMiddleware]
         });
     }
 
