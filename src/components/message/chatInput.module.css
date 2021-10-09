@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 40px;
+}
+
+.form {
+    padding: 5px 20px;
+    display: flex;
+    /*background-color: #f0f2f5;*/
+    border: 1px solid #8729ff;
+    width: 90%;
+    height: 40px;
+    border-radius: 18px;
+}
+
+.input {
+    flex: 1;
+    overflow: auto;
+    border: none;
+    margin-right: 5px;
+    background-color: transparent;
+    padding: 8px 0;
+}
+
+.send_button:enabled {
+    color: black
+}

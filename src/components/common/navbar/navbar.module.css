@@ -16,7 +16,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 1000px;
+    width: 100%;
+    max-width: 1040px;
+    padding: 0 20px;
     height: 80px;
     background-color: #fff;
 }
