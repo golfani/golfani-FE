@@ -6,7 +6,7 @@ interface AxiosCustomRequestConfig extends AxiosRequestConfig {
     retryCount : number
 }
 
-const MAX_RETRY_COUNT = 3;
+const MAX_RETRY_COUNT = 2;
 export const securityAxios = axios.create();
 
 securityAxios.interceptors.response.use((config) => {
@@ -16,7 +16,7 @@ securityAxios.interceptors.response.use((config) => {
     originalRequest.retryCount = originalRequest.retryCount ?? 0;
     const userId = getCookie('userId');
     if (userId) {
-        if(originalRequest.retryCount <= MAX_RETRY_COUNT) {
+        if(originalRequest.retryCount < MAX_RETRY_COUNT) {
             try {
                 originalRequest.retryCount += 1;
                 const response = await regenerateAccessToken(userId);
