@@ -9,6 +9,7 @@ import {getFeedReplyCount} from "src/apis/Reply";
 import Image from 'next/image'
 import FeedModal from "src/components/modals/FeedModal";
 import {useCallback, useState} from "react";
+import UserName from "src/components/common/UserName";
 
 const CardItem = ({feed} : IFeedProps) : JSX.Element => {
     const [feedModalOpen,setFeedModalOpen] = useState(false);
@@ -43,7 +44,7 @@ const CardItem = ({feed} : IFeedProps) : JSX.Element => {
             }
             <div className={style.user_box}>
                 <img className={style.user_img} src={faker.image.avatar()}/>
-                <span className={style.user_id_txt}>{feed.userId}</span>
+                <UserName userName={feed.userId}/>
             </div>
             <div className={style.main_box}>
                 {renderTagList}

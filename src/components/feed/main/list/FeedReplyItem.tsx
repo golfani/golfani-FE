@@ -11,6 +11,7 @@ import {getReply, getTotalReply, IReplyDto} from "src/apis/Reply";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import DetailMenuModal from "src/components/modals/DetailMenuModal";
+import UserName from "src/components/common/UserName";
 
 
 const FeedReplyItem = ({reply} : IReplyProps) => {
@@ -91,7 +92,7 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
 
     return (
         <div className={style.container}>
-            <span className={style.user_txt}>{reply.userId}</span>
+            <UserName userName={reply.userId}/>
             <div className={style.reply_content_box} ref={ref}>
                 <div className={style.reply_main_box}>
                     <div className={style.text_box}>

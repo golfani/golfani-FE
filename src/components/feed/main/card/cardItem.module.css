@@ -13,6 +13,7 @@
 
 .user_box {
     display: flex;
+    align-items: center;
 }
 
 .user_img {
