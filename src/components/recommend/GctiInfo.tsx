@@ -1,6 +1,5 @@
 import style from "./gctiInfo.module.css";
 import Image from "next/image";
-import img from "public/img.png";
 import ArrowDropDownCircleRoundedIcon from '@material-ui/icons/ArrowDropDownCircleRounded';
 
 interface GctiInfoProps {
@@ -13,7 +12,6 @@ const GctiInfo = ({scrollToRef} : GctiInfoProps) : JSX.Element => {
             <h1 className={style.title_txt}>골프 장비추천</h1>
             <span className={style.title_sub_txt}>나의 골프장비 성향을 통해 장비추천을 받아보세요</span>
             <div className={style.gcti_box}>
-                <Image className={style.img} src={img}/>
                 <span className={style.gcti_txt}>ESFP</span>
                 <span
                     className={style.gcti_sub_txt}>이별에 대한 미련이 없는편<br/>슬퍼하는 시간에 많은 신경을 쓰지 않고<br/>새로운 사람을 만나는데 신경을 씀</span>

@@ -30,7 +30,7 @@
 }
 
 .gcti_box {
-    height: 200px;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
