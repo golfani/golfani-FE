@@ -22,6 +22,7 @@ export interface IFeedContent {
     createdTime : string
     modifiedTime : string
     likesCount : number
+    urlList : string[]
 }
 
 // API 주소입니다.
@@ -91,12 +92,21 @@ export const getTagSearchFeed = async (page : number = 0, size : number = 6, sea
 }
 
 /**
- * 해당 유저의 피드 리스트를 요청하는 API
+ * 해당 유저의 피드 리스트를 요청하는 API (페이지)
  * @param page
  * @param size
  * @param userId
  */
 export const getUserFeed = async (page : number = 0, size : number = 6, userId : string) => {
     const response = await axios.get(`${API_URL}/recent/${userId}?page=${page}&size=${size}`);
+    return response.data;
+}
+
+/**
+ * 해당 유저의 모든피드를 요청하는 API
+ * @param userId
+ */
+export const getAllUserFeed = async (userId : string) => {
+    const response = await axios.get(`${API_URL}/all/${userId}`);
     return response.data;
 }
