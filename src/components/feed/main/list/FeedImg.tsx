@@ -4,7 +4,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {IFeedProps} from "src/domain/Feed";
 import {useMutation, useQuery, useQueryClient} from "react-query";
-import {getFeedPicture, getPictureFile, IPictureDto, PICTURE_API_URL} from "src/apis/Picture";
 import Image from 'next/image';
 import {registerLikes} from "src/apis/Likes";
 import {useCallback, useState} from "react";
@@ -42,9 +41,6 @@ const settings = {
 
 const FeedImg = ({feed} : IFeedProps) : JSX.Element => {
     const queryClient = useQueryClient();
-    const imageQuery = useQuery<IPictureDto[]>(['feedImg',feed.id],()=>getFeedPicture(feed.id), {
-        staleTime : 1000 * 60 * 10
-    });
     const [toastModalOpen, setToastModalOpen] = useState(false);
 
     const likeMutation = useMutation(()=> registerLikes("FEED",feed.id));
@@ -78,11 +74,15 @@ const FeedImg = ({feed} : IFeedProps) : JSX.Element => {
     return (
         <div className={style.container} onDoubleClick={handleDoubleClick}>
             <Slider {...settings}>
-                {imageQuery.data?.map((image)=> (
-                    <div key={image.id}>
-                        <Image className={style.img} src={getPictureFile(image.path,image.filename) as any} width={600} height={550}/>
-                    </div>
-                ))}
+                {feed.urlList.map((image,index)=> {
+                    if(index % 3 === 0) {
+                        return (
+                            <div key={index}>
+                                <Image className={style.img} src={image} width={600} height={550} quality={100}/>
+                            </div>
+                        )
+                    }
+                })}
             </Slider>
             {toastModalOpen ? <ToastModal refUserId={feed.userId}/> : <></>}
         </div>

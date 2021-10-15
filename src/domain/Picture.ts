@@ -1,0 +1,3 @@
+export const HIGH_LEVEL_FIRST_PICTURE = 0;
+export const MID_LEVEL_FIRST_PICTURE = 1;
+export const LOW_LEVEL_FIRST_PICTURE = 2;
