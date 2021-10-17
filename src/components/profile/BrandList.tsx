@@ -4,7 +4,7 @@ import BrandItem from "./BrandItem";
 const BrandList = () : JSX.Element => {
     return (
         <div className={style.container}>
-            <span className={style.title_txt}>내 아이템</span>
+            <span className={style.title_txt}>보유 브랜드</span>
             <BrandItem/>
         </div>
     );

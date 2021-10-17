@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.feed_row_box {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.feed_box {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    cursor: pointer;
+}
+
+.feed_box + .feed_box {
+    margin-left: 50px;
+}
+
+.img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
