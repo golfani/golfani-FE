@@ -1,6 +1,7 @@
 import axios from "axios";
 import {IUser} from "src/store/modules/login/login";
 import {getCookie} from "src/utils/cookieUtil";
+import {securityAxios} from "src/security/axios";
 
 export interface IMember {
     id : number
@@ -145,7 +146,7 @@ export const findUserPw = async (userId : string, email : string) => {
  */
 export const getMember = async (userId : string) => {
     const response = await axios.get(`${API_URL}/${userId}`);
-    return response;
+    return response.data;
 }
 
 /**
@@ -155,13 +156,10 @@ export const getMember = async (userId : string) => {
  */
 export const modifyMemberPassword = async (userId : string, password : string) => {
     try {
-        const memberResponse = await getMember(userId);
-        if(memberResponse.status === 200) {
-            const member : IMember = memberResponse.data;
-            member.password = password;
-            const modifyResponse = await axios.put(API_URL,member);
-            return modifyResponse;
-        }
+        const member : IMember = await getMember(userId);
+        member.password = password;
+        const modifyResponse = await axios.put(API_URL,member);
+        return modifyResponse;
     }
     catch (e) {
         console.log(e);
@@ -179,4 +177,24 @@ export const regenerateAccessToken = async (userId : string) => {
         }
     })
     return response;
+}
+
+/**
+ * 유저의 프로필 사진을 등록하는 API
+ * @param imgFile
+ */
+export const registerProfileImage = async (imgFile : File) => {
+    const formData = new FormData();
+    formData.append('uploadFiles',imgFile);
+    formData.append('user_id',getCookie('userId'));
+    const response = await securityAxios.post(`${API_URL}/profile`,formData);
+    return response.data;
+}
+
+/**
+ * 유저의 프로필 사진을 불러오는 API
+ * @param userId
+ */
+export const getProfileImage = (userId : string, quality : string) => {
+    return `${API_URL}/profile/${userId}?quality=${quality}`;
 }
