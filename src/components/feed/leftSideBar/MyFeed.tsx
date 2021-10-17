@@ -5,16 +5,18 @@ import {useInfiniteQuery} from "react-query";
 import {IPages} from "src/domain/Page";
 import {getUserFeed, IFeedContent} from "src/apis/Feed";
 import {getCookie} from "src/utils/cookieUtil";
+import {useRouter} from "next/router";
 
 
 const MyFeed = () : JSX.Element => {
     const userId = getCookie('userId');
-    const myFeedQuery = useInfiniteQuery<IPages<IFeedContent>>(['userFeed',userId],()=>getUserFeed(0,6,userId),{
+    const router = useRouter();
+    const myFeedQuery = useInfiniteQuery<IPages<IFeedContent>>(['recentFeed',userId],()=>getUserFeed(0,6,userId),{
         staleTime : 1000 * 60
     })
 
     const handleClickMoreTxt = () => {
-        // Todo 마이페이지 -> 내 피드 모두 보러가기 페이지로 이동
+        userId ? router.push(`/profile/${userId}`) : router.push('/login');
     }
 
     return (
