@@ -9,18 +9,28 @@ import Image from 'next/image'
 import FeedModal from "src/components/modals/FeedModal";
 import {useCallback, useState} from "react";
 import UserName from "src/components/common/UserName";
+import {useRouter} from "next/router";
 
 const CardItem = ({feed} : IFeedProps) : JSX.Element => {
     const [feedModalOpen,setFeedModalOpen] = useState(false);
+    const router = useRouter();
 
     const replyTotalQuery = useQuery(['feedReplyCount',feed.id], ()=>getFeedReplyCount(feed.id), {
         staleTime : 1000 * 60
     })
 
+    const onSearchTag = (tag : string) => {
+        router.push(`/feed?search=${tag}`);
+    }
+
+    const handleClickTag = (tag : string) => {
+        onSearchTag(tag);
+    }
+
     const renderTagList = feed.tag.split('#').map((tag,index)=> {
         if(index > 0) {
             return (
-                <span key={tag} className={style.main_txt}>{`#${tag}`}</span>
+                <span key={tag} className={style.main_txt} onClick={()=>handleClickTag(tag)}>{`#${tag}`}</span>
             )
         }
     });

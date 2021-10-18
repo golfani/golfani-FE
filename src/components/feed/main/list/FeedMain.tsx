@@ -3,17 +3,27 @@ import * as faker from "faker";
 import {IFeedContent} from "src/apis/Feed";
 import {dateDiff} from "src/utils/dateUtil";
 import UserName from "src/components/common/UserName";
+import {useRouter} from "next/router";
 
 interface IFeedMainProps {
     feed : IFeedContent
 }
 
 const FeedMain =({feed} : IFeedMainProps) : JSX.Element => {
+    const router = useRouter();
+
+    const onSearchTag = (tag : string) => {
+        router.push(`/feed?search=${tag}`);
+    }
+
+    const handleClickTag = (tag : string) => {
+        onSearchTag(tag);
+    }
 
     const renderTagList = feed.tag.split("#").map((item,index) => {
         if(index > 0) {
             return (
-                <span key={item} className={style.tag_txt}>{`#${item}`}</span>
+                <span key={item} className={style.tag_txt} onClick={()=>handleClickTag(item)}>{`#${item}`}</span>
             )
         }
     });
