@@ -32,10 +32,22 @@ const Login = () : JSX.Element => {
         }
     },[]);
 
+    const onRouteNaverLoginPage = () => {
+        if(typeof window !== 'undefined') {
+            window.location.href = 'https://golfani.com:8080/oauth2/authorization/naver';
+        }
+    }
+
+    const onRouteKakaoLoginPage = () => {
+        if(typeof window !== 'undefined') {
+            window.location.href = 'https://golfani.com:8080/oauth2/authorization/kakao';
+        }
+    }
+
     return (
         <div className={style.container}>
             <div>
-                <span className={style.logo_txt}>DAILY SHOT</span>
+                <span className={style.logo_txt}>GOLF ANI</span>
                 <div className={style.login_box}>
                     <form onSubmit={handleSubmit(handleLogin)}>
                         <div className={style.input_box}>
@@ -64,8 +76,8 @@ const Login = () : JSX.Element => {
                 <div className={style.divider}></div>
                 <div className={style.sns_box}>
                     {/*<span className={style.sns_login_txt}>소셜 로그인</span>*/}
-                    <span className={style.kakao_login_btn}>카카오 로그인</span>
-                    <span className={style.naver_login_btn}>네이버 로그인</span>
+                    <span className={style.kakao_login_btn} onClick={onRouteKakaoLoginPage}>카카오 로그인</span>
+                    <span className={style.naver_login_btn} onClick={onRouteNaverLoginPage}>네이버 로그인</span>
                 </div>
             </div>
         </div>
