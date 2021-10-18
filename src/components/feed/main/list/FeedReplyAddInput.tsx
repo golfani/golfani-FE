@@ -1,6 +1,6 @@
 import style from "./feedReplyAddInput.module.css";
 import {useMutation, useQueryClient} from "react-query";
-import {FormEvent, useCallback, useState} from "react";
+import {ChangeEvent, useCallback, useRef, useState} from "react";
 import {registerReply} from "src/apis/Reply";
 import {IFeedReplyAddProps} from "src/domain/Reply";
 
@@ -9,6 +9,7 @@ const FeedReplyAddInput = ({feedId, refId, refUser} : IFeedReplyAddProps) : JSX.
     const [replyPayload, setReplyPayload] = useState("");
     const commentMutation = useMutation(()=>registerReply("FEED",feedId,replyPayload));
     const replyMutation = useMutation(()=>registerReply("FEED_REPLY",feedId,replyPayload,refId,refUser));
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
     const onRegisterReply = useCallback(async ()=> {
         try {
@@ -38,16 +39,42 @@ const FeedReplyAddInput = ({feedId, refId, refUser} : IFeedReplyAddProps) : JSX.
         }
     },[commentMutation])
 
-    const handleSubmit = async (event : FormEvent) => {
-        event.preventDefault();
+    const handleSubmit = async () => {
         refId ? await onRegisterReply(): await onRegisterComment();
     }
 
+    const handleResizeHeight = () => {
+        if(textAreaRef.current) {
+            textAreaRef.current.style.height = '35px';
+            textAreaRef.current.style.height = textAreaRef.current?.scrollHeight + "px";
+        }
+    }
+
+    const handleChangeTextArea = (event : ChangeEvent) => {
+        const input = event.target as HTMLTextAreaElement;
+        setReplyPayload(input.value);
+        handleResizeHeight();
+    }
+
+    const handleTextAreaKeyPress = async (event : React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if(event.key === 'Enter' && replyPayload.replace(/\s/g, '').length) {
+            if(!event.shiftKey) {
+                event.preventDefault();
+                await handleSubmit();
+            }
+        }
+        else if(event.key === 'Enter') {
+            if(!event.shiftKey) {
+                event.preventDefault();
+            }
+        }
+    }
+
     return (
-        <form className={style.form} onSubmit={handleSubmit}>
-            <input value={replyPayload} onChange={(e)=> setReplyPayload(e.target.value)} className={style.input} placeholder={"댓글입력"}/>
-            <button disabled={replyPayload ? false : true} type={"submit"} className={replyPayload ? style.input_btn_active : style.input_btn_inactive}>입력</button>
-        </form>
+        <div className={style.form}>
+            <textarea value={replyPayload} onChange={handleChangeTextArea} onKeyPress={handleTextAreaKeyPress} className={style.input} placeholder={"댓글입력"} ref={textAreaRef}/>
+            <button disabled={!replyPayload} type={"submit"} className={style.input_btn}>입력</button>
+        </div>
     );
 };
 
