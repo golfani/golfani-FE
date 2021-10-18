@@ -1,10 +1,19 @@
 import style from "styles/signup.module.css";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {authEmail, fetchAuthCode, ISignUpMember, signUp, validateById} from "src/apis/Member";
+import {
+    authEmail,
+    fetchAuthCode,
+    IOauthSignUp,
+    ISignUpMember,
+    registerOauthSignUp,
+    signUp,
+    validateById
+} from "src/apis/Member";
 import {signUpSchema} from "../src/utils/yupUtil";
 import {ChangeEvent, useState} from "react";
 import {useRouter} from "next/router";
+import {getCookie, removeCookie} from "../src/utils/cookieUtil";
 
 type FormData = {
     id : string,
@@ -20,6 +29,7 @@ type FormData = {
 }
 
 const SignUp = () : JSX.Element=> {
+    const memberId = getCookie('memberId');
     const {register,getValues, handleSubmit, formState : {errors}} = useForm<FormData>({
         resolver : yupResolver(signUpSchema),
         mode : "onChange",
@@ -87,8 +97,7 @@ const SignUp = () : JSX.Element=> {
         await onAuth();
     }
 
-    // 회원가입 버튼 클릭
-    const onSubmit = async (data : FormData) => {
+    const onSingUp = async (data : FormData) => {
         const member  : ISignUpMember = {
             userId : data.id,
             password : data.password,
@@ -102,27 +111,71 @@ const SignUp = () : JSX.Element=> {
 
         if (auth) {
             try {
-                console.log(member);
                 const response = await signUp(member);
                 if (response.status === 200) {
                     router.push("/");
                 }
             } catch (e) {
-                console.log(e);
+                alert('[서버에러] 잠시 후 다시 시도해 주세요');
             }
         }
+    }
+
+    const onOauthSignUp = async (data : FormData) => {
+        const member  : IOauthSignUp = {
+            memberId : Number(memberId),
+            userId : data.id,
+            password : data.password,
+            username : data.name,
+            gender : data.gender,
+            year : data.year,
+            month : data.month,
+            day : data.day,
+            email : data.email
+        }
+
+        if (auth) {
+            try {
+                const response = await registerOauthSignUp(member);
+                if (response.status === 200) {
+                    removeCookie('memberId');
+                    router.push("/");
+                }
+            } catch (e) {
+                alert('[서버에러] 잠시 후 다시 시도해 주세요');
+            }
+        }
+    }
+
+    // 회원가입 버튼 클릭
+    const onSubmit = async (data : FormData) => {
+        memberId ? await onOauthSignUp(data) : await onSingUp(data);
     };
+
+    const onRouteNaverLoginPage = () => {
+        if(typeof window !== 'undefined') {
+            window.location.href = 'https://golfani.com:8080/oauth2/authorization/naver';
+        }
+    }
+
+    const onRouteKakaoLoginPage = () => {
+        if(typeof window !== 'undefined') {
+            window.location.href = 'https://golfani.com:8080/oauth2/authorization/kakao';
+        }
+    }
 
     return (
         <div className={style.container}>
             <div>
-                <h1>DAILY SHOT</h1>
+                <h1>GOLF ANI</h1>
+                {memberId ||
                 <div className={style.sns_box}>
                     <span className={style.sns_main_txt}>SNS 계정을 보유하고 계신가요?</span>
                     <span className={style.sns_sub_txt}>SNS 계졍을 이용해 로그인</span>
-                    <span className={style.kakao_login_btn}>카카오 로그인</span>
-                    <span className={style.naver_login_btn}>네이버 로그인</span>
+                    <span className={style.kakao_login_btn} onClick={onRouteKakaoLoginPage}>카카오 로그인</span>
+                    <span className={style.naver_login_btn} onClick={onRouteNaverLoginPage}>네이버 로그인</span>
                 </div>
+                }
                 <form className={style.form_box} onSubmit={handleSubmit(onSubmit)}>
                     <div className={style.input_box}>
                         <span className={style.input_title_txt}>아이디</span>
