@@ -37,6 +37,18 @@ export interface ISignUpMember {
     email : string
 }
 
+export interface IOauthSignUp {
+    memberId : number
+    userId : string
+    password : string
+    username : string
+    gender : string
+    year : number
+    month : number
+    day : number
+    email : string
+}
+
 export type LoginMember = {
     userId: string,
     password: string
@@ -197,4 +209,13 @@ export const registerProfileImage = async (imgFile : File) => {
  */
 export const getProfileImage = (userId : string, quality : string) => {
     return `${API_URL}/profile/${userId}?quality=${quality}`;
+}
+
+/**
+ * Oauth 회원가입 API
+ * @param member
+ */
+export const registerOauthSignUp = async (member : IOauthSignUp) => {
+    const response = axios.put(`${API_URL}`,member);
+    return response;
 }
