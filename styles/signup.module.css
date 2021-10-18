@@ -92,7 +92,7 @@
 }
 
 .input:focus {
-    outline-color: #8729ff;
+    outline: auto #8729ff;
 }
 
 .birth_box {
