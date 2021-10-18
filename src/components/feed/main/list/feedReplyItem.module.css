@@ -1,6 +1,16 @@
 .container {
+    position: relative;
     display: flex;
     margin-bottom: 5px;
+}
+
+.container_reply {
+    position: relative;
+    display: flex;
+    margin-bottom: 5px;
+    background-color: #f9f5ff;
+    border-radius: 12px;
+    padding: 5px 10px;
 }
 
 .reply_content_box {
@@ -19,27 +29,30 @@
 }
 
 .reply_txt {
-    display: inline-block;
+    display: block;
     font-size: 14px;
+    max-width: 400px;
 }
 
 .bottom_box {
     display: flex;
     margin-top: 3px;
-    margin-bottom: 5px;
     text-align: start;
+    height: 20px;
 }
 
 .show_reply_txt {
-    color: gray;
+    color: #8729ff;
     font-size: 12px;
     margin-right: 5px;
     cursor: pointer;
     user-select: none;
+    font-weight: 500;
+    height: 16px;
 }
 
 .show_reply_txt:hover {
-    color: black;
+    border-bottom: 1px solid #8729ff;
 }
 
 .like_icon {
@@ -86,11 +99,12 @@
 
 .reply_add_box {
     width: 400px;
+    margin-bottom: 5px;
 }
 
 .userTag_txt {
     display: inline-block;
     font-size: 14px;
-    color: cornflowerblue;
+    color: #8729ff;
     margin-right: 5px;
 }

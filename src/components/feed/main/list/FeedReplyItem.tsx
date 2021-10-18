@@ -13,7 +13,6 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import DetailMenuModal from "src/components/modals/DetailMenuModal";
 import UserName from "src/components/common/UserName";
 
-
 const FeedReplyItem = ({reply} : IReplyProps) => {
     const [detailMenuModalOpen, setDetailMenuModalOpen] = useState(false);
     const [showReply , setShowReply] = useState(false);
@@ -91,13 +90,15 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
     }
 
     return (
-        <div className={style.container}>
+        <div className={reply.referenceId ? style.container_reply : style.container}>
             <UserName userName={reply.userId}/>
             <div className={style.reply_content_box} ref={ref}>
                 <div className={style.reply_main_box}>
                     <div className={style.text_box}>
                         {showRefUserTag()}
-                        <span className={style.reply_txt}>{reply.payload}</span>
+                        {reply.payload.split('\n').map((txt,index)=> (
+                            <span className={style.reply_txt} key={index}>{txt}</span>
+                        ))}
                     </div>
                     <span className={style.date_txt}>{(dateDiff(reply.createdTime))}</span>
                 </div>
