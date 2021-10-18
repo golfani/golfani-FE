@@ -4,6 +4,7 @@ import FeedMain from "./FeedMain";
 import FeedReply from "./FeedReply";
 import {IFeedContent} from "src/apis/Feed";
 import FeedSideMenu from "./FeedSideMenu";
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 export interface IFeedItemProps {
     feed : IFeedContent
@@ -19,6 +20,12 @@ const FeedItem = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
             <div>
                 <FeedMain feed={feed}/>
                 { feed.isReplyActive && <FeedReply feed={feed} isModal={isModal}/> }
+                { feed.isReplyActive ||
+                <div className={style.lock_box}>
+                    <LockOutlinedIcon fontSize={"inherit"} className={style.lock_icon}/>
+                    <span className={style.lock_txt}>댓글 기능이 비활성된 게시글입니다</span>
+                </div>
+                }
             </div>
         </div>
     );
