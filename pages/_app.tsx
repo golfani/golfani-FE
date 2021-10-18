@@ -30,7 +30,6 @@ function MyApp({ Component, pageProps }: AppProps) {
               <PersistGate persistor={persistor} loading={null}>
                   <Hydrate state={pageProps.dehydrateState}>
                       <Component {...pageProps} />
-                      <ReactQueryDevtoolsPanel/>
                   </Hydrate>
               </PersistGate>
           </Provider>
