@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {IFeedProps} from "src/domain/Feed";
-import {useMutation, useQuery, useQueryClient} from "react-query";
+import {useMutation, useQueryClient} from "react-query";
 import Image from 'next/image';
 import {registerLikes} from "src/apis/Likes";
 import {useCallback, useState} from "react";
@@ -78,7 +78,7 @@ const FeedImg = ({feed} : IFeedProps) : JSX.Element => {
                     if(index % 3 === 0) {
                         return (
                             <div key={index}>
-                                <Image className={style.img} src={image} width={600} height={550} quality={100}/>
+                                <Image className={style.img} src={image} width={600} height={550}/>
                             </div>
                         )
                     }

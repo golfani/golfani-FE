@@ -25,8 +25,8 @@ const FeedAddPhoto = () : JSX.Element => {
         let ctx = canvas.getContext('2d');
         let canvasImage = new Image();
         canvasImage.src = fileUrl;
-        const maxWidth = 1280;
-        const maxHeight = 1280;
+        const maxWidth = 1080;
+        const maxHeight = 1080;
 
         canvasImage.onload = () => {
             let width = canvasImage.width;
