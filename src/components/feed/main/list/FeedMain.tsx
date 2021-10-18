@@ -1,9 +1,10 @@
 import style from './feedMain.module.css';
-import * as faker from "faker";
 import {IFeedContent} from "src/apis/Feed";
 import {dateDiff} from "src/utils/dateUtil";
 import UserName from "src/components/common/UserName";
 import {useRouter} from "next/router";
+import Image from 'next/image';
+import {getProfileImage} from "src/apis/Member";
 
 interface IFeedMainProps {
     feed : IFeedContent
@@ -31,7 +32,7 @@ const FeedMain =({feed} : IFeedMainProps) : JSX.Element => {
     return (
         <div className={style.container}>
             <div className={style.user_box}>
-                <img className={style.img} src={faker.image.avatar()}/>
+                <Image src={getProfileImage(feed.userId,'MID')} className={style.img} width={35} height={35} quality={100}/>
                 <div className={style.user_sub_box}>
                     <UserName userName={feed.userId}/>
                     <span className={style.time_txt}>{dateDiff(feed.createdTime)}</span>

@@ -207,7 +207,7 @@ export const registerProfileImage = async (imgFile : File) => {
  * 유저의 프로필 사진을 불러오는 API
  * @param userId
  */
-export const getProfileImage = (userId : string, quality : string) => {
+export const getProfileImage = (userId : string = " ", quality : string) => {
     return `${API_URL}/profile/${userId}?quality=${quality}`;
 }
 
