@@ -216,6 +216,6 @@ export const getProfileImage = (userId : string = " ", quality : string) => {
  * @param member
  */
 export const registerOauthSignUp = async (member : IOauthSignUp) => {
-    const response = axios.put(`${API_URL}`,member);
+    const response = axios.post(`${API_URL}`,member);
     return response;
 }
