@@ -38,7 +38,7 @@ export interface ISignUpMember {
 }
 
 export interface IOauthSignUp {
-    memberId : number
+    id : number
     userId : string
     password : string
     username : string
@@ -216,6 +216,6 @@ export const getProfileImage = (userId : string = " ", quality : string) => {
  * @param member
  */
 export const registerOauthSignUp = async (member : IOauthSignUp) => {
-    const response = axios.post(`${API_URL}`,member);
+    const response = axios.put(`${API_URL}/oauth`,member);
     return response;
 }
