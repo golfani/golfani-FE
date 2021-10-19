@@ -29,7 +29,7 @@ type FormData = {
 }
 
 const SignUp = () : JSX.Element=> {
-    const memberId = getCookie('memberId');
+    const memberId = 1;
     const {register,getValues, handleSubmit, formState : {errors}} = useForm<FormData>({
         resolver : yupResolver(signUpSchema),
         mode : "onChange",
@@ -39,6 +39,7 @@ const SignUp = () : JSX.Element=> {
     const [auth, setAuth] = useState<boolean | null | undefined>(false); // 이메일 인증 변수입니다.
     const [readOnly, setReadOnly] = useState(false); // input readOnly 상태 관리 변수입니다.
     const router = useRouter();
+    const [isSendMail, setIsSendMail] = useState(false);
 
     // ID 중복 검사
     const onValidateId = async (e : ChangeEvent) => {
@@ -64,6 +65,7 @@ const SignUp = () : JSX.Element=> {
         }
         else {
             try {
+                setIsSendMail(true);
                 const response = await authEmail(getValues('email'));
             }
             catch (error) {
@@ -168,7 +170,7 @@ const SignUp = () : JSX.Element=> {
         <div className={style.container}>
             <div>
                 <h1>GOLF ANI</h1>
-                {memberId ||
+                {memberId ? <></> :
                 <div className={style.sns_box}>
                     <span className={style.sns_main_txt}>SNS 계정을 보유하고 계신가요?</span>
                     <span className={style.sns_sub_txt}>SNS 계졍을 이용해 로그인</span>
@@ -223,6 +225,7 @@ const SignUp = () : JSX.Element=> {
                             <span className={style.input_error_txt}>{errors.email?.message}</span>
                             <div>
                                 <span className={style.email_send_txt} onClick={sendMail}>인증코드 전송</span>
+                                {isSendMail && <span className={style.email_send_ok_txt}>메일이 발송되었습니다</span>}
                             </div>
                             <div className={style.code_box}>
                                 <div>

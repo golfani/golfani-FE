@@ -117,6 +117,13 @@
     cursor: pointer;
 }
 
+.email_send_ok_txt {
+    float: right;
+    font-size: 12px;
+    margin-top: 3px;
+    color: cornflowerblue;
+}
+
 .code_box {
     display: inline-block;
     height: 40px;
