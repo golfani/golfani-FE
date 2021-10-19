@@ -40,7 +40,7 @@ const FeedReplyAddInput = ({feedId, refId, refUser} : IFeedReplyAddProps) : JSX.
     },[commentMutation])
 
     const handleSubmit = async () => {
-        refId ? await onRegisterReply(): await onRegisterComment();
+        refId ? await onRegisterReply() : await onRegisterComment();
     }
 
     const handleResizeHeight = () => {
@@ -72,8 +72,8 @@ const FeedReplyAddInput = ({feedId, refId, refUser} : IFeedReplyAddProps) : JSX.
 
     return (
         <div className={style.form}>
-            <textarea value={replyPayload} onChange={handleChangeTextArea} onKeyPress={handleTextAreaKeyPress} className={style.input} placeholder={"댓글입력"} ref={textAreaRef}/>
-            <button disabled={!replyPayload} type={"submit"} className={style.input_btn}>입력</button>
+            <textarea value={replyPayload} onChange={handleChangeTextArea} onKeyPress={handleTextAreaKeyPress} className={style.input} placeholder={"피드에 댓글을 달아보세요!"} ref={textAreaRef}/>
+            <button disabled={!replyPayload.replace(/\s/g, '')} className={style.input_btn} onClick={handleSubmit}>입력</button>
         </div>
     );
 };
