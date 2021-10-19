@@ -6,7 +6,6 @@
     width: 150px;
     height: 150px;
     border-radius: 8px;
-    border: 1px solid gray;
     object-fit: cover;
     cursor: pointer;
 }
@@ -17,10 +16,11 @@
 }
 
 .user_img {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     margin-right: 10px;
+    object-fit: cover;
 }
 
 .user_id_txt {

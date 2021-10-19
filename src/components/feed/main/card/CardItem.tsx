@@ -1,5 +1,4 @@
 import style from './cardItem.module.css';
-import * as faker from "faker";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import {IFeedProps} from "src/domain/Feed";
@@ -10,6 +9,8 @@ import FeedModal from "src/components/modals/FeedModal";
 import {useCallback, useState} from "react";
 import UserName from "src/components/common/UserName";
 import {useRouter} from "next/router";
+import {getProfileImage} from "src/apis/Member";
+import {MID_LEVEL_FIRST_PICTURE} from "src/domain/Picture";
 
 const CardItem = ({feed} : IFeedProps) : JSX.Element => {
     const [feedModalOpen,setFeedModalOpen] = useState(false);
@@ -41,13 +42,13 @@ const CardItem = ({feed} : IFeedProps) : JSX.Element => {
 
     return (
         <div className={style.container}>
-            <Image className={style.thumbnail_img} src={feed.urlList[1]}
+            <img className={style.thumbnail_img} src={feed.urlList[MID_LEVEL_FIRST_PICTURE]}
                    width={150}
                    height={150}
                    onClick={handleImageClick}
             />
             <div className={style.user_box}>
-                <img className={style.user_img} src={faker.image.avatar()}/>
+                <img className={style.user_img} src={getProfileImage(feed.userId,'MID')}/>
                 <UserName userName={feed.userId}/>
             </div>
             <div className={style.main_box}>
