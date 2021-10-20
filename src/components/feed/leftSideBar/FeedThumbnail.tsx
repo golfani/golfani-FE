@@ -14,7 +14,7 @@ const FeedThumbnail = ({feed} : IFeedProps) => {
 
     return (
         <div className={style.container}>
-            <Image className={style.img}
+            <img className={style.img}
                    src={feed.urlList[LOW_LEVEL_FIRST_PICTURE]}
                    width={100}
                    height={100}

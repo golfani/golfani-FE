@@ -72,10 +72,9 @@ const UserProfile = ({member} : IProfileMemberProps) : JSX.Element => {
     return (
         <div className={style.container}>
             <div className={style.profile_box}>
-                <NextImage src={getProfileImage(member.userId,"HIGH")}
+                <img src={getProfileImage(member.userId,"HIGH")}
                            width={150}
                            height={150}
-                           quality={100}
                            className={style.img}
                 />
                 {hasRole && <label htmlFor={'input'} className={style.profile_img_btn}>프로필 사진 변경</label> }
