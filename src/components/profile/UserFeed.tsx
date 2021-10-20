@@ -40,7 +40,7 @@ const UserFeed = ({member} : IProfileMemberProps) : JSX.Element => {
                         <div className={style.feed_row_box} key={mIndex}>
                             {userFeedQuery.data.slice(mIndex,mIndex+3).map((nFeed)=> (
                                 <div className={style.feed_box} key={nFeed.id} onClick={()=>handleClickFeed(nFeed.id)}>
-                                    <Image className={style.img} src={nFeed.urlList[MID_LEVEL_FIRST_PICTURE]} width={300} height={300}/>
+                                    <img className={style.img} src={nFeed.urlList[MID_LEVEL_FIRST_PICTURE]} width={300} height={300}/>
                                 </div>
                             ))}
                         </div>
