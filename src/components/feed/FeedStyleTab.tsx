@@ -13,10 +13,10 @@ const FeedStyleTab = () : JSX.Element => {
 
     const onRoute = () => {
        if(search) {
-           // const url = window.location;
-           // url.assign("http://localhost:3000/feed");
-           router.push('/routing');
-           feedMenu.onInitMenu();
+           if(typeof window !== 'undefined') {
+               window.location.href = '/feed';
+               feedMenu.onInitMenu();
+           }
        }
     }
 

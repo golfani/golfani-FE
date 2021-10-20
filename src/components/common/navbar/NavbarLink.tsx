@@ -7,7 +7,14 @@ const NavbarLink = () : JSX.Element => {
     const where = router.pathname.split('/')[1];
 
     const onRoutePage = (page : string) => {
-        router.push(`/${page}`);
+        if(router.asPath === `/${page}`) {
+            if(typeof window !== 'undefined') {
+                window.location.href = `/${page}`;
+            }
+        }
+        else {
+            router.push(`/${page}`);
+        }
     }
 
     const handleClickLinkButton = (page : string) => {
