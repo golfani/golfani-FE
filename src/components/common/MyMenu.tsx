@@ -12,19 +12,32 @@ const MyMenu = (props : IMyMenuProps) : JSX.Element => {
     const router = useRouter();
     const notice = useNotice();
 
+    const onRoutePage = (routePath : string) => {
+        if(router.asPath === routePath) {
+            if(typeof window !== 'undefined') {
+                window.location.href = routePath;
+            }
+        }
+        else {
+            router.push(routePath);
+        }
+    }
+
     const handleClickProfile = () => {
-        router.push(`/profile/${userId}`);
+        onRoutePage(`/profile/${userId}`);
     }
 
     const handleClickMessage = () => {
-        router.push('/message');
+        onRoutePage('/message');
     }
 
     const handleClickLogout = () => {
-        removeCookie('userId');
-        removeCookie('refreshToken');
-        // 페이지 새로고침하여 JS 리로딩
-        router.reload();
+        if(typeof window !== 'undefined') {
+            removeCookie('userId');
+            removeCookie('refreshToken');
+            // 페이지 새로고침하여 JS 리로딩
+            router.reload();
+        }
     }
 
     return (
