@@ -11,6 +11,7 @@ import UserName from "src/components/common/UserName";
 import {useRouter} from "next/router";
 import {getProfileImage} from "src/apis/Member";
 import {MID_LEVEL_FIRST_PICTURE} from "src/domain/Picture";
+import UserProfileImage from "../../../common/UserProfileImage";
 
 const CardItem = ({feed} : IFeedProps) : JSX.Element => {
     const [feedModalOpen,setFeedModalOpen] = useState(false);
@@ -42,13 +43,19 @@ const CardItem = ({feed} : IFeedProps) : JSX.Element => {
 
     return (
         <div className={style.container}>
-            <img className={style.thumbnail_img} src={feed.urlList[MID_LEVEL_FIRST_PICTURE]}
-                   width={150}
-                   height={150}
-                   onClick={handleImageClick}
+            <img className={style.thumbnail_img}
+                 src={feed.urlList[MID_LEVEL_FIRST_PICTURE]}
+                 width={150}
+                 height={150}
+                 onClick={handleImageClick}
             />
             <div className={style.user_box}>
-                <img className={style.user_img} src={getProfileImage(feed.userId,'MID')}/>
+                <UserProfileImage
+                    userId={feed.userId}
+                    src={getProfileImage(feed.userId,'MID')}
+                    width={30}
+                    height={30}
+                />
                 <UserName userName={feed.userId}/>
             </div>
             <div className={style.main_box}>

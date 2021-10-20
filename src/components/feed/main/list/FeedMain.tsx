@@ -6,6 +6,7 @@ import {useRouter} from "next/router";
 import Image from 'next/image';
 import {getProfileImage} from "src/apis/Member";
 import {useState} from "react";
+import UserProfileImage from "../../../common/UserProfileImage";
 
 interface IFeedMainProps {
     feed : IFeedContent
@@ -44,7 +45,12 @@ const FeedMain =({feed} : IFeedMainProps) : JSX.Element => {
         <div className={style.container}>
             <div className={style.user_box}>
                 <div className={style.img_box}>
-                    <Image src={getProfileImage(feed.userId,'MID')} className={style.img} width={35} height={35} quality={100}/>
+                    <UserProfileImage
+                        userId={feed.userId}
+                        src={getProfileImage(feed.userId,'MID')}
+                        width={35}
+                        height={35}
+                    />
                 </div>
                 <div className={style.user_sub_box}>
                     <UserName userName={feed.userId}/>

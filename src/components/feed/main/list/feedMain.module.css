@@ -9,12 +9,10 @@
 }
 
 .user_sub_box {
-    margin-left: 10px;
 }
 
 .img_box {
     display: flex;
-    width: 40px;
     height: 40px;
     align-items: center;
 }
