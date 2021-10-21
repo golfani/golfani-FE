@@ -6,9 +6,10 @@ import UserPost from "src/components/profile/UserPost";
 import {GetServerSideProps} from "next";
 import {QueryClient, useQueryClient} from "react-query";
 import {getMember, IMember} from "src/apis/Member";
-import {dehydrate} from "react-query/hydration";
+import {dehydrate, Hydrate} from "react-query/hydration";
 import {ParsedUrlQuery} from "querystring";
 import {useRouter} from "next/router";
+import Custom404 from "pages/404";
 
 export interface IProfileMemberProps {
     member : IMember
@@ -17,16 +18,20 @@ export interface IProfileMemberProps {
 const Profile = () : JSX.Element => {
     const router = useRouter();
     const {userId} = router.query;
-    const member = useQueryClient().getQueryData<IMember>(['member',userId])!!;
+    const member = useQueryClient().getQueryData<IMember>(['member',userId]);
 
     return (
         <div className={style.container}>
             <Navbar/>
-            <div className={style.main_container}>
-                <UserProfile member={member}/>
-                <UserActivity member={member}/>
-                <UserPost member={member}/>
-            </div>
+            {member ?
+                <div className={style.main_container}>
+                    <UserProfile member={member}/>
+                    <UserActivity member={member}/>
+                    <UserPost member={member}/>
+                </div>
+                :
+                <Custom404/>
+            }
         </div>
     );
 };
