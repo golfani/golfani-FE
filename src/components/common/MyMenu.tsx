@@ -1,6 +1,7 @@
 import style from './myMenu.module.css';
 import {useRouter} from "next/router";
 import {getCookie, removeCookie} from "src/utils/cookieUtil";
+import useCustomRouter from "src/hooks/routerHook";
 
 interface IMyMenuProps {
     open : boolean
@@ -9,24 +10,14 @@ interface IMyMenuProps {
 const MyMenu = (props : IMyMenuProps) : JSX.Element => {
     const userId = getCookie('userId');
     const router = useRouter();
-
-    const onRoutePage = (routePath : string) => {
-        if(router.asPath === routePath) {
-            if(typeof window !== 'undefined') {
-                window.location.href = routePath;
-            }
-        }
-        else {
-            router.push(routePath);
-        }
-    }
+    const {onConflictRoute} = useCustomRouter();
 
     const handleClickProfile = () => {
-        onRoutePage(`/profile/${userId}`);
+        onConflictRoute(`/profile/${userId}`)
     }
 
     const handleClickMessage = () => {
-        onRoutePage('/message');
+        onConflictRoute('/message')
     }
 
     const handleClickLogout = () => {

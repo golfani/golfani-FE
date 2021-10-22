@@ -1,24 +1,15 @@
 import style from "./navbarLink.module.css";
 import Link from "next/link";
 import {useRouter} from "next/router";
+import useCustomRouter from "src/hooks/routerHook";
 
 const NavbarLink = () : JSX.Element => {
     const router = useRouter();
     const where = router.pathname.split('/')[1];
-
-    const onRoutePage = (page : string) => {
-        if(router.asPath === `/${page}`) {
-            if(typeof window !== 'undefined') {
-                window.location.href = `/${page}`;
-            }
-        }
-        else {
-            router.push(`/${page}`);
-        }
-    }
+    const {onConflictRoute} = useCustomRouter();
 
     const handleClickLinkButton = (page : string) => {
-        onRoutePage(page);
+        onConflictRoute(`/${page}`);
     }
 
     return (
