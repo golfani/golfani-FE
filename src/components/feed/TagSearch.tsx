@@ -4,7 +4,7 @@ import React, {ChangeEvent, FormEvent, useEffect, useRef, useState} from "react"
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import useTag from "src/store/modules/tag/tagHook";
 import useFeedMenu from "src/store/modules/feedMenu/feedMenuHook";
-import {useRouter} from "next/router";
+import useCustomRouter from "src/hooks/routerHook";
 
 const TagSearch = (): JSX.Element => {
     const tag = useTag();
@@ -12,10 +12,10 @@ const TagSearch = (): JSX.Element => {
     const [searchBox, setSearchBox] = useState(style.hide);
     const [tagName, setTagName] = useState("");
     const tagRef = useRef<HTMLDivElement>(null);
-    const router = useRouter();
     const [saveTagName, setSaveTagName] = useState("");
     const [deleteTagId, setDeleteTagId] = useState<number | null>(null);
     const [recentTagList, setRecentTagList] = useState<string[]>([]);
+    const {onConflictRoute} = useCustomRouter();
 
     /**
      * NEXT.JS SERVERSIDE 에서 web API 사용하기위해서는 useEffect 에서 사용해야 한다!
@@ -69,7 +69,7 @@ const TagSearch = (): JSX.Element => {
     // 검색한 태그 페이지로 이동하기
     const onRoute = (tag: string) => {
         onHideSearchBox();
-        router.push(`/feed?search=${tag}`);
+        onConflictRoute(`/feed?search=${tag}`);
         onInitInput();
     }
 

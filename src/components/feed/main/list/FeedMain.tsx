@@ -2,27 +2,22 @@ import style from './feedMain.module.css';
 import {IFeedContent} from "src/apis/Feed";
 import {dateDiff} from "src/utils/dateUtil";
 import UserName from "src/components/common/UserName";
-import {useRouter} from "next/router";
-import Image from 'next/image';
 import {getProfileImage} from "src/apis/Member";
 import {useState} from "react";
-import UserProfileImage from "../../../common/UserProfileImage";
+import UserProfileImage from "src/components/common/UserProfileImage";
+import useCustomRouter from "src/hooks/routerHook";
 
 interface IFeedMainProps {
     feed : IFeedContent
 }
 
 const FeedMain =({feed} : IFeedMainProps) : JSX.Element => {
-    const router = useRouter();
     const feedContent : string[] = feed.content.split('\n');
     const [isMoreContent, setIsMoreContent] = useState(false);
-
-    const onSearchTag = (tag : string) => {
-        router.push(`/feed?search=${tag}`);
-    }
+    const {onConflictRoute} = useCustomRouter();
 
     const handleClickTag = (tag : string) => {
-        onSearchTag(tag);
+        onConflictRoute(`/feed?search=${tag}`);
     }
 
     const onShowMoreContent = () => {
