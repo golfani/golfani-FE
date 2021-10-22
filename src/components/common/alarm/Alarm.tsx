@@ -4,11 +4,35 @@ import {useInfiniteQuery, useMutation, useQueryClient} from "react-query";
 import {getAlarm, setAllAlarmRead} from "src/apis/Alarm";
 import {IAlarm} from "src/domain/Alarm";
 import {IPages} from "src/domain/Page";
+import {useEffect, useRef} from "react";
 
 const Alarm = () : JSX.Element => {
     const queryClient = useQueryClient();
-    const alarmQuery = useInfiniteQuery<IPages<IAlarm>>('alarm',()=>getAlarm());
+    const alarmQuery = useInfiniteQuery<IPages<IAlarm>>('alarm',({pageParam = ''})=>getAlarm(pageParam),{
+        getNextPageParam : (lastPage) => {
+            const currentPage = lastPage.pageable.pageNumber;
+            if(currentPage+1 > lastPage.totalPages) {
+                return undefined;
+            }
+            return currentPage+1;
+        },
+    });
     const allAlarmMutate = useMutation(()=>setAllAlarmRead());
+    const observeRef = useRef<HTMLDivElement>(null);
+    const observer = useRef<IntersectionObserver>();
+
+    useEffect(()=> {
+        observer.current = new IntersectionObserver(intersectionObserver);
+        observeRef.current && observer.current?.observe(observeRef.current);
+    },[])
+
+    const intersectionObserver = (entries : IntersectionObserverEntry[], io : IntersectionObserver) => {
+        entries.forEach(async (entry) => {
+            if(entry.isIntersecting) {
+                await alarmQuery.fetchNextPage();
+            }
+        })
+    }
 
     const handleClickAllReadAlarm = async () => {
         try {
@@ -29,11 +53,14 @@ const Alarm = () : JSX.Element => {
                 <span className={style.title_txt}>알림</span>
                 <button className={style.allRead_btn} onClick={handleClickAllReadAlarm}>모두 읽기</button>
             </div>
+            <div className={style.item_box}>
             {alarmQuery.data?.pages.map((page)=> (
                 page.content.map((alarm)=> (
                     <AlarmItem alarm={alarm} key={alarm.id}/>
                 ))
             ))}
+            </div>
+            <div ref={observeRef}></div>
         </div>
     );
 };
