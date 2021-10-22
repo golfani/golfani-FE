@@ -24,7 +24,7 @@ export const getAlarm = async (page : number = 0, size : number = 10) => {
  * @param referId
  */
 export const sendAlarmBySocket = (alarmType : TAlarm, receiver : string, message : string, referId : number) => {
-    if(!receiver === userId) {
+    if(receiver !== userId) {
         const msgTemplate = `님이 회원님의`;
 
         const alarmMessage: TAlarmSendDto = {
@@ -34,7 +34,6 @@ export const sendAlarmBySocket = (alarmType : TAlarm, receiver : string, message
             alarmType: alarmType,
             referId: referId
         }
-
         publishAlarm(alarmMessage);
     }
     else {
