@@ -8,7 +8,7 @@ interface IUserProfileImageProps {
     height : number
 }
 
-const UserName = ({userId,src,width,height} : IUserProfileImageProps) : JSX.Element => {
+const UserProfileImage = ({userId,src,width,height} : IUserProfileImageProps) : JSX.Element => {
     const router = useRouter();
 
     const onRouteProfilePage = () => {
@@ -20,8 +20,15 @@ const UserName = ({userId,src,width,height} : IUserProfileImageProps) : JSX.Elem
     }
 
     return (
-        <img src={src} width={width} height={height} className={style.img} onClick={handleClickUserProfileImage}/>
+        <img
+            style={{minWidth : `${width}px`}}
+            src={src}
+            width={width}
+            height={height}
+            className={style.img}
+            onClick={handleClickUserProfileImage}
+        />
     );
 };
 
-export default UserName;
+export default UserProfileImage;

@@ -1,11 +1,13 @@
 import {regenerateAccessToken} from "../apis/Member";
 import {securityAxios} from "../security/axios";
 import {removeCookie} from "./cookieUtil";
+import {socket} from "../socket/socket";
 
 const onRegenerateAccessToken = async (userId : string) => {
     try {
         const response = await regenerateAccessToken(userId);
         securityAxios.defaults.headers.common['Authorization'] = `Bearer ${response.data}`;
+        socket.socketClient.connectHeaders['Authorization'] = response.data;
     }
     catch (e) {
         removeCookie('userId');

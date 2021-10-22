@@ -1,6 +1,5 @@
 import style from './myMenu.module.css';
 import {useRouter} from "next/router";
-import useNotice from "src/store/modules/notice/noticeHook";
 import {getCookie, removeCookie} from "src/utils/cookieUtil";
 
 interface IMyMenuProps {
@@ -10,7 +9,6 @@ interface IMyMenuProps {
 const MyMenu = (props : IMyMenuProps) : JSX.Element => {
     const userId = getCookie('userId');
     const router = useRouter();
-    const notice = useNotice();
 
     const onRoutePage = (routePath : string) => {
         if(router.asPath === routePath) {
@@ -45,7 +43,7 @@ const MyMenu = (props : IMyMenuProps) : JSX.Element => {
             <button className={style.menu_btn} onClick={handleClickProfile}>PROFILE</button>
             <div className={style.menu_btn} onClick={handleClickMessage}>
                 <span >MESSAGE</span>
-                <span className={style.message_count}>{notice.countNewMessage()}</span>
+                <span className={style.message_count}>{1}</span>
             </div>
             <button className={style.menu_btn} onClick={handleClickLogout}>로그아웃</button>
         </div>

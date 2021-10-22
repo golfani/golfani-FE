@@ -1,0 +1,31 @@
+.container {
+    display: inline-block;
+    position: absolute;
+    top: 40px;
+    right: -30px;
+    width: 370px;
+    height: 300px;
+    overflow: auto;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #d0d7de;
+    padding: 10px 15px 0;
+}
+
+.title_box {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.title_txt {
+    font-size: 16px;
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+.allRead_btn {
+    color: #8729ff;
+    font-size: 12px;
+    letter-spacing: -0.5px;
+    margin-left: auto;
+}
