@@ -1,12 +1,7 @@
 .container {
     display: flex;
-    margin-bottom: 10px;
-    cursor: pointer;
-}
-
-.img {
-    border-radius: 30%;
-    margin-right: 5px;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
 .userId_txt {
@@ -14,12 +9,13 @@
 }
 
 .content_box {
-    font-size: 13px;
+    font-size: 15px;
+    cursor: pointer;
 }
 
 .content_txt {
     color: #8729ff;
-    margin-right: 3px;
+    margin-right: 5px;
     font-weight: 500;
 }
 

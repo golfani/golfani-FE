@@ -11,7 +11,6 @@ import feedMenu from "./feedMenu/feedMenu";
 import feedAdd from "./feedAdd/feedAdd";
 import {tagSaga} from "./tag/saga";
 import tag from "./tag/tag";
-import notice from "./notice/notice";
 import chatRoom from "./chat/chatRoom";
 
 
@@ -26,7 +25,6 @@ const rootReducer = combineReducers({
     feedMenu : feedMenu,
     feedAdd : feedAdd,
     tag : tag,
-    notice : notice,
     chatRoom : chatRoom,
 })
 
@@ -44,7 +42,7 @@ export const store = () => {
         const persistConfig = {
             key : 'root',
             storage,
-            whitelist : ['notice']
+            whitelist : ['alarm']
         };
         store = createStore(
             persistReducer(persistConfig,rootReducer),

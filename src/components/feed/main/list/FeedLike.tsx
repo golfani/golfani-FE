@@ -5,6 +5,7 @@ import {IFeedContent} from "src/apis/Feed";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getFeedLikes, getUserIsFeedLikes, ILikesDto, registerLikes} from "src/apis/Likes";
 import {useCallback} from "react";
+import {sendAlarmBySocket} from "src/apis/Alarm";
 
 interface IFeedLikeProps {
     feed : IFeedContent
@@ -23,6 +24,7 @@ const FeedLike = ({feed} : IFeedLikeProps) : JSX.Element => {
     const onRegisterLikes = useCallback( async ()=> {
         try {
             const response = await mutation.mutateAsync();
+            userIsFeedLikes.data?.likes || sendAlarmBySocket('FEED',feed.userId,'피드를 좋아합니다.',feed.id);
         }
         catch (e) {
             console.log(e)
