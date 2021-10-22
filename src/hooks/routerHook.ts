@@ -4,7 +4,7 @@ const useCustomRouter = () => {
     const router = useRouter();
 
     const onConflictRoute = (path : string) => {
-        if(router.asPath === path) {
+        if(router.asPath === encodeURI(path)) {
             if(typeof window !== 'undefined') {
                 window.location.href = path;
             }
