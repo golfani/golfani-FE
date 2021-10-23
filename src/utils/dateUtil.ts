@@ -28,3 +28,47 @@ export const dateDiff = (date : string | Date) : string => {
 
     return diff;
 }
+
+const leftPad = (value : number) => {
+    if(value >= 10) {
+        return value;
+    }
+    return `0${value}`;
+}
+
+export const toStringByFormatting = (source : Date) => {
+    const year = source.getFullYear();
+    const month = leftPad(source.getMonth() + 1);
+    const day = leftPad(source.getDate());
+    const hour = source.getHours();
+    const minute = source.getMinutes();
+
+    return [year,month,day,hour,minute].join('.');
+}
+
+export const calcChatDate = (source : string) => {
+    const date = source.split('.');
+
+    let hour = Number(date[3]);
+    const minute = leftPad(Number(date[4]));
+
+    if(hour >= 12) {
+        return `오후 ${hour-12}:${minute}`;
+    }
+    else if(hour < 12) {
+        return `오전 ${hour}:${minute}`;
+    }
+}
+
+export const isTodayAlarm = (source : string | Date) => {
+    const nowDate = new Date();
+    const sourceDate = new Date(source);
+    if(nowDate.getFullYear() === sourceDate.getFullYear() &&
+        nowDate.getMonth() === sourceDate.getMonth() &&
+        nowDate.getDate() === sourceDate.getDate()) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
