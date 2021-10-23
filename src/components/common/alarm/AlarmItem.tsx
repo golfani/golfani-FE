@@ -33,11 +33,11 @@ const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
     }
 
     return (
-        <div style={{opacity : alarm.isRead ? 0.5 : 1}} className={style.container}>
+        <div style={{opacity : alarm.isRead ? 0.3 : 1}} className={style.container}>
             <UserProfileImage
                 src={getProfileImage(alarm.sender,'MID')}
-                height={35}
-                width={35}
+                height={40}
+                width={40}
                 userId={alarm.sender}
             />
             <div className={style.content_box} onClick={handleClickAlarm}>
