@@ -6,6 +6,7 @@ export interface IAlarm {
     sender : string
     receiver : string
     message : string
+    content : string | null
     alarmType : TAlarm
     isRead : boolean
     createdAt : Date
