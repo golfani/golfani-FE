@@ -10,13 +10,15 @@
 }
 
 .content_box {
-    font-size: 15px;
+    font-size: 14px;
     cursor: pointer;
 }
 
 .content_txt {
+    display: block;
     color: #8729ff;
     margin-right: 5px;
+    font-size: 12px;
     font-weight: 500;
 }
 

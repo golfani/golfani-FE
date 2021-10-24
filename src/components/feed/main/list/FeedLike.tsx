@@ -24,7 +24,7 @@ const FeedLike = ({feed} : IFeedLikeProps) : JSX.Element => {
     const onRegisterLikes = useCallback( async ()=> {
         try {
             const response = await mutation.mutateAsync();
-            userIsFeedLikes.data?.likes || sendAlarmBySocket('FEED',feed.userId,'피드를 좋아합니다.',feed.id);
+            userIsFeedLikes.data?.likes || sendAlarmBySocket('FEED',feed.userId,'피드를 좋아합니다. ',feed.id);
         }
         catch (e) {
             console.log(e)

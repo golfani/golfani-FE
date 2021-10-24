@@ -43,7 +43,7 @@ const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
             <div className={style.content_box} onClick={handleClickAlarm}>
                 <span className={style.userId_txt}>{alarm.sender}</span>
                 <span>{alarm.message}</span>
-                <span className={style.content_txt}></span>
+                {alarm.content && <span className={style.content_txt}>{`"${alarm.content}"`}</span>}
                 <span className={style.date_txt}>{dateDiff(alarm.createdAt)}</span>
             </div>
         </div>
