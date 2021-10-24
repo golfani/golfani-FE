@@ -110,3 +110,12 @@ export const getAllUserFeed = async (userId : string) => {
     const response = await axios.get(`${API_URL}/all/${userId}`);
     return response.data;
 }
+
+/**
+ * 피드Id에 해당하는 피드 한개 요청하는 API
+ * @param feedId
+ */
+export const getFeedOne = async (feedId : number) => {
+    const response = await axios.get(`${API_URL}/${feedId}`);
+    return response.data;
+}

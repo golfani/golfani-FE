@@ -8,7 +8,6 @@ const FeedNavBar = () : JSX.Element => {
     return (
       <div className={style.container}>
           <div className={style.navbar_box}>
-              {/*<span className={style.logo_txt}>DAILY SHOT</span>*/}
               <NavbarLink/>
               <div className={style.feed_box}>
                   <TagSearch/>

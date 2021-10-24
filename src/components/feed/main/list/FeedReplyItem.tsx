@@ -112,8 +112,8 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
                     }
                     <span onClick={handleClickAddReply} className={style.add_reply_txt} color={'primary'}>답글달기</span>
                     {userIsReplyLikesQuery.data?.likes
-                        ? <FavoriteIcon onClick={handleClickLikes} className={style.like_icon} fontSize={"inherit"} color={'error'}/>
-                        : <FavoriteBorderOutlinedIcon onClick={handleClickLikes} className={style.like_icon} fontSize={"inherit"} color={'error'}/>
+                        ? <FavoriteIcon onClick={handleClickLikes} style={{fontSize : '15px'}} className={style.like_icon}  color={'error'}/>
+                        : <FavoriteBorderOutlinedIcon onClick={handleClickLikes} style={{fontSize : '15px'}} className={style.like_icon} color={'error'}/>
                     }
                     <span className={style.like_txt}>{replyLikesQuery.data}</span>
                     <MoreHorizIcon className={style.sub_menu_icon} onClick={handleClickDetailMenu}/>

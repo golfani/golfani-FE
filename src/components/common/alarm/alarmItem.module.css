@@ -1,8 +1,11 @@
 .container {
-    display: flex;
-    align-items: center;
     margin-bottom: 15px;
     padding: 0 15px;
+}
+
+.item_box {
+    display: flex;
+    align-items: center;
 }
 
 .userId_txt {

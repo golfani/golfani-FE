@@ -3,6 +3,7 @@
 }
 
 .userName_txt {
+    display: inherit;
     font-weight: 500;
     color: black;
     cursor: pointer;
