@@ -3,8 +3,9 @@ import {useMutation, useQueryClient} from "react-query";
 import {ChangeEvent, useCallback, useRef, useState} from "react";
 import {registerReply} from "src/apis/Reply";
 import {IFeedReplyAddProps} from "src/domain/Reply";
+import {sendAlarmBySocket} from "src/apis/Alarm";
 
-const FeedReplyAddInput = ({feedId, refId, refUser} : IFeedReplyAddProps) : JSX.Element => {
+const FeedReplyAddInput = ({feedId,feedUser, refId, refUser} : IFeedReplyAddProps) : JSX.Element => {
     const queryClient = useQueryClient();
     const [replyPayload, setReplyPayload] = useState("");
     const commentMutation = useMutation(()=>registerReply("FEED",feedId,replyPayload));
@@ -14,6 +15,7 @@ const FeedReplyAddInput = ({feedId, refId, refUser} : IFeedReplyAddProps) : JSX.
     const onRegisterReply = useCallback(async ()=> {
         try {
             const response = await replyMutation.mutateAsync();
+            refUser && sendAlarmBySocket('FEED',refUser,`댓글에 답글을 남겼습니다.${replyPayload}`,feedId);
         }
         catch (e) {
             console.log(e);
@@ -29,6 +31,7 @@ const FeedReplyAddInput = ({feedId, refId, refUser} : IFeedReplyAddProps) : JSX.
     const onRegisterComment = useCallback(async ()=> {
         try {
             const response = await commentMutation.mutateAsync();
+            feedUser && sendAlarmBySocket('FEED',feedUser,`피드에 댓글을 남겼습니다.${replyPayload}`,feedId);
         }
         catch (e) {
             console.log(e);

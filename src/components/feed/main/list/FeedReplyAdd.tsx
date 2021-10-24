@@ -5,14 +5,14 @@ import FeedReplyAddInput from "./FeedReplyAddInput";
 import {getCookie} from "src/utils/cookieUtil";
 import {getProfileImage} from "src/apis/Member";
 
-const FeedReplyAdd =({feedId} : IFeedReplyAddProps) => {
+const FeedReplyAdd =({feedId,feedUser} : IFeedReplyAddProps) => {
     const userId = getCookie('userId');
     return(
         <div className={style.container}>
             <div className={style.img_box}>
                 <Image src={getProfileImage(userId,'MID')} className={style.img} width={35} height={35} quality={100}/>
             </div>
-            <FeedReplyAddInput feedId={feedId} refId={null} refUser={null}/>
+            <FeedReplyAddInput feedId={feedId} feedUser={feedUser} refId={null} refUser={null}/>
         </div>
     );
 };

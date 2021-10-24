@@ -12,6 +12,7 @@ import {handleClickRefOutSide} from "src/utils/clickUtil";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import DetailMenuModal from "src/components/modals/DetailMenuModal";
 import UserName from "src/components/common/UserName";
+import {sendAlarmBySocket} from "../../../../apis/Alarm";
 
 const FeedReplyItem = ({reply} : IReplyProps) => {
     const [detailMenuModalOpen, setDetailMenuModalOpen] = useState(false);
@@ -119,7 +120,7 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
                 {isReplyAdd
                     ?
                     <div className={style.reply_add_box}>
-                        <FeedReplyAddInput feedId={reply.feedId} refId={reply.referenceId || reply.id} refUser={reply.userId}/>
+                        <FeedReplyAddInput feedId={reply.feedId!} feedUser={null} refId={reply.referenceId || reply.id} refUser={reply.userId}/>
                     </div>
                     : <></>
                 }
