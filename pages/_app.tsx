@@ -22,6 +22,7 @@ const alarmCallback = async (data : IMessage) => {
 }
 
 function MyApp({Component, pageProps}: AppProps) {
+    const userId = getCookie('userId');
     const [isSocketConnected, setIsSocketConnected] = useState(false);
 
     const onSetSocketConnect = (state : boolean) => {
@@ -30,7 +31,6 @@ function MyApp({Component, pageProps}: AppProps) {
 
     // 로그인 상태일시 silentRefresh 진행
     useEffect(() => {
-        const userId = getCookie('userId');
         userId && onSilentRefresh(userId);
         userId && socketConnect(alarmCallback,onSetSocketConnect);
 
@@ -41,7 +41,7 @@ function MyApp({Component, pageProps}: AppProps) {
         <QueryClientProvider client={queryClient}>
             <PersistGate persistor={persistor} loading={null}>
                 <Hydrate state={pageProps.dehydrateState}>
-                    {isSocketConnected ? <Component {...pageProps} /> : <SocketLoading/>}
+                    {userId ? isSocketConnected ? <Component {...pageProps} /> : <SocketLoading/> : <Component {...pageProps}/>}
                 </Hydrate>
             </PersistGate>
         </QueryClientProvider>
