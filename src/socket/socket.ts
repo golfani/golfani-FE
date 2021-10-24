@@ -16,12 +16,13 @@ export const socket = {
     })
 }
 
-export const socketConnect = (callback : (data : IMessage) => void) => {
-    socket.socketClient.onConnect = () => {
-        subNoticeChannel(callback);
+export const socketConnect = (callback : (data : IMessage) => void, listener : (state : boolean) => void) => {
+    socket.socketClient.onConnect = async () => {
+        await subNoticeChannel(callback);
+        await listener(true);
     }
     socket.socketClient.onDisconnect = () => {
-        // Todo
+        listener(false);
     }
     socket.socketClient.activate();
 }
