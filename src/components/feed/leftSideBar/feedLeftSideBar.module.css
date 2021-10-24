@@ -6,7 +6,7 @@
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-    z-index: 100;
+    z-index: 99;
 }
 
 .menu_box {

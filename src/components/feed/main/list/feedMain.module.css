@@ -64,6 +64,7 @@
 }
 
 .time_txt {
+    display: inherit;
     font-size: 12px;
     color : gray;
 }
