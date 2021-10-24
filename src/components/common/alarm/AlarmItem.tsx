@@ -3,9 +3,11 @@ import style from './alarmItem.module.css';
 import {IAlarm} from "src/domain/Alarm";
 import {getProfileImage} from "src/apis/Member";
 import UserProfileImage from "src/components/common/UserProfileImage";
-import {useMutation, useQueryClient} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import {setAlarmRead} from "src/apis/Alarm";
-import {useCallback} from "react";
+import {useCallback, useState} from "react";
+import {getFeedOne} from "src/apis/Feed";
+import FeedModal from "src/components/modals/FeedModal";
 
 interface INoticeItemProps {
     alarm : IAlarm
@@ -14,6 +16,10 @@ interface INoticeItemProps {
 const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
     const queryClient = useQueryClient();
     const alarmMutate = useMutation(()=>setAlarmRead(alarm.id));
+    const feedQuery = useQuery(['feed',alarm.referId],()=>getFeedOne(alarm.referId),{
+        enabled : alarm.alarmType === 'FEED'
+    });
+    const [openFeedModal, setOpenFeedModal] = useState(false);
 
     const onSetAlarmRead = useCallback(async ()=> {
         try {
@@ -28,24 +34,39 @@ const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
         }
     },[alarmMutate])
 
+    const onRedirectAlarm = () => {
+        if(alarm.alarmType === "FEED") {
+            console.log(feedQuery.data);
+            onSetFeedModal(true);
+        }
+    }
+
+    const onSetFeedModal = (state : boolean) => {
+        setOpenFeedModal(state);
+    }
+
     const handleClickAlarm = async () => {
         await onSetAlarmRead()
+        await onRedirectAlarm();
     }
 
     return (
-        <div style={{opacity : alarm.isRead ? 0.3 : 1}} className={style.container}>
-            <UserProfileImage
-                src={getProfileImage(alarm.sender,'MID')}
-                height={40}
-                width={40}
-                userId={alarm.sender}
-            />
-            <div className={style.content_box} onClick={handleClickAlarm}>
-                <span className={style.userId_txt}>{alarm.sender}</span>
-                <span>{alarm.message}</span>
-                {alarm.content && <span className={style.content_txt}>{`"${alarm.content}"`}</span>}
-                <span className={style.date_txt}>{dateDiff(alarm.createdAt)}</span>
+        <div className={style.container}>
+            <div style={{opacity : alarm.isRead ? 0.3 : 1}} className={style.item_box}>
+                <UserProfileImage
+                    src={getProfileImage(alarm.sender,'MID')}
+                    height={40}
+                    width={40}
+                    userId={alarm.sender}
+                />
+                <div className={style.content_box} onClick={handleClickAlarm}>
+                    <span className={style.userId_txt}>{alarm.sender}</span>
+                    <span>{alarm.message}</span>
+                    {alarm.content && <span className={style.content_txt}>{`"${alarm.content}"`}</span>}
+                    <span className={style.date_txt}>{dateDiff(alarm.createdAt)}</span>
+                </div>
             </div>
+            {openFeedModal && <FeedModal open={openFeedModal} feed={feedQuery.data!} setOpen={onSetFeedModal}/>}
         </div>
     );
 };
