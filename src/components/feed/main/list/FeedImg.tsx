@@ -4,10 +4,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {IFeedProps} from "src/domain/Feed";
 import {useMutation, useQueryClient} from "react-query";
-import Image from 'next/image';
 import {registerLikes} from "src/apis/Likes";
 import {useCallback, useState} from "react";
 import ToastModal from "src/components/modals/ToastModal";
+import {sendAlarmBySocket} from "src/apis/Alarm";
 
 const CustomNextArrow = ({className, style, onClick} : any) : JSX.Element=> {
     return (
@@ -50,12 +50,13 @@ const FeedImg = ({feed} : IFeedProps) : JSX.Element => {
         if(!isLike) {
             try {
                 const response = await likeMutation.mutateAsync();
+                sendAlarmBySocket('FEED',feed.userId,'피드를 좋아합니다.',feed.id);
+                await onToastMessage();
             } catch (e) {
                 console.log(e)
             } finally {
                 await queryClient.invalidateQueries(['feedLikes', feed.id]);
                 await queryClient.invalidateQueries(['isFeedLikes', feed.id]);
-                await onToastMessage();
             }
         }
     },[likeMutation])
