@@ -43,6 +43,7 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
     const onRegisterLikes = useCallback(async () => {
         try {
             const response = await registerLikesMutate.mutateAsync();
+            userIsReplyLikesQuery.data?.likes || sendAlarmBySocket('FEED',reply.userId,`댓글에 좋아요를 남겼습니다:${reply.payload}`,reply.feedId!);
         }
         catch (e) {
             console.log(e);
