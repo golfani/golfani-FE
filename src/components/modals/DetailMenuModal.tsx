@@ -76,8 +76,7 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
                 <button className={style.menu_btn} onClick={handleClickDelete}>삭제</button>
                 }
                 {reportModalOpen &&
-                <ReportModal open={reportModalOpen} targetId={props.target.id} type={props.type}
-                             onCloseModal={onCloseReportModal}/>
+                <ReportModal targetId={props.target.id} type={props.type} onCloseModal={onCloseReportModal}/>
                 }
                 <button className={style.menu_btn}>스크랩</button>
             </div>

@@ -6,7 +6,6 @@ import {handleClickRefOutSide} from "src/utils/clickUtil";
 import CloseIcon from '@material-ui/icons/Close'
 
 interface IReportModalProps {
-    open : boolean
     targetId : number
     type : TRef
     onCloseModal : ()=> void
@@ -45,7 +44,7 @@ const ReportModal = (props : IReportModalProps) : JSX.Element => {
     handleClickRefOutSide(targetRef,props.onCloseModal);
 
     return (
-        <div className={props.open ? style.modal_open : style.modal_close}>
+        <div className={style.modal}>
             <div className={style.modal_box} ref={targetRef}>
                 <CloseIcon className={style.close_icon} color={"disabled"} onClick={props.onCloseModal}/>
                 <span className={style.report_title}>신고 사유</span>
