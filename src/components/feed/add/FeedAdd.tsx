@@ -84,7 +84,7 @@ const FeedAdd = () : JSX.Element => {
                 </button>
             </div>
             { modalOpen && <Modal message= {modalMsg} onSubmit={onModalSubmit}/> }
-            <LoadingModal open={loadingModalOpen}/>
+            { loadingModalOpen && <LoadingModal/> }
         </div>
     );
 };
