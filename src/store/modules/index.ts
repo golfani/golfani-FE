@@ -12,6 +12,7 @@ import feedAdd from "./feedAdd/feedAdd";
 import {tagSaga} from "./tag/saga";
 import tag from "./tag/tag";
 import chatRoom from "./chat/chatRoom";
+import feedZIndex from "./feedZIndex/feedZIndex";
 
 
 interface SagaStore extends Store {
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
     feedAdd : feedAdd,
     tag : tag,
     chatRoom : chatRoom,
+    feedZIndex : feedZIndex
 })
 
 // 스토어 생성
