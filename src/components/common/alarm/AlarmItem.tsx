@@ -36,7 +36,6 @@ const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
 
     const onRedirectAlarm = () => {
         if(alarm.alarmType === "FEED") {
-            console.log(feedQuery.data);
             onSetFeedModal(true);
         }
     }
@@ -66,7 +65,7 @@ const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
                     <span className={style.date_txt}>{dateDiff(alarm.createdAt)}</span>
                 </div>
             </div>
-            {openFeedModal && <FeedModal open={openFeedModal} feed={feedQuery.data!} setOpen={onSetFeedModal}/>}
+            {openFeedModal && <FeedModal feed={feedQuery.data!} setModalOpen={setOpenFeedModal}/>}
         </div>
     );
 };

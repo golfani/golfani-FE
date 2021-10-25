@@ -1,20 +1,23 @@
 import style from './modal.module.css';
 
 export interface IModalProps {
-    open : boolean
     message : String
-    onSubmit : () => void
+    setModalOpen : (state : boolean) => void
 }
 
 const Modal = (props : IModalProps) => {
+    const onModalClose = () => {
+        props.setModalOpen(false);
+    }
+
     return (
-        <div className={props.open ? style.modal_open : style.modal_close}>
+        <div className={style.modal}>
             <div className={style.modal_box}>
                 <div className={style.msg_box}>
                     <span>{props.message}</span>
                 </div>
                 <div className={style.button_box}>
-                    <button className={style.ok_btn} onClick={props.onSubmit}>확인</button>
+                    <button className={style.ok_btn} onClick={onModalClose}>확인</button>
                 </div>
             </div>
         </div>

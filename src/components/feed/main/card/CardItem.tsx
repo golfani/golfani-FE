@@ -69,9 +69,7 @@ const CardItem = ({feed} : IFeedProps) : JSX.Element => {
                     <span>{replyTotalQuery.data}</span>
                 </div>
             </div>
-            {feedModalOpen &&
-            <FeedModal open={feedModalOpen} feed={feed} setOpen={setFeedModalOpen}/>
-            }
+            {feedModalOpen && <FeedModal feed={feed} setModalOpen={setFeedModalOpen}/>}
         </div>
     );
 };

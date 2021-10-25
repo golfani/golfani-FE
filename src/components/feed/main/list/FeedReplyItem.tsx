@@ -12,7 +12,7 @@ import {handleClickRefOutSide} from "src/utils/clickUtil";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import DetailMenuModal from "src/components/modals/DetailMenuModal";
 import UserName from "src/components/common/UserName";
-import {sendAlarmBySocket} from "../../../../apis/Alarm";
+import {sendAlarmBySocket} from "src/apis/Alarm";
 
 const FeedReplyItem = ({reply} : IReplyProps) => {
     const [detailMenuModalOpen, setDetailMenuModalOpen] = useState(false);
@@ -53,10 +53,6 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
             await queryClient.invalidateQueries(['replyLikes',reply.id]);
         }
     },[registerLikesMutate])
-
-    const onCloseDetailModal = () => {
-        setDetailMenuModalOpen(false);
-    }
 
     const handleClickLikes = async () => {
         await onRegisterLikes();
@@ -133,11 +129,7 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
                 }
             </div>
             {detailMenuModalOpen &&
-            <DetailMenuModal open={detailMenuModalOpen}
-                             onCloseModal={onCloseDetailModal}
-                             target={reply}
-                             type={"FEED_REPLY"}
-            />
+            <DetailMenuModal setModalOpen={setDetailMenuModalOpen} target={reply} type={"FEED_REPLY"}/>
             }
         </div>
     );

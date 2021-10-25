@@ -1,4 +1,4 @@
-.modal_open {
+.modal {
     display: flex;
     position: fixed;
     justify-content: center;
@@ -9,10 +9,6 @@
     right: 0;
     left: 0;
     bottom: 0;
-}
-
-.modal_close {
-    display: none;
 }
 
 .close_icon {

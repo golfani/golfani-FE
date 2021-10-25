@@ -1,4 +1,4 @@
-.modal_open {
+.modal {
     display: flex;
     position: fixed;
     justify-content: center;
@@ -10,10 +10,6 @@
     left: 0;
     bottom: 0;
     cursor: auto;
-}
-
-.modal_close {
-    display: none;
 }
 
 .container {

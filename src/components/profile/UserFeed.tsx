@@ -31,7 +31,6 @@ const UserFeed = ({member} : IProfileMemberProps) : JSX.Element => {
         onSetFeedModalData(feedId);
     }
 
-    console.log('rendering');
     return (
         <div className={style.container}>
             {userFeedQuery.data?.map((feed, mIndex)=> {
@@ -47,9 +46,7 @@ const UserFeed = ({member} : IProfileMemberProps) : JSX.Element => {
                     )
                 }
             })}
-            {feedModalOpen &&
-            <FeedModal open={feedModalOpen} feed={feedModalData!} setOpen={setModalOpen}/>
-            }
+            {feedModalOpen && <FeedModal feed={feedModalData!} setModalOpen={setModalOpen}/>}
         </div>
     );
 };
