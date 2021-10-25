@@ -1,14 +1,13 @@
 import style from './modal.module.css';
 
 export interface IModalProps {
-    open : boolean
     message : String
     onSubmit : () => void
 }
 
 const Modal = (props : IModalProps) => {
     return (
-        <div className={props.open ? style.modal_open : style.modal_close}>
+        <div className={style.modal}>
             <div className={style.modal_box}>
                 <div className={style.msg_box}>
                     <span>{props.message}</span>

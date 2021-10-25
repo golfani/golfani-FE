@@ -83,11 +83,7 @@ const FeedAdd = () : JSX.Element => {
                     {component === FEED_COMPONENT.ADD_PHOTO ? "다음" : "등록"}
                 </button>
             </div>
-            <Modal
-                open={modalOpen}
-                message= {modalMsg}
-                onSubmit={onModalSubmit}
-            />
+            { modalOpen && <Modal message= {modalMsg} onSubmit={onModalSubmit}/> }
             <LoadingModal open={loadingModalOpen}/>
         </div>
     );
