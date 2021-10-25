@@ -8,6 +8,7 @@ import {setAlarmRead} from "src/apis/Alarm";
 import {useCallback, useState} from "react";
 import {getFeedOne} from "src/apis/Feed";
 import FeedModal from "src/components/modals/FeedModal";
+import useFeedZIndex from "src/store/modules/feedZIndex/feedZIndexHook";
 
 interface INoticeItemProps {
     alarm : IAlarm
@@ -20,6 +21,7 @@ const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
         enabled : alarm.alarmType === 'FEED'
     });
     const [openFeedModal, setOpenFeedModal] = useState(false);
+    const {onSetBelow} = useFeedZIndex();
 
     const onSetAlarmRead = useCallback(async ()=> {
         try {
@@ -36,6 +38,7 @@ const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
 
     const onRedirectAlarm = () => {
         if(alarm.alarmType === "FEED") {
+            onSetBelow();
             onSetFeedModal(true);
         }
     }
