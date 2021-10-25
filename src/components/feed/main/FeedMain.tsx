@@ -23,7 +23,7 @@ const FeedMain = () : JSX.Element => {
     }
 
     return (
-        <div className={menu === null ? style.container : menu ? style.container_menu_active : style.container_menu_inactive}>
+        <div className={menu === null ? style.container : menu!=='NONE' ? style.container_menu_active : style.container_menu_inactive}>
             {type === 'LIST'? <FeedList/> : <CardList/>}
             <div className={style.write_box} onClick={handleClickWrite}>
                 <AddIcon className={style.write_icon}/>

@@ -58,7 +58,7 @@ const TagSearch = (): JSX.Element => {
 
     // leftSideMenu 숨기기
     const onHideMenu = () => {
-        feedMenu.menu && feedMenu.onChangeMenu(0);
+        feedMenu.menu && feedMenu.onChangeMenu('NONE');
     }
 
     // tagList 가져오기
