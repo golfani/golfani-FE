@@ -1,5 +1,4 @@
 import style from './messageSend.module.css';
-import Image from 'next/image';
 import {getProfileImage, IMember} from "src/apis/Member";
 import {ChangeEvent, useRef, useState} from "react";
 import {getCookie} from "src/utils/cookieUtil";
@@ -30,12 +29,7 @@ const MessageSend = ({member} : IMessageSendProps) : JSX.Element => {
     return (
         <div className={style.container}>
             <div className={style.user_box}>
-                <Image className={style.img}
-                       src={getProfileImage(userId,'MID')}
-                       width={30}
-                       height={30}
-                       quality={100}
-                />
+                <img className={style.img} src={getProfileImage(userId,'MID')} width={30} height={30}/>
                 <span className={style.user_txt}>{userId}</span>
             </div>
             <textarea className={style.msg_input}
@@ -45,12 +39,7 @@ const MessageSend = ({member} : IMessageSendProps) : JSX.Element => {
                       placeholder={"메세지를 입력하세요"}
             />
             <div className={style.send_box}>
-                <Image className={style.img}
-                       src={getProfileImage(member.userId,'MID')}
-                       width={30}
-                       height={30}
-                       quality={100}
-                />
+                <img className={style.img} src={getProfileImage(member.userId,'MID')} width={30} height={30}/>
                 <span className={style.receiver_user}>{`${member.userId}`}</span>
                 <button className={style.msg_send_btn}> </button>
             </div>

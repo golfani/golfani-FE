@@ -1,9 +1,7 @@
 import style from './userFeed.module.css';
-import * as faker from "faker";
 import {useQuery} from "react-query";
 import {getAllUserFeed, IFeedContent} from "src/apis/Feed";
 import {IProfileMemberProps} from "../../../pages/profile/[userId]";
-import Image from 'next/image';
 import FeedModal from "src/components/modals/FeedModal";
 import {useState} from "react";
 import {MID_LEVEL_FIRST_PICTURE} from "src/domain/Picture";
