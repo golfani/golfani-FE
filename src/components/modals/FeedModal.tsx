@@ -5,9 +5,8 @@ import {useRef} from "react";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 
 export interface IFeedModalProps {
-    open: boolean
     feed: IFeedContent
-    setOpen: (state: boolean) => void
+    setModalOpen: (state: boolean) => void
 }
 
 
@@ -15,13 +14,13 @@ const FeedModal = (props : IFeedModalProps) : JSX.Element => {
     const targetRef = useRef<HTMLDivElement>(null);
 
     const onModalClose = () => {
-        props.setOpen(false);
+        props.setModalOpen(false);
     }
 
     handleClickRefOutSide(targetRef,onModalClose);
 
     return (
-        <div className={props.open ? style.modal_open : style.modal_close} >
+        <div className={style.modal}>
             <div ref={targetRef}>
                 <FeedItem feed={props.feed} isModal={true}/>
             </div>

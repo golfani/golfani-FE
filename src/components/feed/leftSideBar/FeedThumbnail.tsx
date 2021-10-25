@@ -20,7 +20,7 @@ const FeedThumbnail = ({feed} : IFeedProps) => {
                    height={100}
                    onClick={handleClickImage}
             />
-            <FeedModal open={feedModalOpen} feed={feed} setOpen={setFeedModalOpen}/>
+            {feedModalOpen && <FeedModal feed={feed} setModalOpen={setFeedModalOpen}/>}
         </div>
     );
 };
