@@ -1,14 +1,16 @@
 import style from './feedThumbnail.module.css';
 import {IFeedProps} from "src/domain/Feed";
-import Image from "next/image";
 import {useCallback, useState} from "react";
 import FeedModal from "../../modals/FeedModal";
 import {LOW_LEVEL_FIRST_PICTURE} from "src/domain/Picture";
+import useFeedZIndex from "src/store/modules/feedZIndex/feedZIndexHook";
 
 const FeedThumbnail = ({feed} : IFeedProps) => {
     const [feedModalOpen,setFeedModalOpen] = useState(false);
+    const {onSetAbove} = useFeedZIndex();
 
     const handleClickImage = useCallback(()=> {
+        onSetAbove();
         setFeedModalOpen((feedModalOpen)=> true);
     },[feedModalOpen])
 
