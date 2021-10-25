@@ -56,10 +56,6 @@ const FeedAdd = () : JSX.Element => {
         component === FEED_COMPONENT.ADD_PHOTO ? router.back() : setComponent(FEED_COMPONENT.ADD_PHOTO);
     }
 
-    const onModalSubmit = () => {
-        setModalOpen(false)
-    }
-
     const handleNextButton = () => {
         onNext();
     }
@@ -83,7 +79,7 @@ const FeedAdd = () : JSX.Element => {
                     {component === FEED_COMPONENT.ADD_PHOTO ? "다음" : "등록"}
                 </button>
             </div>
-            { modalOpen && <Modal message= {modalMsg} onSubmit={onModalSubmit}/> }
+            { modalOpen && <Modal message= {modalMsg} setModalOpen={setModalOpen}/> }
             { loadingModalOpen && <LoadingModal/> }
         </div>
     );

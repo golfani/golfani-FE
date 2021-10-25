@@ -8,13 +8,17 @@ import CloseIcon from '@material-ui/icons/Close'
 interface IReportModalProps {
     targetId : number
     type : TRef
-    onCloseModal : ()=> void
+    setModalOpen : (state : boolean)=> void
 }
 
 const ReportModal = (props : IReportModalProps) : JSX.Element => {
     const [reportType, setReportType] = useState<string>();
     const [description, setDescription] = useState('');
     const targetRef = useRef<HTMLDivElement>(null);
+
+    const onModalClose = () => {
+        props.setModalOpen(false);
+    }
 
     const handleRadioChange = (event : ChangeEvent<HTMLInputElement>) => {
         setReportType((reportType) => event.target.value);
@@ -33,7 +37,7 @@ const ReportModal = (props : IReportModalProps) : JSX.Element => {
                 alert('에러 발생 잠시 후 다시 시도해 주세요.');
                 console.log(e);
             } finally {
-                props.onCloseModal();
+                onModalClose();
             }
         }
         else {
@@ -41,12 +45,12 @@ const ReportModal = (props : IReportModalProps) : JSX.Element => {
         }
     }
 
-    handleClickRefOutSide(targetRef,props.onCloseModal);
+    handleClickRefOutSide(targetRef,onModalClose);
 
     return (
         <div className={style.modal}>
             <div className={style.modal_box} ref={targetRef}>
-                <CloseIcon className={style.close_icon} color={"disabled"} onClick={props.onCloseModal}/>
+                <CloseIcon className={style.close_icon} color={"disabled"} onClick={onModalClose}/>
                 <span className={style.report_title}>신고 사유</span>
                 <div>
                     <div className={style.report_type_box}>

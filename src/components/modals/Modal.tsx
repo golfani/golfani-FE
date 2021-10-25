@@ -2,10 +2,14 @@ import style from './modal.module.css';
 
 export interface IModalProps {
     message : String
-    onSubmit : () => void
+    setModalOpen : (state : boolean) => void
 }
 
 const Modal = (props : IModalProps) => {
+    const onModalClose = () => {
+        props.setModalOpen(false);
+    }
+
     return (
         <div className={style.modal}>
             <div className={style.modal_box}>
@@ -13,7 +17,7 @@ const Modal = (props : IModalProps) => {
                     <span>{props.message}</span>
                 </div>
                 <div className={style.button_box}>
-                    <button className={style.ok_btn} onClick={props.onSubmit}>확인</button>
+                    <button className={style.ok_btn} onClick={onModalClose}>확인</button>
                 </div>
             </div>
         </div>
