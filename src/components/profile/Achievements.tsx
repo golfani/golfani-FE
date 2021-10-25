@@ -1,5 +1,4 @@
 import style from './achievements.module.css';
-import * as faker from "faker";
 import Image from 'next/image';
 import HonorIcon from 'public/honor_ico.png';
 

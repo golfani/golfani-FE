@@ -1,13 +1,9 @@
 import style from './userProfile.module.css';
 import {getProfileImage, registerProfileImage} from "src/apis/Member";
 import {getCookie} from "src/utils/cookieUtil";
-import {ChangeEvent, useEffect, useRef, useState} from "react";
+import {ChangeEvent, useRef, useState} from "react";
 import {dataURLtoFile} from "src/utils/fileUtil";
-import {useQuery} from "react-query";
 import {IProfileMemberProps} from "../../../pages/profile/[userId]";
-import GCTI from "./GCTI";
-import Achievements from "./Achievements";
-import NextImage from 'next/image';
 import MessageSend from "../common/MessageSend";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 
