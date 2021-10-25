@@ -10,8 +10,7 @@ import {getCookie} from "src/utils/cookieUtil";
 export type TRef = "FEED" | "POST" | "FEED_REPLY" | "POST_REPLY"
 
 export interface DetailMenuModalProps {
-    open: boolean
-    onCloseModal: () => void
+    setModalOpen: (state : boolean) => void
     target: IReplyDto | IFeedContent
     type: TRef
 }
@@ -23,6 +22,10 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
     const deleteFeedReplyMutate = useMutation(() => deleteFeedReply(props.target.id));
     const deleteFeedMutate = useMutation(() => deleteFeed(props.target.id));
     const [reportModalOpen, setReportModalOpen] = useState(false);
+
+    const onModalClose = () => {
+        props.setModalOpen(false);
+    }
 
     const onDeleteTarget = useCallback(async () => {
         try {
@@ -41,10 +44,10 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
                     await queryClient.invalidateQueries(['reply', target.referenceId]);
                     await queryClient.invalidateQueries(['totalReply', target.referenceId]);
                 }
-                await props.onCloseModal;
+                await onModalClose();
             } else if (props.type === "FEED") {
                 const target: IFeedContent = props.target as IFeedContent;
-                await props.onCloseModal;
+                await onModalClose();
                 await queryClient.invalidateQueries('feed');
             }
         }
@@ -66,10 +69,10 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
         onOpenReportModal();
     }
 
-    handleClickRefOutSide(ref, props.onCloseModal);
+    handleClickRefOutSide(ref, onModalClose);
 
     return (
-        <div className={props.open ? style.modal_open : style.modal_close}>
+        <div className={style.modal}>
             <div className={style.container} ref={ref}>
                 <button className={style.menu_btn} onClick={handleClickReport}>신고</button>
                 {props.target.userId === userId &&
