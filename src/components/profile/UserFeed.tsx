@@ -3,7 +3,7 @@ import {useQuery} from "react-query";
 import {getAllUserFeed, IFeedContent} from "src/apis/Feed";
 import {IProfileMemberProps} from "../../../pages/profile/[userId]";
 import FeedModal from "src/components/modals/FeedModal";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {MID_LEVEL_FIRST_PICTURE} from "src/domain/Picture";
 
 const UserFeed = ({member} : IProfileMemberProps) : JSX.Element => {
@@ -12,6 +12,7 @@ const UserFeed = ({member} : IProfileMemberProps) : JSX.Element => {
     });
     const [feedModalOpen, setModalOpen] = useState(false);
     const [feedModalData, setFeedModalData] = useState<IFeedContent>();
+    const [imgWidth, setImgWidth] = useState(300);
 
     const onSetFeedModalOpen = () => {
         setModalOpen(true);
@@ -29,6 +30,22 @@ const UserFeed = ({member} : IProfileMemberProps) : JSX.Element => {
         onSetFeedModalData(feedId);
     }
 
+    useEffect(()=> {
+        const resizeListener = () => {
+            if(window.screen.width < 1024) {
+                setImgWidth(window.screen.width / 3);
+            }
+            else if(window.innerWidth < 1024) {
+                setImgWidth(window.innerWidth / 3);
+            }
+            else {
+                setImgWidth(300);
+            }
+        }
+        window.addEventListener('resize',resizeListener);
+        return () => window.removeEventListener('resize',resizeListener);
+    },[])
+
     return (
         <div className={style.container}>
             {userFeedQuery.data?.map((feed, mIndex)=> {
@@ -37,7 +54,7 @@ const UserFeed = ({member} : IProfileMemberProps) : JSX.Element => {
                         <div className={style.feed_row_box} key={mIndex}>
                             {userFeedQuery.data.slice(mIndex,mIndex+3).map((nFeed)=> (
                                 <div className={style.feed_box} key={nFeed.id} onClick={()=>handleClickFeed(nFeed.id)}>
-                                    <img className={style.img} src={nFeed.urlList[MID_LEVEL_FIRST_PICTURE]} width={300} height={300}/>
+                                    <img className={style.img} src={nFeed.urlList[MID_LEVEL_FIRST_PICTURE]} width={imgWidth} height={imgWidth}/>
                                 </div>
                             ))}
                         </div>

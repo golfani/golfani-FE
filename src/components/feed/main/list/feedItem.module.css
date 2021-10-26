@@ -2,7 +2,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 600px;
+    width: auto;
+    max-width: 600px;
     height: auto;
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
@@ -15,7 +16,7 @@
 .container_modal {
     position: relative;
     display: flex;
-    width: auto;
+    width: 100%;
     height: auto;
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
@@ -38,4 +39,10 @@
 }
 
 .lock_txt {
+}
+
+@media screen and (max-width: 480px){
+    .container {
+        border-radius: 0;
+    }
 }

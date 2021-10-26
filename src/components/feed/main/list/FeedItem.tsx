@@ -16,7 +16,7 @@ const FeedItem = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
     return(
         <div className={isModal ? style.container_modal : style.container} key={feed.id}>
             <FeedSideMenu feed={feed}/>
-            <FeedImg feed={feed}/>
+            <FeedImg feed={feed} isModal={isModal}/>
             <div>
                 <FeedMain feed={feed}/>
                 { feed.isReplyActive && <FeedReply feed={feed} isModal={isModal}/> }

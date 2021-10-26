@@ -1,12 +1,21 @@
 .container {
-
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
+
 .container_menu_inactive {
+    display: flex;
+    justify-content: center;
+    width: 100%;
     animation: slideOut 1s;
     animation-fill-mode: forwards;
 }
 
 .container_menu_active {
+    display: flex;
+    justify-content: center;
+    width: 100%;
     animation: slideIn 1s;
     animation-fill-mode: forwards;
 }
