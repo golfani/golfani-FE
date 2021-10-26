@@ -5,6 +5,7 @@
 
 .feed_row_box {
     display: flex;
+    justify-content: space-between;
     width: 100%;
     margin-bottom: 20px;
 }
@@ -12,16 +13,18 @@
 .feed_box {
     display: flex;
     flex-direction: column;
-    width: 300px;
     cursor: pointer;
 }
 
-.feed_box + .feed_box {
-    margin-left: 50px;
+.img {
+    object-fit: cover;
 }
 
-.img {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
+@media screen and (max-width: 1024px){
+    .feed_row_box {
+        margin-bottom: 0;
+    }
+    .feed_box {
+        width: calc(100% / 3);
+    }
 }
