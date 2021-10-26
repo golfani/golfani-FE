@@ -6,7 +6,8 @@
 }
 
 .reply_box {
-    height: 380px;
+    height: auto;
+    max-height: 370px;
     overflow: auto;
 }
 
@@ -28,4 +29,10 @@
     width: 100%;
     height: 1px;
     background-color: #bdbdbd;
+}
+
+.modal_reply_input_box {
+    position: absolute;
+    width: 90%;
+    bottom: 0;
 }
