@@ -7,3 +7,9 @@
     top: 0px;
     right: -40px;
 }
+
+@media screen and (max-width: 768px){
+    .container {
+        display: none;
+    }
+}

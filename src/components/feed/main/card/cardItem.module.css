@@ -3,11 +3,11 @@
 }
 
 .thumbnail_img {
-    width: 150px;
-    height: 150px;
     border-radius: 8px;
     object-fit: cover;
     cursor: pointer;
+    border-right: 1px solid white;
+    border-left: 1px solid white;
 }
 
 .user_box {
@@ -60,4 +60,23 @@
 
 .icon {
     width: 15px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .container {
+        margin: 0;
+    }
+    .thumbnail_img {
+        border-radius: 0;
+    }
+    .user_box {
+        display: none;
+    }
+    .main_box {
+        display: none;
+    }
+    .icon_box {
+        display: none;
+    }
 }

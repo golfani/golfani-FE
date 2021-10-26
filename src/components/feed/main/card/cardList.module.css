@@ -1,11 +1,11 @@
 .container {
-    width: 610px;
+    max-width: 610px;
     height: auto;
 }
 
 .titleView_txt {
     display: inline-block;
-    width: 610px;
+    width: 100%;
     text-align: center;
     height: 60px;
     line-height: 60px;
@@ -19,7 +19,7 @@
 }
 
 .card_container {
-    width: 610px;
+    width: 100%;
     height: auto;
     display: flex;
     background-color: #fff;
@@ -38,4 +38,18 @@
     display: inline-block;
     width: 100%;
     text-align: center;
+}
+
+@media screen and (max-width: 768px){
+    .card_box {
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 480px){
+    .card_container {
+        padding: 0;
+        background-color: transparent;
+        box-shadow: none;
+    }
 }

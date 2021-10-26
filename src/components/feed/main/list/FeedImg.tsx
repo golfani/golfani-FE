@@ -8,6 +8,7 @@ import {registerLikes} from "src/apis/Likes";
 import {useCallback, useState} from "react";
 import ToastModal from "src/components/modals/ToastModal";
 import {sendAlarmBySocket} from "src/apis/Alarm";
+import {IFeedItemProps} from "./FeedItem";
 
 const CustomNextArrow = ({className, style, onClick} : any) : JSX.Element=> {
     return (
@@ -39,7 +40,7 @@ const settings = {
     prevArrow : <CustomPrevArrow/>,
 };
 
-const FeedImg = ({feed} : IFeedProps) : JSX.Element => {
+const FeedImg = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
     const queryClient = useQueryClient();
     const [toastModalOpen, setToastModalOpen] = useState(false);
 
@@ -73,13 +74,13 @@ const FeedImg = ({feed} : IFeedProps) : JSX.Element => {
     }
 
     return (
-        <div className={style.container} onDoubleClick={handleDoubleClick}>
+        <div className={isModal ? style.modal_container : style.container} onDoubleClick={handleDoubleClick}>
             <Slider {...settings}>
                 {feed.urlList.map((image,index)=> {
                     if(index % 3 === 0) {
                         return (
                             <div key={index}>
-                                <img className={style.img} src={image} width={600} height={550}/>
+                                <img className={style.img} src={image}/>
                             </div>
                         )
                     }
