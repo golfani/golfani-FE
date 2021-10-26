@@ -15,7 +15,9 @@ class MyDocument extends Document {
     render() {
         return (
             <Html lang="ko">
-                <Head/>
+                <Head>
+                    <title>GOLF ANI</title>
+                </Head>
                 <body>
                     <Main/>
                     <NextScript/>

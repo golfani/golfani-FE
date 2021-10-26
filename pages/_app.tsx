@@ -11,6 +11,7 @@ import {onSilentRefresh} from "src/utils/securityUtil";
 import {IMessage} from "@stomp/stompjs";
 import {socket, socketConnect, socketDisconnect} from "src/socket/socket";
 import SocketLoading from "src/components/common/SocketLoading";
+import Head from "next/head";
 
 const queryClient = new QueryClient();
 const reduxStore = store();
@@ -41,6 +42,9 @@ function MyApp({Component, pageProps}: AppProps) {
         <QueryClientProvider client={queryClient}>
             <PersistGate persistor={persistor} loading={null}>
                 <Hydrate state={pageProps.dehydrateState}>
+                    <Head>
+                        <meta name={'viewport'} content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+                    </Head>
                     {userId ? isSocketConnected ? <Component {...pageProps} /> : <SocketLoading/> : <Component {...pageProps}/>}
                 </Hydrate>
             </PersistGate>
