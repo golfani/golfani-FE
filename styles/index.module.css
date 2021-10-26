@@ -20,13 +20,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 400px;
 }
 
 .main_txt {
     font-size: 3.0rem;
     font-weight: 600;
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
     width: auto;
 }
 
@@ -62,7 +61,7 @@
     align-items: center;
     width: 100%;
     min-height: 500px;
-    background-color: #abd2dd;
+    background-color: #bbecfa;
 }
 
 .link_btn {
@@ -76,4 +75,17 @@
     color: white;
     font-size: 15px;
     box-shadow: 0 1px 5px rgba(0,0,0, 0.2);
+}
+
+@media screen and (max-width: 768px){
+    .sub_box {
+        justify-content: center;
+        align-items: center;
+    }
+    .main_txt {
+        text-align: center;
+    }
+    .sub_txt {
+        text-align: center;
+    }
 }

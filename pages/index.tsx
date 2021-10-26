@@ -18,7 +18,7 @@ const Home = () : JSX.Element => {
             <div className={style.main_box}>
                 <div className={style.sub_box}>
                     <div>
-                        <p className={style.main_txt}>나만의 골프라이프<br/>골파니</p>
+                        <p className={style.main_txt}>나만의 골프라이프<br/>GOLF ANI</p>
                         <p className={style.sub_txt}>나에게 알맞는 골프라이프를 즐겨보세요.</p>
                     </div>
                     <div className={style.content_box}>
@@ -31,7 +31,7 @@ const Home = () : JSX.Element => {
                     </div>
                     <div>
                         <p className={style.main_txt}>오늘의 골프는<br/>어떠셨나요?</p>
-                        <p className={style.sub_txt}>남들눈치보지 않고 마음껏 골프라이프를 공유해 보세요.</p>
+                        <p className={style.sub_txt}>눈치보지 않고 마음껏 골프라이프를 공유해 보세요.</p>
                         <button className={style.link_btn} onClick={()=>handleClickLinkButton('feed')}>피드</button>
                     </div>
                 </div>
@@ -39,7 +39,7 @@ const Home = () : JSX.Element => {
             <div className={style.board_box}>
                 <div className={style.sub_box}>
                     <div>
-                        <p className={style.main_txt}>정보공유의<br/>골파니</p>
+                        <p className={style.main_txt}>정보공유의 중심<br/>GOLF ANI</p>
                         <p className={style.sub_txt}>다른사람들과 골프얘기를 나누어 보세요.</p>
                         <button className={style.link_btn} onClick={()=>handleClickLinkButton('board')}>커뮤니티</button>
                     </div>
