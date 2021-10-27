@@ -1,0 +1,28 @@
+.bottom_menu_box {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #fff;
+    border-top: 1px solid #dedee0;
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 5px;
+}
+
+.icon_active {
+    color: black;
+    cursor: pointer;
+}
+
+.icon_inactive {
+    color: #bebebe;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1024px){
+     .bottom_menu_box {
+         display: flex;
+     }
+}
