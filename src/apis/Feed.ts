@@ -119,3 +119,12 @@ export const getFeedOne = async (feedId : number) => {
     const response = await axios.get(`${API_URL}/${feedId}`);
     return response.data;
 }
+
+/**
+ * 피드 수정 API
+ * @param feed
+ */
+export const modifyFeed = async (feed : IFeedContent) => {
+    const response = await securityAxios.put(API_URL,feed);
+    return response.data;
+}
