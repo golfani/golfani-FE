@@ -1,4 +1,4 @@
-import style from "./BoardNavbar.module.css";
+import style from 'src/components/board/main/boardNavBar.module.css';
 
 const BoardNavbar = () : JSX.Element => {
 
