@@ -55,9 +55,11 @@ export const calcChatDate = (source : Date) => {
     const minute = leftPad(Number(date[4]));
 
     if(hour >= 12) {
+        if(hour > 12) return `오후 ${hour-12}:${minute}`;
         return `오후 ${hour}:${minute}`;
     }
     else if(hour < 12) {
+        if(hour === 0) return `오전 ${12}:${minute}`;
         return `오전 ${hour}:${minute}`;
     }
 }
