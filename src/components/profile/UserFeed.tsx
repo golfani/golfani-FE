@@ -42,6 +42,7 @@ const UserFeed = ({member} : IProfileMemberProps) : JSX.Element => {
                 setImgWidth(300);
             }
         }
+        resizeListener();
         window.addEventListener('resize',resizeListener);
         return () => window.removeEventListener('resize',resizeListener);
     },[])

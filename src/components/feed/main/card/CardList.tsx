@@ -53,7 +53,6 @@ const CardList = () : JSX.Element => {
         enabled : type === 'SEARCH'
     })
 
-    console.log(type);
     return (
         <div className={style.container}>
             {type === 'HOT' && <span className={style.titleView_txt}>인기 피드게시물</span>}

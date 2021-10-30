@@ -52,3 +52,12 @@
     background-color: cornflowerblue;
     color: white;
 }
+
+@media screen and (max-width: 480px){
+    .container {
+        height: 60px;
+    }
+    .header_box {
+        height: 60px;
+    }
+}

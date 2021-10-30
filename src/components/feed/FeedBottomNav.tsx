@@ -17,19 +17,17 @@ const FeedBottomNav = () : JSX.Element => {
 
     return (
         <ul className={style.bottom_menu_box}>
-            <li>
+            <li className={style.menu_list} onClick={handleClickListView}>
                 <ViewDayOutlinedIcon
                     className={type === 'LIST' ? style.icon_active : style.icon_inactive}
-                    onClick={handleClickListView}
                 />
-            </li>
-            <li>
+            </li >
+            <li className={style.menu_list} onClick={handleClickCardView}>
                 <ViewModuleOutlinedIcon
                     className={type === 'CARD' ? style.icon_active : style.icon_inactive}
-                    onClick={handleClickCardView}
                 />
             </li>
-            <li>
+            <li className={style.menu_list}>
                 <SearchIcon className={style.icon_inactive}/>
             </li>
         </ul>
