@@ -1,16 +1,22 @@
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../index";
-import {setChatRoom} from './chatRoom';
+import {setChatRoom,init} from './chatRoom';
+import {IChatRoomDto} from "src/apis/Chat";
 
 const useChatRoom = () => {
-    const activeId = useSelector((state : RootState) => state.chatRoom.activeId);
+    const activeChatRoom = useSelector((state : RootState) => state.chatRoom.chatRoom);
 
     const dispatch = useDispatch();
-    const onSetChatRoomId = (id : number) => {
-        dispatch(setChatRoom(id));
+
+    const onSetChatRoomId = (chatRoom : IChatRoomDto) => {
+        dispatch(setChatRoom(chatRoom));
     }
 
-    return {activeId, onSetChatRoomId}
+    const onInitChatRoom = () => {
+        dispatch(init());
+    }
+
+    return {activeChatRoom, onSetChatRoomId,onInitChatRoom}
 }
 
 export default useChatRoom;
