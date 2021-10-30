@@ -1,11 +1,10 @@
 import style from 'src/components/board/main/view/boardView.module.css';
-import React, {useEffect,useState} from 'react';
+import React, {useState} from 'react';
 import Link from "next/link";
 import BoardComment from "../comment/BoardComment";
 import {getCookie} from "../../../../utils/cookieUtil";
 import {deleteBoard, IBoardData} from "../../../../apis/Board";
 import {useRouter} from "next/router";
-import BoardPut from "../BoardPut";
 
 
 export interface IBoardProps{

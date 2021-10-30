@@ -1,4 +1,4 @@
-import style from 'src/components/board/main/leftSideBar/boardleftsidebar.module.css';
+import style from 'src/components/board/main/leftSideBar/boardLeftSideBar.module.css';
 import {useState} from 'react';
 import {EType} from "../../../../domain/board";
 
