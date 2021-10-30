@@ -12,6 +12,11 @@
 .user_sub_box {
 }
 
+.menu_box {
+    display: none;
+    margin-left: auto;
+}
+
 .img_box {
     display: flex;
     height: 40px;
@@ -69,4 +74,10 @@
     display: inherit;
     font-size: 12px;
     color : gray;
+}
+
+@media screen and (max-width: 768px){
+    .menu_box {
+        display: inline-block;
+    }
 }

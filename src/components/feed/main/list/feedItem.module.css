@@ -47,3 +47,11 @@
         margin-bottom: 15px;
     }
 }
+
+@media screen and (max-width: 480px){
+    .container {
+        box-shadow: none;
+        margin: 0;
+        border-bottom: 15px solid #f4f4f4;
+    }
+}
