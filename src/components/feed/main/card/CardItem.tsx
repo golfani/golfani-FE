@@ -40,16 +40,17 @@ const CardItem = ({feed} : IFeedProps) : JSX.Element => {
 
     useEffect(()=> {
         const resizeListener = () => {
-            if(window.screen.width < 768) {
-                setImgWidth(window.screen.width / 3);
-            }
-            else if(window.innerWidth < 768) {
+            if(window.innerWidth < 768) {
                 setImgWidth(window.innerWidth / 3);
+            }
+            else if(window.screen.width < 768) {
+                setImgWidth(window.screen.width / 3);
             }
             else {
                 setImgWidth(150);
             }
         }
+        resizeListener();
         window.addEventListener('resize',resizeListener);
         return () => window.removeEventListener('resize',resizeListener);
     },[]);

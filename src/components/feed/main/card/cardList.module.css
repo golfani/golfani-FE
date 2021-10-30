@@ -52,4 +52,7 @@
         background-color: transparent;
         box-shadow: none;
     }
+    .card_box {
+        justify-content: start;
+    }
 }
