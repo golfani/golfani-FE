@@ -100,3 +100,9 @@
         align-items: center;
     }
 }
+
+@media screen and (max-width: 480px){
+    .main_box {
+        margin-top: 60px;
+    }
+}
