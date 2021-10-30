@@ -1,5 +1,5 @@
-import style from 'src/components/board/main/item/boarditem.module.css';
-import React, {useEffect,useState} from 'react';
+import style from 'src/components/board/main/item/boardItem.module.css';
+import React from 'react';
 import {IBoardData} from "../../../../apis/Board";
 import {useRouter} from "next/router";
 

@@ -1,5 +1,5 @@
 import BoardNavbar from 'src/components/board/main/BoardNavBar';
-import BoardMain from 'src/components/board/main/Main';
+import BoardMain from 'src/components/board/main/BoardMain';
 import BoardLeftSideBar from 'src/components/board/main/leftSideBar/BoardLeftSideBar';
 import {useState} from "react";
 import {EType} from "../../src/domain/board";

@@ -52,19 +52,3 @@ export const deleteBoard = async (boardId : number) => {
     const response = await securityAxios.delete(`${API_URL}/${boardId}`)
     return response;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
