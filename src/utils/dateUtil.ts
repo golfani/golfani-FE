@@ -36,7 +36,8 @@ const leftPad = (value : number) => {
     return `0${value}`;
 }
 
-export const toStringByFormatting = (source : Date) => {
+export const toStringByFormatting = (target : Date | string) => {
+    const source = new Date(target);
     const year = source.getFullYear();
     const month = leftPad(source.getMonth() + 1);
     const day = leftPad(source.getDate());
@@ -46,14 +47,15 @@ export const toStringByFormatting = (source : Date) => {
     return [year,month,day,hour,minute].join('.');
 }
 
-export const calcChatDate = (source : string) => {
-    const date = source.split('.');
+export const calcChatDate = (source : Date) => {
+    const formatDate = toStringByFormatting(source);
+    const date = formatDate.split('.');
 
     let hour = Number(date[3]);
     const minute = leftPad(Number(date[4]));
 
     if(hour >= 12) {
-        return `오후 ${hour-12}:${minute}`;
+        return `오후 ${hour}:${minute}`;
     }
     else if(hour < 12) {
         return `오전 ${hour}:${minute}`;
