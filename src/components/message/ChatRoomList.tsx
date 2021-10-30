@@ -1,33 +1,19 @@
 import style from './chatRoomList.module.css';
 import ChatRoomItem from "./ChatRoomItem";
-
-export interface IChatRoomItem {
-    id : number
-    userId : string
-}
-
-const chatRoomItems : IChatRoomItem[] = [
-    {
-        id : 1,
-        userId : 'gudwh14'
-    },
-    {
-        id : 2,
-        userId : 'gudwh14'
-    },
-    {
-        id : 3,
-        userId : 'gudwh14'
-    },
-]
+import {useQuery} from "react-query";
+import {getAllChatRooms, IChatRoomDto} from "src/apis/Chat";
 
 const ChatRoomList = () : JSX.Element => {
+    const chatRoomQuery = useQuery<IChatRoomDto[]>('chatRoom',()=>getAllChatRooms(),{
+        staleTime : 6000 * 10
+    });
+
     return (
         <div className={style.container}>
             <span className={style.chatRoom_title_txt}>채팅목록</span>
             <div className={style.chatItem_box}>
-                {chatRoomItems.map((chatRoomItem)=>(
-                        <ChatRoomItem key={chatRoomItem.id} chatRoomItem={chatRoomItem}/>
+                {chatRoomQuery.data?.map((chatRoom)=>(
+                        <ChatRoomItem key={chatRoom.id} chatRoomItem={chatRoom}/>
                     )
                 )}
             </div>
