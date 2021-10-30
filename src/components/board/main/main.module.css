@@ -1,0 +1,14 @@
+.container{
+    margin: 100px auto;
+    display: flex;
+    width:70%;
+    padding: 10px;
+    flex-direction: column;
+}
+
+
+
+
+
+
+
