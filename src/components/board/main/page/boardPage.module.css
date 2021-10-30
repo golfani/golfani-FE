@@ -1,0 +1,153 @@
+.container{
+    margin: 100px auto;
+    margin-top: 20px;
+    display: flex;
+    width:100%;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.recommend{
+    display:inline-block;
+    line-height: 40px;
+    justify-content: center;
+}
+
+.board_page{
+    margin-top:30px;
+    text-align: center;
+    font-size: 0;
+}
+
+.board_page > a{
+    display: inline-block;
+    width:32px;
+    height: 32px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    line-height: 100%;
+    border: 1px solid #ddd;
+    border-left: 0px;
+    line-height: 100%;
+}
+
+.button_wrap{
+    text-align: right;
+    position:fixed;
+    right:100px;
+    bottom:20px;
+    text-align: right;
+}
+
+.write_button{
+    height:50px;
+    min-width:50px;
+    border-radius: 50%;
+    background-color: #8b00ff;
+    color: #fff;
+}
+
+
+.num{
+    padding-top: 9px;
+    font-size: 0.8rem;
+}
+.num_on{
+    padding-top: 9px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color:#8b00ff;
+}
+
+.btn {
+    padding-top:10px;
+    font-size: 0.5rem;
+    align-items: center;
+}
+
+.btn:first-child{
+    border: 1px solid #ddd;
+}
+
+.search_bar{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top:10px;
+    vertical-align: top;
+
+}
+
+.select_component{
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 5%;
+    border : 1px solid #000;
+    height:34px;
+    text-align: left;
+    padding:2px 4px;
+    margin-right:1px;
+    opacity: 0.8;
+    width:95%;
+    align-items: center;
+}
+
+.search_id{
+    width: 20%;
+    height: 34px;
+    border : 1px solid #000;
+}
+
+.saerch_id::placeholder{
+    color:#000;
+}
+
+.search_btn{
+    width: 5%;
+    height: 36px;
+    box-sizing: border-box;
+    margin-left: 1px;
+    background-color: #8b00ff;
+    color:#fff;
+}
+.select_menu_wrap{
+    border : 1px solid #000;
+    width:97%;
+}
+
+.select_hidden{
+    display: none;
+}
+
+.select_menu{
+    width:90%;
+    height:34px;
+    padding: 2px 4px;
+    cursor:pointer;
+    background-color: #fff;
+}
+
+.select_wrap{
+    display: inline-block;
+    width:12%;
+    height: 100%;
+}
+
+.select_button{
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.arrow_icon{
+    width: 12px;
+    height: 12px;
+}
+
+.arrow_icon_open{
+    width: 12px;
+    height: 12px;
+    transform: rotate(180deg);
+}
