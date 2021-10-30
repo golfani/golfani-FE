@@ -36,10 +36,12 @@ const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
         }
     },[alarmMutate])
 
-    const onRedirectAlarm = () => {
+    const onRedirectAlarm = async () => {
         if(alarm.alarmType === "FEED") {
             onSetBelow();
             onSetFeedModal(true);
+            await queryClient.invalidateQueries(['feedReply',alarm.referId]);
+            await queryClient.invalidateQueries(['feedLikes',alarm.referId]);
         }
     }
 
