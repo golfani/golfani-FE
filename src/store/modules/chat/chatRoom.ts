@@ -1,22 +1,25 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {IChatRoomDto} from "src/apis/Chat";
 
 interface IChatRoomState {
-    activeId : number | null
+    chatRoom? : IChatRoomDto
 }
 
 const initialState : IChatRoomState = {
-    activeId : null
 }
 
 export const chatRoomSlice = createSlice({
     name : 'chatRoom',
     initialState : initialState,
     reducers : {
-        setChatRoom(state : IChatRoomState, action : PayloadAction<number>) {
-            state.activeId = action.payload;
+        setChatRoom(state : IChatRoomState, action : PayloadAction<IChatRoomDto>) {
+            state.chatRoom = action.payload;
+        },
+        init(state : IChatRoomState) {
+            state.chatRoom = undefined;
         }
-    }
+     }
 })
 
 export default chatRoomSlice.reducer;
-export const {setChatRoom} = chatRoomSlice.actions;
+export const {setChatRoom,init} = chatRoomSlice.actions;

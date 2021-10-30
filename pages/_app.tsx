@@ -9,7 +9,7 @@ import {useEffect, useState} from "react";
 import {getCookie} from "src/utils/cookieUtil";
 import {onSilentRefresh} from "src/utils/securityUtil";
 import {IMessage} from "@stomp/stompjs";
-import {socket, socketConnect, socketDisconnect} from "src/socket/socket";
+import {socket, socketConnect, socketDisconnect, subChatChannel} from "src/socket/socket";
 import SocketLoading from "src/components/common/SocketLoading";
 import Head from "next/head";
 
@@ -18,8 +18,14 @@ const reduxStore = store();
 const persistor = persistStore(reduxStore);
 
 const alarmCallback = async (data : IMessage) => {
-    await queryClient.invalidateQueries('alarm');
-    await queryClient.invalidateQueries('unReadAlarm');
+    const message = JSON.parse(data.body);
+    if(message.type === 'CHAT') {
+        await queryClient.invalidateQueries('chatRoom');
+    }
+    else {
+        await queryClient.invalidateQueries('alarm');
+        await queryClient.invalidateQueries('unReadAlarm');
+    }
 }
 
 function MyApp({Component, pageProps}: AppProps) {
@@ -30,10 +36,18 @@ function MyApp({Component, pageProps}: AppProps) {
         setIsSocketConnected(state);
     }
 
+    const chatCallback = async () => {
+        await queryClient.invalidateQueries(['chatMessage',socket.chatRoomId]);
+    }
+
+    const subForActivatedChat = () => {
+        socket.chatRoomId && subChatChannel(socket.chatRoomId,chatCallback);
+    }
+
     // 로그인 상태일시 silentRefresh 진행
     useEffect(() => {
         userId && onSilentRefresh(userId);
-        userId && socketConnect(alarmCallback,onSetSocketConnect);
+        userId && socketConnect(alarmCallback,onSetSocketConnect,subForActivatedChat);
 
         return () => socketDisconnect();
     }, []);
