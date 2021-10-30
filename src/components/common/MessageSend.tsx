@@ -2,6 +2,7 @@ import style from './messageSend.module.css';
 import {getProfileImage, IMember} from "src/apis/Member";
 import {ChangeEvent, useRef, useState} from "react";
 import {getCookie} from "src/utils/cookieUtil";
+import {createChatRoom, getChatRoom, sendChatBySocket} from "src/apis/Chat";
 
 interface IMessageSendProps {
     member : IMember
@@ -25,6 +26,35 @@ const MessageSend = ({member} : IMessageSendProps) : JSX.Element => {
         handleResizeHeight();
     }
 
+    const getChatRoomId = async () => {
+        try {
+            const response = await getChatRoom(member.userId);
+            const roomId = response.data;
+            return roomId;
+        }
+        catch (e) {
+            if(e.response.status === 404) {
+                const roomId = await createChatRoom(member.userId);
+                return roomId;
+            }
+        }
+    }
+
+    const sendMessage = async () => {
+        try {
+            const roomId = await getChatRoomId();
+            await sendChatBySocket(roomId,member.userId,chatText);
+            setChatText('');
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    const handleClickSendButton = async () => {
+        await sendMessage()
+    }
+
 
     return (
         <div className={style.container}>
@@ -41,7 +71,7 @@ const MessageSend = ({member} : IMessageSendProps) : JSX.Element => {
             <div className={style.send_box}>
                 <img className={style.img} src={getProfileImage(member.userId,'MID')} width={30} height={30}/>
                 <span className={style.receiver_user}>{`${member.userId}`}</span>
-                <button className={style.msg_send_btn}> </button>
+                <button className={style.msg_send_btn} onClick={handleClickSendButton}> </button>
             </div>
         </div>
     );
