@@ -13,7 +13,7 @@ const BoardMain = (props: IProps): JSX.Element => {
         <div className={style.container}>
             <div>
                 <BoardList props={props.props}/>
-                <BoardPage/>
+                <BoardPage props={props.props}/>
             </div>
         </div>
     )

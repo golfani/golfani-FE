@@ -1,4 +1,4 @@
-import BoardNavbar from 'src/components/board/main/BoardNavBar';
+import Navbar from "../../src/components/common/navbar/Navbar";
 import BoardMain from 'src/components/board/main/BoardMain';
 import BoardLeftSideBar from 'src/components/board/main/leftSideBar/BoardLeftSideBar';
 import {useState} from "react";
@@ -15,11 +15,10 @@ const Board = () : JSX.Element => {
     
     return (
         <div>
-            <BoardNavbar/>
+            <Navbar/>
             <BoardLeftSideBar onSetBoardType={onSetBoardType}/>
             <BoardMain props={boardType}/>
         </div>
-
     )
 };
 

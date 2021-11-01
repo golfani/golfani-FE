@@ -42,9 +42,9 @@ export const getBoardView = async (id : string) => {
     return response.data;
 }
 
-export const putBoard = async (boardDto : boardDTO) => {
+export const putBoard = async (boardDto : IBoardData) => {
     console.log(boardDto);
-    const response = await securityAxios.put(`${API_URL}`,{ boardDto : {boardDto}});
+    const response = await securityAxios.put(`${API_URL}`, boardDto);
     return response;
 }
 

@@ -12,7 +12,6 @@ const BoardList = (props : IProps) : JSX.Element => {
     });
 
     useEffect(()=>{
-        console.log(boardQuery.data);
     },[props.props])
 
     return(
@@ -25,7 +24,12 @@ const BoardList = (props : IProps) : JSX.Element => {
                     <div className={style.board_date}>작성일</div>
                     <div className={style.recommend}>추천</div>
                 </div>
-                {boardQuery.data && <BoardItem boardList={boardQuery.data}></BoardItem>}
+                {boardQuery.data &&
+                boardQuery.data.map((board : IBoardData)=> {
+                    return(
+                        <BoardItem board={board}/>
+                    )
+                })}
             </div>
         </div>
     )

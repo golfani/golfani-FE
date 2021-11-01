@@ -116,8 +116,16 @@
 }
 
 .menu_wrap{
-    height:50px;
-    line-height: 50px;
+    height:40px;
+    width: 100px;
+    line-height: 35px;
     padding:5px;
     margin-left:10px;
+}
+
+.board_type{
+    background-color: #8b00ff;
+    color: #ffffff;
+    border-radius: 5%;
+    padding: 3px;
 }
