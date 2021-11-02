@@ -1,4 +1,4 @@
-import {Client, IMessage} from "@stomp/stompjs";
+import {Client, IMessage, StompHeaders} from "@stomp/stompjs";
 import {getCookie} from "src/utils/cookieUtil";
 import {TAlarmSendDto} from "src/domain/Alarm";
 import {IChatMessageDto} from "../apis/Chat";
@@ -13,12 +13,12 @@ interface ISocket {
 
 export const socket : ISocket = {
     socketClient : new Client({
-        brokerURL : 'wss://golfani.com:8080/stomp',
-        debug : (str) => {
+        brokerURL: 'wss://golfani.com:8080/stomp',
+        debug: (str) => {
         },
-        reconnectDelay : 1000,
-        heartbeatIncoming : 0,
-        heartbeatOutgoing : 20000,
+        reconnectDelay: 1000,
+        heartbeatIncoming: 0,
+        heartbeatOutgoing: 20000,
     }),
     chatRoomId : undefined
 }
@@ -36,13 +36,13 @@ export const socketConnect = (callback : (data : IMessage) => void, listener : (
 }
 
 export const subNoticeChannel = (callback : (data : IMessage) => void) => {
-    const subscription = socket.socketClient.subscribe(`/queue/${userId}`,callback,{ id : noticeSubId});
+    const subscription = socket.socketClient.subscribe(`/queue/${userId}`,callback,{ id : noticeSubId, type : 'ALARM'});
 }
 
 export const subChatChannel = (roomId : number, callback : () => void) => {
     socket.chatRoomId = roomId;
     const subId = `chat-sub-${roomId}`;
-    const subscription = socket.socketClient.subscribe(`/topic/${roomId}`,callback,{ id : subId});
+    const subscription = socket.socketClient.subscribe(`/topic/${roomId}`,callback,{ id : subId, roomId : roomId.toString(), userId : userId, type : 'CHAT'});
 }
 
 export const unSubNoticeChannel= () => {
@@ -52,7 +52,7 @@ export const unSubNoticeChannel= () => {
 export const unSubChatChannel = (roomId : number) => {
     socket.chatRoomId = undefined;
     const subId = `chat-sub-${roomId}`;
-    socket.socketClient.unsubscribe(subId);
+    socket.socketClient.unsubscribe(subId,{roomId : roomId.toString(), userId : userId, type : 'CHAT'});
 }
 
 export const socketDisconnect = () => {
