@@ -9,7 +9,7 @@ export const dateDiff = (date : string | Date) : string => {
         diff = `${target.getFullYear()}년 ${target.getMonth()}월 ${target.getDate()}일`;
     }
     else if(now.getMonth() !== target.getMonth()) {
-        diff = `${target.getMonth()}월 ${target.getDate()}일`;
+        diff = `${target.getMonth()+1}월 ${target.getDate()}일`;
     }
     else if(now.getDate() !== target.getDate()) {
         diff = now.getDate() - target.getDate() >= 7
