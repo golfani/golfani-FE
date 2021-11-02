@@ -1,18 +1,19 @@
 import style from 'src/components/board/main/item/boardItem.module.css';
 import {useEffect, useState} from 'react';
 import BoardItem from 'src/components/board/main/item/BoardItem';
-import {getBoard, IBoardData} from "../../../../apis/Board";
-import {IProps} from "../BoardMain";
+import {getBoard, getBoard2, IBoardData} from "../../../../apis/Board";
+import {ITypeProps} from "../BoardMain";
 import {useInfiniteQuery, useQuery} from "react-query";
+import {IPages} from "../../../../domain/Page";
 
-const BoardList = (props : IProps) : JSX.Element => {
+const BoardList = (boardType : ITypeProps) : JSX.Element => {
 
-    const boardQuery = useQuery(['board',props.props], () => getBoard(props.props), {
-        enabled : props.props!==undefined,
+    const boardQuery = useQuery<IPages<IBoardData>>(['board',boardType.boardType], ({pageParam = '0'}) => getBoard(boardType.boardType), {
+        enabled : boardType.boardType!==undefined,
     });
 
     useEffect(()=>{
-    },[props.props])
+    },[boardType])
 
     return(
         <div className={style.container}>

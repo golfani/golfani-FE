@@ -17,7 +17,7 @@ const Board = () : JSX.Element => {
         <div>
             <Navbar/>
             <BoardLeftSideBar onSetBoardType={onSetBoardType}/>
-            <BoardMain props={boardType}/>
+            <BoardMain boardType={boardType}/>
         </div>
     )
 };

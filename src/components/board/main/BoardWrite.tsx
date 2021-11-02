@@ -27,7 +27,7 @@ const BoardWrite = (): JSX.Element => {
 
     const [inputs , setInputs] = useState<boardDTO>({
         userId : getUserId,
-        boardType: EType.FREE,
+        boardType: boardType as EType,
         content : '',
         title : ''
     })
