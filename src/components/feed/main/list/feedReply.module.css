@@ -36,3 +36,18 @@
     width: 90%;
     bottom: 0;
 }
+
+@media screen and (max-width: 1080px) {
+    .modal_reply_input_box {
+        position: initial;
+        width: 100%;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+    .blank_reply_more_txt {
+        flex: 1;
+    }
+}
