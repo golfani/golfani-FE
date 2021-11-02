@@ -15,7 +15,7 @@ const BoardLeftSideBar = (props: IBoardTypeProps): JSX.Element => {
     }
 
     const menuClicked = (type : EType) =>{
-        type === selectMenu ? setMenu(EType.FREE) : setMenu(type);
+        if(type !== selectMenu) setMenu(type);
         props.onSetBoardType(type);
     }
 

@@ -4,37 +4,32 @@ import {IBoardData} from "../../../../apis/Board";
 import {useRouter} from "next/router";
 
 interface IBoardProps{
-    boardList : IBoardData[];
+    board : IBoardData;
 }
 
-const BoardItem = ({boardList}: IBoardProps) : JSX.Element => {
+const BoardItem = (board: IBoardProps) : JSX.Element => {
 
     const router = useRouter();
-
     const onTitleClick = (id : number) => { // 클릭 되는 객체 반환
         router.push(`board/view/${id}`);
     }
 
     return(
         <>
-        {boardList.map((board : IBoardData)=> {
-                return(
-                    <div className={style.board_item_container}>
-                        <div className={style.num}>{board.id}</div>
-                        <div className={style.board_title} onClick={() => onTitleClick(board.id)} >
-                            <span
-                                className={style.board_title_text} >{board.title.length > 30 ? board.title.slice(0, 27) + '...' : board.title}</span>
-                        </div>
-                        <div className={style.board_id}> {board.userId}</div>
-                        <div className={style.board_date}>{board.createdTime.slice(0,10)}</div>
+            <div className={style.board_item_container}>
+                <div className={style.num}>{board.board.id}</div>
+                <div className={style.board_title} onClick={() => onTitleClick(board.board.id)} >
+                    <span
+                        className={style.board_title_text} >{board.board.title.length > 30 ? board.board.title.slice(0, 27) + '...' : board.board.title}</span>
+                </div>
+                <div className={style.board_id}> {board.board.userId}</div>
+                <div className={style.board_date}>{board.board.createdTime.slice(0,10)}</div>
 
-                        <div className={style.recommend}>
-                            <span>❣️</span>
-                            <span>{board.likesCount}</span>
-                        </div>
-                    </div>
-                )
-            })}
+                <div className={style.recommend}>
+                    <span>❣️</span>
+                    <span>{board.board.likesCount}</span>
+                </div>
+            </div>
         </>
     )
 }

@@ -3,17 +3,17 @@ import BoardList from 'src/components/board/main/item/BoardList';
 import BoardPage from 'src/components/board/main/page/BoardPage';
 import {EType} from "../../../domain/board";
 
-export interface IProps{
-    props : EType
+export interface ITypeProps{
+    boardType : EType
 }
 
-const BoardMain = (props: IProps): JSX.Element => {
+const BoardMain = (boardType: ITypeProps): JSX.Element => {
 
     return(
         <div className={style.container}>
             <div>
-                <BoardList props={props.props}/>
-                <BoardPage/>
+                <BoardList boardType={boardType.boardType}/>
+                <BoardPage boardType={boardType.boardType}/>
             </div>
         </div>
     )

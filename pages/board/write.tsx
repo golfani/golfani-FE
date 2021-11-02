@@ -1,10 +1,10 @@
-import BoardNavbar from 'src/components/board/main/BoardNavBar';
+import Navbar from "../../src/components/common/navbar/Navbar";
 import BoardWrite from 'src/components/board/main/BoardWrite';
 
 const write = (): JSX.Element => {
     return(
         <div>
-            <BoardNavbar/>
+            <Navbar/>
             <BoardWrite/>
         </div>
     )

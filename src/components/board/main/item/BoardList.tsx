@@ -1,19 +1,19 @@
 import style from 'src/components/board/main/item/boardItem.module.css';
 import {useEffect, useState} from 'react';
 import BoardItem from 'src/components/board/main/item/BoardItem';
-import {getBoard, IBoardData} from "../../../../apis/Board";
-import {IProps} from "../BoardMain";
+import {getBoard, getBoard2, IBoardData} from "../../../../apis/Board";
+import {ITypeProps} from "../BoardMain";
 import {useInfiniteQuery, useQuery} from "react-query";
+import {IPages} from "../../../../domain/Page";
 
-const BoardList = (props : IProps) : JSX.Element => {
+const BoardList = (boardType : ITypeProps) : JSX.Element => {
 
-    const boardQuery = useQuery(['board',props.props], () => getBoard(props.props), {
-        enabled : props.props!==undefined,
+    const boardQuery = useQuery<IPages<IBoardData>>(['board',boardType.boardType], ({pageParam = '0'}) => getBoard(boardType.boardType), {
+        enabled : boardType.boardType!==undefined,
     });
 
     useEffect(()=>{
-        console.log(boardQuery.data);
-    },[props.props])
+    },[boardType])
 
     return(
         <div className={style.container}>
@@ -25,7 +25,12 @@ const BoardList = (props : IProps) : JSX.Element => {
                     <div className={style.board_date}>작성일</div>
                     <div className={style.recommend}>추천</div>
                 </div>
-                {boardQuery.data && <BoardItem boardList={boardQuery.data}></BoardItem>}
+                {boardQuery.data &&
+                boardQuery.data.map((board : IBoardData)=> {
+                    return(
+                        <BoardItem board={board}/>
+                    )
+                })}
             </div>
         </div>
     )

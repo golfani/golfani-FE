@@ -1,11 +1,10 @@
 import style from 'src/components/board/main/view/boardView.module.css';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import BoardComment from "../comment/BoardComment";
 import {getCookie} from "../../../../utils/cookieUtil";
 import {deleteBoard, IBoardData} from "../../../../apis/Board";
 import {useRouter} from "next/router";
-
 
 export interface IBoardProps{
     boardView : IBoardData
@@ -13,17 +12,17 @@ export interface IBoardProps{
 
 const Board_view = (boardView : IBoardProps): JSX.Element => {
 
-    const [showDeleteBtn, setShowDeleteBtn] = useState(true);
+    const [showDeleteBtn, setShowDeleteBtn] = useState(false);
     const userId = getCookie('userId');
     const router = useRouter();
 
+    useEffect(()=>{
+        if(userId === boardView.boardView.userId) setShowDeleteBtn(true);
+        },[showDeleteBtn]);
+
     const onDeleteBoard = (boardId : number) => {
-        setShowDeleteBtn(true);
         const response = deleteBoard(boardId);
         router.push("/board");
-        if(boardView.boardView.userId === userId.toString()){
-            setShowDeleteBtn(true);
-        }
     }
 
     return(
@@ -55,7 +54,7 @@ const Board_view = (boardView : IBoardProps): JSX.Element => {
                     <Link href={{
                         pathname: `put`,
                         query : { boardData : JSON.stringify(boardView)},
-                    }} as={`put`}><a className={style.list_button}>수정</a></Link>
+                    }} as={`put`}><a className={userId === boardView.boardView.userId ? style.list_button : style.block}>수정</a></Link>
                     <button className={showDeleteBtn ? style.delete_btn : style.block} onClick={(e) => onDeleteBoard(boardView.boardView.id)}>삭제</button>
                 </div>
             </div>

@@ -37,14 +37,19 @@ export const getBoard = async (boardType : EType, page : number = 0, size : numb
     return response.data.content;
 }
 
+export const getBoard2 = async (boardType : EType, page : number = 0, size : number = 10) => {
+    const response = await securityAxios.get(`${API_URL}/list?boardType=${boardType}&page=${page}&size=${size}`);
+    return response.data;
+}
+
 export const getBoardView = async (id : string) => {
     const response = await securityAxios.get(`${API_URL}/${id}`);
     return response.data;
 }
 
-export const putBoard = async (boardDto : boardDTO) => {
+export const putBoard = async (boardDto : IBoardData) => {
     console.log(boardDto);
-    const response = await securityAxios.put(`${API_URL}`,{ boardDto : {boardDto}});
+    const response = await securityAxios.put(`${API_URL}`, boardDto);
     return response;
 }
 

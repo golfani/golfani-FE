@@ -1,17 +1,11 @@
 import style from 'src/components/board/main/page/boardPage.module.css';
 import React, {useState} from "react";
 import Link from 'next/link'
+import {ITypeProps} from "../BoardMain";
 
-interface Props {
-    postPerPage : number,
-    totalLength : number,
-    setCurrentPage : any
-}
-
-const BoardPage = () : JSX.Element => {
+const BoardPage = (boardType : ITypeProps) : JSX.Element => {
 
     /* 추후 리스트 동적 생성 됨에따라 교체 예정 */
-
     type TSelectMenu = '글쓴이' | '제목' | '내용' | '게시글'
 
     const [showMenu,setShowMenu] = useState(false);
@@ -47,11 +41,15 @@ const BoardPage = () : JSX.Element => {
     return (
         <div className={style.container}>
             <div className={style.button_wrap}>
-                <button className={style.write_button}>
-                    <Link href="/board/write">
-                        <a>글쓰기</a>
-                    </Link>
-                </button>
+                <Link href={{
+                    pathname: '/board/write',
+                    query : {boardType : boardType.boardType}
+                }} as ={'board/write'}>
+                    <button className={style.write_button}>
+                        <p>글쓰기</p>
+                    </button>
+                </Link>
+
             </div>
 
             <div className={style.board_page}>

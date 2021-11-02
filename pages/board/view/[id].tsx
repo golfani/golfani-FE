@@ -9,9 +9,10 @@ const ViewPage = () : JSX.Element => {
     const router = useRouter()
     const {id} = router.query;
     const boardQuery = useQuery(['board',id], ()=>getBoardView(id as string), {
-        enabled : id!==undefined,
+        enabled : id !== undefined,
     });
 
+    console.log(boardQuery.data);
     return (
         <div>
             <BoardNavbar/>
