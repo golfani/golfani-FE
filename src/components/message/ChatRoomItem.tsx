@@ -1,9 +1,9 @@
 import style from './chatRoomItem.module.css';
 import useChatRoom from "src/store/modules/chat/chatRoomHook";
-import {IChatRoomDto} from "src/apis/Chat";
+import {IChatRoomDto, setChatMessageRead} from "src/apis/Chat";
 import {getProfileImage} from "src/apis/Member";
 import {dateDiff} from "src/utils/dateUtil";
-import {useQueryClient} from "react-query";
+import {useMutation, useQueryClient} from "react-query";
 import {subChatChannel, unSubChatChannel} from "src/socket/socket";
 import {useEffect} from "react";
 
@@ -14,12 +14,27 @@ interface IChatRoomItemProps {
 const ChatRoomItem = ({chatRoomItem} : IChatRoomItemProps) : JSX.Element => {
     const chatRoom = useChatRoom();
     const queryClient = useQueryClient();
+    const chatMessageMutate = useMutation(()=> setChatMessageRead(chatRoomItem.id!));
 
     const callback = async () => {
         await queryClient.invalidateQueries(['chatMessage',chatRoomItem.id]);
     }
 
+    const onReadChatMessage = async () => {
+        try {
+            const response = await chatMessageMutate.mutateAsync();
+        }
+        catch (e) {
+            console.log(e);
+        }
+        finally {
+            await queryClient.invalidateQueries('chatRoom');
+        }
+    }
+
     const handleClickChatRoom = async () => {
+        await onReadChatMessage();
+        await queryClient.invalidateQueries('unReadMessage');
         chatRoom.onSetChatRoomId(chatRoomItem);
         chatRoomItem.id !== chatRoom.activeChatRoom?.id && await subChatChannel(chatRoomItem.id!,callback);
     }
@@ -43,7 +58,7 @@ const ChatRoomItem = ({chatRoomItem} : IChatRoomItemProps) : JSX.Element => {
                 </div>
                 <div className={style.content_message_box}>
                     <span className={style.message_txt}>{chatRoomItem.lastMessage?.message}</span>
-                    <span className={style.notice_icon}>1</span>
+                    {chatRoomItem.unreadMessageCnt! > 0 && <span className={style.notice_icon}>{chatRoomItem.unreadMessageCnt}</span> }
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import {Client, IMessage, StompHeaders} from "@stomp/stompjs";
+import {Client, IMessage} from "@stomp/stompjs";
 import {getCookie} from "src/utils/cookieUtil";
 import {TAlarmSendDto} from "src/domain/Alarm";
 import {IChatMessageDto} from "../apis/Chat";
@@ -42,6 +42,15 @@ export const subNoticeChannel = (callback : (data : IMessage) => void) => {
 export const subChatChannel = (roomId : number, callback : () => void) => {
     socket.chatRoomId = roomId;
     const subId = `chat-sub-${roomId}`;
+    if (socket.socketClient.active && socket.socketClient.connected) {
+        const publish = socket.socketClient.publish({
+            destination: `/chat/subscribe/${roomId}`,
+            body: 'participate',
+        });
+    }
+    else {
+        alert('socketClient not Connected');
+    }
     const subscription = socket.socketClient.subscribe(`/topic/${roomId}`,callback,{ id : subId, roomId : roomId.toString(), userId : userId, type : 'CHAT'});
 }
 
