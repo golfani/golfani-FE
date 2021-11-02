@@ -35,9 +35,11 @@ const ChatRoomItem = ({chatRoomItem} : IChatRoomItemProps) : JSX.Element => {
     const handleClickChatRoom = async () => {
         await onReadChatMessage();
         await queryClient.invalidateQueries('unReadMessage');
-        chatRoomItem.id && unSubChatChannel(chatRoomItem.id);
-        chatRoom.onSetChatRoomId(chatRoomItem);
-        chatRoomItem.id !== chatRoom.activeChatRoom?.id && await subChatChannel(chatRoomItem.id!,callback);
+        if(chatRoomItem.id !== chatRoom.activeChatRoom?.id) {
+            chatRoom.activeChatRoom && unSubChatChannel(chatRoom.activeChatRoom.id!);
+            chatRoom.onSetChatRoomId(chatRoomItem);
+            await subChatChannel(chatRoomItem.id!,callback);
+        }
     }
 
     const unMount = () => {
