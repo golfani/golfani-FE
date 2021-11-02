@@ -7,11 +7,10 @@ const userId = getCookie('userId');
 
 export interface IChatRoomDto {
     id? : number
-    roomName : string
-    participateCount? : number
     memberList : string[]
     lastMessage? : IChatMessageDto
     receiver? : string
+    unreadMessageCnt? : number
 }
 
 export enum READING_STATUS {
@@ -65,7 +64,6 @@ export const createChatRoom = async (receiver : string) => {
     memberList.push(userId);
 
     const chatRoomDto : IChatRoomDto = {
-        roomName : 'DIRECT MESSAGE',
         memberList : memberList,
     }
     const response = await securityAxios.post(`${API_URL}/room`,chatRoomDto);
@@ -87,4 +85,21 @@ export const sendChatBySocket = async (chatRoomId : number, receiver : string, m
     }
 
     await publishChatMessage(chatMessageDto);
+}
+
+/**
+ *
+ */
+export const getUnreadChatMessageCount = async () => {
+    const response = await securityAxios.get(`${API_URL}/unread/${userId}`);
+    return response.data;
+}
+
+/**
+ *
+ * @param roomId
+ */
+export const setChatMessageRead = async (roomId : number) => {
+    const response = await securityAxios.post(`${API_URL}/read/${roomId}`);
+    return response.data;
 }

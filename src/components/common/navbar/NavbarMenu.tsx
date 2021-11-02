@@ -9,6 +9,7 @@ import {handleClickRefOutSide} from "src/utils/clickUtil";
 import {getCookie} from "src/utils/cookieUtil";
 import {useQuery} from "react-query";
 import {getUnreadAlarmCount} from "src/apis/Alarm";
+import {getUnreadChatMessageCount} from "../../../apis/Chat";
 
 const NavbarMenu = () => {
     const userId = getCookie('userId')
@@ -20,6 +21,7 @@ const NavbarMenu = () => {
     const unReadAlarmQuery = useQuery('unReadAlarm', ()=>getUnreadAlarmCount(),{
         staleTime : 60 * 10 * 1000
     });
+    const unReadMessageQuery = useQuery('unReadMessage', () => getUnreadChatMessageCount());
 
     const onCloseMyMenu = () => {
         setMyMenuOpen((myMenuOpen)=> false);
@@ -50,7 +52,7 @@ const NavbarMenu = () => {
                 <div className={style.icon_box}>
                     <div className={style.menu_box} ref={myOpenRef}>
                         <AccountCircleOutlinedIcon className={style.icon} onClick={handleClickMyMenu} fontSize={'inherit'}/>
-                        <span className={style.notice_count}>{1}</span>
+                        {unReadMessageQuery.data !== 0 && <span className={style.notice_count}>{unReadMessageQuery.data}</span>}
                         {myMenuOpen && <MyMenu open={myMenuOpen}/>}
                     </div>
                     <div className={style.menu_box} ref={noticeRef}>
