@@ -13,6 +13,12 @@ interface IChatItemProps {
 
 const ChatItem = ({chat,chatData,index} : IChatItemProps) : JSX.Element => {
     const userId = getCookie('userId');
+    const message : string[] = chat.message.split('\n');
+
+    const renderShowMessage = message.map((data)=> (
+        <div>{data}</div>
+    ));
+
     const isFirstChat = () => {
         const prevId = index-1;
         if(chatData[prevId]) {
@@ -46,7 +52,9 @@ const ChatItem = ({chat,chatData,index} : IChatItemProps) : JSX.Element => {
                             <span className={style.my_time_txt}>{calcChatDate(chat.createdDate!)}</span>
                             }
                         </div>
-                        <span className={style.my_message_txt}>{chat.message}</span>
+                        <div className={style.my_message_txt}>
+                            {renderShowMessage}
+                        </div>
                     </div>
                     :
                     <div className={style.flex_box}>
@@ -56,7 +64,9 @@ const ChatItem = ({chat,chatData,index} : IChatItemProps) : JSX.Element => {
                             <div className={style.blank_img}></div>
                         }
                         <div className={style.message_box}>
-                            <span className={style.message_txt}>{chat.message}</span>
+                            <div className={style.message_txt}>
+                                {renderShowMessage}
+                            </div>
                             <div className={style.message_sub_box}>
                                 {isLastChat() &&
                                 <span className={style.time_txt}>{calcChatDate(chat.createdDate!)}</span>
