@@ -21,6 +21,7 @@ const alarmCallback = async (data : IMessage) => {
     const message = JSON.parse(data.body);
     if(message.type === 'CHAT') {
         await queryClient.invalidateQueries('chatRoom');
+        await queryClient.invalidateQueries('unReadMessage');
     }
     else {
         await queryClient.invalidateQueries('alarm');

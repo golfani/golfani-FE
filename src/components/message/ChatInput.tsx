@@ -31,10 +31,11 @@ const ChatInput = ({setIsSendBySelf} : IChatInput) : JSX.Element => {
     }
 
     const handleKeyPress = async (event : React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if(event.key === 'Enter' && chatInputText) {
+        if(event.key === 'Enter' && chatInputText.replace(/\s/g,'').length) {
             if(!event.shiftKey) {
                 event.preventDefault();
                 await onSendMsg();
+                await handleResizeHeight();
                 await setIsSendBySelf(true);
             }
         }

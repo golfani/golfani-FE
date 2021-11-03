@@ -1,9 +1,9 @@
 import style from 'src/components/board/main/item/boardItem.module.css';
 import {useEffect, useState} from 'react';
 import BoardItem from 'src/components/board/main/item/BoardItem';
-import {getBoard, getBoard2, IBoardData} from "../../../../apis/Board";
+import {getBoard, IBoardData} from "../../../../apis/Board";
 import {ITypeProps} from "../BoardMain";
-import {useInfiniteQuery, useQuery} from "react-query";
+import {useQuery} from "react-query";
 import {IPages} from "../../../../domain/Page";
 
 const BoardList = (boardType : ITypeProps) : JSX.Element => {
@@ -26,7 +26,7 @@ const BoardList = (boardType : ITypeProps) : JSX.Element => {
                     <div className={style.recommend}>추천</div>
                 </div>
                 {boardQuery.data &&
-                boardQuery.data.map((board : IBoardData)=> {
+                boardQuery.data.content.map((board : IBoardData)=> {
                     return(
                         <BoardItem board={board}/>
                     )
