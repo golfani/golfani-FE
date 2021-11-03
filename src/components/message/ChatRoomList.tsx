@@ -8,6 +8,18 @@ const ChatRoomList = () : JSX.Element => {
         staleTime : 6000 * 10
     });
 
+    chatRoomQuery.data?.sort((prev,cur) => {
+        if(prev.lastMessage?.createdDate! > cur.lastMessage?.createdDate!) {
+            return -1;
+        }
+        if(prev.lastMessage?.createdDate! > cur.lastMessage?.createdDate!) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    });
+
     return (
         <div className={style.container}>
             <span className={style.chatRoom_title_txt}>채팅목록</span>
