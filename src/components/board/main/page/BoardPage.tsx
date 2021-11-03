@@ -1,7 +1,7 @@
 import style from 'src/components/board/main/page/boardPage.module.css';
 import React, {useState} from "react";
 import Link from 'next/link'
-import {IProps} from "../BoardMain";
+import {ITypeProps} from "../BoardMain";
 
 interface Props {
     postPerPage : number,
@@ -9,7 +9,7 @@ interface Props {
     setCurrentPage : any
 }
 
-const BoardPage = (props : IProps) : JSX.Element => {
+const BoardPage = (boardType : ITypeProps) : JSX.Element => {
 
     /* 추후 리스트 동적 생성 됨에따라 교체 예정 */
     type TSelectMenu = '글쓴이' | '제목' | '내용' | '게시글'
@@ -49,7 +49,7 @@ const BoardPage = (props : IProps) : JSX.Element => {
             <div className={style.button_wrap}>
                 <Link href={{
                     pathname: '/board/write',
-                    query : {boardType : props.props}
+                    query : {boardType : boardType.boardType}
                 }} as ={'board/write'}>
                     <button className={style.write_button}>
                         <p>글쓰기</p>

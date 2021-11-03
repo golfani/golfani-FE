@@ -2,17 +2,28 @@ import style from 'src/components/board/main/item/boardItem.module.css';
 import {useEffect, useState} from 'react';
 import BoardItem from 'src/components/board/main/item/BoardItem';
 import {getBoard, IBoardData} from "../../../../apis/Board";
-import {IProps} from "../BoardMain";
-import {useInfiniteQuery, useQuery} from "react-query";
+import {ITypeProps} from "../BoardMain";
+import {useQuery} from "react-query";
+import {IPages} from "../../../../domain/Page";
 
-const BoardList = (props : IProps) : JSX.Element => {
+const BoardList = (boardType : ITypeProps) : JSX.Element => {
 
-    const boardQuery = useQuery(['board',props.props], () => getBoard(props.props), {
-        enabled : props.props!==undefined,
+    const [pageNum,setPageNum] = useState<number>(0);
+    const [totalPage, setTotalPage] = useState(0);
+
+    const boardQuery = useQuery<IPages<IBoardData>>(['board',boardType.boardType], () => getBoard(boardType.boardType,pageNum,10), {
+        enabled : boardType.boardType!==undefined,
     });
 
-    useEffect(()=>{
-    },[props.props])
+    const btnOnClick = () =>{
+        setTotalPage(boardQuery.data?.totalPages as number)
+        console.log(totalPage);
+        console.log(boardQuery.data);
+        console.log(pageNum);
+        if(pageNum < totalPage-1){
+            setPageNum(pageNum +1);
+        }
+    }
 
     return(
         <div className={style.container}>
@@ -24,12 +35,17 @@ const BoardList = (props : IProps) : JSX.Element => {
                     <div className={style.board_date}>작성일</div>
                     <div className={style.recommend}>추천</div>
                 </div>
+
                 {boardQuery.data &&
-                boardQuery.data.map((board : IBoardData)=> {
+                boardQuery.data.content.map((board : IBoardData)=> {
                     return(
                         <BoardItem board={board}/>
                     )
                 })}
+                <div>
+                    <button onClick={btnOnClick}>다음</button>
+                    <button >이전</button>
+                </div>
             </div>
         </div>
     )

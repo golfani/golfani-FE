@@ -27,7 +27,7 @@ const BoardWrite = (): JSX.Element => {
 
     const [inputs , setInputs] = useState<boardDTO>({
         userId : getUserId,
-        boardType: EType.FREE,
+        boardType: boardType as EType,
         content : '',
         title : ''
     })
@@ -95,8 +95,8 @@ const BoardWrite = (): JSX.Element => {
                         <input type="radio" id={EType.ANONYMOUS} value="ANONYMOUS" name="boardType" checked={typeChecked(EType.ANONYMOUS)} onChange={onChange}/>익명게시판
                     </div>
                     <div className={style.info}>
-                            <span className={style.writer}>글쓴이</span>
-                            <span className={style.userId}>{userId}</span>
+                        <span className={style.writer}>글쓴이</span>
+                        <span className={style.userId}>{userId}</span>
                     </div>
                     <div className={style.content_wrap}>
                         <div className={style.content}>

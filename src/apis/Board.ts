@@ -34,7 +34,7 @@ export const registerBoard = async (boardDto : boardDTO, imgList : File[] ) => {
 
 export const getBoard = async (boardType : EType, page : number = 0, size : number = 10) => {
     const response = await securityAxios.get(`${API_URL}/list?boardType=${boardType}&page=${page}&size=${size}`);
-    return response.data.content;
+    return response.data;
 }
 
 export const getBoardView = async (id : string) => {
