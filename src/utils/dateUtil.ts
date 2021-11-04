@@ -76,3 +76,16 @@ export const isTodayAlarm = (source : string | Date) => {
         return false;
     }
 }
+
+export const diffDayChat = (prevDate : Date, curDate : Date) => {
+    const prev = new Date(prevDate);
+    const cur = new Date(curDate);
+    if(prev.getFullYear() !== cur.getFullYear() || prev.getMonth() !== cur.getMonth() || prev.getDate() !== cur.getDate()) {
+        const year = cur.getFullYear() + '년';
+        const month = leftPad(cur.getMonth()+1) + '월';
+        const day = cur.getDate() + '일';
+
+        return [year,month,day].join(' ');
+    }
+    return false;
+}

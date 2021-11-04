@@ -1,7 +1,7 @@
 import style from './chatItem.module.css';
 import BoltIcon from '@material-ui/icons/Bolt';
 import {getCookie} from "src/utils/cookieUtil";
-import {calcChatDate, toStringByFormatting} from "src/utils/dateUtil";
+import {calcChatDate, diffDayChat, toStringByFormatting} from "src/utils/dateUtil";
 import {IChatMessageDto, READING_STATUS} from "src/apis/Chat";
 import {getProfileImage} from "src/apis/Member";
 
@@ -39,8 +39,17 @@ const ChatItem = ({chat,chatData,index} : IChatItemProps) : JSX.Element => {
         return true;
     }
 
+    const isDiffDayChat = () => {
+        const prevId = index-1;
+        if(chatData[prevId]) {
+            return diffDayChat(chatData[prevId].createdDate!,chat.createdDate!);
+        }
+        return false;
+    }
+
     return (
         <div className={style.container}>
+            {isDiffDayChat() && <span className={style.date_divider}>{isDiffDayChat()}</span>}
             <div className={style.flex_box}>
                 {chat.sender === userId ?
                     <div className={style.my_message_box}>
