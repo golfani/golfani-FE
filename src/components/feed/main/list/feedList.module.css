@@ -1,8 +1,14 @@
 .container {
+    position: relative;
     width: calc(100% + 40px);
     max-width: 640px;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: hidden;
+}
+
+.scroll_ref {
+    position: absolute;
+    bottom: 500px;
 }

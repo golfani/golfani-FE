@@ -55,8 +55,11 @@ export const registerFeed = async (feedAddState : IFeedAddState) => {
  * Pageable 된 피드리스트를 요청하는 API
  * @param page
  */
-export const getFeed = async (page : number = 0, size : number = 10) => {
-    const response = await axios.get(`${API_URL}?page=${page}&size=${size}`)
+export const getFeed = async (last_id : number = Number.MAX_SAFE_INTEGER, page : number = 0, size : number = 5) => {
+    if(!last_id) {
+        last_id = Number.MAX_SAFE_INTEGER;
+    }
+    const response = await axios.get(`${API_URL}?last_id=${last_id}&page=${page}&size=${size}`)
     return response.data;
 }
 
@@ -117,5 +120,14 @@ export const getAllUserFeed = async (userId : string) => {
  */
 export const getFeedOne = async (feedId : number) => {
     const response = await axios.get(`${API_URL}/${feedId}`);
+    return response.data;
+}
+
+/**
+ * 피드 수정 API
+ * @param feed
+ */
+export const modifyFeed = async (feed : IFeedContent) => {
+    const response = await securityAxios.put(API_URL,feed);
     return response.data;
 }

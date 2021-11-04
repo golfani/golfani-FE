@@ -22,3 +22,11 @@
     height: calc(100% - 50px);
     overflow: auto;
 }
+
+@media screen and (max-width: 768px){
+    .container {
+        width: 100%;
+        margin : 0;
+        border: 0;
+    }
+}

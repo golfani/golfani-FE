@@ -7,6 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import {useRouter} from "next/router";
 import {useEffect} from "react";
 import {getCookie} from "src/utils/cookieUtil";
+import FeedBottomNav from "../FeedBottomNav";
 
 const FeedMain = () : JSX.Element => {
     const {type} = useFeedType();
@@ -28,6 +29,7 @@ const FeedMain = () : JSX.Element => {
             <div className={style.write_box} onClick={handleClickWrite}>
                 <AddIcon className={style.write_icon}/>
             </div>
+            <FeedBottomNav/>
         </div>
     );
 };

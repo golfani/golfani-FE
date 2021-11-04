@@ -6,6 +6,7 @@ import {getProfileImage} from "src/apis/Member";
 import {useState} from "react";
 import UserProfileImage from "src/components/common/UserProfileImage";
 import useCustomRouter from "src/hooks/routerHook";
+import FeedLike from "./FeedLike";
 
 interface IFeedMainProps {
     feed : IFeedContent
@@ -50,6 +51,9 @@ const FeedMain =({feed} : IFeedMainProps) : JSX.Element => {
                 <div className={style.user_sub_box}>
                     <UserName userName={feed.userId}/>
                     <span className={style.time_txt}>{dateDiff(feed.createdTime)}</span>
+                </div>
+                <div className={style.menu_box}>
+                    <FeedLike feed={feed}/>
                 </div>
             </div>
             <div className={style.main_txt}>

@@ -9,4 +9,51 @@
     right: 0;
     left: 0;
     bottom: 0;
+    overflow: auto;
+}
+
+.feedModal_box {
+    background-color: #fff;
+    width: 100%;
+    max-width: 1080px;
+}
+
+.header {
+    display: none;
+    padding: 10px 15px;
+}
+
+.back_icon {
+    cursor: pointer;
+}
+
+.title_txt {
+    display: inline-block;
+    position: absolute;
+    height: 24px;
+    line-height: 24px;
+    font-weight: 500;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media screen and (max-width: 1080px){
+    .modal {
+        align-items: start;
+    }
+    .feedModal_box {
+        max-width: 600px;
+        height: 100vmax;
+        display: flex;
+        flex-direction: column;
+    }
+    .header {
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .modal {
+        background-color: rgba(255,255,255, 1);
+    }
 }

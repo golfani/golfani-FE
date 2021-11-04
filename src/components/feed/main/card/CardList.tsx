@@ -5,32 +5,27 @@ import {getFeed, getHotFeed,IFeedContent, getTagSearchFeed} from "src/apis/Feed"
 import {IPages} from "src/domain/Page";
 import useFeedType from "src/store/modules/feedType/feedTypeHook";
 import {useRouter} from "next/router";
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 
 const CardList = () : JSX.Element => {
     const {type} = useFeedType();
     const router = useRouter();
     const {search} = router.query;
-
-    // 스크롤 맨위로 이동
-    useEffect(()=> {
-        window.scrollTo(0,0);
-    },[])
-
-    const feedQuery = useInfiniteQuery<IPages<IFeedContent>>('feed',({pageParam = ''})=>getFeed(pageParam,10), {
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const observer = useRef<IntersectionObserver>();
+    const feedQuery = useInfiniteQuery<IPages<IFeedContent>>('cardFeed',({pageParam = ''})=>getFeed(pageParam,0,9), {
         getNextPageParam : (lastPage) => {
-            const currentPage = lastPage.pageable.pageNumber;
-            if(currentPage + 1 >= lastPage.totalPages) {
-                return undefined;
+            if(lastPage.totalPages === 1) {
+                return undefined
             }
-            return currentPage + 1;
+            return lastPage.content && lastPage.content[lastPage.content.length-1].id;
         },
         staleTime : 1000 * 60,
         enabled : type === 'CARD'
     })
 
-    console.log(feedQuery.data);
-    const hotFeedQuery = useInfiniteQuery<IPages<IFeedContent>>('hotFeed',({pageParam = '1'})=>getHotFeed(pageParam,10), {
+
+    const hotFeedQuery = useInfiniteQuery<IPages<IFeedContent>>('hotFeed',({pageParam = ''})=>getHotFeed(pageParam,6), {
         getNextPageParam : (lastPage) => {
             const currentPage = lastPage.pageable.pageNumber;
             if(currentPage + 1 >= lastPage.totalPages) {
@@ -42,7 +37,7 @@ const CardList = () : JSX.Element => {
         enabled : type === 'HOT'
     })
 
-    const searchFeedQuery = useInfiniteQuery<IPages<IFeedContent>>(['searchFeed',search],({pageParam = ''})=>getTagSearchFeed(pageParam,6,search as string), {
+    const searchFeedQuery = useInfiniteQuery<IPages<IFeedContent>>(['searchFeed',search],({pageParam = ''})=>getTagSearchFeed(pageParam,18,search as string), {
         getNextPageParam : (lastPage) => {
             const currentPage = lastPage.pageable.pageNumber;
             if(currentPage + 1 >= lastPage.totalPages) {
@@ -54,7 +49,33 @@ const CardList = () : JSX.Element => {
         enabled : type === 'SEARCH'
     })
 
-    console.log(type);
+    const intersectionObserver = (entries : IntersectionObserverEntry[], io : IntersectionObserver) => {
+        entries.forEach(async (entry)=> {
+            if(entry.isIntersecting) {
+                io.unobserve(entry.target);
+                if(type === 'CARD') {
+                    feedQuery.hasNextPage && await feedQuery.fetchNextPage();
+                }
+                if(type === 'HOT') {
+                    hotFeedQuery.hasNextPage && await hotFeedQuery.fetchNextPage();
+                }
+                if(type === 'SEARCH') {
+                    searchFeedQuery.hasNextPage && await searchFeedQuery.fetchNextPage();
+                }
+            }
+        })
+    }
+
+    // 스크롤 맨위로 이동
+    useEffect(()=> {
+        window.scrollTo(0,0);
+    },[])
+
+    useEffect(()=> {
+        observer.current = new IntersectionObserver(intersectionObserver);
+        scrollRef.current && observer.current?.observe(scrollRef.current);
+    },[type,feedQuery.data,hotFeedQuery.data,searchFeedQuery.data]);
+
     return (
         <div className={style.container}>
             {type === 'HOT' && <span className={style.titleView_txt}>인기 피드게시물</span>}
@@ -89,6 +110,7 @@ const CardList = () : JSX.Element => {
                     }
                 </div>
             </div>
+            <div ref={scrollRef} className={style.scroll_ref}></div>
         </div>
     );
 };

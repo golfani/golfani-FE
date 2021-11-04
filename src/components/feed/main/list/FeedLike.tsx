@@ -46,7 +46,11 @@ const FeedLike = ({feed} : IFeedLikeProps) : JSX.Element => {
                 : <FavoriteBorderOutlinedIcon fontSize={'small'} color={'error'}/>
             }
             {feed.isLikesActive
-                ? <span className={style.like_number_txt}>{totalLikesQuery.data}</span>
+                ?
+                <div>
+                    <span className={style.like_txt}>좋아요 </span>
+                    <span className={style.like_number_txt}>{`${totalLikesQuery.data}`}</span>
+                </div>
                 : <></>
             }
         </div>

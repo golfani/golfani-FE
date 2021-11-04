@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import BoardItem from 'src/components/board/main/item/BoardItem';
 import {getBoard, IBoardData} from "../../../../apis/Board";
 import {ITypeProps} from "../BoardMain";
-import {useQuery} from "react-query";
+import {useQuery, useQueryClient} from "react-query";
 import {IPages} from "../../../../domain/Page";
 import {useRouter} from "next/router";
 import {EType} from "../../../../domain/board";

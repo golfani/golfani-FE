@@ -2,6 +2,7 @@ import style from './myMenu.module.css';
 import {useRouter} from "next/router";
 import {getCookie, removeCookie} from "src/utils/cookieUtil";
 import useCustomRouter from "src/hooks/routerHook";
+import {useQueryClient} from "react-query";
 
 interface IMyMenuProps {
     open : boolean
@@ -11,6 +12,8 @@ const MyMenu = (props : IMyMenuProps) : JSX.Element => {
     const userId = getCookie('userId');
     const router = useRouter();
     const {onConflictRoute} = useCustomRouter();
+    const queryClient = useQueryClient();
+    const unReadMessage = queryClient.getQueryData<number>('unReadMessage');
 
     const handleClickProfile = () => {
         onConflictRoute(`/profile/${userId}`)
@@ -34,7 +37,7 @@ const MyMenu = (props : IMyMenuProps) : JSX.Element => {
             <button className={style.menu_btn} onClick={handleClickProfile}>PROFILE</button>
             <div className={style.menu_btn} onClick={handleClickMessage}>
                 <span >MESSAGE</span>
-                <span className={style.message_count}>{1}</span>
+                {unReadMessage! > 0 && <span className={style.message_count}>{unReadMessage}</span>}
             </div>
             <button className={style.menu_btn} onClick={handleClickLogout}>로그아웃</button>
         </div>

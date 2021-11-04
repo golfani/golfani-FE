@@ -3,6 +3,17 @@
     flex-direction: column;
 }
 
+.date_divider {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 15px;
+    font-size: 13px;
+    font-weight: 500;
+    color: gray;
+    text-align: center;
+    user-select: none;
+}
+
 .img {
     width: 30px;
     height: 30px;

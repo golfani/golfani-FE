@@ -25,11 +25,9 @@ const HotFeed = () : JSX.Element => {
             </div>
             <div className={style.thumbnail_box}>
                 {
-                    hotFeedQuery.data?.pages.map((page)=>(
-                        page.content.map((feed : IFeedContent)=> (
+                    hotFeedQuery.data?.pages[0].content.map((feed : IFeedContent)=> (
                             <FeedThumbnail key={feed.id} feed={feed}/>
                         ))
-                    ))
                 }
             </div>
         </div>
