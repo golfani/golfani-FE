@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import BoardItem from 'src/components/board/main/item/BoardItem';
 import {getBoard, IBoardData} from "../../../../apis/Board";
 import {ITypeProps} from "../BoardMain";
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery} from "react-query";
 import {IPages} from "../../../../domain/Page";
 import {useRouter} from "next/router";
 import {EType} from "../../../../domain/board";
@@ -12,27 +12,13 @@ import BoardPageNum from "../page/BoardPageNum";
 const BoardList = (boardType : ITypeProps) : JSX.Element => {
     const router = useRouter();
     const {page} = router.query;
-    const queryClient = useQueryClient();
 
     const boardQuery = useQuery<IPages<IBoardData>>(['board', boardType.boardType], () => getBoard(boardType.boardType as EType, Number(page),10), {
         enabled : boardType.boardType!==undefined,
     });
 
-    const queryInvalidation = async () =>{
-        await queryClient.invalidateQueries(['board', boardType.boardType]);
-    }
-
     useEffect(() =>{
-
     },[boardType.boardType])
-
-    const btnOnClick = async () => {
-        if(typeof window !== undefined) {
-            console.log(Number(page));
-            Number(page) ? window.location.href = `/board?type=${boardType.boardType}&page=${Number(page)+1}` : window.location.href =`/board?type=${boardType.boardType}&page=1`;
-            await queryInvalidation();
-        }
-    }
 
     return(
         <div>

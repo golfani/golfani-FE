@@ -2,17 +2,8 @@ import style from 'src/components/board/main/page/boardPage.module.css';
 import React, {useState} from "react";
 import Link from 'next/link'
 import {ITypeProps} from "../BoardMain";
-import {useRouter} from "next/router";
-
-interface Props {
-    postPerPage : number,
-    totalLength : number,
-    setCurrentPage : any
-}
 
 const BoardPage = (boardType : ITypeProps) : JSX.Element => {
-
-    const router = useRouter();
 
     /* 추후 리스트 동적 생성 됨에따라 교체 예정 */
     type TSelectMenu = '글쓴이' | '제목' | '내용' | '게시글'
