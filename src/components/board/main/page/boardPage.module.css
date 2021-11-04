@@ -1,6 +1,4 @@
 .container{
-    margin: 100px auto;
-    margin-top: 20px;
     display: flex;
     width:100%;
     padding: 10px;
@@ -46,7 +44,6 @@
     background-color: #8b00ff;
     color: #fff;
 }
-
 
 .num{
     padding-top: 9px;

@@ -74,7 +74,7 @@ const BoardWrite = (): JSX.Element => {
             console.log(imgList);
             try{
                 const response = await registerBoard(inputs, imgList);
-                await router.push('/board');
+                await router.push(`/board?type=${boardType}`);
             }catch (e) {
                 console.log(e.response);
             }
@@ -123,7 +123,7 @@ const BoardWrite = (): JSX.Element => {
                     </div>
                 </div>
                 <div className={style.bt_wrap}>
-                    <a href="#" className={style.btn_on} onClick={handleOnSummit}>등록</a>
+                    <button className={style.btn_on} onClick={handleOnSummit}>등록</button>
                     <a href="/board" className={style.btn_off}>취소</a>
                 </div>
                 {openModal && <Modal message={modalMsg} setModalOpen={setOpenModal}/>}

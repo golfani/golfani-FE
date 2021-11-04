@@ -4,7 +4,7 @@ import BoardPage from 'src/components/board/main/page/BoardPage';
 import {EType} from "../../../domain/board";
 
 export interface ITypeProps{
-    boardType : EType
+    boardType : EType | null
 }
 
 const BoardMain = (boardType : ITypeProps): JSX.Element => {

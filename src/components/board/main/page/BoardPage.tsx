@@ -2,6 +2,7 @@ import style from 'src/components/board/main/page/boardPage.module.css';
 import React, {useState} from "react";
 import Link from 'next/link'
 import {ITypeProps} from "../BoardMain";
+import {useRouter} from "next/router";
 
 interface Props {
     postPerPage : number,
@@ -10,6 +11,8 @@ interface Props {
 }
 
 const BoardPage = (boardType : ITypeProps) : JSX.Element => {
+
+    const router = useRouter();
 
     /* 추후 리스트 동적 생성 됨에따라 교체 예정 */
     type TSelectMenu = '글쓴이' | '제목' | '내용' | '게시글'
@@ -55,19 +58,6 @@ const BoardPage = (boardType : ITypeProps) : JSX.Element => {
                         <p>글쓰기</p>
                     </button>
                 </Link>
-
-            </div>
-
-            <div className={style.board_page}>
-                <a href="#1" className={style.btn}>처음</a>
-                <a href="#2" className={style.btn}>이전</a>
-                <a href="#1" onClick={() =>handlerPageClick(1)} className={onNum === 1 ? style.num_on : style.num}>1</a>
-                <a href="#1" onClick={() =>handlerPageClick(2)} className={onNum === 2 ? style.num_on : style.num}>2</a>
-                <a href="#1" onClick={() =>handlerPageClick(3)} className={onNum === 3 ? style.num_on : style.num}>3</a>
-                <a href="#1" onClick={() =>handlerPageClick(4)} className={onNum === 4 ? style.num_on : style.num}>4</a>
-                <a href="#1" onClick={() =>handlerPageClick(5)} className={onNum === 5 ? style.num_on : style.num}>5</a>
-                <a href="#" className={style.btn}>다음</a>
-                <a href="#" className={style.btn}>맨끝</a>
             </div>
 
             <div className={style.search_bar}>

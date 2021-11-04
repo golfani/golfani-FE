@@ -1,53 +1,65 @@
 import style from 'src/components/board/main/item/boardItem.module.css';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import BoardItem from 'src/components/board/main/item/BoardItem';
 import {getBoard, IBoardData} from "../../../../apis/Board";
 import {ITypeProps} from "../BoardMain";
-import {useQuery} from "react-query";
+import {useQuery, useQueryClient} from "react-query";
 import {IPages} from "../../../../domain/Page";
+import {useRouter} from "next/router";
+import {EType} from "../../../../domain/board";
+import BoardPageNum from "../page/BoardPageNum";
 
 const BoardList = (boardType : ITypeProps) : JSX.Element => {
+    const router = useRouter();
+    const {page} = router.query;
+    const queryClient = useQueryClient();
 
-    const [pageNum,setPageNum] = useState<number>(0);
-    const [totalPage, setTotalPage] = useState(0);
-
-    const boardQuery = useQuery<IPages<IBoardData>>(['board',boardType.boardType], () => getBoard(boardType.boardType,pageNum,10), {
+    const boardQuery = useQuery<IPages<IBoardData>>(['board', boardType.boardType], () => getBoard(boardType.boardType as EType, Number(page),10), {
         enabled : boardType.boardType!==undefined,
     });
 
-    const btnOnClick = () =>{
-        setTotalPage(boardQuery.data?.totalPages as number)
-        console.log(totalPage);
-        console.log(boardQuery.data);
-        console.log(pageNum);
-        if(pageNum < totalPage-1){
-            setPageNum(pageNum +1);
+    const queryInvalidation = async () =>{
+        await queryClient.invalidateQueries(['board', boardType.boardType]);
+    }
+
+    useEffect(() =>{
+
+    },[boardType.boardType])
+
+    const btnOnClick = async () => {
+        if(typeof window !== undefined) {
+            console.log(Number(page));
+            Number(page) ? window.location.href = `/board?type=${boardType.boardType}&page=${Number(page)+1}` : window.location.href =`/board?type=${boardType.boardType}&page=1`;
+            await queryInvalidation();
         }
     }
 
     return(
-        <div className={style.container}>
-            <div className={style.list_item}>
-                <div className={style.list_top}>
-                    <div className={style.num}>No.</div>
-                    <div className={style.board_title}>글제목</div>
-                    <div className={style.board_id}>글쓴이</div>
-                    <div className={style.board_date}>작성일</div>
-                    <div className={style.recommend}>추천</div>
-                </div>
+        <div>
+            <div className={style.container}>
+                <div className={style.list_item}>
+                    <div className={style.list_top}>
+                        <div className={style.num}>No.</div>
+                        <div className={style.board_title}>글제목</div>
+                        <div className={style.board_id}>글쓴이</div>
+                        <div className={style.board_date}>작성일</div>
+                        <div className={style.recommend}>추천</div>
+                    </div>
+                    {boardQuery.data &&
+                    boardQuery.data.content.map((board : IBoardData)=> {
+                        return(
+                            <BoardItem key={board.boardId} board={board}/>
+                        )
+                    })}
 
-                {boardQuery.data &&
-                boardQuery.data.content.map((board : IBoardData)=> {
-                    return(
-                        <BoardItem board={board}/>
-                    )
-                })}
-                <div>
-                    <button onClick={btnOnClick}>다음</button>
-                    <button >이전</button>
                 </div>
             </div>
+            <div>
+                <BoardPageNum totalPage={boardQuery.data?.totalPages as number}/>
+            </div>
         </div>
+
+
     )
 }
 
