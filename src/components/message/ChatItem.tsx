@@ -15,8 +15,8 @@ const ChatItem = ({chat,chatData,index} : IChatItemProps) : JSX.Element => {
     const userId = getCookie('userId');
     const message : string[] = chat.message.split('\n');
 
-    const renderShowMessage = message.map((data)=> (
-        <div>{data}</div>
+    const renderShowMessage = message.map((data,index)=> (
+        <div key={index}>{data}</div>
     ));
 
     const isFirstChat = () => {

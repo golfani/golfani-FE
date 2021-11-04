@@ -14,3 +14,19 @@
     max-width: 1040px;
     padding: 20px;
 }
+
+.chat_box {
+
+}
+
+@media screen and (max-width: 768px){
+    .container {
+        padding: 60px 0 0 0;
+    }
+    .box {
+        padding: 0;
+    }
+    .chat_box {
+        display: none;
+    }
+}

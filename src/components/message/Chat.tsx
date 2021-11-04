@@ -7,8 +7,13 @@ import {getChatMessageByRoomId, IChatMessageDto} from "src/apis/Chat";
 import {IPages} from "src/domain/Page";
 import {getProfileImage} from "src/apis/Member";
 import ChatItem from "./ChatItem";
+import ArrowBackIosNewIcon from '@material-ui/icons/ArrowBackIosNew';
 
-const Chat = () : JSX.Element => {
+interface IChatProps {
+    closeModal? : () => void;
+}
+
+const Chat = ({closeModal} : IChatProps) : JSX.Element => {
     const chatScrollRef = useRef<HTMLDivElement>(null);
     const chatRoom = useChatRoom();
     const chatMessageQuery = useInfiniteQuery<IPages<IChatMessageDto>>(['chatMessage', chatRoom.activeChatRoom?.id],
@@ -40,6 +45,10 @@ const Chat = () : JSX.Element => {
         })
     }
 
+    const handleClickBackIcon = () => {
+        closeModal && closeModal();
+    }
+
     useEffect(()=> {
         observer.current = new IntersectionObserver(intersectionObserver);
         chatTopScrollRef.current && observer.current?.observe(chatTopScrollRef.current);
@@ -57,8 +66,11 @@ const Chat = () : JSX.Element => {
     return (
         <div className={style.container}>
             {chatRoom.activeChatRoom ?
-                <div>
+                <div className={style.flex_box}>
                     <div className={style.chat_title_box}>
+                        <div className={style.back_icon} onClick={handleClickBackIcon}>
+                            <ArrowBackIosNewIcon/>
+                        </div>
                         {chatRoom.activeChatRoom &&
                         <img src={getProfileImage(chatRoom.activeChatRoom?.receiver,'MID')} className={style.title_img}/>
                         }
