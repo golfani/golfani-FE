@@ -53,6 +53,16 @@
     cursor: pointer;
 }
 
+.write_box:hover {
+    background-color: #7824e3;
+}
+
 .write_icon {
     color: white;
+}
+
+@media screen and (max-width: 768px){
+    .write_box {
+        display: none;
+    }
 }

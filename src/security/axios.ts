@@ -15,6 +15,9 @@ securityAxios.interceptors.response.use((config) => {
     const originalRequest : AxiosCustomRequestConfig = error.config;
     originalRequest.retryCount = originalRequest.retryCount ?? 0;
     const userId = getCookie('userId');
+    if(error.response.status !== 401) {
+        return Promise.reject(error);
+    }
     if (userId) {
         if(originalRequest.retryCount < MAX_RETRY_COUNT) {
             try {

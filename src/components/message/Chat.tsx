@@ -1,79 +1,99 @@
 import style from './chat.module.css';
-import * as faker from "faker";
 import ChatInput from "./ChatInput";
+import {useEffect, useRef, useState} from "react";
+import useChatRoom from "src/store/modules/chat/chatRoomHook";
+import {useInfiniteQuery, useQueryClient} from "react-query";
+import {getChatMessageByRoomId, IChatMessageDto} from "src/apis/Chat";
+import {IPages} from "src/domain/Page";
+import {getProfileImage} from "src/apis/Member";
 import ChatItem from "./ChatItem";
+import ArrowBackIosNewIcon from '@material-ui/icons/ArrowBackIosNew';
 
-export interface IChat {
-    chatRoomId : number
-    chatId : number
-    userId : string
-    msg : string
-    targetId : string
-    date : Date
-    read : boolean
+interface IChatProps {
+    closeModal? : () => void;
 }
 
-export const chatData : IChat [] = [
-    {
-        chatRoomId : 1,
-        chatId : 1,
-        userId : 'admin',
-        msg : '안녕하세요!',
-        targetId : 'gudwh14',
-        date : new Date(),
-        read : true
-    },
-    {
-        chatRoomId : 1,
-        chatId : 2,
-        userId : 'admin',
-        msg : '용준이 여자친구 북에서온 리지원입니다.',
-        targetId : 'gudwh14',
-        date : new Date(),
-        read : true
-    },
-    {
-        chatRoomId : 1,
-        chatId : 3,
-        userId : 'gudwh14',
-        msg : '안녕하세요~',
-        targetId : 'admin',
-        date : new Date(),
-        read : false
-    },
-    {
-        chatRoomId : 1,
-        chatId : 4,
-        userId : 'admin',
-        msg : '용준이 여자친구 북에서온 리지원입니다.',
-        targetId : 'gudwh14',
-        date : new Date(),
-        read : true
-    },
-    {
-        chatRoomId : 1,
-        chatId : 5,
-        userId : 'gudwh14',
-        msg : '반갑습니다 ㅎㅎ',
-        targetId : 'admin',
-        date : new Date(),
-        read : false
-    },
-]
+const Chat = ({closeModal} : IChatProps) : JSX.Element => {
+    const chatScrollRef = useRef<HTMLDivElement>(null);
+    const chatRoom = useChatRoom();
+    const chatMessageQuery = useInfiniteQuery<IPages<IChatMessageDto>>(['chatMessage', chatRoom.activeChatRoom?.id],
+        ({pageParam = 0}, roomId = chatRoom.activeChatRoom?.id!) => getChatMessageByRoomId(roomId, pageParam, 20), {
+            getNextPageParam: (lastPage) => {
+                const currentPage = lastPage.pageable.pageNumber;
+                if(currentPage + 1 >= lastPage.totalPages) {
+                    return undefined;
+                }
+                return currentPage + 1;
+            },
+            enabled: chatRoom.activeChatRoom?.id !== undefined,
+            staleTime: 6000 * 10
+        })
+    const queryClient = useQueryClient();
+    const [isSendBySelf, setIsSendBySelf] = useState(false);
+    const chatTopScrollRef = useRef<HTMLDivElement>(null);
+    const observer = useRef<IntersectionObserver>();
 
-const Chat = () : JSX.Element => {
+    const chatScrollDown = () => {
+        chatScrollRef.current?.scrollIntoView({ block: 'end', inline: 'nearest'});
+    }
+
+    const intersectionObserver = (entries : IntersectionObserverEntry[], io : IntersectionObserver) => {
+        entries.forEach(async (entry) => {
+            if(entry.isIntersecting) {
+                await chatMessageQuery.fetchNextPage();
+            }
+        })
+    }
+
+    const handleClickBackIcon = () => {
+        closeModal && closeModal();
+    }
+
+    useEffect(()=> {
+        observer.current = new IntersectionObserver(intersectionObserver);
+        chatTopScrollRef.current && observer.current?.observe(chatTopScrollRef.current);
+    },[chatRoom.activeChatRoom])
+
+    useEffect(()=> {
+        isSendBySelf && chatScrollDown();
+        setIsSendBySelf(false);
+        const chatRoomInvalidate = async () => {
+            await queryClient.invalidateQueries('chatRoom');
+        }
+        chatRoomInvalidate();
+    },[chatMessageQuery.data]);
+
     return (
         <div className={style.container}>
-            <div className={style.chat_title_box}>
-                <img src={faker.image.avatar()} className={style.title_img}/>
-                <span className={style.title_userId_txt}>gudwh14</span>
-            </div>
-            <div className={style.chat_box}>
-                {chatData.map((chat) => (
-                    <ChatItem key={chat.chatId} chat={chat}/>
-                ))}
-            </div>
-            <ChatInput/>
+            {chatRoom.activeChatRoom ?
+                <div className={style.flex_box}>
+                    <div className={style.chat_title_box}>
+                        <div className={style.back_icon} onClick={handleClickBackIcon}>
+                            <ArrowBackIosNewIcon/>
+                        </div>
+                        {chatRoom.activeChatRoom &&
+                        <img src={getProfileImage(chatRoom.activeChatRoom?.receiver,'MID')} className={style.title_img}/>
+                        }
+                        <span className={style.title_userId_txt}>{chatRoom.activeChatRoom?.receiver}</span>
+                    </div>
+                    <div className={style.chat_box}>
+                        <div ref={chatScrollRef}> </div>
+                        {
+                            chatMessageQuery.data?.pages.map((page, index) => {
+                                return (
+                                    <div key={index}>
+                                        {page.content.map((chat, index) => (
+                                            <ChatItem key={chat.id} chat={chat} chatData={page.content} index={index}/>
+                                        ))}
+                                    </div>
+                                )
+                            })
+                        }
+                        <div ref={chatTopScrollRef}> </div>
+                    </div>
+                    <ChatInput setIsSendBySelf={setIsSendBySelf}/>
+                </div>
+                : <p className={style.show_txt}>사용자들과 채팅을 나눠보세요!</p>}
         </div>
     );
 };

@@ -9,7 +9,7 @@ export const dateDiff = (date : string | Date) : string => {
         diff = `${target.getFullYear()}년 ${target.getMonth()}월 ${target.getDate()}일`;
     }
     else if(now.getMonth() !== target.getMonth()) {
-        diff = `${target.getMonth()}월 ${target.getDate()}일`;
+        diff = `${target.getMonth()+1}월 ${target.getDate()}일`;
     }
     else if(now.getDate() !== target.getDate()) {
         diff = now.getDate() - target.getDate() >= 7
@@ -36,7 +36,8 @@ const leftPad = (value : number) => {
     return `0${value}`;
 }
 
-export const toStringByFormatting = (source : Date) => {
+export const toStringByFormatting = (target : Date | string) => {
+    const source = new Date(target);
     const year = source.getFullYear();
     const month = leftPad(source.getMonth() + 1);
     const day = leftPad(source.getDate());
@@ -46,16 +47,19 @@ export const toStringByFormatting = (source : Date) => {
     return [year,month,day,hour,minute].join('.');
 }
 
-export const calcChatDate = (source : string) => {
-    const date = source.split('.');
+export const calcChatDate = (source : Date) => {
+    const formatDate = toStringByFormatting(source);
+    const date = formatDate.split('.');
 
     let hour = Number(date[3]);
     const minute = leftPad(Number(date[4]));
 
     if(hour >= 12) {
-        return `오후 ${hour-12}:${minute}`;
+        if(hour > 12) return `오후 ${hour-12}:${minute}`;
+        return `오후 ${hour}:${minute}`;
     }
     else if(hour < 12) {
+        if(hour === 0) return `오전 ${12}:${minute}`;
         return `오전 ${hour}:${minute}`;
     }
 }
@@ -71,4 +75,17 @@ export const isTodayAlarm = (source : string | Date) => {
     else {
         return false;
     }
+}
+
+export const diffDayChat = (prevDate : Date, curDate : Date) => {
+    const prev = new Date(prevDate);
+    const cur = new Date(curDate);
+    if(prev.getFullYear() !== cur.getFullYear() || prev.getMonth() !== cur.getMonth() || prev.getDate() !== cur.getDate()) {
+        const year = cur.getFullYear() + '년';
+        const month = leftPad(cur.getMonth()+1) + '월';
+        const day = cur.getDate() + '일';
+
+        return [year,month,day].join(' ');
+    }
+    return false;
 }

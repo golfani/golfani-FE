@@ -8,7 +8,9 @@ const MessageMain = () : JSX.Element => {
         <div className={style.container}>
             <div className={style.box}>
                 <ChatRoomList/>
-                <Chat/>
+                <div className={style.chat_box}>
+                    <Chat/>
+                </div>
             </div>
         </div>
     );

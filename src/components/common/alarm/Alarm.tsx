@@ -17,7 +17,7 @@ const Alarm = () : JSX.Element => {
             }
             return currentPage+1;
         },
-        staleTime : 6000 * 10,
+        staleTime : 0,
     });
     const allAlarmMutate = useMutation(()=>setAllAlarmRead());
     const observeRef = useRef<HTMLDivElement>(null);

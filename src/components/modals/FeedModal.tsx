@@ -1,8 +1,9 @@
 import {IFeedContent} from "src/apis/Feed";
 import FeedItem from "../feed/main/list/FeedItem";
 import style from './feedModal.module.css';
-import {useRef} from "react";
+import {useEffect, useRef} from "react";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
+import ArrowBackIosNewIcon from '@material-ui/icons/ArrowBackIosNew';
 
 export interface IFeedModalProps {
     feed: IFeedContent
@@ -21,7 +22,11 @@ const FeedModal = (props : IFeedModalProps) : JSX.Element => {
 
     return (
         <div className={style.modal}>
-            <div ref={targetRef}>
+            <div className={style.feedModal_box} ref={targetRef}>
+                <div className={style.header}>
+                    <ArrowBackIosNewIcon onClick={onModalClose} className={style.back_icon}/>
+                    <span className={style.title_txt}>상세보기</span>
+                </div>
                 <FeedItem feed={props.feed} isModal={true}/>
             </div>
         </div>

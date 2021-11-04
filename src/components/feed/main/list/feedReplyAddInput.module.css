@@ -1,6 +1,8 @@
 .form {
     display: flex;
-    width: calc(100% - 50px);
+    align-items: center;
+    width: 100%;
+    max-width: 520px;
     min-height: 35px;
     background-color: #fff;
     border: 1px solid #8729ff;
@@ -9,17 +11,20 @@
 
 .input {
     padding: 8px 15px;
-    width: 90%;
-    height: 35px;
+    width: calc(100% - 35px);
+    height: 36px;
     border: none;
     outline: none;
     font-size: 14px;
     border-radius: 18px;
     background: transparent;
+    line-height: 20px;
 }
 
 .input_btn {
     border: none;
+    width: 23px;
+    margin-right: 10px;
     background: transparent;
     font-size: 12px;
     letter-spacing: 1px;
@@ -32,4 +37,9 @@
     font-size: 12px;
     letter-spacing: 1px;
     color: black;
+}
+
+.input::placeholder {
+    font-size: 13px;
+    letter-spacing: -0.5px;
 }

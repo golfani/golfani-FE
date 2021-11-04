@@ -33,8 +33,10 @@ const FeedReply = ({feed, isModal} : IFeedItemProps) => {
             </div>
             {replyQuery.hasNextPage && <span className={style.reply_more_txt} onClick={handleClickMore}>댓글 더보기...</span> }
             {isModal ? replyQuery.hasNextPage || <span className={style.blank_reply_more_txt}></span> :<></>}
-            <div className={style.divider}></div>
-            <FeedReplyAdd feedId={feed.id} feedUser={feed.userId} refId={null} refUser={null}/>
+            <div className={isModal ? style.modal_reply_input_box : ''}>
+                <div className={style.divider}></div>
+                <FeedReplyAdd feedId={feed.id} feedUser={feed.userId} refId={null} refUser={null}/>
+            </div>
         </div>
     )
 }

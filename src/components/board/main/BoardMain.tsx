@@ -8,7 +8,7 @@ export interface ITypeProps{
 }
 
 const BoardMain = (boardType : ITypeProps): JSX.Element => {
-
+  
     return(
         <div className={style.container}>
             <div>

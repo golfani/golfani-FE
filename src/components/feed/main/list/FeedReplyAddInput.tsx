@@ -75,7 +75,7 @@ const FeedReplyAddInput = ({feedId,feedUser, refId, refUser} : IFeedReplyAddProp
 
     return (
         <div className={style.form}>
-            <textarea value={replyPayload} onChange={handleChangeTextArea} onKeyPress={handleTextAreaKeyPress} className={style.input} placeholder={"피드에 댓글을 달아보세요!"} ref={textAreaRef}/>
+            <textarea value={replyPayload} onChange={handleChangeTextArea} onKeyPress={handleTextAreaKeyPress} className={style.input} placeholder={"댓글을 달아보세요!"} ref={textAreaRef}/>
             <button disabled={!replyPayload.replace(/\s/g, '')} className={style.input_btn} onClick={handleSubmit}>입력</button>
         </div>
     );

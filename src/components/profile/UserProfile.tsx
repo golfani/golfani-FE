@@ -4,7 +4,7 @@ import {getCookie} from "src/utils/cookieUtil";
 import {ChangeEvent, useRef, useState} from "react";
 import {dataURLtoFile} from "src/utils/fileUtil";
 import {IProfileMemberProps} from "../../../pages/profile/[userId]";
-import MessageSend from "../common/MessageSend";
+import MessageSendModal from "src/components/modals/MessageSendModal";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 
 const UserProfile = ({member} : IProfileMemberProps) : JSX.Element => {
@@ -83,7 +83,7 @@ const UserProfile = ({member} : IProfileMemberProps) : JSX.Element => {
             </div>
             <div className={style.user_menu_box} ref={targetRef}>
                 {hasRole || <button className={style.msg_btn} onClick={handleClickMsgButton}>메세지 보내기</button> }
-                {openSendMsg && <MessageSend member={member}/> }
+                {openSendMsg && <MessageSendModal member={member} setModalOpen={setOpenSendMsg}/> }
             </div>
         </div>
     );

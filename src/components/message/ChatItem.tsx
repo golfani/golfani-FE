@@ -1,20 +1,28 @@
 import style from './chatItem.module.css';
-import * as faker from "faker";
-import {chatData, IChat} from "./Chat";
 import BoltIcon from '@material-ui/icons/Bolt';
 import {getCookie} from "src/utils/cookieUtil";
+import {calcChatDate, diffDayChat, toStringByFormatting} from "src/utils/dateUtil";
+import {IChatMessageDto, READING_STATUS} from "src/apis/Chat";
+import {getProfileImage} from "src/apis/Member";
 
 interface IChatItemProps {
-    chat : IChat
+    chatData : IChatMessageDto[]
+    chat : IChatMessageDto
+    index : number
 }
 
-const ChatItem = ({chat} : IChatItemProps) : JSX.Element => {
+const ChatItem = ({chat,chatData,index} : IChatItemProps) : JSX.Element => {
     const userId = getCookie('userId');
+    const message : string[] = chat.message.split('\n');
+
+    const renderShowMessage = message.map((data,index)=> (
+        <div key={index}>{data}</div>
+    ));
 
     const isFirstChat = () => {
-        const prevId = chat.chatId-2;
+        const prevId = index-1;
         if(chatData[prevId]) {
-            if(chat.userId === chatData[prevId].userId && chat.date.toDateString() === chatData[prevId].date.toDateString()) {
+            if(chat.sender === chatData[prevId].sender && toStringByFormatting(chat.createdDate!) === toStringByFormatting(chatData[prevId].createdDate!)) {
                 return false;
             }
         }
@@ -22,42 +30,59 @@ const ChatItem = ({chat} : IChatItemProps) : JSX.Element => {
     }
 
     const isLastChat = () => {
-        const nextId = chat.chatId;
+        const nextId = index+1;
         if(chatData[nextId]) {
-            if(chat.userId === chatData[nextId].userId && chat.date.toDateString() === chatData[nextId].date.toDateString()) {
+            if(chat.sender === chatData[nextId].sender && toStringByFormatting(chat.createdDate!) === toStringByFormatting(chatData[nextId].createdDate!)) {
                 return false;
             }
         }
         return true;
     }
 
+    const isDiffDayChat = () => {
+        const prevId = index-1;
+        if(chatData[prevId]) {
+            return diffDayChat(chatData[prevId].createdDate!,chat.createdDate!);
+        }
+        return false;
+    }
+
     return (
         <div className={style.container}>
+            {isDiffDayChat() && <span className={style.date_divider}>{isDiffDayChat()}</span>}
             <div className={style.flex_box}>
-                {chat.userId === userId ?
+                {chat.sender === userId ?
                     <div className={style.my_message_box}>
                         <div className={style.message_sub_box}>
+                            {chat.readingStatus === READING_STATUS.NO &&
                             <BoltIcon className={style.read_icon} fontSize={'inherit'}/>
+                            }
                             {isLastChat() &&
-                            <span className={style.my_time_txt}>{chat.date.toDateString()}</span>
+                            <span className={style.my_time_txt}>{calcChatDate(chat.createdDate!)}</span>
                             }
                         </div>
-                        <span className={style.my_message_txt}>{chat.msg}</span>
+                        <div className={style.my_message_txt}>
+                            {renderShowMessage}
+                        </div>
                     </div>
                     :
                     <div className={style.flex_box}>
                         {isFirstChat() ?
-                            <img className={style.img} src={faker.image.avatar()}/>
+                            <img className={style.img} src={getProfileImage(chat.sender,'MID')}/>
                             :
                             <div className={style.blank_img}></div>
                         }
                         <div className={style.message_box}>
-                            <span className={style.message_txt}>{chat.msg}</span>
+                            <div className={style.message_txt}>
+                                {renderShowMessage}
+                            </div>
                             <div className={style.message_sub_box}>
                                 {isLastChat() &&
-                                <span className={style.time_txt}>{chat.date.toDateString()}</span>
+                                <span className={style.time_txt}>{calcChatDate(chat.createdDate!)}</span>
                                 }
+                                {chat.readingStatus === READING_STATUS.NO &&
                                 <BoltIcon className={style.read_icon} fontSize={'inherit'}/>
+                                }
                             </div>
                         </div>
                     </div>

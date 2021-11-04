@@ -6,6 +6,7 @@ import {handleClickRefOutSide} from "src/utils/clickUtil";
 import {deleteFeed, IFeedContent} from "src/apis/Feed";
 import ReportModal from "./ReportModal";
 import {getCookie} from "src/utils/cookieUtil";
+import FeedModifyModal from "./FeedModifyModal";
 
 export type TRef = "FEED" | "POST" | "FEED_REPLY" | "POST_REPLY"
 
@@ -22,6 +23,7 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
     const deleteFeedReplyMutate = useMutation(() => deleteFeedReply(props.target.id));
     const deleteFeedMutate = useMutation(() => deleteFeed(props.target.id));
     const [reportModalOpen, setReportModalOpen] = useState(false);
+    const [feedModifyModalOpen, setFeedModifyModalOpen] = useState(false);
 
     const onModalClose = () => {
         props.setModalOpen(false);
@@ -65,6 +67,14 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
         onOpenReportModal();
     }
 
+    const onOpenFeedModifyModal = () => {
+        setFeedModifyModalOpen(true);
+    }
+
+    const handleClickModify = () => {
+        onOpenFeedModifyModal();
+    }
+
     handleClickRefOutSide(ref, onModalClose);
 
     return (
@@ -74,10 +84,19 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
                 {props.target.userId === userId &&
                 <button className={style.menu_btn} onClick={handleClickDelete}>삭제</button>
                 }
+                {props.target.userId === userId && props.type === 'FEED' &&
+                <button className={style.menu_btn} onClick={handleClickModify}>수정</button>
+                }
+                <button className={style.menu_btn}>스크랩</button>
                 {reportModalOpen &&
                 <ReportModal targetId={props.target.id} type={props.type} setModalOpen={setReportModalOpen}/>
                 }
-                <button className={style.menu_btn}>스크랩</button>
+                {feedModifyModalOpen &&
+                <FeedModifyModal
+                    feed={props.target as IFeedContent}
+                    setModalOpen={setFeedModifyModalOpen}
+                    closeMenuModal={onModalClose}
+                />}
             </div>
         </div>
     );

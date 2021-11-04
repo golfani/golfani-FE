@@ -1,36 +1,53 @@
 import style from './chatRoomList.module.css';
 import ChatRoomItem from "./ChatRoomItem";
-
-export interface IChatRoomItem {
-    id : number
-    userId : string
-}
-
-const chatRoomItems : IChatRoomItem[] = [
-    {
-        id : 1,
-        userId : 'gudwh14'
-    },
-    {
-        id : 2,
-        userId : 'gudwh14'
-    },
-    {
-        id : 3,
-        userId : 'gudwh14'
-    },
-]
+import {useQuery} from "react-query";
+import {getAllChatRooms, IChatRoomDto} from "src/apis/Chat";
+import ChatModal from "../modals/ChatModal";
+import useChatRoom from "src/store/modules/chat/chatRoomHook";
+import {useEffect, useState} from "react";
+import {unSubChatChannel} from "src/socket/socket";
 
 const ChatRoomList = () : JSX.Element => {
+    const chatRoomQuery = useQuery<IChatRoomDto[]>('chatRoom',()=>getAllChatRooms(),{
+        staleTime : 6000 * 10
+    });
+    const chatRoom = useChatRoom();
+    const [chatModalOpen , setChatModalOpen] = useState(false);
+
+    chatRoomQuery.data?.sort((prev,cur) => {
+        if(prev.lastMessage?.createdDate! > cur.lastMessage?.createdDate!) {
+            return -1;
+        }
+        if(prev.lastMessage?.createdDate! > cur.lastMessage?.createdDate!) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    });
+
+    const closeModal = async () => {
+        await chatRoom.activeChatRoom && unSubChatChannel(chatRoom.activeChatRoom?.id!);
+        await chatRoom.onInitChatRoom();
+        await setChatModalOpen(false);
+    }
+
+    useEffect(() => {
+        if(chatRoom.activeChatRoom && window.innerWidth <= 768) {
+            setChatModalOpen(true);
+        }
+    },[chatRoom.activeChatRoom])
+
     return (
         <div className={style.container}>
             <span className={style.chatRoom_title_txt}>채팅목록</span>
             <div className={style.chatItem_box}>
-                {chatRoomItems.map((chatRoomItem)=>(
-                        <ChatRoomItem key={chatRoomItem.id} chatRoomItem={chatRoomItem}/>
+                {chatRoomQuery.data?.map((chatRoom)=>(
+                        <ChatRoomItem key={chatRoom.id} chatRoomItem={chatRoom}/>
                     )
                 )}
             </div>
+            {chatModalOpen && <ChatModal closeModal={closeModal}/>}
         </div>
     );
 };

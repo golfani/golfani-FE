@@ -3,7 +3,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 40px;
+    min-width: 40px;
+    width: max-content;
     height: 40px;
     margin-bottom: 10px;
     border-top-right-radius: 8px;
@@ -14,6 +15,23 @@
     cursor: pointer;
 }
 
+.like_txt {
+    font-weight: 500;
+    display: none;
+}
+
 .like_number_txt {
+    font-weight: 500;
     user-select: none;
+}
+
+@media screen and (max-width: 768px){
+    .container {
+        margin-bottom: 0;
+        border: none;
+        box-shadow: none;
+    }
+    .like_txt {
+        display: inline-block;
+    }
 }

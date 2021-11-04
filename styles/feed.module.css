@@ -21,7 +21,11 @@
 }
 
 @media screen and (max-width: 480px){
+    .home_container {
+        background-color: #fff;
+    }
     .main_container {
-        padding: 81px 0;
+        padding: 60px 0;
+        margin-top: 0;
     }
 }

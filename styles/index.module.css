@@ -22,8 +22,13 @@
     align-items: center;
 }
 
+.txt_box {
+    display: flex;
+    flex-direction: column;
+}
+
 .main_txt {
-    font-size: 3.0rem;
+    font-size: 2.5rem;
     font-weight: 600;
     letter-spacing: -1px;
     width: auto;
@@ -35,7 +40,7 @@
 .main_txt_right {
     margin-left: auto;
     display: inline-block;
-    font-size: 3.0rem;
+    font-size: 2.5rem;
     font-weight: 600;
     letter-spacing: -0.5px;
     width: auto;
@@ -65,16 +70,18 @@
 }
 
 .link_btn {
-    width: 100%;
+    width: 125px;
     height: 40px;
-    background-color: #9f56fc;
-    border: 1px solid #9f56fc;
-    border-top-left-radius: 12px;
-    border-bottom-right-radius: 12px;
+    background-color: #f1f3f5;
     cursor: pointer;
-    color: white;
-    font-size: 15px;
-    box-shadow: 0 1px 5px rgba(0,0,0, 0.2);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.link_btn:hover {
+    background-color: #e2e4e5;
 }
 
 @media screen and (max-width: 768px){
@@ -83,9 +90,19 @@
         align-items: center;
     }
     .main_txt {
+        font-size: 2.0rem;
         text-align: center;
     }
     .sub_txt {
         text-align: center;
+    }
+    .txt_box {
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 480px){
+    .main_box {
+        margin-top: 60px;
     }
 }
