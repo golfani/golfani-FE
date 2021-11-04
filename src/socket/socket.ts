@@ -36,7 +36,7 @@ export const socketConnect = (callback : (data : IMessage) => void, listener : (
 }
 
 export const subNoticeChannel = (callback : (data : IMessage) => void) => {
-    const subscription = socket.socketClient.subscribe(`/queue/${userId}`,callback,{ id : noticeSubId, type : 'ALARM'});
+    const subscription = socket.socketClient.subscribe(`/queue/${userId}`,callback,{ id : noticeSubId, type : 'ALARM', userId : userId});
 }
 
 export const subChatChannel = (roomId : number, callback : () => void) => {
