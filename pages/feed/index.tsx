@@ -4,7 +4,7 @@ import FeedLeftSideBar from "src/components/feed/leftSideBar/FeedLeftSideBar";
 import FeedMain from "src/components/feed/main/FeedMain";
 import {GetServerSideProps} from "next";
 import {QueryClient} from "react-query";
-import {getFeed} from "src/apis/Feed";
+import {getFeed, getHotFeed} from "src/apis/Feed";
 import {dehydrate} from "react-query/hydration";
 import {useRouter} from "next/router";
 import useFeedType from "src/store/modules/feedType/feedTypeHook";
@@ -38,6 +38,9 @@ export const getServerSideProps : GetServerSideProps = async () => {
     const queryClient = new QueryClient();
     await queryClient.prefetchInfiniteQuery('feed',()=>getFeed(),{
         staleTime : 1000 * 60
+    });
+    await queryClient.prefetchQuery('hotFeed',()=>getHotFeed(),{
+        staleTime : 1000 * 60 * 10
     });
 
     return {
