@@ -24,15 +24,17 @@ const FeedReply = ({feed, isModal} : IFeedItemProps) => {
 
     return (
         <div className={style.container}>
-            <div className={isModal ? style.reply_box :""}>
-                {replyQuery.data?.pages.map((page)=> (
-                    page.content.map((reply)=> (
-                        <FeedReplyItem key={reply.id} reply={reply}/>
-                    ))
-                ))}
+            <div className={style.reply_main_box}>
+                <div className={isModal ? style.reply_box :""}>
+                    {replyQuery.data?.pages.map((page)=> (
+                        page.content.map((reply)=> (
+                            <FeedReplyItem key={reply.id} reply={reply}/>
+                        ))
+                    ))}
+                </div>
+                {replyQuery.hasNextPage && <span className={style.reply_more_txt} onClick={handleClickMore}>댓글 더보기...</span> }
             </div>
-            {replyQuery.hasNextPage && <span className={style.reply_more_txt} onClick={handleClickMore}>댓글 더보기...</span> }
-            {isModal ? replyQuery.hasNextPage || <span className={style.blank_reply_more_txt}></span> :<></>}
+            {isModal && <span className={style.blank_reply_more_txt}></span>}
             <div className={isModal ? style.modal_reply_input_box : ''}>
                 <div className={style.divider}></div>
                 <FeedReplyAdd feedId={feed.id} feedUser={feed.userId} refId={null} refUser={null}/>

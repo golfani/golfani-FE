@@ -5,6 +5,10 @@
     /*box-shadow: 0 1px 2px rgba(0,0,0, 0.2);*/
 }
 
+.reply_main_box {
+    margin-bottom: 60px;
+}
+
 .reply_box {
     height: auto;
     max-height: 370px;
