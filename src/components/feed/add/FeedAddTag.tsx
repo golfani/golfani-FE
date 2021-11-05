@@ -1,12 +1,11 @@
-import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, FormEvent, useState} from "react";
 import style from "./feedAddTag.module.css";
 import useFeedAdd from "src/store/modules/feedAdd/feedAddHook";
-import useTag from "src/store/modules/tag/tagHook";
-import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
+import useSearch from "src/store/modules/search/searchHook";
 
 const FeedAddTag = () : JSX.Element=> {
     const {feedAddState, onAddTag, onDeleteTag} = useFeedAdd();
-    const {data, loading,error, onGetTagList, onInitTagList} = useTag();
+    const search = useSearch();
     const [value ,setValue] = useState("");
     const [size ,setSize] = useState(1);
     const [tagBoxClassName , setTagBoxClassName] = useState(style.tag_input_box_inactive);
@@ -21,7 +20,7 @@ const FeedAddTag = () : JSX.Element=> {
     const initTagInput = () => {
         setSize(1)
         setValue("");
-        onInitTagList();
+        search.onInitTagList();
     }
 
     const onBlur = () => {
@@ -58,10 +57,10 @@ const FeedAddTag = () : JSX.Element=> {
 
     const handleGetTagList = (payload : string) => {
         if(payload.trim().length > 0) {
-            onGetTagList(payload);
+            search.onGetTagList(payload);
         }
         else {
-            onInitTagList();
+            search.onInitTagList();
         }
     }
 
@@ -70,10 +69,6 @@ const FeedAddTag = () : JSX.Element=> {
         setValue(input.value);
         handleGetTagList(input.value);
     }
-
-    useEffect(()=> {
-        console.log(data);
-    },[data]);
 
     const autoComplete = (tag : string) => {
         if(feedAddState.tagList.indexOf(tag) === -1) {
@@ -108,9 +103,9 @@ const FeedAddTag = () : JSX.Element=> {
                 />
                 <button className={style.hidden}></button>
             </form>
-            {data ? data.length > 0
+            {search.searchTag ? search.searchTag.length > 0
                 ?   <div className={style.tag_search_container}>
-                        {data?.map((tag) => (
+                        {search.searchTag?.map((tag) => (
                             <div className={style.tag_search_box} key={tag.id}>
                                 <div className={style.tag_search_txt_box} onMouseDown={()=>handleClickAutoCompleteTag(tag.tagName)}>
                                     <span className={style.tag_search_txt}>{`#${tag.tagName}`}</span>

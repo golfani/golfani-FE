@@ -43,9 +43,8 @@
     height: 200px;
     border: 1px solid black;
     border-radius: 0.2rem;
-    padding: 10px 15px;
+    padding-top: 5px;
     z-index: 100;
-    box-shadow: 0 0 0 rgba(0,0,0.2);
     background-color: white;
 }
 
@@ -60,11 +59,11 @@
 
 .tag_search_txt_box {
     display: flex;
-    width: 270px;
+    width: 100%;
     flex-direction: column;
     justify-content: center;
     cursor: pointer;
-    padding: 2px;
+    padding: 5px 15px;
 }
 
 .tag_search_txt_box:hover{
@@ -81,6 +80,10 @@
 .tag_search_total_txt {
     color: gray;
     font-size: 13px;
+}
+
+.recent_search_box {
+    padding: 10px 15px;
 }
 
 .recent_tag_box {
@@ -114,4 +117,37 @@
 
 .recent_tag_delete_btn:hover {
     color: black;
+}
+
+.user_search_box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.user_profile_img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.user_search_txt {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+}
+
+.user_search_box:hover {
+    background-color: #e7e7e7;
+}
+
+.recent_user_search_box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    cursor: pointer;
 }

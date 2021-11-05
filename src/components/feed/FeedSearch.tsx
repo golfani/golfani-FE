@@ -1,49 +1,36 @@
 import SearchIcon from '@material-ui/icons/Search';
-import style from './tagSearch.module.css';
+import style from './feedSearch.module.css';
 import React, {ChangeEvent, FormEvent, useEffect, useRef, useState} from "react";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
-import useTag from "src/store/modules/tag/tagHook";
 import useFeedMenu from "src/store/modules/feedMenu/feedMenuHook";
 import useCustomRouter from "src/hooks/routerHook";
+import useSearch from "src/store/modules/search/searchHook";
+import {getProfileImage} from "src/apis/Member";
 
-const TagSearch = (): JSX.Element => {
-    const tag = useTag();
+enum SEARCH_TYPE {
+    tag = 'tag',
+    user = 'user'
+}
+
+interface IRecentSearch {
+    type : SEARCH_TYPE,
+    searchName : string
+}
+
+const FeedSearch = (): JSX.Element => {
+    const search = useSearch();
     const feedMenu = useFeedMenu();
     const [searchBox, setSearchBox] = useState(style.hide);
-    const [tagName, setTagName] = useState("");
+    const [searchName, setSearchName] = useState("");
     const tagRef = useRef<HTMLDivElement>(null);
-    const [saveTagName, setSaveTagName] = useState("");
-    const [deleteTagId, setDeleteTagId] = useState<number | null>(null);
-    const [recentTagList, setRecentTagList] = useState<string[]>([]);
+    const [recentSearchList, setRecentSearchList] = useState<IRecentSearch[]>([]);
     const {onConflictRoute} = useCustomRouter();
 
-    /**
-     * NEXT.JS SERVERSIDE 에서 web API 사용하기위해서는 useEffect 에서 사용해야 한다!
-     */
     useEffect(() => {
         const output = window.localStorage.getItem("recent_tag");
-        const recentTagList: string[] = JSON.parse(output as string);
-        recentTagList ? setRecentTagList(recentTagList) : setRecentTagList([]);
+        const recentSearchList: IRecentSearch[] = JSON.parse(output as string);
+        recentSearchList ? setRecentSearchList(recentSearchList) : setRecentSearchList([]);
     }, [])
-
-    useEffect(() => {
-        if (saveTagName) {
-            // push 대신 0번 인덱스에 삽입한다.
-            recentTagList.splice(0, 0, saveTagName);
-            window.localStorage.setItem("recent_tag", JSON.stringify(recentTagList));
-        }
-    }, [saveTagName])
-
-    useEffect(()=> {
-        if (deleteTagId !== null) {
-            const deleteTagList = recentTagList.filter((tag, id) => (
-                id !== deleteTagId
-            ));
-            window.localStorage.setItem("recent_tag", JSON.stringify(deleteTagList));
-            setRecentTagList(deleteTagList);
-            setDeleteTagId(null);
-        }
-    },[deleteTagId])
 
     // input inFocus 됬을때
     const handleFocus = () => {
@@ -61,9 +48,10 @@ const TagSearch = (): JSX.Element => {
         feedMenu.menu && feedMenu.onChangeMenu('NONE');
     }
 
-    // tagList 가져오기
-    const onFetchTagList = (payload: string) => {
-        payload.length && tag.onGetTagList(payload);
+    // 검색결과 가져오기
+    const onFetchSearchList = (payload: string) => {
+        payload.length && search.onGetTagList(payload);
+        payload.length && search.onGetUserList(payload);
     }
 
     // 검색한 태그 페이지로 이동하기
@@ -75,30 +63,55 @@ const TagSearch = (): JSX.Element => {
 
     // 검색 태그 초기화
     const onInitInput = () => {
-        setTagName("");
-        tag.onInitTagList();
+        setSearchName("");
+        search.onInitTagList();
+        search.onInitSearchUserList();
     }
 
     const handleChangeInput = (e: ChangeEvent) => {
         const input = e.target as HTMLInputElement
-        setTagName((tagName) => input.value);
-        onFetchTagList(input.value);
+        setSearchName((searchName) => input.value);
+        onFetchSearchList(input.value);
     }
 
     const handleClickTag = (tag: string) => {
-        setSaveTagName(tag);
         onRoute(tag);
+        saveSearchHistory(SEARCH_TYPE.tag, tag);
     }
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         (document.activeElement as HTMLElement).blur(); // 현재 활성화된 element blur 처리
-        setSaveTagName(tagName);
-        onRoute(tagName);
+        onRoute(searchName);
+        saveSearchHistory(SEARCH_TYPE.tag, searchName);
     }
 
     const handleClickDeleteRecentTag = (id: number) => {
-        setDeleteTagId(id);
+        deleteSearchHistory(id);
+    }
+
+    const saveSearchHistory = (type : SEARCH_TYPE, searchName : string) => {
+        if(typeof window !== 'undefined') {
+            const saveSearch : IRecentSearch = {
+                type : type,
+                searchName : searchName
+            }
+            recentSearchList.splice(0,0,saveSearch);
+            window.localStorage.setItem("recent_tag", JSON.stringify(recentSearchList));
+        }
+    }
+
+    const deleteSearchHistory = (deleteId : number) => {
+        const deleteTagList = recentSearchList.filter((tag, id) => (
+            id !== deleteId
+        ));
+        window.localStorage.setItem("recent_tag", JSON.stringify(deleteTagList));
+        setRecentSearchList(deleteTagList);
+    }
+
+    const handleClickSearchUser = (userId : string) => {
+        onConflictRoute(`/profile/${userId}`);
+        saveSearchHistory(SEARCH_TYPE.user, userId);
     }
 
     /**
@@ -113,13 +126,13 @@ const TagSearch = (): JSX.Element => {
                     <input onFocus={handleFocus}
                            className={style.input}
                            placeholder="원하는 #태그를 검색해 보세요!"
-                           value={tagName}
+                           value={searchName}
                            onChange={handleChangeInput}
                     />
                     <div className={searchBox}>
                         {
-                            tagName ?
-                                tag.data?.map((item) => (
+                            searchName ?
+                                search.searchTag?.map((item) => (
                                     <div className={style.tag_search_box} key={item.id}>
                                         <div className={style.tag_search_txt_box}
                                              onClick={() => handleClickTag(item.tagName)}>
@@ -130,12 +143,20 @@ const TagSearch = (): JSX.Element => {
                                     </div>
                                 ))
                                 :
-                                <div>
+                                <div className={style.recent_search_box}>
                                     <span className={style.recent_tag_title_txt}>최근 검색 내용</span>
-                                    {recentTagList.map((tag, id) => (
+                                    {recentSearchList.map((item, id) => (
                                         <div className={style.recent_tag_box} key={id}>
+                                            {item.type === SEARCH_TYPE.tag &&
                                             <span className={style.recent_tag_txt}
-                                                  onClick={() => handleClickTag(tag)}>{`#${tag}`}</span>
+                                                  onClick={() => handleClickTag(item.searchName)}>{`#${item.searchName}`}</span>
+                                            }
+                                            {item.type === SEARCH_TYPE.user &&
+                                                <div className={style.recent_user_search_box} onClick={() => handleClickSearchUser(item.searchName)}>
+                                                    <img src={getProfileImage(item.searchName,'MID')} className={style.user_profile_img}/>
+                                                    <span className={style.user_search_txt}>{item.searchName}</span>
+                                                </div>
+                                            }
                                             <button type={"button"}
                                                     className={style.recent_tag_delete_btn}
                                                     onClick={() => handleClickDeleteRecentTag(id)}>삭제
@@ -144,6 +165,12 @@ const TagSearch = (): JSX.Element => {
                                     ))}
                                 </div>
                         }
+                        {searchName && search.searchUser?.map((user) => (
+                            <div key={user.id} className={style.user_search_box} onClick={()=>handleClickSearchUser(user.userId)}>
+                                <img src={getProfileImage(user.userId,'MID')} className={style.user_profile_img}/>
+                                <span className={style.user_search_txt}>{user.userId}</span>
+                            </div>
+                        ))}
                     </div>
                 </form>
                 <SearchIcon/>
@@ -152,4 +179,4 @@ const TagSearch = (): JSX.Element => {
     )
 };
 
-export default TagSearch;
+export default FeedSearch;

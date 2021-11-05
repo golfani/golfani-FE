@@ -1,5 +1,5 @@
 import style from './feedNavbar.module.css'
-import TagSearch from "./TagSearch";
+import FeedSearch from "./FeedSearch";
 import FeedStyleTab from "./FeedStyleTab";
 import NavbarMenu from "src/components/common/navbar/NavbarMenu";
 import NavbarLink from "../common/navbar/NavbarLink";
@@ -10,7 +10,7 @@ const FeedNavBar = () : JSX.Element => {
           <div className={style.navbar_box}>
               <NavbarLink/>
               <div className={style.feed_box}>
-                  <TagSearch/>
+                  <FeedSearch/>
                   <FeedStyleTab/>
               </div>
               <NavbarMenu/>
