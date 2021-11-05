@@ -1,10 +1,10 @@
 import {IFeedContent} from "src/apis/Feed";
 import FeedItem from "../feed/main/list/FeedItem";
 import style from './feedModal.module.css';
-import {useEffect, useRef} from "react";
+import {useRef} from "react";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import ArrowBackIosNewIcon from '@material-ui/icons/ArrowBackIosNew';
-import {bodyScrollActionForModal} from "../../utils/scrollUtil";
+import {bodyScrollActionForModal} from "src/utils/scrollUtil";
 
 export interface IFeedModalProps {
     feed: IFeedContent

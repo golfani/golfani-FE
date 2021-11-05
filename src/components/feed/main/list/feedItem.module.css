@@ -54,6 +54,12 @@
     }
 }
 
+@media screen and (max-width: 1080px){
+    .container_modal {
+        margin-top: 45px;
+    }
+}
+
 @media screen and (max-width: 768px){
     .container {
         border-radius: 0;
