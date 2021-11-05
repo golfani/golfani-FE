@@ -24,6 +24,7 @@ const CardList = () : JSX.Element => {
         enabled : type === 'CARD'
     })
 
+
     const hotFeedQuery = useInfiniteQuery<IPages<IFeedContent>>('hotFeed',({pageParam = ''})=>getHotFeed(pageParam,6), {
         getNextPageParam : (lastPage) => {
             const currentPage = lastPage.pageable.pageNumber;
