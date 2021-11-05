@@ -4,6 +4,7 @@ import style from './feedModal.module.css';
 import {useEffect, useRef} from "react";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import ArrowBackIosNewIcon from '@material-ui/icons/ArrowBackIosNew';
+import {bodyScrollActionForModal} from "../../utils/scrollUtil";
 
 export interface IFeedModalProps {
     feed: IFeedContent
@@ -18,6 +19,7 @@ const FeedModal = (props : IFeedModalProps) : JSX.Element => {
         props.setModalOpen(false);
     }
 
+    bodyScrollActionForModal();
     handleClickRefOutSide(targetRef,onModalClose);
 
     return (
