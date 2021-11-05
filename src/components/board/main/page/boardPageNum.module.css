@@ -1,0 +1,27 @@
+.container{
+    display: flex;
+    margin-top: 20px;
+    width:100%;
+    padding: 10px;
+    justify-content: center;
+}
+
+.num_on{
+    border: 1px solid #ddd;
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+    line-height: 20px;
+    font-weight: bold;
+    color:#8b00ff;
+}
+
+.num{
+    border: 1px solid #ddd;
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+    line-height: 20px;
+    font-weight: bold;
+    color:#000;
+}
