@@ -54,4 +54,8 @@
     .blank_reply_more_txt {
         flex: 1;
     }
+    .reply_box {
+        max-height: none;
+        overflow: hidden;
+    }
 }

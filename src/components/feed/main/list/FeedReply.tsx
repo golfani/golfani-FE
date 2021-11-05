@@ -24,7 +24,7 @@ const FeedReply = ({feed, isModal} : IFeedItemProps) => {
 
     return (
         <div className={style.container}>
-            <div className={style.reply_main_box}>
+            <div className={isModal ? style.reply_main_box : ''}>
                 <div className={isModal ? style.reply_box :""}>
                     {replyQuery.data?.pages.map((page)=> (
                         page.content.map((reply)=> (
