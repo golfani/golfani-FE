@@ -216,6 +216,11 @@ export const getProfileImage = (userId : string = " ", quality : string) => {
  * @param member
  */
 export const registerOauthSignUp = async (member : IOauthSignUp) => {
-    const response = axios.put(`${API_URL}/oauth`,member);
+    const response = await axios.put(`${API_URL}/oauth`,member);
     return response;
+}
+
+export const searchByUserId = async (userId : string) => {
+    const response = await axios.get(`${API_URL}/search/${userId}`);
+    return response.data;
 }
