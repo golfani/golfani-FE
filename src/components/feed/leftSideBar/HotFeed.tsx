@@ -1,14 +1,13 @@
 import style from './hotFeed.module.css';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import FeedThumbnail from "./FeedThumbnail";
-import {useInfiniteQuery, useQuery} from "react-query";
+import {useQuery} from "react-query";
 import {getHotFeed, IFeedContent} from "src/apis/Feed";
-import {IPages} from "src/domain/Page";
 import useFeedType from "src/store/modules/feedType/feedTypeHook";
 
 const HotFeed = () : JSX.Element => {
     const {onChangeHotView} = useFeedType()
-    const hotFeedQuery = useInfiniteQuery<IPages<IFeedContent>>('hotFeed',()=>getHotFeed(0,6),{
+    const hotFeedQuery = useQuery<IFeedContent[]>('hotFeed',()=>getHotFeed(),{
         staleTime : 1000 * 60 * 10
     })
 
@@ -25,7 +24,7 @@ const HotFeed = () : JSX.Element => {
             </div>
             <div className={style.thumbnail_box}>
                 {
-                    hotFeedQuery.data?.pages[0].content.map((feed : IFeedContent)=> (
+                    hotFeedQuery.data?.slice(0,6).map((feed : IFeedContent)=> (
                             <FeedThumbnail key={feed.id} feed={feed}/>
                         ))
                 }

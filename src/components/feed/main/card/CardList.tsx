@@ -1,6 +1,6 @@
 import style from './cardList.module.css';
 import CardItem from "./CardItem";
-import {useInfiniteQuery} from "react-query";
+import {useInfiniteQuery,useQuery} from "react-query";
 import {getFeed, getHotFeed,IFeedContent, getTagSearchFeed} from "src/apis/Feed";
 import {IPages} from "src/domain/Page";
 import useFeedType from "src/store/modules/feedType/feedTypeHook";
@@ -24,14 +24,7 @@ const CardList = () : JSX.Element => {
         enabled : type === 'CARD'
     })
 
-    const hotFeedQuery = useInfiniteQuery<IPages<IFeedContent>>('hotFeed',({pageParam = ''})=>getHotFeed(pageParam,6), {
-        getNextPageParam : (lastPage) => {
-            const currentPage = lastPage.pageable.pageNumber;
-            if(currentPage + 1 >= lastPage.totalPages) {
-                return undefined;
-            }
-            return currentPage + 1;
-        },
+    const hotFeedQuery = useQuery<IFeedContent[]>('hotFeed',()=>getHotFeed(), {
         staleTime : 1000 * 60 * 10,
         enabled : type === 'HOT'
     })
@@ -55,9 +48,6 @@ const CardList = () : JSX.Element => {
                 if(type === 'CARD') {
                     feedQuery.hasNextPage && await feedQuery.fetchNextPage();
                 }
-                if(type === 'HOT') {
-                    hotFeedQuery.hasNextPage && await hotFeedQuery.fetchNextPage();
-                }
                 if(type === 'SEARCH') {
                     searchFeedQuery.hasNextPage && await searchFeedQuery.fetchNextPage();
                 }
@@ -73,7 +63,7 @@ const CardList = () : JSX.Element => {
     useEffect(()=> {
         observer.current = new IntersectionObserver(intersectionObserver);
         scrollRef.current && observer.current?.observe(scrollRef.current);
-    },[type,feedQuery.data,hotFeedQuery.data,searchFeedQuery.data]);
+    },[type,feedQuery.data,searchFeedQuery.data]);
 
     return (
         <div className={style.container}>
@@ -91,10 +81,8 @@ const CardList = () : JSX.Element => {
                     }
                     {
                         type === 'HOT' &&
-                        hotFeedQuery.data?.pages.map((page)=>(
-                            page.content.map((feed)=> (
-                                <CardItem key={feed.id} feed={feed}/>
-                            ))
+                        hotFeedQuery.data?.map((feed) => (
+                            <CardItem key={feed.id} feed={feed}/>
                         ))
                     }
                     {

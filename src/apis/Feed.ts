@@ -75,11 +75,12 @@ export const deleteFeed = async (feedId : number) => {
 
 /**
  * 핫 피드 리스트 요청하는 API
+ * @param list
  * @param page
  * @param size
  */
-export const getHotFeed = async (page : number = 0, size : number = 6) => {
-    const response = await axios.get(`${API_URL}/hot?page=${page}&size=${size}`);
+export const getHotFeed = async () => {
+    const response = await axios.get(`${API_URL}/hot`);
     return response.data;
 }
 
