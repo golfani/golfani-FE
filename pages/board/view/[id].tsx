@@ -1,8 +1,8 @@
 import {useRouter} from "next/router";
 import Board_view from "../../../src/components/board/main/view/BoardView";
 import {getBoardView} from "../../../src/apis/Board";
-import BoardNavbar from "../../../src/components/board/main/BoardNavBar";
 import {useQuery} from "react-query";
+import Navbar from "../../../src/components/common/navbar/Navbar";
 
 const ViewPage = () : JSX.Element => {
 
@@ -12,10 +12,9 @@ const ViewPage = () : JSX.Element => {
         enabled : id !== undefined,
     });
 
-    console.log(boardQuery.data);
     return (
         <div>
-            <BoardNavbar/>
+            <Navbar/>
             {boardQuery.data && <Board_view boardView={boardQuery.data}/>}
         </div>
     )

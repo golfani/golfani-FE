@@ -1,6 +1,6 @@
 import style from 'src/components/board/main/item/boardItem.module.css';
 import React from 'react';
-import {IBoardData} from "../../../../apis/Board";
+import {IBoardData, onClickBoard} from "../../../../apis/Board";
 import {useRouter} from "next/router";
 
 interface IBoardProps{
@@ -10,8 +10,9 @@ interface IBoardProps{
 const BoardItem = (board: IBoardProps) : JSX.Element => {
 
     const router = useRouter();
-    const onTitleClick = (id : number) => { // 클릭 되는 객체 반환
+    const onTitleClick = async (id : number) => { // 클릭 되는 객체 반환
         router.push(`board/view/${id}`);
+        const reposnse = await onClickBoard(id); // 해당 게시글이 클릭 될 때마다 조회수 증가
     }
 
     return(

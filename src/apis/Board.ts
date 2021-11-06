@@ -54,6 +54,12 @@ export const putBoard = async (boardDto : IBoardData) => {
 }
 
 export const deleteBoard = async (boardId : number) => {
-    const response = await securityAxios.delete(`${API_URL}/${boardId}`)
+    const response = await securityAxios.delete(`${API_URL}/${boardId}`);
     return response;
 }
+
+export const onClickBoard = async (postId : number) => {
+    const response = await securityAxios.get(`${API_URL}/onClick/${postId}`);
+    return response
+}
+
