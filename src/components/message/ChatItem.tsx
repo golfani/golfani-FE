@@ -4,6 +4,7 @@ import {getCookie} from "src/utils/cookieUtil";
 import {calcChatDate, diffDayChat, toStringByFormatting} from "src/utils/dateUtil";
 import {IChatMessageDto, READING_STATUS} from "src/apis/Chat";
 import {getProfileImage} from "src/apis/Member";
+import UserProfileImage from "src/components/common/UserProfileImage";
 
 interface IChatItemProps {
     chatData : IChatMessageDto[]
@@ -68,7 +69,7 @@ const ChatItem = ({chat,chatData,index} : IChatItemProps) : JSX.Element => {
                     :
                     <div className={style.flex_box}>
                         {isFirstChat() ?
-                            <img className={style.img} src={getProfileImage(chat.sender,'MID')}/>
+                            <UserProfileImage userId={chat.sender} src={getProfileImage(chat.sender,'MID')} width={30} height={30} mr={15}/>
                             :
                             <div className={style.blank_img}></div>
                         }

@@ -14,14 +14,6 @@
     user-select: none;
 }
 
-.img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin-right: 15px;
-    object-fit: cover;
-}
-
 .blank_img {
     width: 45px;
 }
