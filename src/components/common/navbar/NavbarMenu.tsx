@@ -51,7 +51,7 @@ const NavbarMenu = () => {
                     <div className={style.menu_box} ref={noticeRef}>
                         <FavoriteBorderOutlinedIcon className={style.icon} onClick={handleClickNotice} fontSize={'inherit'}/>
                         {unReadAlarmQuery.data !== 0 && <span className={style.notice_count}>{unReadAlarmQuery.data}</span>}
-                        {noticeOpen && <Alarm/>}
+                        {noticeOpen && <Alarm setModalOpen={setNoticeOpen}/>}
                     </div>
                     <div className={style.menu_box}>
                         <ChatBubbleOutlineRoundedIcon className={style.icon} onClick={handleClickChat} fontSize={'inherit'}/>
