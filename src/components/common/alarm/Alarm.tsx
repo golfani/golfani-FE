@@ -4,10 +4,16 @@ import {useInfiniteQuery, useMutation, useQueryClient} from "react-query";
 import {getAlarm, setAllAlarmRead} from "src/apis/Alarm";
 import {IAlarm} from "src/domain/Alarm";
 import {IPages} from "src/domain/Page";
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import {isTodayAlarm} from "src/utils/dateUtil";
+import ArrowBackIosNewIcon from '@material-ui/icons/ArrowBackIosNew';
+import {bodyScrollActionForModal} from "src/utils/scrollUtil";
 
-const Alarm = () : JSX.Element => {
+interface IAlarmProps {
+    setModalOpen : (state : boolean) => void
+}
+
+const Alarm = ({setModalOpen} : IAlarmProps) : JSX.Element => {
     const queryClient = useQueryClient();
     const alarmQuery = useInfiniteQuery<IPages<IAlarm>>('alarm',({pageParam = ''})=>getAlarm(pageParam),{
         getNextPageParam : (lastPage) => {
@@ -23,6 +29,7 @@ const Alarm = () : JSX.Element => {
     const observeRef = useRef<HTMLDivElement>(null);
     const observer = useRef<IntersectionObserver>();
     let isShowPrevAlarm = false;
+    const [isClose, setIsClose] = useState(false);
 
     useEffect(()=> {
         observer.current = new IntersectionObserver(intersectionObserver);
@@ -35,6 +42,13 @@ const Alarm = () : JSX.Element => {
                 await alarmQuery.fetchNextPage();
             }
         })
+    }
+
+    const onCloseModal = () => {
+        setIsClose(true);
+        setTimeout(()=> {
+            setModalOpen(false);
+        },500);
     }
 
     const handleClickAllReadAlarm = async () => {
@@ -50,9 +64,14 @@ const Alarm = () : JSX.Element => {
         }
     }
 
+    bodyScrollActionForModal();
+
     return (
-        <div className={style.container}>
+        <div className={isClose ? style.container_close : style.container}>
             <div className={style.title_box}>
+                <div className={style.back_icon}>
+                    <ArrowBackIosNewIcon onClick={onCloseModal}/>
+                </div>
                 <span className={style.title_txt}>알림</span>
                 <button className={style.allRead_btn} onClick={handleClickAllReadAlarm}>모두읽기</button>
             </div>
