@@ -39,12 +39,13 @@
     }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
     .container {
-        height: 60px;
+        box-shadow: none;
+        height: 55px;
     }
     .navbar_box {
-        height: 60px;
+        height: 54px;
         padding: 0 20px;
     }
 }

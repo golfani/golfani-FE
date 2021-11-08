@@ -7,7 +7,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 70px;
 }
 
 .menu_box {
@@ -15,8 +14,18 @@
     position: relative;
 }
 
+.menu_box + .menu_box {
+    margin-left: 15px;
+}
+
 .icon {
     cursor: pointer;
+}
+
+.img {
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: cover;
 }
 
 .notice_count {
