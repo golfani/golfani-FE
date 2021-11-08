@@ -53,11 +53,12 @@
     color: white;
 }
 
-@media screen and (max-width: 480px){
+@media screen and (max-width: 768px){
     .container {
-        height: 60px;
+        height: 55px;
+        box-shadow: none;
     }
     .header_box {
-        height: 60px;
+        height: 54px;
     }
 }
