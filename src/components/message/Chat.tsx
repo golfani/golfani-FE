@@ -8,6 +8,8 @@ import {IPages} from "src/domain/Page";
 import {getProfileImage} from "src/apis/Member";
 import ChatItem from "./ChatItem";
 import ArrowBackIosNewIcon from '@material-ui/icons/ArrowBackIosNew';
+import UserProfileImage from "src/components/common/UserProfileImage";
+import UserName from "src/components/common/UserName";
 
 interface IChatProps {
     closeModal? : () => void;
@@ -72,9 +74,15 @@ const Chat = ({closeModal} : IChatProps) : JSX.Element => {
                             <ArrowBackIosNewIcon/>
                         </div>
                         {chatRoom.activeChatRoom &&
-                        <img src={getProfileImage(chatRoom.activeChatRoom?.receiver,'MID')} className={style.title_img}/>
+                        <UserProfileImage
+                            src={getProfileImage(chatRoom.activeChatRoom?.receiver,'MID')}
+                            userId={chatRoom.activeChatRoom?.receiver!}
+                            width={30}
+                            height={30}
+                            mr={15}
+                        />
                         }
-                        <span className={style.title_userId_txt}>{chatRoom.activeChatRoom?.receiver}</span>
+                        <UserName userName={chatRoom.activeChatRoom?.receiver!}/>
                     </div>
                     <div className={style.chat_box}>
                         <div ref={chatScrollRef}> </div>
