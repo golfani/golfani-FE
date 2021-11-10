@@ -1,5 +1,5 @@
 
-export type TAlarm = 'FEED' | 'POST' | 'SYSTEM';
+export type TAlarm = 'REPLY' | 'LIKES' | 'CHAT'
 
 export interface IAlarm {
     id : number
@@ -10,8 +10,9 @@ export interface IAlarm {
     alarmType : TAlarm
     isRead : boolean
     createdAt : Date
-    redirectUrl : string
-    referId : number
+    postId? : number
+    feedId? : number
+    replyId? : number
 }
 
 export type TAlarmSendDto = Omit<IAlarm, 'id' | 'isRead' | 'createdAt' | 'redirectUrl'>
