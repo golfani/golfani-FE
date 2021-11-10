@@ -10,9 +10,11 @@ interface IBoardProps{
 const BoardItem = (board: IBoardProps) : JSX.Element => {
 
     const router = useRouter();
+
     const onTitleClick = async (id : number) => { // 클릭 되는 객체 반환
-        router.push(`board/view/${id}`);
         const reposnse = await onClickBoard(id); // 해당 게시글이 클릭 될 때마다 조회수 증가
+        router.push(`board/view/${id}`);
+
     }
 
     return(
