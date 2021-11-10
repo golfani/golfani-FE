@@ -105,7 +105,22 @@
     margin-left:10px;
 }
 
-
 .comment_wrap{
     margin-top : 10px;
+}
+
+.img_wrap{
+    position: relative;
+    white-space: nowrap;
+    font-size:0;
+    overflow-x: scroll;
+}
+
+.img_box{
+    display: inline-block;
+    width: auto; height: auto;
+    max-height: 500px;
+    max-width: 300px;
+    margin-top:20px;
+    margin-left : 10px;
 }

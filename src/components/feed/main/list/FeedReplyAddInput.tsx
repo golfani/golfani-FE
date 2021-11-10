@@ -8,7 +8,7 @@ import {sendAlarmBySocket} from "src/apis/Alarm";
 const FeedReplyAddInput = ({feedId,feedUser, refId, refUser} : IFeedReplyAddProps) : JSX.Element => {
     const queryClient = useQueryClient();
     const [replyPayload, setReplyPayload] = useState("");
-    const commentMutation = useMutation(()=>registerReply("FEED",feedId,replyPayload));
+    const commentMutation = useMutation(()=> registerReply("FEED",feedId,replyPayload));
     const replyMutation = useMutation(()=>registerReply("FEED_REPLY",feedId,replyPayload,refId,refUser));
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 

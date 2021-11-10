@@ -1,6 +1,8 @@
 import {boardDTO} from "../components/board/main/BoardWrite";
 import {securityAxios} from "../security/axios";
 import {EType} from "../domain/board";
+import axios from "axios";
+import {TSelectMenu} from "../components/board/main/page/BoardPage";
 
 export interface IBoardData{
     id:number,
@@ -17,6 +19,7 @@ export interface IBoardData{
     needReport : boolean,
     isDeleted : boolean,
     SearchType : string,
+    replyCount : number,
     urlList : []
 }
 
@@ -37,13 +40,8 @@ export const getBoard = async (boardType : EType, page : number = 0, size : numb
     return response.data;
 }
 
-export const getBoard2 = async (boardType : EType, page : number = 0, size : number = 10) => {
-    const response = await securityAxios.get(`${API_URL}/list?boardType=${boardType}&page=${page}&size=${size}`);
-    return response.data;
-}
-
 export const getBoardView = async (id : string) => {
-    const response = await securityAxios.get(`${API_URL}/${id}`);
+    const response = await securityAxios.get(`${API_URL}/${id}`,{withCredentials: true});
     return response.data;
 }
 
@@ -63,3 +61,7 @@ export const onClickBoard = async (postId : number) => {
     return response
 }
 
+export const searchBoard = async ( searchType : TSelectMenu, payload : string) => {
+    const response = await axios.get(`${API_URL}/search?type=${searchType}&payload=${payload}`);
+    return response.data;
+}

@@ -1,5 +1,5 @@
 import {useRouter} from "next/router";
-import Board_view from "../../../src/components/board/main/view/BoardView";
+import BoardView from "../../../src/components/board/main/view/BoardView";
 import {getBoardView} from "../../../src/apis/Board";
 import {useQuery} from "react-query";
 import Navbar from "../../../src/components/common/navbar/Navbar";
@@ -15,7 +15,7 @@ const ViewPage = () : JSX.Element => {
     return (
         <div>
             <Navbar/>
-            {boardQuery.data && <Board_view boardView={boardQuery.data}/>}
+            {boardQuery.data && <BoardView boardView={boardQuery.data}/>}
         </div>
     )
 }

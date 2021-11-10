@@ -1,10 +1,10 @@
 import style from 'src/components/board/main/boardWrite.module.css';
 import React, {useState} from 'react';
 import {registerBoard} from 'src/apis/Board';
-import {getCookie} from "../../../utils/cookieUtil";
+import {getCookie} from "src/utils/cookieUtil";
 import {useRouter} from "next/router";
-import Modal from "../../modals/Modal";
-import {EType} from "../../../domain/board";
+import Modal from "src/components/modals/Modal"
+import {EType} from "src//domain/board";
 
 export interface boardDTO {
     userId : string,
@@ -60,9 +60,7 @@ const BoardWrite = (): JSX.Element => {
         if(type === boardType) return true;
     }
 
-
     const handleOnSummit = async () => {
-
         if(inputs.title.length <= 0)
         {
             setMsg("제목을 입력해주세요");
@@ -71,7 +69,6 @@ const BoardWrite = (): JSX.Element => {
             setMsg("내용을 입력해주세요");
         }
         else {
-            console.log(imgList);
             try{
                 const response = await registerBoard(inputs, imgList);
                 await router.push(`/board?type=${boardType}`);
@@ -111,14 +108,12 @@ const BoardWrite = (): JSX.Element => {
                                 accept =".jpg, .jpeg, .png"
                                 onChange={handleChangeFile}
                             />
-                            <div className={style.preview}>
-                                {fileURLs.map((img) => {
-                                        return (
-                                            <img className={style.preview_img} src={img}></img>
-                                        )
-                                    }
-                                )}
-                            </div>
+                        </div>
+                        <div className={style.preview}>
+                            {
+                                fileURLs.map((img) => (
+                                    <img src={img} className={style.preview_img}/>
+                                ))}
                         </div>
                     </div>
                 </div>
