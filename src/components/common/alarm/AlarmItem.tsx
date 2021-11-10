@@ -17,8 +17,8 @@ interface INoticeItemProps {
 const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
     const queryClient = useQueryClient();
     const alarmMutate = useMutation(()=>setAlarmRead(alarm.id));
-    const feedQuery = useQuery(['feed',alarm.referId],()=>getFeedOne(alarm.referId),{
-        enabled : alarm.alarmType === 'FEED'
+    const feedQuery = useQuery(['feed',alarm.feedId],()=>getFeedOne(alarm.feedId!),{
+        enabled : alarm.feedId !== null
     });
     const [openFeedModal, setOpenFeedModal] = useState(false);
     const {onSetBelow} = useFeedZIndex();
@@ -37,11 +37,14 @@ const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
     },[alarmMutate])
 
     const onRedirectAlarm = async () => {
-        if(alarm.alarmType === "FEED") {
+        if(alarm.feedId) {
             onSetBelow();
             onSetFeedModal(true);
-            await queryClient.invalidateQueries(['feedReply',alarm.referId]);
-            await queryClient.invalidateQueries(['feedLikes',alarm.referId]);
+            await queryClient.invalidateQueries(['feedReply',alarm.feedId]);
+            await queryClient.invalidateQueries(['feedLikes',alarm.feedId]);
+        }
+        if(alarm.postId) {
+
         }
     }
 
