@@ -43,7 +43,7 @@ export const getBoard2 = async (boardType : EType, page : number = 0, size : num
 }
 
 export const getBoardView = async (id : string) => {
-    const response = await securityAxios.get(`${API_URL}/${id}`);
+    const response = await securityAxios.get(`${API_URL}/${id}`, {withCredentials : true});
     return response.data;
 }
 
