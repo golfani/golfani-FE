@@ -12,6 +12,7 @@ import {getUnreadChatMessageCount} from "src/apis/Chat";
 import useCustomRouter from "src/hooks/routerHook";
 import {getProfileImage} from "src/apis/Member";
 import {useRouter} from "next/router";
+import UserMenuModal from "src/components/modals/UserMenuModal";
 
 const NavbarMenu = () => {
     const userId = getCookie('userId')
@@ -24,6 +25,7 @@ const NavbarMenu = () => {
     });
     const unReadMessageQuery = useQuery('unReadMessage', () => getUnreadChatMessageCount());
     const [isUserProfile, setIsUserProfile] = useState(false);
+    const [userMenuOpen, setUserMenuOpen] = useState(false);
 
     const onCloseNotice = () => {
         setNoticeOpen(false);
@@ -39,6 +41,10 @@ const NavbarMenu = () => {
 
     const handleClickChat = () => {
         onConflictRoute(`/message`);
+    }
+
+    const handleClickUserMenu = () => {
+        setUserMenuOpen(true);
     }
 
     handleClickRefOutSide(noticeRef,onCloseNotice);
@@ -76,8 +82,9 @@ const NavbarMenu = () => {
                     </div>
                     }
                     {isUserProfile &&
-                    <div className={style.menu_box} onClick={handleClickProfile}>
-                        <MenuRoundedIcon className={style.icon} onClick={handleClickChat} fontSize={'inherit'}/>
+                    <div className={style.menu_box}>
+                        <MenuRoundedIcon className={style.icon} onClick={handleClickUserMenu} fontSize={'inherit'}/>
+                        {userMenuOpen && <UserMenuModal setModalOpen={setUserMenuOpen}/>}
                     </div>
                     }
                 </div>

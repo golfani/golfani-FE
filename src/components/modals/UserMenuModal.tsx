@@ -5,7 +5,6 @@ import {useRef, useState} from "react";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 
 interface IUserMenuModalProps {
-    open : boolean
     setModalOpen : (state : boolean) => void
 }
 
