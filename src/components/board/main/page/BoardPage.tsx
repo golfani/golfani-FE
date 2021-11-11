@@ -2,16 +2,20 @@ import style from 'src/components/board/main/page/boardPage.module.css';
 import React, {useState} from "react";
 import Link from 'next/link'
 import {ITypeProps} from "../BoardMain";
+import {searchBoard} from "../../../../apis/Board";
+import {useRouter} from "next/router";
+import BoardSearchBar from "./BoardSearchBar";
+
+
+export type TSelectMenu = 'USER' | 'CONTENT' | 'TITLE'
 
 const BoardPage = (boardType : ITypeProps) : JSX.Element => {
 
     /* 추후 리스트 동적 생성 됨에따라 교체 예정 */
-    type TSelectMenu = '글쓴이' | '제목' | '내용' | '게시글'
-
+    const router = useRouter();
     const [showMenu,setShowMenu] = useState(false);
-    const [onNum, setOnNum] = useState(1);
-
-    const [selectMenu, setSelectMenu] = useState<TSelectMenu>("게시글");
+    const [selectMenu, setSelectMenu] = useState<TSelectMenu>('TITLE');
+    const [payload, setPayload] = useState('');
 
     const handlerContentClick = () => {
         selectBarClick();
@@ -19,10 +23,6 @@ const BoardPage = (boardType : ITypeProps) : JSX.Element => {
 
     const selectBarClick = () => {
         setShowMenu(!showMenu);
-    }
-
-    const handlerPageClick = (index : number) => {
-        pageClick(index);
     }
 
     const handlerSelectMenu = (menu: TSelectMenu) => {
@@ -34,8 +34,14 @@ const BoardPage = (boardType : ITypeProps) : JSX.Element => {
         setSelectMenu(menu)
     }
 
-    const pageClick = (index : number) => {
-        setOnNum(index);
+    const onSearchBtnClick = async () => {
+        const response = await searchBoard(selectMenu,payload);
+
+        router.push(`board/searchResult?selectMenu=${selectMenu}&payload=${payload}`);
+    }
+
+    const onTextChange = (e :React.ChangeEvent<HTMLInputElement>) => {
+        setPayload(e.target.value);
     }
 
     return (
@@ -50,30 +56,7 @@ const BoardPage = (boardType : ITypeProps) : JSX.Element => {
                     </button>
                 </Link>
             </div>
-
-            <div className={style.search_bar}>
-                <div className={style.select_wrap}>
-                    <button onClick={handlerContentClick} className={style.select_component}>
-                        <span className={style.select_text}>{selectMenu}</span>
-                        <img src="https://img.icons8.com/external-those-icons-lineal-color-those-icons/24/000000/external-arrow-arrows-those-icons-lineal-color-those-icons-1.png" className={showMenu ? style.arrow_icon_open : style.arrow_icon}/>
-                    </button>
-                    <div className={showMenu ? style.select_menu_wrap : style.select_hidden}>
-                        <ul>
-                            <li className={style.select_menu}>
-                                <button className={style.select_button} onClick={() => handlerSelectMenu("내용")}>내용</button>
-                            </li>
-                            <li className={style.select_menu}>
-                                <button className={style.select_button} onClick={() => handlerSelectMenu("글쓴이")}>글쓴이</button>
-                            </li>
-                            <li className={style.select_menu}>
-                                <button className={style.select_button} onClick={() => handlerSelectMenu("제목")}>제목</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <input type="text" className={style.search_id} title={style.search_id} placeholder="검색어 입력"></input>
-                <button type="submit" className={style.search_btn}>검색</button>
-            </div>
+            <BoardSearchBar/>
         </div>
     )
 }

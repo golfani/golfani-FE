@@ -14,7 +14,7 @@ const BoardList = (boardType : ITypeProps) : JSX.Element => {
     const {page} = router.query;
 
     const boardQuery = useQuery<IPages<IBoardData>>(['board', boardType.boardType], () => getBoard(boardType.boardType as EType, Number(page),10), {
-        enabled : boardType.boardType!==undefined,
+        enabled : boardType.boardType !== undefined,
     });
 
     useEffect(() =>{
@@ -37,15 +37,12 @@ const BoardList = (boardType : ITypeProps) : JSX.Element => {
                             <BoardItem key={board.boardId} board={board}/>
                         )
                     })}
-
                 </div>
             </div>
             <div>
                 <BoardPageNum totalPage={boardQuery.data?.totalPages as number}/>
             </div>
         </div>
-
-
     )
 }
 

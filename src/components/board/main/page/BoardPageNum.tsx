@@ -1,38 +1,56 @@
 import style from './boardPageNum.module.css';
 import {useRouter} from "next/router";
 
-interface INumber{
+interface INumber {
     totalPage : number
 }
 
 const BoardPageNum = (totalPage : INumber) : JSX.Element => {
 
     const router = useRouter();
-    const {type,page} = router.query;
+    const {type,page,payload,selectMenu} = router.query;
 
+    console.log(payload);
     const onNextPage = () => {
-        Number(page) < totalPage.totalPage ? window.location.href = `/board?type=${type}&page=${Number(page)+1}` : null;
+        if(payload === undefined){
+            Number(page) < totalPage.totalPage ? window.location.href = `/board?type=${type}&page=${Number(page)+1}` : null
+        }
+        else{
+            Number(page) < totalPage.totalPage ? window.location.href = `/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${Number(page)+1}` : null
+        }
+
     }
 
     const onFirstPage = () => {
-        window.location.href = `/board?type=${type}&page=0`
+        if(payload === undefined)  window.location.href = `/board?type=${type}&page=0`
+        else window.location.href = `/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=0`
     }
 
     const onLastPage = () => {
-        window.location.href = `/board?type=${type}&page=${totalPage.totalPage-1}`
+        if(payload === undefined) window.location.href = `/board?type=${type}&page=${totalPage.totalPage-1}`
+        else window.location.href = `/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${totalPage.totalPage-1}`
     }
 
     const onPrevPage = () => {
-        Number(page) > 0 ? window.location.href = `/board?type=${type}&page=${Number(page)-1}` : null;
+        if(payload === undefined) Number(page) > 0 ? window.location.href = `/board?type=${type}&page=${Number(page)-1}` : null;
+        else Number(page) > 0 ? window.location.href = `/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${Number(page)-1}` : null;
     }
 
     const onPageClick = (pageNum : number) => {
-        if(typeof window !== undefined) {
-            window.location.href = `/board?type=${type}&page=${Number(pageNum)}`;
-        }
+       if(payload === undefined){
+           if(typeof window !== undefined) {
+               window.location.href = `/board?type=${type}&page=${Number(pageNum)}`;
+           }
+       }
+       else{
+           if(typeof window !== undefined) {
+               window.location.href = `/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${Number(pageNum)}`;
+           }
+       }
+
     }
 
-    const makeNum = (totalPage : number) =>{
+    const makeNum = (totalPage : number) => {
         let array = [];
         for(let i = 0 ; i < totalPage ; i++){
             array.push(<button className={Number(page) === i ? style.num_on : style.num} key={i} disabled={Number(page) === i ? true : false} name="page" onClick={()=>onPageClick(i)}>{i+1}</button>)

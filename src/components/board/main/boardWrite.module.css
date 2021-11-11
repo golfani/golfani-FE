@@ -61,9 +61,10 @@
     display: block;
     width:100%;
     height:300px;
+    overflow-y: scroll;
     padding: 15px;
     box-sizing: border-box;
-    border: 0;
+    border:0;
     resize: vertical;
 }
 
@@ -109,10 +110,16 @@
     width: 50%;
 }
 
+.preview {
+    display: flex;
+    overflow-x: scroll;
+}
+
 .preview_img{
     background-color: #fff;
-    width: 150px;
-    height: 150px;
+    max-width: 150px;
+    max-height: 150px;
+    margin-left:5px;
 }
 
 .menu_wrap{

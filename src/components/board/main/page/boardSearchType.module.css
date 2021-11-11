@@ -1,0 +1,24 @@
+.container{
+    width: 80%;
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+
+.list_style{
+    padding: 6px 0 10px;
+}
+
+.sort_menu{
+    float:right;
+}
+
+.label{
+
+}
+
+.label_clicked{
+    color: #6a8cbe;
+    font-weight: bold;
+}
+
+

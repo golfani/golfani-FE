@@ -55,7 +55,6 @@ const BoardPut = (boardData:IBoardProps): JSX.Element => {
         }
         else {
             try{
-                console.log(boardData.boardView);
                 const response = await putBoard(inputs);
                 await router.push('/board');
             }catch (e) {
