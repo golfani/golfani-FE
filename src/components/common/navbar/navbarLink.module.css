@@ -6,9 +6,10 @@
     display: inline-block;
     font-size: 25px;
     color: black;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
     margin-right: 30px;
+    letter-spacing: -1.0px;
 }
 
 .link_box {
@@ -45,4 +46,13 @@
     border-bottom: 3px solid #8729ff;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
+}
+
+@media screen and (max-width: 768px){
+    .link_box {
+        display: none;
+    }
+    .logo_txt {
+        font-size: 23px;
+    }
 }

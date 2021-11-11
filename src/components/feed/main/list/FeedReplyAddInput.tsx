@@ -15,7 +15,7 @@ const FeedReplyAddInput = ({feedId,feedUser, refId, refUser} : IFeedReplyAddProp
     const onRegisterReply = useCallback(async ()=> {
         try {
             const response = await replyMutation.mutateAsync();
-            refUser && sendAlarmBySocket('FEED',refUser,'댓글에 답글을 남겼습니다. ',feedId,replyPayload);
+            refUser && sendAlarmBySocket('REPLY',refUser,'댓글에 답글을 남겼습니다. ',feedId,replyPayload,'FEED_REPLY',refId!);
         }
         catch (e) {
             console.log(e);
@@ -31,7 +31,7 @@ const FeedReplyAddInput = ({feedId,feedUser, refId, refUser} : IFeedReplyAddProp
     const onRegisterComment = useCallback(async ()=> {
         try {
             const response = await commentMutation.mutateAsync();
-            feedUser && sendAlarmBySocket('FEED',feedUser,'피드에 댓글을 남겼습니다. ',feedId,replyPayload);
+            feedUser && sendAlarmBySocket('REPLY',feedUser,'피드에 댓글을 남겼습니다. ',feedId,replyPayload,'FEED');
         }
         catch (e) {
             console.log(e);

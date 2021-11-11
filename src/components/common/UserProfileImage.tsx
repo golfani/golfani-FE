@@ -6,9 +6,10 @@ interface IUserProfileImageProps {
     src : string
     width : number
     height : number
+    mr? : number
 }
 
-const UserProfileImage = ({userId,src,width,height} : IUserProfileImageProps) : JSX.Element => {
+const UserProfileImage = ({userId,src,width,height,mr} : IUserProfileImageProps) : JSX.Element => {
     const router = useRouter();
 
     const onRouteProfilePage = () => {
@@ -21,7 +22,7 @@ const UserProfileImage = ({userId,src,width,height} : IUserProfileImageProps) : 
 
     return (
         <img
-            style={{minWidth : `${width}px`}}
+            style={{minWidth : `${width}px`,marginRight : `${mr}px`}}
             src={src}
             width={width}
             height={height}

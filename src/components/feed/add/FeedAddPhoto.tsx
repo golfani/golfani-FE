@@ -45,7 +45,7 @@ const FeedAddPhoto = () : JSX.Element => {
             canvas.width = width;
             canvas.height = height;
             ctx?.drawImage(canvasImage, 0 ,0, width, height);
-            const resizeImageUrl = canvas.toDataURL(file.type, 0.75);
+            const resizeImageUrl = canvas.toDataURL('image/webp', 0.75);
             const img : IImg = {
                 imgFile : dataURLtoFile(resizeImageUrl,file.name),
                 imgFileUrl : resizeImageUrl
