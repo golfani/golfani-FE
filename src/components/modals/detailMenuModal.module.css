@@ -46,7 +46,7 @@
 }
 
 .menu_btn ~ * {
-    border-top: 1px solid gray;
+    border-top: 1px solid #bababa;
 }
 
 .divider {
