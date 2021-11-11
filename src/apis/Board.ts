@@ -36,12 +36,12 @@ export const registerBoard = async (boardDto : boardDTO, imgList : File[] ) => {
 }
 
 export const getBoard = async (boardType : EType, page : number = 0, size : number = 10) => {
-    const response = await securityAxios.get(`${API_URL}/list?boardType=${boardType}&page=${page}&size=${size}`);
+    const response = await axios.get(`${API_URL}/list?boardType=${boardType}&page=${page}&size=${size}`);
     return response.data;
 }
 
 export const getBoardView = async (id : string) => {
-    const response = await securityAxios.get(`${API_URL}/${id}`,{withCredentials: true});
+    const response = await axios.get(`${API_URL}/${id}`,{withCredentials: true});
     return response.data;
 }
 
@@ -56,12 +56,7 @@ export const deleteBoard = async (boardId : number) => {
     return response;
 }
 
-export const onClickBoard = async (postId : number) => {
-    const response = await securityAxios.get(`${API_URL}/onClick/${postId}`);
-    return response
-}
-
-export const searchBoard = async ( searchType : TSelectMenu, payload : string) => {
-    const response = await axios.get(`${API_URL}/search?type=${searchType}&payload=${payload}`);
+export const searchBoard = async ( searchType : TSelectMenu, payload : string, page : number = 0) => {
+    const response = await axios.get(`${API_URL}/search?type=${searchType}&payload=${payload}&page=${page}`);
     return response.data;
 }
