@@ -29,7 +29,7 @@ const Alarm = ({setModalOpen} : IAlarmProps) : JSX.Element => {
     const observer = useRef<IntersectionObserver>();
     let isShowPrevAlarm = false;
     const [isClose, setIsClose] = useState(false);
-    const [slideDiff, setSlideDiff] = useState<number>(0);
+    const [slideDiff, setSlideDiff] = useState<number>();
 
     useEffect(()=> {
         observer.current = new IntersectionObserver(intersectionObserver);
