@@ -12,7 +12,7 @@ const userId = getCookie('userId');
  * @param page
  * @param size
  */
-export const getAlarm = async (page : number = 0, size : number = 10) => {
+export const getAlarm = async (page : number = 0, size : number = 15) => {
     const response = await securityAxios.get(`${API_URL}?page=${page}&size=${size}`);
     return response.data;
 }
