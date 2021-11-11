@@ -23,13 +23,13 @@ const Alarm = ({setModalOpen} : IAlarmProps) : JSX.Element => {
             }
             return currentPage+1;
         },
-        staleTime : 0,
     });
     const allAlarmMutate = useMutation(()=>setAllAlarmRead());
     const observeRef = useRef<HTMLDivElement>(null);
     const observer = useRef<IntersectionObserver>();
     let isShowPrevAlarm = false;
     const [isClose, setIsClose] = useState(false);
+    const [slideDiff, setSlideDiff] = useState<number>();
 
     useEffect(()=> {
         observer.current = new IntersectionObserver(intersectionObserver);
@@ -48,7 +48,7 @@ const Alarm = ({setModalOpen} : IAlarmProps) : JSX.Element => {
         setIsClose(true);
         setTimeout(()=> {
             setModalOpen(false);
-        },500);
+        },100);
     }
 
     const handleClickAllReadAlarm = async () => {
@@ -66,8 +66,53 @@ const Alarm = ({setModalOpen} : IAlarmProps) : JSX.Element => {
 
     bodyScrollActionForModal();
 
+    useEffect(()=> {
+        let startX : number;
+        let startY : number;
+        let _diff = 0;
+        let startTime : any
+        let endTime : any;
+        const touchStartEvent = (event : TouchEvent) => {
+            startTime = new Date();
+            const touchStart = event.touches[0];
+            startX = touchStart.clientX;
+            startY = touchStart.clientY;
+        }
+        const touchEndEvent = (event : TouchEvent) => {
+            const touchEnd = event.changedTouches[event.changedTouches.length - 1];
+            endTime = new Date();
+            const diff_time = endTime - startTime;
+            if(_diff > 200 || (_diff > 20 && diff_time < 150)) {
+                onCloseModal();
+            }
+            else {
+                _diff = 0;
+                setSlideDiff(0);
+            }
+        }
+        const touchMoveEvent = (event : TouchEvent) => {
+            const touchEnd = event.changedTouches[event.changedTouches.length - 1];
+            if(Math.abs(touchEnd.clientY - startY) <= 5) {
+                const diff = touchEnd.clientX - startX;
+                if(diff > 0) {
+                    _diff = diff;
+                    setSlideDiff(diff);
+                }
+            }
+        }
+        window.addEventListener('touchstart',touchStartEvent);
+        window.addEventListener('touchmove',touchMoveEvent);
+        window.addEventListener('touchend',touchEndEvent);
+
+        return () => {
+            window.removeEventListener('touchstart',touchStartEvent);
+            window.removeEventListener('touchend',touchEndEvent);
+            window.removeEventListener('touchmove',touchMoveEvent);
+        }
+    },[])
+
     return (
-        <div className={isClose ? style.container_close : style.container}>
+        <div className={isClose ? style.container_close : style.container} style={{left : slideDiff}}>
             <div className={style.title_box}>
                 <div className={style.back_icon}>
                     <ArrowBackIosNewIcon onClick={onCloseModal}/>

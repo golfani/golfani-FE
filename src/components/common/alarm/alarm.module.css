@@ -26,7 +26,7 @@
     border-radius: 8px;
     /*border: 1px solid #d0d7de;*/
     box-shadow: 0 0 5px 1px rgba(0,0,0,0.1);
-    animation: slideOut 0.5s;
+    animation: slideOut 0.1s;
     animation-fill-mode: forwards;
 }
 
@@ -39,6 +39,7 @@
 .back_icon {
     display: none;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .title_txt {
@@ -83,7 +84,6 @@
 
 @keyframes slideOut {
     from {
-        left: 0;
     }
     to {
         left: 100%;
@@ -106,7 +106,7 @@
         box-shadow: none;
         z-index: 2;
         animation: slideIn 0.5s;
-        animation-fill-mode: forwards;
+        animation-fill-mode: none;
     }
     .container_close {
         position: fixed;
