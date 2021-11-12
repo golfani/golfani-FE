@@ -72,6 +72,9 @@ const Alarm = ({setModalOpen} : IAlarmProps) : JSX.Element => {
         let _diff = 0;
         let startTime : any
         let endTime : any;
+        let touchTimes : number = 0;
+        let isScrollEvent = true;
+
         const touchStartEvent = (event : TouchEvent) => {
             startTime = new Date();
             const touchStart = event.touches[0];
@@ -89,16 +92,22 @@ const Alarm = ({setModalOpen} : IAlarmProps) : JSX.Element => {
                 _diff = 0;
                 setSlideDiff(0);
             }
+            touchTimes = 0;
+            isScrollEvent = true;
         }
         const touchMoveEvent = (event : TouchEvent) => {
             const touchEnd = event.changedTouches[event.changedTouches.length - 1];
-            if(Math.abs(touchEnd.clientY - startY) <= 5) {
+            if(touchTimes === 0 && Math.abs(startY - touchEnd.clientY) < 10) {
+                isScrollEvent = false;
+            }
+            if(!isScrollEvent) {
                 const diff = touchEnd.clientX - startX;
                 if(diff > 0) {
                     _diff = diff;
                     setSlideDiff(diff);
                 }
             }
+            touchTimes ++;
         }
         window.addEventListener('touchstart',touchStartEvent);
         window.addEventListener('touchmove',touchMoveEvent);
