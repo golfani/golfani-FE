@@ -9,12 +9,12 @@
     background-color: #F4F4F4;
 }
 
-.container > div {
+.box {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 600px;
+    width: auto;
     height: 100%;
 }
 
@@ -23,6 +23,7 @@
     font-weight: bold;
     font-size: 2.5em;
     margin: 20px 0 40px 0;
+    cursor: pointer;
 }
 
 .login_box {

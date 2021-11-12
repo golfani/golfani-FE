@@ -33,6 +33,7 @@
 .container {
     position: relative;
     width: 100%;
+    height: 100%;
     max-width: 300px;
     background-color: white;
 }
@@ -112,11 +113,11 @@
     .modal {
         animation-fill-mode: forwards;
         animation: slideIn 0.5s;
+        height: 100%;
     }
     .container {
         width: 100%;
         max-width: none;
-        height: 100vmax;
     }
     .title_box {
         max-width: none;

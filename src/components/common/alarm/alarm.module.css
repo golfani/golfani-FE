@@ -33,6 +33,7 @@
 .title_box {
     display: flex;
     padding: 10px 15px;
+    height: 50px;
     align-items: center;
 }
 
@@ -43,6 +44,7 @@
 }
 
 .title_txt {
+    display: inline-block;
     font-size: 17px;
     font-weight: 500;
     margin-right: 10px;
