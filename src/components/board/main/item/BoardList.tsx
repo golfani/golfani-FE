@@ -13,9 +13,10 @@ const BoardList = (boardType : ITypeProps) : JSX.Element => {
     const router = useRouter();
     const {page} = router.query;
 
-    const boardQuery = useQuery<IPages<IBoardData>>(['board', boardType.boardType], () => getBoard(boardType.boardType as EType, Number(page),10), {
-        enabled : boardType.boardType !== undefined,
+
+    const boardQuery = useQuery<IPages<IBoardData>>(['board', boardType.boardType], () => getBoard(boardType.boardType as EType, Number(page), 10), {
     });
+
 
     useEffect(() =>{
     },[boardType.boardType])
@@ -37,6 +38,7 @@ const BoardList = (boardType : ITypeProps) : JSX.Element => {
                             <BoardItem key={board.boardId} board={board}/>
                         )
                     })}
+
                 </div>
             </div>
             <div>

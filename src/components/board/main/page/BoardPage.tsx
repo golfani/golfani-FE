@@ -36,7 +36,6 @@ const BoardPage = (boardType : ITypeProps) : JSX.Element => {
 
     const onSearchBtnClick = async () => {
         const response = await searchBoard(selectMenu,payload);
-
         router.push(`board/searchResult?selectMenu=${selectMenu}&payload=${payload}`);
     }
 

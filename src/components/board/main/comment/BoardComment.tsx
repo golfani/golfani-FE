@@ -31,9 +31,10 @@ const BoardComment = ({boardView} : IBoardProps) => {
                 </div>
                 <div className={style.comment_box}>
                     {
+                        replyQuery.data &&
                         replyQuery.data?.pages.map((page)=>(
                             page.content.map((reply)=>(
-                                <BoardCommentItem reply={reply}/>
+                                <BoardCommentItem key = {reply.id} reply={reply}/>
                             ))
                         ))
                     }

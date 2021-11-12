@@ -35,7 +35,7 @@ export const registerBoard = async (boardDto : boardDTO, imgList : File[] ) => {
     return response;
 }
 
-export const getBoard = async (boardType : EType, page : number = 0, size : number = 10) => {
+export const getBoard = async (boardType : EType = EType.FREE, page : number = 0, size : number = 10) => {
     const response = await axios.get(`${API_URL}/list?boardType=${boardType}&page=${page}&size=${size}`);
     return response.data;
 }
@@ -59,4 +59,9 @@ export const deleteBoard = async (boardId : number) => {
 export const searchBoard = async ( searchType : TSelectMenu, payload : string, page : number = 0) => {
     const response = await axios.get(`${API_URL}/search?type=${searchType}&payload=${payload}&page=${page}`);
     return response.data;
+}
+
+export const onClickBoard = async (postId : string) => {
+    const response = await axios.get(`${API_URL}/onClick/${postId}`);
+    return response;
 }

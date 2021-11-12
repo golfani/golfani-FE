@@ -10,7 +10,6 @@ const BoardPageNum = (totalPage : INumber) : JSX.Element => {
     const router = useRouter();
     const {type,page,payload,selectMenu} = router.query;
 
-    console.log(payload);
     const onNextPage = () => {
         if(payload === undefined){
             Number(page) < totalPage.totalPage ? window.location.href = `/board?type=${type}&page=${Number(page)+1}` : null

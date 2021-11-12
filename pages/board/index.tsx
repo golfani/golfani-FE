@@ -9,7 +9,7 @@ import {useRouter} from "next/router";
 const Board = () : JSX.Element => {
 
     const router = useRouter();
-    const {type} = router.query;
+    const {type,page} = router.query;
 
     const [boardType,setBoardType] = useState<EType | null>(type as EType);
 

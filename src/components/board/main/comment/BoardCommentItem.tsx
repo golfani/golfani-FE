@@ -86,7 +86,7 @@ const BoardCommentItem = ({reply} : IReplyProps) => {
                 </div>
                 {
                     replyQuery.data?.map((reply) => (
-                        <BoardCommentItem reply={reply}/>
+                        <BoardCommentItem key = {reply.id} reply={reply}/>
                     ))
                 }
             </div>
