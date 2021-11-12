@@ -3,6 +3,7 @@ import ArrowBackIosNewIcon from '@material-ui/icons/ArrowBackIosNew';
 import {removeCookie} from "src/utils/cookieUtil";
 import {useRef, useState} from "react";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
+import ScrapModal from "./scrap/ScrapModal";
 
 interface IUserMenuModalProps {
     setModalOpen : (state : boolean) => void
@@ -11,6 +12,7 @@ interface IUserMenuModalProps {
 const UserMenuModal = (props : IUserMenuModalProps) : JSX.Element => {
     const [isClose, setIsClose] = useState(false);
     const userMenuRef = useRef<HTMLDivElement>(null);
+    const [scrapModalOpen, setScrapModalOpen] = useState(false);
 
     const onCloseModal = () => {
         props.setModalOpen(false);
@@ -35,6 +37,10 @@ const UserMenuModal = (props : IUserMenuModalProps) : JSX.Element => {
         }
     }
 
+    const handleClickScrap = () => {
+        setScrapModalOpen(true);
+    }
+
     handleClickRefOutSide(userMenuRef,onCloseModal);
 
     return (
@@ -54,13 +60,14 @@ const UserMenuModal = (props : IUserMenuModalProps) : JSX.Element => {
                     </div>
                     <div className={style.menu_box}>
                         <h3 className={style.menu_title_txt}>활동</h3>
-                        <span className={style.menu_txt}>스크랩</span>
+                        <span className={style.menu_txt} onClick={handleClickScrap}>스크랩</span>
                     </div>
                     <div className={style.menu_box}>
                         <h3 className={style.menu_title_txt}>기타</h3>
                         <span className={style.menu_txt} onClick={handleClickLogOut}>로그아웃</span>
                     </div>
                 </div>
+                {scrapModalOpen && <ScrapModal setModalOpen={setScrapModalOpen}/>}
             </div>
         </div>
     );
