@@ -4,6 +4,7 @@ import {removeCookie} from "src/utils/cookieUtil";
 import {useRef, useState} from "react";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import ScrapModal from "./scrap/ScrapModal";
+import {bodyScrollActionForModal} from "../../utils/scrollUtil";
 
 interface IUserMenuModalProps {
     setModalOpen : (state : boolean) => void
@@ -42,6 +43,7 @@ const UserMenuModal = (props : IUserMenuModalProps) : JSX.Element => {
     }
 
     handleClickRefOutSide(userMenuRef,onCloseModal);
+    bodyScrollActionForModal();
 
     return (
         <div className={isClose ? style.modal_close : style.modal}>

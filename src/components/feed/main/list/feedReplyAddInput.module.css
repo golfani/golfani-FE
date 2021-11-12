@@ -21,23 +21,6 @@
     line-height: 20px;
 }
 
-.input_btn {
-    display: inline-block;
-    border: none;
-    width: 23px;
-    background: transparent;
-    font-size: 12px;
-    color: gray;
-}
-
-.input_btn:enabled {
-    border: none;
-    background: transparent;
-    font-size: 12px;
-    letter-spacing: 1px;
-    color: black;
-}
-
 .input::placeholder {
     font-size: 13px;
     letter-spacing: -0.5px;

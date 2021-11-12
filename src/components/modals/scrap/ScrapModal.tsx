@@ -6,6 +6,7 @@ import {IPages} from "src/domain/Page";
 import {useEffect, useRef, useState} from "react";
 import {getFeedOne, IFeedContent} from "src/apis/Feed";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
+import {bodyScrollActionForModal} from "src/utils/scrollUtil";
 
 interface IScrapModalProps {
     setModalOpen : (state : boolean) => void
@@ -64,7 +65,8 @@ const ScrapModal = (props : IScrapModalProps) : JSX.Element => {
         return () => window.removeEventListener('resize',resizeListener);
     },[]);
 
-    handleClickRefOutSide(scrapModalRef,onCloseModal)
+    handleClickRefOutSide(scrapModalRef,onCloseModal);
+    bodyScrollActionForModal();
 
     return (
         <div className={isClose ? style.modal_close : style.modal}>
