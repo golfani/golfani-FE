@@ -1,8 +1,8 @@
 import Navbar from "../../src/components/common/navbar/Navbar";
 import BoardMain from 'src/components/board/main/BoardMain';
 import BoardLeftSideBar from 'src/components/board/main/leftSideBar/BoardLeftSideBar';
-import {useState} from "react";
-import {EType} from "../../src/domain/board";
+import {useEffect, useState} from "react";
+import {EType} from "src/domain/board";
 import {useRouter} from "next/router";
 
 
@@ -16,7 +16,11 @@ const Board = () : JSX.Element => {
     const onSetBoardType = (type: EType) => {
         setBoardType(type as EType);
     }
-    
+
+    useEffect(()=>{
+        if(type === undefined) router.push(`/board?type=FREE&page=0`);
+    },[]) // 교체 예정
+
     return (
         <div>
             <Navbar/>

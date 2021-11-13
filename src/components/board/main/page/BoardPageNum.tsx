@@ -12,12 +12,11 @@ const BoardPageNum = (totalPage : INumber) : JSX.Element => {
 
     const onNextPage = () => {
         if(payload === undefined){
-            Number(page) < totalPage.totalPage ? window.location.href = `/board?type=${type}&page=${Number(page)+1}` : null
+            Number(page) < totalPage.totalPage -1 ? window.location.href = `/board?type=${type}&page=${Number(page)+1}` : null
         }
         else{
-            Number(page) < totalPage.totalPage ? window.location.href = `/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${Number(page)+1}` : null
+            Number(page) < totalPage.totalPage -1 ? window.location.href = `/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${Number(page)+1}` : null
         }
-
     }
 
     const onFirstPage = () => {
@@ -46,7 +45,6 @@ const BoardPageNum = (totalPage : INumber) : JSX.Element => {
                window.location.href = `/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${Number(pageNum)}`;
            }
        }
-
     }
 
     const makeNum = (totalPage : number) => {
