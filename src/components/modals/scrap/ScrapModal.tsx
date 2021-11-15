@@ -7,6 +7,8 @@ import {useEffect, useRef, useState} from "react";
 import {getFeedOne, IFeedContent} from "src/apis/Feed";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import {bodyScrollActionForModal} from "src/utils/scrollUtil";
+import FeedScrapModal from "./FeedScrapModal";
+import {LOW_LEVEL_FIRST_PICTURE} from "src/domain/Picture";
 
 interface IScrapModalProps {
     setModalOpen : (state : boolean) => void
@@ -18,15 +20,23 @@ const ScrapModal = (props : IScrapModalProps) : JSX.Element => {
     const scrapModalRef = useRef<HTMLDivElement>(null);
     const [isClose, setIsClose] = useState(false);
     const [scrapFeed, setScrapFeed] = useState<IFeedContent[]>([]);
-    const [imgWidth, setImgWidth] = useState(190);
+    const [imgWidth, setImgWidth] = useState(200);
+    const [allFeedScrapModalOpen, setAllFeedScrapModalOpen] = useState(false);
+    const [allPostScrapModalOpen, setAllPostScrapModalOpen] = useState(false);
 
     const onLoadFeedData = () => {
         let temp : IFeedContent[] = [];
+
         scrapFeedQuery.data?.content.map(async (scrap)=> {
-            const feed = await getFeedOne(scrap.refId);
-            temp = temp.concat(feed);
-            setScrapFeed(temp);
-        })
+            try {
+                const feed = await getFeedOne(scrap.refId);
+                temp = temp.concat(feed);
+                setScrapFeed(temp);
+            }
+            catch (e) {
+
+            }
+        });
     }
 
     const onCloseModal = () => {
@@ -44,6 +54,14 @@ const ScrapModal = (props : IScrapModalProps) : JSX.Element => {
         onCloseModalForMobile();
     }
 
+    const handleClickAllFeedScrap = () => {
+        setAllFeedScrapModalOpen(true);
+    }
+
+    const handleClickAllPostScrap = () => {
+        setAllPostScrapModalOpen(true);
+    }
+
     useEffect(()=> {
         onLoadFeedData();
     },[scrapFeedQuery.isSuccess]);
@@ -51,13 +69,13 @@ const ScrapModal = (props : IScrapModalProps) : JSX.Element => {
     useEffect(()=> {
         const resizeListener = () => {
             if(window.innerWidth < 768) {
-                setImgWidth((window.innerWidth - 30) / 3 - 2);
+                setImgWidth((window.innerWidth - 30) / 3);
             }
             else if(window.screen.width < 768) {
-                setImgWidth((window.innerWidth - 30) / 3 - 2);
+                setImgWidth((window.innerWidth - 30) / 3);
             }
             else {
-                setImgWidth(190);
+                setImgWidth(200);
             }
         }
         resizeListener();
@@ -81,15 +99,21 @@ const ScrapModal = (props : IScrapModalProps) : JSX.Element => {
                     <div className={style.content_box}>
                         <div className={style.content_title_box}>
                             <span className={style.content_title_txt}>피드</span>
-                            <span className={style.content_all_txt}>전체</span>
+                            <span className={style.content_all_txt} onClick={handleClickAllFeedScrap}>전체</span>
                         </div>
                         <div className={style.feed_scrap_box}>
                             {scrapFeedQuery.data?.empty
                                 ?
-                                <span className={style.no_scrap_txt}>스크랩한 컨테츠가 존재하지 않습니다</span>
+                                <span className={style.no_scrap_txt}>스크랩한 컨텐츠가 존재하지 않습니다</span>
                                 :
                                 scrapFeed.map((feed)=> (
-                                    <img key={feed.id} style={{width : imgWidth, height : imgWidth}} className={style.feed_img} src={feed.urlList[0]}/>
+                                    <img
+                                        key={feed.id}
+                                        style={{width : imgWidth, height : imgWidth as number}}
+                                        className={style.feed_img}
+                                        src={feed.urlList[LOW_LEVEL_FIRST_PICTURE]}
+                                        onClick={handleClickAllFeedScrap}
+                                    />
                                 ))
                             }
                         </div>
@@ -102,13 +126,14 @@ const ScrapModal = (props : IScrapModalProps) : JSX.Element => {
                         <div className={style.post_scrap_box}>
                             {scrapPostQuery.data?.empty
                                 ?
-                                <span className={style.no_scrap_txt}>스크랩한 컨테츠가 존재하지 않습니다</span>
+                                <span className={style.no_scrap_txt}>스크랩한 컨텐츠가 존재하지 않습니다</span>
                                 :
                                 <span>데이터 존재</span>
                             }
                         </div>
                     </div>
                 </div>
+                {allFeedScrapModalOpen && <FeedScrapModal setModalOpen={setAllFeedScrapModalOpen}/>}
             </div>
         </div>
     );
