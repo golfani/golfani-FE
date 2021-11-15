@@ -2,6 +2,7 @@ import style from 'src/components/board/main/item/boardItem.module.css';
 import React from 'react';
 import {IBoardData} from "src/apis/Board";
 import {useRouter} from "next/router";
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 interface IBoardProps{
     board : IBoardData;
@@ -27,7 +28,6 @@ const BoardItem = (board: IBoardProps) : JSX.Element => {
                 </div>
                 <div className={style.board_id}> {board.board.userId}</div>
                 <div className={style.board_date}>{board.board.createdTime.slice(0,10)}</div>
-
                 <div className={style.recommend}>
                     <span>❣️</span>
                     <span>{board.board.likesCount}</span>

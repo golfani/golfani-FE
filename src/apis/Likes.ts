@@ -74,3 +74,13 @@ export const getUserIsReplyLikes = async (replyId : number) => {
     const response = await axios.get(`${API_URL}/reply/${replyId}/${userId}`);
     return response.data;
 }
+
+export const getPostLikes = async (postId : number) =>{
+    const response = await axios.get(`${API_URL}/post/${postId}/${userId}`);
+    return response.data;
+}
+
+export const getAllPostLikes = async (postId : number) => {
+    const response = await axios.get(`${API_URL}/total/post/${postId}`);
+    return response.data;
+}
