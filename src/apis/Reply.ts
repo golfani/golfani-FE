@@ -115,7 +115,7 @@ export const deleteFeedReply = async (replyId : number) => {
 }
 
 export const getPostReply = async (postId : number, page : number = 0 ) => {
-    const response = await axios.get(`${API_URL}/post/${postId}?page=${page}&size=20`);
+    const response = await axios.get(`${API_URL}/post/${postId}?page=${page}&size=10`);
     return response.data;
 }
 

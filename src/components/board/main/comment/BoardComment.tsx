@@ -20,6 +20,7 @@ const BoardComment = ({boardView} : IBoardProps) => {
         },
         staleTime : 1000 * 60
     });
+    console.log(replyQuery.data);
 
     return (
         <div className={style.container}>

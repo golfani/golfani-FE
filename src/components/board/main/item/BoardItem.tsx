@@ -2,7 +2,6 @@ import style from 'src/components/board/main/item/boardItem.module.css';
 import React from 'react';
 import {IBoardData} from "src/apis/Board";
 import {useRouter} from "next/router";
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 interface IBoardProps{
     board : IBoardData;

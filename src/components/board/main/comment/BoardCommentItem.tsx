@@ -75,12 +75,15 @@ const BoardCommentItem = ({reply} : IReplyProps) => {
                 <div>
                     <p className={style.comment}>{reply.payload}</p>
                 </div>
-                <div className={style.reply}>
-                    <span>답글 </span>
-                    <em>{totalReplyQuery.data}</em>
-                    <span>개 </span>
-                    <button onClick={onClick}>답글쓰기</button>
-                </div>
+                {!reply.referenceId ?
+                    <div className={style.reply}>
+                        <span>답글 </span>
+                        <em>{totalReplyQuery.data}</em>
+                        <span>개 </span>
+                        <button onClick={onClick}>답글쓰기</button>
+                    </div>
+                    :<></>
+                }
                 <div>
                     {showAdd && <BoardReplyInputAdd postId={reply.postId!} postUser={null} refId={reply.referenceId || reply.id} refUser={reply.userId}/>}
                 </div>
