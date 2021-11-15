@@ -10,26 +10,26 @@ const ViewPage = () : JSX.Element => {
     const {id} = router.query;
     const queryClient = useQueryClient();
 
-    const checkFun = async() => {
+    const checkFun = async () => {
         const response = await onClickBoard(id as string);
         console.log(response);
-        if(response.status === 200) await queryClient.invalidateQueries(['board', id]);
+        if (response.status === 200) await queryClient.invalidateQueries(['board', id]);
     }
 
-    useEffect(()=>{
-        checkFun();
-    },[])
+        useEffect(() => {
+            checkFun();
+        }, [])
 
-    const boardQuery = useQuery(['board',id], () => getBoardView(id as string), {
-        enabled : id !== undefined,
-    });
+        const boardQuery = useQuery(['board', id], () => getBoardView(id as string), {
+            enabled: id !== undefined,
+        });
 
-    return (
-        <div>
-            <Navbar/>
-            {boardQuery.data && <BoardView boardView={boardQuery.data}/>}
-        </div>
-    )
-}
+        return (
+            <div>
+                <Navbar/>
+                {boardQuery.data && <BoardView boardView={boardQuery.data}/>}
+            </div>
+        )
+    }
 
 export default ViewPage;

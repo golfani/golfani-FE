@@ -22,6 +22,7 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddPr
         finally {
             setReplyPayload("");
             await queryClient.invalidateQueries(['postReply',postId]);
+            await queryClient.invalidateQueries(['getTotalReplies',postId]);
         }
     },[commentMutation])
 
@@ -35,7 +36,8 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddPr
         }
         finally {
             setReplyPayload("");
-            await queryClient.invalidateQueries(['replyQuery'],);
+            await queryClient.invalidateQueries(['replyQuery',refId]);
+            await queryClient.invalidateQueries(['getTotalReplies',postId]);
         }
     },[[replyMutation]])
 
