@@ -70,7 +70,7 @@ const FeedSearch = (): JSX.Element => {
 
     const handleChangeInput = (e: ChangeEvent) => {
         const input = e.target as HTMLInputElement
-        setSearchName((searchName) => input.value);
+        setSearchName((searchName) => input.value.replace(/\s/g,''));
         onFetchSearchList(input.value);
     }
 
@@ -81,9 +81,12 @@ const FeedSearch = (): JSX.Element => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        (document.activeElement as HTMLElement).blur(); // 현재 활성화된 element blur 처리
-        onRoute(searchName);
-        saveSearchHistory(SEARCH_TYPE.tag, searchName);
+        console.log(searchName.replace(/\s/g,''));
+        if(searchName.replace(/\s/g,'').length) {
+            (document.activeElement as HTMLElement).blur(); // 현재 활성화된 element blur 처리
+            onRoute(searchName);
+            saveSearchHistory(SEARCH_TYPE.tag, searchName);
+        }
     }
 
     const handleClickDeleteRecentTag = (id: number) => {
