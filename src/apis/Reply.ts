@@ -113,3 +113,13 @@ export const deleteFeedReply = async (replyId : number) => {
     const response = await securityAxios.delete(`${API_URL}/feed/${replyId}`);
     return response.data;
 }
+
+export const getPostReply = async (postId : number, page : number = 0 ) => {
+    const response = await axios.get(`${API_URL}/post/${postId}?page=${page}&size=20`);
+    return response.data;
+}
+
+export const deletePostReply = async (replyId : number) => {
+    const response = await securityAxios.delete(`${API_URL}/post/${replyId}`);
+    return response.data;
+}

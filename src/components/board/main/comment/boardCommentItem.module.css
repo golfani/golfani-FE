@@ -1,0 +1,73 @@
+.container{
+    width: 100%;
+}
+
+.reply_container{
+    margin-top : 5px;
+    width: 80%;
+    background-color: beige;
+    margin-left:20%
+}
+
+.headLine{
+    border-top : 1px solid #000;
+    width: 100%;
+}
+
+.comment_main{
+    position:relative;
+    padding:10px;
+    border-bottom: 1px solid #ddd;
+}
+.comment_head{
+    width: 100%;
+    display: inline-block;
+}
+
+.userName{
+    font-size: 1.0rem;
+    font-weight: bold;
+}
+
+.uploadTime{
+    font-size:0.5rem;
+    opacity: 0.5;
+}
+
+.right_menu{
+    position:absolute;
+    display: flex;
+    align-items: center;
+    top:10px; right:5px;
+}
+
+.reply{
+    display: inline-block;
+    opacity: 0.5;
+    font-size: 12px;
+    margin-bottom:10px;
+}
+
+.reply a::before{
+    content:"|";
+    margin-right:5px;
+    opacity: 0.5;
+}
+
+
+.like{
+    font-size:15px;
+}
+
+.likeCount{
+}
+
+.report{
+    margin-left:5px;
+    cursor: pointer;
+}
+
+.comment{
+    font-size:0.8rem;
+}
+
