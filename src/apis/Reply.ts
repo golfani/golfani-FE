@@ -123,3 +123,8 @@ export const deletePostReply = async (replyId : number) => {
     const response = await securityAxios.delete(`${API_URL}/post/${replyId}`);
     return response.data;
 }
+
+export const getTotalPostReplies = async (postId : number) => {
+    const response = await axios.get(`${API_URL}/total/post/${postId}`);
+    return response.data;
+}

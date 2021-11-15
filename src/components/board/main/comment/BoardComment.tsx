@@ -2,12 +2,14 @@ import style from 'src/components/board/main/comment/boardComment.module.css';
 import React from 'react';
 import BoardCommentItem from "./BoardCommentItem";
 import {IBoardProps} from "../view/BoardView";
-import {useInfiniteQuery} from "react-query";
+import {useInfiniteQuery, useQuery} from "react-query";
 import {IPages} from "../../../../domain/Page";
-import {getPostReply, IReplyDto} from "../../../../apis/Reply";;
+import {getPostReply, getTotalPostReplies, IReplyDto} from "../../../../apis/Reply";;
 import BoardReplyInputAdd from "./BoardReplyInputAdd";
 
 const BoardComment = ({boardView} : IBoardProps) => {
+
+    const totalReplies = useQuery(['getTotalReplies',boardView.id], () => getTotalPostReplies(boardView.id));
     const replyQuery = useInfiniteQuery<IPages<IReplyDto>,Error>(['postReply',boardView.id],({pageParam = ''}) =>  getPostReply(boardView.id,pageParam), {
         getNextPageParam : (lastPage ) => {
             const currentPage = lastPage.pageable.pageNumber;
@@ -25,7 +27,7 @@ const BoardComment = ({boardView} : IBoardProps) => {
                 <div className={style.comment_top}>
                     <div className={style.comment_total}>
                         <span>전체댓글 </span>
-                        <span className={style.total_count}>{boardView.replyCount}</span>
+                        <span className={style.total_count}>{totalReplies.data}</span>
                         <span>개</span>
                     </div>
                 </div>
