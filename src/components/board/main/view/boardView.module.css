@@ -19,6 +19,8 @@
 }
 
 .title{
+    display: flex;
+    justify-content: space-between;
     padding: 20px 15px;
     border-bottom: 1px dashed #ddd;
     font-size: 1.4rem;
@@ -105,7 +107,14 @@
     margin-left:10px;
 }
 
-
 .comment_wrap{
     margin-top : 10px;
 }
+
+.like_wrap{
+    display: flex;
+    font-size: 1.0rem;
+}
+
+
+
