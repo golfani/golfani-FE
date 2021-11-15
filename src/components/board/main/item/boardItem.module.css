@@ -8,6 +8,7 @@
 }
 
 .board_item_container{
+    display: flex;
     border-bottom: 1px solid #ddd;
     width: 100%;
     padding : 5px;
@@ -37,8 +38,8 @@
 
 .board_title{
     width:50%;
-
 }
+
 .board_title_text{
     cursor:pointer;
 }

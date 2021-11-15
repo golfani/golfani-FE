@@ -4,7 +4,6 @@ import SportsGolfIcon from '@material-ui/icons/SportsGolf';
 import CreateIcon from '@material-ui/icons/Create';
 import UserFeed from "./UserFeed";
 import {IProfileMemberProps} from "../../../pages/profile/[userId]";
-import UserItem from "./UserItem";
 import {useState} from "react";
 
 type TUserMenu = 'FEED' | 'BOARD' | 'ITEM';
@@ -37,7 +36,6 @@ const UserPost = ({member} : IProfileMemberProps) : JSX.Element => {
                 </div>
             </div>
             {userMenu === 'FEED' && <UserFeed member={member}/>}
-            {userMenu === 'ITEM' && <UserItem/>}
         </div>
     );
 };

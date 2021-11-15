@@ -4,10 +4,16 @@ import {useInfiniteQuery, useMutation, useQueryClient} from "react-query";
 import {getAlarm, setAllAlarmRead} from "src/apis/Alarm";
 import {IAlarm} from "src/domain/Alarm";
 import {IPages} from "src/domain/Page";
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import {isTodayAlarm} from "src/utils/dateUtil";
+import ArrowBackIosNewIcon from '@material-ui/icons/ArrowBackIosNew';
+import {bodyScrollActionForModal} from "src/utils/scrollUtil";
 
-const Alarm = () : JSX.Element => {
+interface IAlarmProps {
+    setModalOpen : (state : boolean) => void
+}
+
+const Alarm = ({setModalOpen} : IAlarmProps) : JSX.Element => {
     const queryClient = useQueryClient();
     const alarmQuery = useInfiniteQuery<IPages<IAlarm>>('alarm',({pageParam = ''})=>getAlarm(pageParam),{
         getNextPageParam : (lastPage) => {
@@ -17,12 +23,13 @@ const Alarm = () : JSX.Element => {
             }
             return currentPage+1;
         },
-        staleTime : 0,
     });
     const allAlarmMutate = useMutation(()=>setAllAlarmRead());
     const observeRef = useRef<HTMLDivElement>(null);
     const observer = useRef<IntersectionObserver>();
     let isShowPrevAlarm = false;
+    const [isClose, setIsClose] = useState(false);
+    const [slideDiff, setSlideDiff] = useState<number>();
 
     useEffect(()=> {
         observer.current = new IntersectionObserver(intersectionObserver);
@@ -35,6 +42,13 @@ const Alarm = () : JSX.Element => {
                 await alarmQuery.fetchNextPage();
             }
         })
+    }
+
+    const onCloseModal = () => {
+        setIsClose(true);
+        setTimeout(()=> {
+            setModalOpen(false);
+        },100);
     }
 
     const handleClickAllReadAlarm = async () => {
@@ -50,9 +64,68 @@ const Alarm = () : JSX.Element => {
         }
     }
 
+    bodyScrollActionForModal();
+
+    useEffect(()=> {
+        let startX : number;
+        let startY : number;
+        let _diff = 0;
+        let startTime : any
+        let endTime : any;
+        let touchTimes : number = 0;
+        let isScrollEvent = true;
+
+        const touchStartEvent = (event : TouchEvent) => {
+            startTime = new Date();
+            const touchStart = event.touches[0];
+            startX = touchStart.clientX;
+            startY = touchStart.clientY;
+        }
+        const touchEndEvent = (event : TouchEvent) => {
+            const touchEnd = event.changedTouches[event.changedTouches.length - 1];
+            endTime = new Date();
+            const diff_time = endTime - startTime;
+            if(_diff > 200 || (_diff > 20 && diff_time < 150)) {
+                onCloseModal();
+            }
+            else {
+                _diff = 0;
+                setSlideDiff(0);
+            }
+            touchTimes = 0;
+            isScrollEvent = true;
+        }
+        const touchMoveEvent = (event : TouchEvent) => {
+            const touchEnd = event.changedTouches[event.changedTouches.length - 1];
+            if(touchTimes === 0 && Math.abs(startY - touchEnd.clientY) < 10) {
+                isScrollEvent = false;
+            }
+            if(!isScrollEvent) {
+                const diff = touchEnd.clientX - startX;
+                if(diff > 0) {
+                    _diff = diff;
+                    setSlideDiff(diff);
+                }
+            }
+            touchTimes ++;
+        }
+        window.addEventListener('touchstart',touchStartEvent);
+        window.addEventListener('touchmove',touchMoveEvent);
+        window.addEventListener('touchend',touchEndEvent);
+
+        return () => {
+            window.removeEventListener('touchstart',touchStartEvent);
+            window.removeEventListener('touchend',touchEndEvent);
+            window.removeEventListener('touchmove',touchMoveEvent);
+        }
+    },[])
+
     return (
-        <div className={style.container}>
+        <div className={isClose ? style.container_close : style.container} style={{left : slideDiff}}>
             <div className={style.title_box}>
+                <div className={style.back_icon}>
+                    <ArrowBackIosNewIcon onClick={onCloseModal}/>
+                </div>
                 <span className={style.title_txt}>알림</span>
                 <button className={style.allRead_btn} onClick={handleClickAllReadAlarm}>모두읽기</button>
             </div>

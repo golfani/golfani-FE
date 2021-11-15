@@ -1,6 +1,6 @@
 .container {
     position: absolute;
-    bottom: 20px;
+    bottom: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,10 +14,11 @@
 .form {
     padding: 0px 20px;
     display: flex;
+    align-items: center;
     /*background-color: #f0f2f5;*/
     border: 1px solid #8729ff;
     width: 90%;
-    min-height: 30px;
+    min-height: 40px;
     border-radius: 18px;
 }
 

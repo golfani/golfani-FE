@@ -8,14 +8,14 @@ import {sendAlarmBySocket} from "src/apis/Alarm";
 const FeedReplyAddInput = ({feedId,feedUser, refId, refUser} : IFeedReplyAddProps) : JSX.Element => {
     const queryClient = useQueryClient();
     const [replyPayload, setReplyPayload] = useState("");
-    const commentMutation = useMutation(()=>registerReply("FEED",feedId,replyPayload));
+    const commentMutation = useMutation(()=> registerReply("FEED",feedId,replyPayload));
     const replyMutation = useMutation(()=>registerReply("FEED_REPLY",feedId,replyPayload,refId,refUser));
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
     const onRegisterReply = useCallback(async ()=> {
         try {
             const response = await replyMutation.mutateAsync();
-            refUser && sendAlarmBySocket('FEED',refUser,'댓글에 답글을 남겼습니다. ',feedId,replyPayload);
+            refUser && sendAlarmBySocket('REPLY',refUser,'댓글에 답글을 남겼습니다. ',feedId,replyPayload,'FEED_REPLY',refId!);
         }
         catch (e) {
             console.log(e);
@@ -31,7 +31,7 @@ const FeedReplyAddInput = ({feedId,feedUser, refId, refUser} : IFeedReplyAddProp
     const onRegisterComment = useCallback(async ()=> {
         try {
             const response = await commentMutation.mutateAsync();
-            feedUser && sendAlarmBySocket('FEED',feedUser,'피드에 댓글을 남겼습니다. ',feedId,replyPayload);
+            feedUser && sendAlarmBySocket('REPLY',feedUser,'피드에 댓글을 남겼습니다. ',feedId,replyPayload,'FEED');
         }
         catch (e) {
             console.log(e);
@@ -76,7 +76,6 @@ const FeedReplyAddInput = ({feedId,feedUser, refId, refUser} : IFeedReplyAddProp
     return (
         <div className={style.form}>
             <textarea value={replyPayload} onChange={handleChangeTextArea} onKeyPress={handleTextAreaKeyPress} className={style.input} placeholder={"댓글을 달아보세요!"} ref={textAreaRef}/>
-            <button disabled={!replyPayload.replace(/\s/g, '')} className={style.input_btn} onClick={handleSubmit}>입력</button>
         </div>
     );
 };

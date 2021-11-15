@@ -51,7 +51,7 @@ const FeedImg = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
         if(!isLike) {
             try {
                 const response = await likeMutation.mutateAsync();
-                sendAlarmBySocket('FEED',feed.userId,'피드를 좋아합니다.',feed.id);
+                sendAlarmBySocket('LIKES',feed.userId,'피드를 좋아합니다.',feed.id,null,'FEED');
                 await onToastMessage();
             } catch (e) {
                 console.log(e)

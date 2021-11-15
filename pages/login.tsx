@@ -44,10 +44,14 @@ const Login = () : JSX.Element => {
         }
     }
 
+    const handleClickLogo = () => {
+        router.push('/');
+    }
+
     return (
         <div className={style.container}>
-            <div>
-                <span className={style.logo_txt}>GOLF ANI</span>
+            <div className={style.box}>
+                <span className={style.logo_txt} onClick={handleClickLogo}>GOLF ANI</span>
                 <div className={style.login_box}>
                     <form onSubmit={handleSubmit(handleLogin)}>
                         <div className={style.input_box}>

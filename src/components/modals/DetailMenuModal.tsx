@@ -7,6 +7,7 @@ import {deleteFeed, IFeedContent} from "src/apis/Feed";
 import ReportModal from "./ReportModal";
 import {getCookie} from "src/utils/cookieUtil";
 import FeedModifyModal from "./FeedModifyModal";
+import {IScrapDto, registerScrap} from "../../apis/Scrap";
 
 export type TRef = "FEED" | "POST" | "FEED_REPLY" | "POST_REPLY"
 
@@ -24,6 +25,7 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
     const deleteFeedMutate = useMutation(() => deleteFeed(props.target.id));
     const [reportModalOpen, setReportModalOpen] = useState(false);
     const [feedModifyModalOpen, setFeedModifyModalOpen] = useState(false);
+    const scrapMutate = useMutation((scrapDto : IScrapDto)=> registerScrap(scrapDto));
 
     const onModalClose = () => {
         props.setModalOpen(false);
@@ -75,6 +77,25 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
         onOpenFeedModifyModal();
     }
 
+    const onScrap = async () => {
+        try {
+            const scrapDto : IScrapDto = {
+                userId : userId,
+                refId : props.target.id,
+                targetType : props.type
+            }
+            const response = await scrapMutate.mutateAsync(scrapDto);
+            await onModalClose();
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    const handleClickScrap = async () => {
+        await onScrap();
+    }
+
     handleClickRefOutSide(ref, onModalClose);
 
     return (
@@ -87,7 +108,9 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
                 {props.target.userId === userId && props.type === 'FEED' &&
                 <button className={style.menu_btn} onClick={handleClickModify}>수정</button>
                 }
-                <button className={style.menu_btn}>스크랩</button>
+                {(props.type === 'FEED' || props.type === 'POST') &&
+                    <button className={style.menu_btn} onClick={handleClickScrap}>스크랩</button>
+                }
                 {reportModalOpen &&
                 <ReportModal targetId={props.target.id} type={props.type} setModalOpen={setReportModalOpen}/>
                 }

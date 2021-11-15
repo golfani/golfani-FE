@@ -1,7 +1,7 @@
 import style from 'src/components/board/main/view/boardView.module.css';
 import React, {useEffect, useState} from 'react';
 import Link from "next/link";
-import BoardComment from "../comment/BoardComment";
+import BoardComment from "src/components/board/main/comment/BoardComment";
 import {getCookie} from "../../../../utils/cookieUtil";
 import {deleteBoard, IBoardData} from "../../../../apis/Board";
 import {useRouter} from "next/router";
@@ -16,6 +16,7 @@ export interface IBoardProps{
 
 const Board_view = (boardView : IBoardProps): JSX.Element => {
     const queryClient = useQueryClient();
+
     const [showDeleteBtn, setShowDeleteBtn] = useState(false);
     const userId = getCookie('userId');
     const router = useRouter();
@@ -66,37 +67,46 @@ const Board_view = (boardView : IBoardProps): JSX.Element => {
                             {likeQuery.data?.likes ? <FavoriteIcon onClick={onLikeClick} style={{fontSize : '1.0rem'}}/> : <FavoriteBorderIcon onClick={onLikeClick} style={{fontSize : '1.0rem'}}/>}
                             {totalLikesQuery.data}
                         </div>
-
                     </div>
 
                     <div className={style.info}>
                         <div className={style.info_wrap}>
                             <span className={style.header_box}>No</span>
-                            <span className={style.text_box}>{boardView.boardView.id}</span>
+                            <span className={style.text_box}>{boardView.id}</span>
                             <span className={style.header_box}>글쓴이</span>
-                            <span className={style.text_box}>{boardView.boardView.userId}</span>
+                            <span className={style.text_box}>{boardView.userId}</span>
                             <span className={style.header_box}>게시일</span>
-                            <span className={style.text_box}>{boardView.boardView.createdTime.slice(0,10)}</span>
+                            <span className={style.text_box}>{boardView.createdTime.slice(0,10)}</span>
                             <span className={style.header_box}>조회수</span>
-                            <span className={style.text_box}>{boardView.boardView.viewCount}</span>
+                            <span className={style.text_box}>{boardView.viewCount}</span>
                         </div>
                     </div>
                     <div className={style.content} >
-                        {boardView.boardView.content}
+                        {
+                            boardView.content.split('\n').map((line) => {
+                            return(<span>{line}<br /></span>)})
+                        }
+                        <div className={style.img_wrap}>
+                            {
+                                boardView.urlList.map( (img)=>(
+                                    <img src = {img} className={style.img_box}/>))
+                            }
+                        </div>
                     </div>
-                    <BoardComment/>
+                    <BoardComment boardView={boardView}/>
+
                 </div>
                 <div className={style.bt_wrap}>
                     <button className={style.list_button}>목록</button>
                     <Link href={{
                         pathname: `put`,
                         query : { boardData : JSON.stringify(boardView)},
-                    }} as={`put`}><a className={userId === boardView.boardView.userId ? style.list_button : style.block}>수정</a></Link>
-                    <button className={showDeleteBtn ? style.delete_btn : style.block} onClick={(e) => onDeleteBoard(boardView.boardView.id)}>삭제</button>
+                    }} as={`put`}><a className={userId === boardView.userId ? style.list_button : style.block}>수정</a></Link>
+                    <button className={showDeleteBtn ? style.delete_btn : style.block} onClick={(e) => onDeleteBoard(boardView.id)}>삭제</button>
                 </div>
             </div>
         </div>
     )
 }
 
-export default Board_view;
+export default BoardView;

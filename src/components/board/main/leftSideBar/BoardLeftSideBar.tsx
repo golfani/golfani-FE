@@ -12,11 +12,20 @@ const BoardLeftSideBar = (props: IBoardTypeProps): JSX.Element => {
     const router = useRouter();
     const {type} = router.query;
     const [getList, setGetList] = useState(false);
-    const [selectMenu, setMenu] = useState<EType>(type as EType); //default : 자유게시판
+    const [selectMenu, setMenu] = useState<EType>(type as EType);
 
     useEffect(()=>{
-        props.onSetBoardType(type as EType);
-        setMenu(type as EType);
+        if(type === undefined) {
+            props.onSetBoardType(EType.FREE);
+            setMenu(EType.FREE);
+        }
+    },[])
+
+    useEffect(()=>{
+        if(type !== undefined){
+            props.onSetBoardType(type as EType);
+            setMenu(type as EType);
+        }
     },[type])
 
     const getMenuList = () : void =>{

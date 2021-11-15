@@ -3,4 +3,4 @@
  */
 
 // TargetType 해당 컨텐츠가 어떤 타입인지 정함
-export type TTarget = 'FEED' | 'POST' | 'REPLY';
+export type TTarget = 'FEED' | 'POST' | 'REPLY' | 'FEED_REPLY' | 'POST_REPLY';

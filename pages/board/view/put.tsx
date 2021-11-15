@@ -1,17 +1,19 @@
 import BoardNavbar from 'src/components/board/main/BoardNavBar';
 import BoardPut from "../../../src/components/board/main/BoardPut";
 import {useRouter} from "next/router";
+import Navbar from "../../../src/components/common/navbar/Navbar";
 
 const put = (): JSX.Element => {
 
     const router = useRouter();
     const { boardData }  = router.query;
+    console.log(boardData);
     const currenData = JSON.parse(boardData as string);
 
     return(
         <div>
-            <BoardNavbar/>
-            <BoardPut boardView={currenData.boardView}/>
+            <Navbar/>
+            <BoardPut boardView={currenData}/>
         </div>
     )
 }
