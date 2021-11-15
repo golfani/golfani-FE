@@ -52,7 +52,8 @@ export const sendAlarmBySocket = (alarmType : TAlarm,
                 alarmMessage.postId = referId;
                 break;
             case "REPLY":
-                alarmMessage.replyId = referId;
+                alarmMessage.feedId = referId;
+                alarmMessage.replyId = refReplyId;
                 break;
             case "FEED_REPLY":
                 alarmMessage.feedId = referId;
