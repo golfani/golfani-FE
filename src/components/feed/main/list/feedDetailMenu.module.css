@@ -9,6 +9,9 @@
     background-color: #fff;
     font-size: 12px;
     box-shadow: 0 1px 3px rgba(0,0,0, 0.2);
+}
+
+.icon {
     cursor: pointer;
 }
 
@@ -16,6 +19,10 @@
     .container {
         margin-bottom: 0;
         border: none;
+        border-radius: 0;
+        background-color: transparent;
         box-shadow: none;
+        width: 30px;
+        height: 30px;
     }
 }

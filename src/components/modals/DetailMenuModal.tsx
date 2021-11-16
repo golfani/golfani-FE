@@ -7,7 +7,7 @@ import {deleteFeed, IFeedContent} from "src/apis/Feed";
 import ReportModal from "./ReportModal";
 import {getCookie} from "src/utils/cookieUtil";
 import FeedModifyModal from "./FeedModifyModal";
-import {IScrapDto, registerScrap} from "../../apis/Scrap";
+import {IScrapDto, registerScrap} from "src/apis/Scrap";
 
 export type TRef = "FEED" | "POST" | "FEED_REPLY" | "POST_REPLY"
 
@@ -26,9 +26,20 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
     const [reportModalOpen, setReportModalOpen] = useState(false);
     const [feedModifyModalOpen, setFeedModifyModalOpen] = useState(false);
     const scrapMutate = useMutation((scrapDto : IScrapDto)=> registerScrap(scrapDto));
+    const [isMobileClose, setIsMobileClose] = useState(false);
 
     const onModalClose = () => {
-        props.setModalOpen(false);
+        if(typeof window !== 'undefined') {
+            if(window.innerWidth <= 768) {
+                setIsMobileClose(true);
+                setTimeout(()=> {
+                    props.setModalOpen(false);
+                }, 300);
+            }
+            else {
+                props.setModalOpen(false);
+            }
+        }
     }
 
     const onDeleteTarget = useCallback(async () => {
@@ -99,8 +110,8 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
     handleClickRefOutSide(ref, onModalClose);
 
     return (
-        <div className={style.modal}>
-            <div className={style.container} ref={ref}>
+        <div className={isMobileClose ? style.modal_close : style.modal}>
+            <div className={isMobileClose ? style.container_close : style.container} ref={ref}>
                 <button className={style.menu_btn} onClick={handleClickReport}>신고</button>
                 {props.target.userId === userId &&
                 <button className={style.menu_btn} onClick={handleClickDelete}>삭제</button>
@@ -111,6 +122,7 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
                 {(props.type === 'FEED' || props.type === 'POST') &&
                     <button className={style.menu_btn} onClick={handleClickScrap}>스크랩</button>
                 }
+                <button className={style.menu_btn} onClick={onModalClose}>취소</button>
                 {reportModalOpen &&
                 <ReportModal targetId={props.target.id} type={props.type} setModalOpen={setReportModalOpen}/>
                 }
