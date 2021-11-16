@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import {useMutation, useQueryClient} from "react-query";
 import {registerLikes} from "src/apis/Likes";
 import {useCallback, useState} from "react";
-import ToastModal from "src/components/modals/ToastModal";
+import FeedLikeToastModal from "src/components/modals/FeedLikeToastModal";
 import {sendAlarmBySocket} from "src/apis/Alarm";
 import {IFeedItemProps} from "./FeedItem";
 
@@ -85,7 +85,7 @@ const FeedImg = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
                     }
                 })}
             </Slider>
-            {toastModalOpen ? <ToastModal refUserId={feed.userId}/> : <></>}
+            {toastModalOpen ? <FeedLikeToastModal refUserId={feed.userId}/> : <></>}
         </div>
     );
 };

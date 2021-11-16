@@ -4,9 +4,10 @@ import {useRouter} from "next/router";
 
 interface IUserNameProps {
     userName : string
+    fontSize? : number
 }
 
-const UserName = ({userName} : IUserNameProps) : JSX.Element => {
+const UserName = ({userName,fontSize} : IUserNameProps) : JSX.Element => {
     const router = useRouter();
 
     const onRouteProfilePage = () => {
@@ -19,7 +20,7 @@ const UserName = ({userName} : IUserNameProps) : JSX.Element => {
 
     return (
         <div className={style.container}>
-            <span className={style.userName_txt} onClick={handleClickUserName}>{userName}</span>
+            <span style={{fontSize : fontSize}} className={style.userName_txt} onClick={handleClickUserName}>{userName}</span>
         </div>
     );
 };

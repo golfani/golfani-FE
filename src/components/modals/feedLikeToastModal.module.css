@@ -2,21 +2,21 @@
     display: flex;
     position: fixed;
     width: max-content;
-    bottom: 0;
+    bottom: 60px;
     left: 0;
     right: 0;
-    /*border: 1px solid gray;*/
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 10px 10px;
     background-color: #8729ff;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 20px;
     box-shadow: 0 1px 2px rgba(0,0,0, 0.2);
     user-select: none;
     animation: fadeIn 500ms;
     animation-fill-mode: forwards;
     z-index: 100;
+    font-size: 14px;
+    letter-spacing: -0.5px;
 }
 
 .heart_icon {
@@ -25,12 +25,13 @@
 }
 
 .msg_txt {
-    display: inline-block;
-    width: auto;
+    display: block;
     color: white;
+    margin-right: 5px;
 }
 
 .action_txt {
+    display: inline-block;
     color : yellow;
     font-weight: 500;
 }

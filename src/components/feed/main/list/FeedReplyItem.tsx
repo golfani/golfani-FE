@@ -89,7 +89,7 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
 
     return (
         <div className={reply.referenceId ? style.container_reply : style.container}>
-            <UserName userName={reply.userId}/>
+            <UserName userName={reply.userId} fontSize={14}/>
             <div className={style.reply_content_box} ref={ref}>
                 <div className={style.reply_main_box}>
                     <div className={style.text_box}>
