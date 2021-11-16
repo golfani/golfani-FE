@@ -1,0 +1,65 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.select_box {
+    width: 350px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-bottom: 10px;
+}
+
+.pass_box {
+    width: 100px;
+    height: 40px;
+    padding: 10px;
+    background-color: #2196F3;
+    border-radius: 12px;
+    color: white;
+}
+
+.kill_box {
+    width: 100px;
+    height: 40px;
+    padding: 10px;
+    background-color: red;
+    border-radius: 12px;
+    color: white;
+}
+
+.contents_box {
+    width: 100px;
+    height: 40px;
+    padding: 10px;
+    background-color: #8729ff;
+    border-radius: 12px;
+    color: white;
+}
+
+.report_details_box {
+    width: 100%;
+    display: flex;
+    padding: 5px 15px;
+    background-color: #b54242;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    margin-bottom: 5px;
+    user-select: none;
+}
+
+.report_details_id_txt {
+    width: 30px;
+    margin-right: 50px;
+}
+
+.report_details_type_txt {
+    width: 100px;
+    margin-right: 50px;
+}
+
+.report_details_desc_txt {
+    width: 100%;
+}
