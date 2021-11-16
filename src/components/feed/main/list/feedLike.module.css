@@ -30,6 +30,7 @@
         margin-bottom: 0;
         border: none;
         box-shadow: none;
+        margin-right: 5px;
     }
     .like_txt {
         display: inline-block;

@@ -49,7 +49,7 @@ const FeedLike = ({feed} : IFeedLikeProps) : JSX.Element => {
                 ?
                 <div>
                     <span className={style.like_txt}>좋아요</span>
-                    <span className={style.like_number_txt}>{` ${totalLikesQuery.data}개`}</span>
+                    <span className={style.like_number_txt}>{` ${totalLikesQuery.data}`}</span>
                 </div>
                 : <></>
             }
