@@ -27,6 +27,9 @@ export interface IReplyDto {
     createdTime : string
     modifiedTime : string
     likesCount : number
+    isDeleted : boolean
+    needReport : boolean
+    reportCount : number
 }
 
 /**

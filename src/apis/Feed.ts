@@ -23,6 +23,9 @@ export interface IFeedContent {
     modifiedTime : string
     likesCount : number
     urlList : string[]
+    isDeleted : boolean
+    needReport : boolean
+    reportCount : number
 }
 
 // API 주소입니다.
