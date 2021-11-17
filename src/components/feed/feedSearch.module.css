@@ -94,6 +94,8 @@
 .recent_tag_title_txt {
     display: inline-block;
     margin-bottom: 5px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
 }
 
 .recent_tag_txt {
@@ -150,4 +152,71 @@
     align-items: center;
     margin-bottom: 5px;
     cursor: pointer;
+}
+
+.cancel_btn {
+    display: none;
+    width: 25px;
+    color: white;
+}
+
+@media screen and (max-width: 768px){
+    .container {
+        position: fixed;
+        width: 100%;
+        height: 55px;
+        z-index: 100;
+        border: none;
+        border-bottom: 1px solid #eff0f2;
+        border-radius: 0;
+        background-color: #8440d2;
+    }
+    .form_box {
+        width: 85%;
+    }
+    .input {
+        color: white;
+    }
+    .input::placeholder {
+        color: white;
+    }
+    .search_box {
+        width: 100%;
+        height: calc(100vmax - 100px);
+        background-color: #fff;
+        top: 55px;
+        padding: 0;
+        border-radius: 0;
+        border: none;
+    }
+    .search_icon {
+        color: white;
+    }
+    .cancel_btn {
+        display: inline-block;
+    }
+    .tag_search_txt {
+        font-size: 18px;
+    }
+    .recent_tag_box {
+        margin-bottom: 15px;
+    }
+    .recent_tag_title_txt {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    .recent_tag_txt {
+        font-size: 18px;
+    }
+    .recent_tag_delete_btn {
+        font-size: 16px;
+    }
+    .user_profile_img {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
+    .user_search_txt {
+        font-size: 18px;
+    }
 }

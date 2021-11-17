@@ -6,9 +6,10 @@ import HomeActiveIcon from 'public/home_active_ico.png';
 import CardViewIcon from 'public/card_view_ico.png';
 import CardViewActiveIcon from 'public/card_view_active_ico.png';
 import SearchIcon from 'public/search_ico.png';
+import SearchActiveIcon from 'public/search_active_ico.png';
 
 const FeedBottomNav = () : JSX.Element => {
-    const {type,onChangeListView,onChangeCardView} = useFeedType();
+    const {type,onChangeListView,onChangeCardView,onChangeMobileSearchView} = useFeedType();
 
     const handleClickListView = () => {
         onChangeListView();
@@ -18,16 +19,20 @@ const FeedBottomNav = () : JSX.Element => {
         onChangeCardView();
     }
 
+    const handleClickSearch = () => {
+        onChangeMobileSearchView();
+    }
+
     return (
         <ul className={style.bottom_menu_box}>
             <li className={style.menu_list} onClick={handleClickListView}>
                 <Image src={type==='LIST' ? HomeActiveIcon : HomeIcon} width={20} height={20}/>
             </li >
             <li className={style.menu_list} onClick={handleClickCardView}>
-                <Image src={type==='CARD' ? CardViewActiveIcon : CardViewIcon  } width={20} height={20}/>
+                <Image src={type==='CARD' ? CardViewActiveIcon : CardViewIcon} width={20} height={20}/>
             </li>
-            <li className={style.menu_list}>
-                <Image src={SearchIcon} width={20} height={20}/>
+            <li className={style.menu_list} onClick={handleClickSearch}>
+                <Image src={type === 'MOBILE_SEARCH' ? SearchActiveIcon : SearchIcon} width={20} height={20}/>
             </li>
         </ul>
     );

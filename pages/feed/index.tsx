@@ -9,6 +9,7 @@ import {dehydrate} from "react-query/hydration";
 import {useRouter} from "next/router";
 import useFeedType from "src/store/modules/feedType/feedTypeHook";
 import {useEffect} from "react";
+import FeedSearch from "src/components/feed/FeedSearch";
 
 const Feed = () : JSX.Element => {
     const router = useRouter();
@@ -25,7 +26,7 @@ const Feed = () : JSX.Element => {
 
     return (
         <div className={style.home_container}>
-            <FeedNavBar/>
+            {feedType.type === 'MOBILE_SEARCH' ? <FeedSearch/> : <FeedNavBar/> }
             <div className={style.main_container}>
                 <FeedLeftSideBar/>
                 <FeedMain/>
