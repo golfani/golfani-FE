@@ -10,13 +10,13 @@ import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutline
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ReportGmailerrorredOutlinedIcon from '@material-ui/icons/ReportGmailerrorredOutlined';
 import {useRouter} from "next/router";
+import {getCookie} from "../../../../utils/cookieUtil";
 
 const BoardCommentItem = ({reply} : IReplyProps) => {
+    const userId = getCookie('userId');
     const queryClient = useQueryClient();
     const router = useRouter();
-    const {id} = router.query;
     const [showAdd, setShowAdd] = useState(false);
-
 
     const replyLikesQuery = useQuery<ILikesDto>(['replyLikes',reply.id],() => getReplyLikes(reply.id), {
         staleTime : 1000 * 60
@@ -47,12 +47,16 @@ const BoardCommentItem = ({reply} : IReplyProps) => {
     }
 
     const onDeleteReply = async () => {
-        const response = await deletePostReply(reply.id);
-        console.log(response);
+        if(userId === reply.userId)
+        {
+            const response = await deletePostReply(reply.id);
+            console.log(response);
+        }
+
         await queryClient.invalidateQueries('postReply');
         await queryClient.invalidateQueries('replyQuery');
     }
-
+``
     const totalReplyQuery = useQuery<number>(['totalReply', reply.id],() => getTotalReply(reply.id), {
         staleTime : 1000 * 60
     })
