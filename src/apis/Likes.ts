@@ -7,11 +7,11 @@ const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/likes`;
 const userId = getCookie('userId');
 
 export interface ILikesDto {
-    postId? : number
-    feedId? : number
-    replyId? : number
+    postId : number
+    feedId : number
+    replyId : number
     userId : string
-    likes? : boolean
+    likes : boolean
     type : TTarget
 }
 
@@ -21,7 +21,7 @@ export interface ILikesDto {
  * @param id
  */
 export const registerLikes = async (type : TTarget, id : number) => {
-    const data : ILikesDto = {
+    const data : Partial<ILikesDto> = {
         userId : userId,
         type : type
     }
