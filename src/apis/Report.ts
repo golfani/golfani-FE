@@ -10,14 +10,14 @@ export type TReportType = 'REPORT_AD' | 'REPORT_ABUSE' | 'REPORT_PORN' | 'REPORT
 export type TReport = 'feed' | 'post' | 'reply';
 
 export interface IReportDto {
-    id? : number
+    id : number
     reportType : TReportType
     description : string
-    postId? : number
-    feedId? : number
-    replyId? : number
+    postId : number
+    feedId : number
+    replyId : number
     userId : string
-    targetType? : TTarget
+    targetType : TTarget
 }
 
 /**
@@ -32,7 +32,7 @@ export const registerReport = async (target : TRef,
                                      targetId : number,
                                      description : string,
                                      reportType : TReportType) => {
-    const reportDto : IReportDto = {
+    const reportDto : Partial<IReportDto> = {
         reportType : reportType,
         description : description,
         userId : userId,
