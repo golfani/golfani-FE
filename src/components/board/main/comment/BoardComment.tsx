@@ -3,14 +3,14 @@ import React from 'react';
 import BoardCommentItem from "./BoardCommentItem";
 import {IBoardProps} from "../view/BoardView";
 import {useInfiniteQuery, useQuery} from "react-query";
-import {IPages} from "../../../../domain/Page";
-import {getPostReply, getTotalPostReplies, IReplyDto} from "../../../../apis/Reply";;
+import {IPages} from "src/domain/Page";
+import {getPostReply, getTotalPostReplies, IReplyDto} from "src/apis/Reply";;
 import BoardReplyInputAdd from "./BoardReplyInputAdd";
 
 const BoardComment = ({boardView} : IBoardProps) => {
 
     const totalReplies = useQuery(['getTotalReplies',boardView.id], () => getTotalPostReplies(boardView.id));
-    const replyQuery = useInfiniteQuery<IPages<IReplyDto>,Error>(['postReply',boardView.id],({pageParam = ''}) =>  getPostReply(boardView.id,pageParam), {
+    const replyQuery = useInfiniteQuery<IPages<IReplyDto>,Error>(['postReply', boardView.id],({pageParam = ''}) =>  getPostReply(boardView.id,pageParam), {
         getNextPageParam : (lastPage ) => {
             const currentPage = lastPage.pageable.pageNumber;
             if(currentPage + 1 >= lastPage.totalPages) {
@@ -36,6 +36,7 @@ const BoardComment = ({boardView} : IBoardProps) => {
                         replyQuery.data &&
                         replyQuery.data?.pages.map((page)=>(
                             page.content.map((reply)=>(
+                                !reply.isDeleted &&
                                 <BoardCommentItem key = {reply.id} reply={reply}/>
                             ))
                         ))
