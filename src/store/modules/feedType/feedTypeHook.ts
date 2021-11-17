@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../index";
-import {changeListView, changeCardView, changeHotView, changeSearchView} from './feedType';
+import {changeListView, changeCardView, changeHotView, changeSearchView, changeMobileSearchView} from './feedType';
 
 const useFeedType = () => {
     const type = useSelector((state : RootState) => state.feedType.type);
@@ -23,7 +23,11 @@ const useFeedType = () => {
         dispatch(changeSearchView());
     }
 
-    return {type, onChangeListView, onChangeCardView, onChangeHotView, onChangeSearchView};
+    const onChangeMobileSearchView = () => {
+        dispatch(changeMobileSearchView());
+    }
+
+    return {type, onChangeListView, onChangeCardView, onChangeHotView, onChangeSearchView, onChangeMobileSearchView};
 }
 
 export default useFeedType;

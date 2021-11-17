@@ -6,6 +6,7 @@ import useFeedMenu from "src/store/modules/feedMenu/feedMenuHook";
 import useCustomRouter from "src/hooks/routerHook";
 import useSearch from "src/store/modules/search/searchHook";
 import {getProfileImage} from "src/apis/Member";
+import useFeedType from "src/store/modules/feedType/feedTypeHook";
 
 enum SEARCH_TYPE {
     tag = 'tag',
@@ -20,6 +21,7 @@ interface IRecentSearch {
 const FeedSearch = (): JSX.Element => {
     const search = useSearch();
     const feedMenu = useFeedMenu();
+    const feedType = useFeedType();
     const [searchBox, setSearchBox] = useState(style.hide);
     const [searchName, setSearchName] = useState("");
     const tagRef = useRef<HTMLDivElement>(null);
@@ -30,6 +32,7 @@ const FeedSearch = (): JSX.Element => {
         const output = window.localStorage.getItem("recent_tag");
         const recentSearchList: IRecentSearch[] = JSON.parse(output as string);
         recentSearchList ? setRecentSearchList(recentSearchList) : setRecentSearchList([]);
+        feedType.type === 'MOBILE_SEARCH' && setSearchBox(style.search_box);
     }, [])
 
     // input inFocus 됬을때
@@ -81,7 +84,6 @@ const FeedSearch = (): JSX.Element => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        console.log(searchName.replace(/\s/g,''));
         if(searchName.replace(/\s/g,'').length) {
             (document.activeElement as HTMLElement).blur(); // 현재 활성화된 element blur 처리
             onRoute(searchName);
@@ -125,6 +127,7 @@ const FeedSearch = (): JSX.Element => {
     return (
         <>
             <div className={style.container} ref={tagRef}>
+                <SearchIcon className={style.search_icon}/>
                 <form className={style.form_box} onSubmit={handleSubmit}>
                     <input onFocus={handleFocus}
                            className={style.input}
@@ -147,7 +150,7 @@ const FeedSearch = (): JSX.Element => {
                                 ))
                                 :
                                 <div className={style.recent_search_box}>
-                                    <span className={style.recent_tag_title_txt}>최근 검색 내용</span>
+                                    <span className={style.recent_tag_title_txt}>최근 검색어</span>
                                     {recentSearchList.map((item, id) => (
                                         <div className={style.recent_tag_box} key={id}>
                                             {item.type === SEARCH_TYPE.tag &&
@@ -176,7 +179,6 @@ const FeedSearch = (): JSX.Element => {
                         ))}
                     </div>
                 </form>
-                <SearchIcon/>
             </div>
         </>
     )
