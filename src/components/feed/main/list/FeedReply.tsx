@@ -7,13 +7,13 @@ import {getFeedReply, IReplyDto} from "src/apis/Reply";
 import {IFeedItemProps} from "./FeedItem";
 
 const FeedReply = ({feed, isModal} : IFeedItemProps) => {
-    const replyQuery = useInfiniteQuery<IPages<IReplyDto>,Error>(['feedReply',feed.id],({pageParam = ''}) =>  getFeedReply(feed.id,pageParam), {
+    const replyQuery = useInfiniteQuery<IPages<IReplyDto>,Error>(['feedReply',feed.id],({pageParam = '3'}) =>  getFeedReply(feed.id,0,pageParam), {
         getNextPageParam : (lastPage ) => {
             const currentPage = lastPage.pageable.pageNumber;
-            if(currentPage + 1 >= lastPage.totalPages) {
-                return undefined;
+            if(currentPage === 0 && !lastPage.last) {
+                return lastPage.totalElements;
             }
-            return currentPage + 1;
+            return undefined;
         },
         staleTime : 1000 * 60
     });
