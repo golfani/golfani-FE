@@ -8,7 +8,7 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddPr
     const queryClient = useQueryClient();
     const [replyPayload, setReplyPayload] = useState("");
     const commentMutation = useMutation(()=> registerReply("POST", postId,replyPayload));
-    const replyMutation = useMutation(()=>registerReply("POST_REPLY",postId,replyPayload,refId,refUser ));
+    const replyMutation = useMutation(()=>registerReply("POST_REPLY",postId,replyPayload,refId as number,refUser as string));
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
     const onRegisterComment = useCallback(async ()=> {

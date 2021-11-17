@@ -14,18 +14,18 @@ export interface IBoardProps{
     boardView : IBoardData
 }
 
-const Board_view = (boardView : IBoardProps): JSX.Element => {
+const BoardView = ({boardView} : IBoardProps): JSX.Element => {
     const queryClient = useQueryClient();
 
     const [showDeleteBtn, setShowDeleteBtn] = useState(false);
     const userId = getCookie('userId');
     const router = useRouter();
 
-    const totalLikesQuery = useQuery(['totalLikes',boardView.boardView.id], () => getAllPostLikes(boardView.boardView.id),{
+    const totalLikesQuery = useQuery(['totalLikes',boardView.id], () => getAllPostLikes(boardView.id),{
         staleTime : 1000 * 60
     })
 
-    const likeMutation = useMutation(()=> registerLikes("POST",boardView.boardView.id));
+    const likeMutation = useMutation(()=> registerLikes("POST",boardView.id));
 
     const onRegisterLikes = async () => {
             try{
@@ -34,18 +34,18 @@ const Board_view = (boardView : IBoardProps): JSX.Element => {
                 console.log(e);
             }
             finally {
-                await queryClient.invalidateQueries(['postLikes',boardView.boardView.id]);
-                await queryClient.invalidateQueries(['totalLikes',boardView.boardView.id]);
+                await queryClient.invalidateQueries(['postLikes',boardView.id]);
+                await queryClient.invalidateQueries(['totalLikes',boardView.id]);
             }
     }
 
-    const likeQuery = useQuery(['postLikes',boardView.boardView.id],() => getPostLikes(boardView.boardView.id),{
+    const likeQuery = useQuery(['postLikes',boardView.id],() => getPostLikes(boardView.id),{
         staleTime : 1000 * 60
         }
     )
 
     useEffect(()=>{
-        if(userId === boardView.boardView.userId) setShowDeleteBtn(true);
+        if(userId === boardView.userId) setShowDeleteBtn(true);
         },[showDeleteBtn,likeQuery]);
 
     const onDeleteBoard = (boardId : number) => {
@@ -62,7 +62,7 @@ const Board_view = (boardView : IBoardProps): JSX.Element => {
             <div className={style.view_wrap}>
                 <div className={style.board_view} id= "view">
                     <div className={style.title}>
-                        {boardView.boardView.title}
+                        {boardView.title}
                         <div className={style.like_wrap}>
                             {likeQuery.data?.likes ? <FavoriteIcon onClick={onLikeClick} style={{fontSize : '1.0rem'}}/> : <FavoriteBorderIcon onClick={onLikeClick} style={{fontSize : '1.0rem'}}/>}
                             {totalLikesQuery.data}
