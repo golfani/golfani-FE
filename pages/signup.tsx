@@ -3,9 +3,7 @@ import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {
     authEmail,
-    fetchAuthCode,
-    IOauthSignUp,
-    ISignUpMember,
+    fetchAuthCode, IMember,
     registerOauthSignUp,
     signUp,
     validateById
@@ -100,7 +98,7 @@ const SignUp = () : JSX.Element=> {
     }
 
     const onSingUp = async (data : FormData) => {
-        const member  : ISignUpMember = {
+        const member  : Partial<IMember> = {
             userId : data.id,
             password : data.password,
             username : data.name,
@@ -124,7 +122,7 @@ const SignUp = () : JSX.Element=> {
     }
 
     const onOauthSignUp = async (data : FormData) => {
-        const member  : IOauthSignUp = {
+        const member  : Partial<IMember> = {
             id : Number(memberId),
             userId : data.id,
             password : data.password,

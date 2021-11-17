@@ -1,18 +1,18 @@
 import axios from "axios";
 import {getCookie} from "src/utils/cookieUtil";
 import {securityAxios} from "src/security/axios";
+import {TTarget} from "src/domain/Common";
 
 const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/likes`;
 const userId = getCookie('userId');
-type TLikes = "FEED" | "POST" | "REPLY";
 
 export interface ILikesDto {
-    postId : number | null
-    feedId : number | null
-    replyId : number | null
+    postId : number
+    feedId : number
+    replyId : number
     userId : string
-    likes : boolean | null
-    type : TLikes
+    likes : boolean
+    type : TTarget
 }
 
 /**
@@ -20,13 +20,9 @@ export interface ILikesDto {
  * @param type
  * @param id
  */
-export const registerLikes = async (type : TLikes, id : number) => {
-    const data : ILikesDto = {
-        postId : null,
-        feedId : null,
-        replyId : null,
+export const registerLikes = async (type : TTarget, id : number) => {
+    const data : Partial<ILikesDto> = {
         userId : userId,
-        likes : null,
         type : type
     }
     if (type === "FEED") data.feedId = id;
@@ -48,7 +44,6 @@ export const getFeedLikes = async (feedId : number) => {
 
 /**
  * 해당 피드에 유저가 좋아요를 눌렀는지 확인하는 API
- * @param memberId
  * @param feedId
  */
 export const getUserIsFeedLikes = async (feedId : number) => {
@@ -67,7 +62,6 @@ export const getReplyLikes = async (replyId : number) => {
 
 /**
  * 해당 댓글에 유저가 좋아요를 눌렀는지 확인하는 API
- * @param userId
  * @param replyId
  */
 export const getUserIsReplyLikes = async (replyId : number) => {

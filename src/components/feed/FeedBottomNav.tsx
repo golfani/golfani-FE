@@ -1,8 +1,11 @@
-import SearchIcon from '@material-ui/icons/Search';
-import ViewModuleOutlinedIcon from '@material-ui/icons/ViewModuleOutlined';
-import ViewDayOutlinedIcon from '@material-ui/icons/ViewDayOutlined';
 import style from './feedBottomNav.module.css';
 import useFeedType from "src/store/modules/feedType/feedTypeHook";
+import Image from 'next/image';
+import HomeIcon from 'public/home_ico.png';
+import HomeActiveIcon from 'public/home_active_ico.png';
+import CardViewIcon from 'public/card_view_ico.png';
+import CardViewActiveIcon from 'public/card_view_active_ico.png';
+import SearchIcon from 'public/search_ico.png';
 
 const FeedBottomNav = () : JSX.Element => {
     const {type,onChangeListView,onChangeCardView} = useFeedType();
@@ -18,17 +21,13 @@ const FeedBottomNav = () : JSX.Element => {
     return (
         <ul className={style.bottom_menu_box}>
             <li className={style.menu_list} onClick={handleClickListView}>
-                <ViewDayOutlinedIcon
-                    className={type === 'LIST' ? style.icon_active : style.icon_inactive}
-                />
+                <Image src={type==='LIST' ? HomeActiveIcon : HomeIcon} width={20} height={20}/>
             </li >
             <li className={style.menu_list} onClick={handleClickCardView}>
-                <ViewModuleOutlinedIcon
-                    className={type === 'CARD' ? style.icon_active : style.icon_inactive}
-                />
+                <Image src={type==='CARD' ? CardViewActiveIcon : CardViewIcon  } width={20} height={20}/>
             </li>
             <li className={style.menu_list}>
-                <SearchIcon className={style.icon_inactive}/>
+                <Image src={SearchIcon} width={20} height={20}/>
             </li>
         </ul>
     );

@@ -5,48 +5,25 @@ import {securityAxios} from "src/security/axios";
 
 export interface IMember {
     id : number
-    locationId : number | null
-    password : string | null
-    role : string | null
-    userId : string
-    gender : string
-    naver : string | null
-    kakao : string | null
-    score : number | null
-    year : number
-    month : number
-    day : number
-    pictureId : string | null
-    introduction : string | null
-    email : string
-    username : string
-    nickname : string | null
-    boardCount : number | null
-    feedCount : number | null
-    replyCount : number | null
-}
-
-export interface ISignUpMember {
-    userId : string
-    password : string | null
-    username : string
-    gender : string
-    year : number
-    month : number
-    day : number
-    email : string
-}
-
-export interface IOauthSignUp {
-    id : number
-    userId : string
+    locationId : number
     password : string
-    username : string
+    role : string
+    userId : string
     gender : string
+    naver : string
+    kakao : string
+    score : number
     year : number
     month : number
     day : number
+    pictureId : string
+    introduction : string
     email : string
+    username : string
+    nickname : string
+    boardCount : number
+    feedCount : number
+    replyCount : number
 }
 
 export type LoginMember = {
@@ -100,7 +77,7 @@ export const fetchAuthCode = async (email : string, code : string) => {
  * 회원가입 API 요청입니다.
  * @param member
  */
-export const signUp = async (member : ISignUpMember) => {
+export const signUp = async (member : Partial<IMember>) => {
     const response = await axios.post<number>(API_URL,member);
     return response;
 }
@@ -215,7 +192,7 @@ export const getProfileImage = (userId : string = " ", quality : string) => {
  * Oauth 회원가입 API
  * @param member
  */
-export const registerOauthSignUp = async (member : IOauthSignUp) => {
+export const registerOauthSignUp = async (member : Partial<IMember>) => {
     const response = await axios.put(`${API_URL}/oauth`,member);
     return response;
 }

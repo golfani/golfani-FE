@@ -33,8 +33,8 @@
 
 .main_txt {
     width: 100%;
-    margin : 5px 0 10px;
-    font-size: 14px;
+    margin : 10px 0 10px;
+    font-size: 15px;
     max-height: 400px;
 }
 
@@ -78,6 +78,6 @@
 
 @media screen and (max-width: 768px){
     .menu_box {
-        display: inline-block;
+        display: flex;
     }
 }

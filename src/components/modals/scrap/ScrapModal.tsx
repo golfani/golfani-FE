@@ -7,7 +7,7 @@ import {useEffect, useRef, useState} from "react";
 import {getFeedOne, IFeedContent} from "src/apis/Feed";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import {bodyScrollActionForModal} from "src/utils/scrollUtil";
-import FeedScrapModal from "./FeedScrapModal";
+import FeedScrapModal from "src/components/modals/scrap/FeedScrapModal";
 import {LOW_LEVEL_FIRST_PICTURE} from "src/domain/Picture";
 
 interface IScrapModalProps {

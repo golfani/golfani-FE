@@ -7,6 +7,7 @@ import {useState} from "react";
 import UserProfileImage from "src/components/common/UserProfileImage";
 import useCustomRouter from "src/hooks/routerHook";
 import FeedLike from "./FeedLike";
+import FeedDetailMenu from "./FeedDetailMenu";
 
 interface IFeedMainProps {
     feed : IFeedContent
@@ -54,6 +55,7 @@ const FeedMain =({feed} : IFeedMainProps) : JSX.Element => {
                 </div>
                 <div className={style.menu_box}>
                     <FeedLike feed={feed}/>
+                    <FeedDetailMenu feed={feed}/>
                 </div>
             </div>
             <div className={style.main_txt}>
