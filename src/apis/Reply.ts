@@ -1,27 +1,17 @@
 import axios from "axios";
 import {securityAxios} from "src/security/axios";
 import {getCookie} from "../utils/cookieUtil";
+import {TTarget} from "src/domain/Common";
 
 const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/reply`;
 const userId = getCookie('userId');
 
-type TReply = "FEED" | "POST" | "FEED_REPLY" | "POST_REPLY"
-
-export interface IReplyRegister {
-    postId : number | null
-    feedId : number | null
-    referenceId : number | null
-    referencedUser : string | null
-    payload : string
-    userId : string
-}
-
 export interface IReplyDto {
     id : number
-    postId : number | null
-    feedId : number | null
-    referenceId : number | null
-    referencedUser : string | null
+    postId : number
+    feedId : number
+    referenceId : number
+    referencedUser : string
     payload : string
     userId : string
     createdTime : string
@@ -41,16 +31,12 @@ export interface IReplyDto {
  * @param refId
  * @param refUserId
  */
-export const registerReply = async (type : TReply,
-                                    id : number | null,
+export const registerReply = async (type : TTarget,
+                                    id : number,
                                     payload : string,
-                                    refId : number | null = null,
-                                    refUserId : string | null = null) => {
-    const data : IReplyRegister = {
-        postId : null,
-        feedId : null,
-        referenceId : null,
-        referencedUser : null,
+                                    refId? : number,
+                                    refUserId? : string) => {
+    const data : Partial<IReplyDto> = {
         payload : payload,
         userId : userId,
     }

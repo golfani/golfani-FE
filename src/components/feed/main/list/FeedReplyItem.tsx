@@ -117,7 +117,7 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
                 {isReplyAdd
                     ?
                     <div className={style.reply_add_box}>
-                        <FeedReplyAddInput feedId={reply.feedId!} feedUser={null} refId={reply.referenceId || reply.id} refUser={reply.userId}/>
+                        <FeedReplyAddInput feedId={reply.feedId!} refId={reply.referenceId || reply.id} refUser={reply.userId}/>
                     </div>
                     : <></>
                 }

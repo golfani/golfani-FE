@@ -37,7 +37,7 @@ const FeedReply = ({feed, isModal} : IFeedItemProps) => {
             {isModal && <span className={style.blank_reply_more_txt}></span>}
             <div className={isModal ? style.modal_reply_input_box : ''}>
                 <div className={style.divider}></div>
-                <FeedReplyAdd feedId={feed.id} feedUser={feed.userId} refId={null} refUser={null}/>
+                <FeedReplyAdd feedId={feed.id} feedUser={feed.userId}/>
             </div>
         </div>
     )

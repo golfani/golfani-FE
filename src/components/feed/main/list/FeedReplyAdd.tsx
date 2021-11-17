@@ -12,7 +12,7 @@ const FeedReplyAdd =({feedId,feedUser} : IFeedReplyAddProps) => {
             <div className={style.img_box}>
                 <Image src={getProfileImage(userId,'MID')} className={style.img} width={35} height={35} quality={100}/>
             </div>
-            <FeedReplyAddInput feedId={feedId} feedUser={feedUser} refId={null} refUser={null}/>
+            <FeedReplyAddInput feedId={feedId} feedUser={feedUser}/>
         </div>
     );
 };
