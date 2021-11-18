@@ -83,13 +83,13 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
                     </div>
                     <div className={style.content} >
                         {
-                            boardView.content.split('\n').map((line) => {
-                            return(<span>{line}<br /></span>)})
+                            boardView.content.split('\n').map((line,index) => {
+                            return(<span key={index} >{line}<br /></span>)})
                         }
                         <div className={style.img_wrap}>
                             {
-                                boardView.urlList.map( (img)=>(
-                                    <img src = {img} className={style.img_box}/>))
+                                boardView.urlList.map( (img,index)=>(
+                                    <img src = {img} key={index} className={style.img_box}/>))
                             }
                         </div>
                     </div>

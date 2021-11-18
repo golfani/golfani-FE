@@ -37,12 +37,13 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddPr
         finally {
             setReplyPayload("");
             await queryClient.invalidateQueries(['replyQuery',refId]);
-            await queryClient.invalidateQueries(['getTotalReplies',postId]);
+            await queryClient.invalidateQueries(['getTotalReplies',refId]);
+            await queryClient.invalidateQueries(['totalReply', refId]);
         }
     },[[replyMutation]])
 
     const handleSubmit = async () => {
-        refId ? await onRegisterReply() :await onRegisterComment();
+        refId ? await onRegisterReply() : await onRegisterComment();
     }
 
     const handleChangeTextArea = (event : ChangeEvent) => {
