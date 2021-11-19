@@ -1,24 +1,25 @@
 .container{
     position: fixed;
-    left: 60px;
-    width: 10%;
-    margin-top:50px;
-    height: 100px;
-
+    left : 0;
+    width: 20%;
+    height: 100%;
+    margin-top: 20px;
+    padding: 10px
 }
 
-.menu_wrap{
+.category_style{
     display: block;
     width: 100%;
-    text-align: center;
     cursor:pointer;
+    padding : 3px;
+    font-weight: bold;
 }
 
 .box_wrap{
+    display: block;
     padding:10px;
-    position: fixed;
     left: 60px;
-    width: 10%;
+    width: 100%;
     margin-top:10px;
     background-color: #fff;
     border-radius: 10px;
@@ -36,13 +37,6 @@
     100% {opacity:0;}
 }
 
-.menu_wrap{
-    width: 100%;
-    border: 1px solid #000;
-    background-color: #8b00ff;
-    color: #fff;
-}
-
 .box_wrap_hidden{
     display: none;
 }
@@ -51,7 +45,6 @@
     width: 100%;
     padding:5px;
     text-align: center;
-    border: 1px dashed #ddd;
     font-size: 0.9rem;
     cursor: pointer;
 }
@@ -60,9 +53,30 @@
     width: 100%;
     padding:5px;
     text-align: center;
-    border: 1px dashed #ddd;
     font-size: 0.9rem;
     cursor: pointer;
     font-weight: bold;
     color:#8729ff;
+}
+
+.board_category{
+    border-bottom: 2px solid #ddd;
+}
+
+.menu_category{
+    margin-top : 30px;
+    display: block;
+    margin-left : 15px;
+    padding: 0;
+}
+
+.menu_category li{
+    display: block;
+    margin-bottom: 10px;
+    cursor : pointer;
+}
+
+.menu_type{
+    margin-left:5px;
+    font-size: 0.8em;
 }

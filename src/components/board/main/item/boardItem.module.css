@@ -51,13 +51,14 @@
 
 .board_date{
     width:10%;
-    font-size: 0.6em;
+    font-size: 0.8em;
     opacity: 0.3;
 }
 
 .recommend{
     line-height: 40px;
     margin-left:20px;
+    font-size : 0.8rem;
 }
 
 .list_main{

@@ -3,6 +3,7 @@ import {useMutation, useQueryClient} from "react-query";
 import {ChangeEvent, useCallback, useRef, useState} from "react";
 import {registerReply} from "src/apis/Reply";
 import style from "src/components/board/main/comment/boardReplyInputAdd.module.css";
+import {sendAlarmBySocket} from "src/apis/Alarm";
 
 const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddProps) => {
     const queryClient = useQueryClient();
@@ -14,6 +15,7 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddPr
     const onRegisterComment = useCallback(async ()=> {
         try {
             const response = await commentMutation.mutateAsync();
+            postUser && sendAlarmBySocket('REPLY', postUser, "게시글에 댓글을 남겼습니다.", postId, replyPayload, 'POST');
             console.log(response);
         }
         catch (e) {
@@ -34,7 +36,7 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddPr
         catch (e) {
             console.log(e);
         }
-        finally {
+        finally{
             setReplyPayload("");
             await queryClient.invalidateQueries(['replyQuery',refId]);
             await queryClient.invalidateQueries(['getTotalReplies',refId]);

@@ -30,7 +30,7 @@ const BoardItem = (board: IBoardProps) : JSX.Element => {
                 <div className={style.board_date}>{board.board.createdTime.slice(0,10)}</div>
                 <div className={style.recommend}>
                     <span>❣️</span>
-                    <span>{board.board.likesCount}</span>
+                    <span> {board.board.likesCount}</span>
                 </div>
             </div>
         </>
