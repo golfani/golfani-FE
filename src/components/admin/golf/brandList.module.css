@@ -1,0 +1,72 @@
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 100%;
+}
+
+.title_box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.title_txt {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.brand_add_btn {
+    margin-left: auto;
+    width: 50px;
+    height: 25px;
+    padding: 5px;
+    font-size: 13px;
+    border-radius: 0.32rem;
+    background-color: #2196F3;
+    color: white;
+}
+
+.list_box {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+    margin-bottom: 30px;
+    border: 1px solid #2196F3;
+    border-radius: 3px;
+}
+
+.search_box {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    background-color: #2196F3;
+    padding: 0 15px;
+    height: 40px;
+    font-size: 15px;
+}
+
+.search_icon {
+    color: white;
+}
+
+.search_input {
+    border: none;
+    flex: 1;
+    background-color: transparent;
+    color: white;
+    font-size: 15px;
+}
+
+.search_input::placeholder {
+    color: white;
+    font-size: 15px;
+}
+
+.item_list_box {
+    overflow: auto;
+    flex: 1;
+}

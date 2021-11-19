@@ -1,0 +1,32 @@
+.item_box {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 0;
+    border-bottom: 1px solid #eff0f2;
+}
+
+.item_box:hover{
+    background-color: #eff0f2;
+}
+
+.brand_id {
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    margin: 0 10px;
+}
+
+.brand_img {
+    width: 100px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 30px;
+}
+
+.brand_name_txt {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+}
