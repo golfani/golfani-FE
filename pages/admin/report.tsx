@@ -1,6 +1,6 @@
 import style from 'styles/admin.module.css'
 import {useState} from "react";
-import ReportList from "src/components/report/ReportList";
+import ReportList from "src/components/admin/report/ReportList";
 import {TReport} from "src/apis/Report";
 import ArrowBackIosNewIcon from '@material-ui/icons/ArrowBackIosNew';
 import {useRouter} from "next/router";
