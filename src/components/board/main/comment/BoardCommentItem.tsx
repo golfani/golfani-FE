@@ -11,6 +11,8 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ReportGmailerrorredOutlinedIcon from '@material-ui/icons/ReportGmailerrorredOutlined';
 import {useRouter} from "next/router";
 import {getCookie} from "src/utils/cookieUtil";
+import {toStringByFormatting} from "src/utils/dateUtil";
+import ShortcutIcon from '@material-ui/icons/Shortcut';
 
 const BoardCommentItem = ({reply} : IReplyProps) => {
     const userId = getCookie('userId');
@@ -59,10 +61,6 @@ const BoardCommentItem = ({reply} : IReplyProps) => {
         setShowAdd(!showAdd);
     }
 
-    const clickMoreReply = () => {
-
-    }
-
     const onDeleteReply = async () => {
         try {
             if(userId === reply.userId)
@@ -78,39 +76,43 @@ const BoardCommentItem = ({reply} : IReplyProps) => {
     }
 
     return(
-        <div className={reply.referenceId ? style.reply_container: style.container}>
-            <div className={style.headLine}/>
-            <div className={style.comment_main}>
-                <div className={style.comment_head}>
-                    <UserName userName={reply.userId}/>
-                    <span className={style.uploadTime}>{reply.createdTime}</span>
-                    <div className={style.right_menu}>
-                        {userIsReplyLikesQuery.data?.likes ? <FavoriteIcon style={{fontSize: '1.0rem'}} className={style.like} onClick={handlerClickLike}/> : <FavoriteBorderOutlinedIcon style={{fontSize: '1.0rem'}} className={style.like} onClick={handlerClickLike}/>}
-                        <span className={style.likeCount}>{replyLikesQuery.data}</span>
-                        <ReportGmailerrorredOutlinedIcon style={{fontSize: '1.0rem'}} className={style.report} onClick={onDeleteReply}/>
+        <div>
+
+            <div className={reply.referenceId ? style.reply_container: style.container}>
+                {reply.referenceId && <ShortcutIcon style ={{fontSize: '20px'}} className={style.arrowIcon}/>}
+                <div className={style.headLine}/>
+                <div className={style.comment_main}>
+                    <div className={style.comment_head}>
+                        <UserName userName={reply.userId}/>
+                        <span className={style.uploadTime}>{toStringByFormatting(reply.createdTime)}</span>
+                        <div className={style.right_menu}>
+                            {userIsReplyLikesQuery.data?.likes ? <FavoriteIcon style={{fontSize: '1.0rem'}} className={style.like} onClick={handlerClickLike}/> : <FavoriteBorderOutlinedIcon style={{fontSize: '1.0rem'}} className={style.like} onClick={handlerClickLike}/>}
+                            <span className={style.likeCount}>{replyLikesQuery.data}</span>
+                            <ReportGmailerrorredOutlinedIcon style={{fontSize: '1.0rem'}} className={style.report} onClick={onDeleteReply}/>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <p className={style.comment}>{reply.payload}</p>
-                </div>
-                {
-                    !reply.referenceId &&
-                    <div className={style.reply}>
-                        <span>답글 </span>
-                        <em>{totalReplyQuery.data}</em>
-                        <span>개 </span>
-                        <button onClick={onClick}>답글쓰기</button>
+                    <div>
+                        <p className={style.comment}>{reply.payload}</p>
                     </div>
-                }
-                <div>
-                    {showAdd && <BoardReplyInputAdd postId={reply.postId!} postUser={null} refId={reply.referenceId || reply.id} refUser={reply.userId}/>}
+                    {
+                        !reply.referenceId &&
+                        <div className={style.reply}>
+                            <span>답글 </span>
+                            <em>{totalReplyQuery.data}</em>
+                            <span>개 </span>
+                            <button onClick={onClick}>답글쓰기</button>
+                        </div>
+                    }
+                    <div>
+                        {showAdd && <BoardReplyInputAdd postId={reply.postId!} refId={reply.referenceId || reply.id} refUser={reply.userId}/>}
+                    </div>
+                    {
+                        replyQuery.data?.map((reply) => (
+                            !reply.isDeleted &&
+                            <BoardCommentItem key = {reply.id} reply={reply}/>
+                        ))
+                    }
                 </div>
-                {
-                    replyQuery.data?.map((reply) => (
-                        !reply.isDeleted &&
-                        <BoardCommentItem key = {reply.id} reply={reply}/>
-                    ))
-                }
             </div>
         </div>
     )

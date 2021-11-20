@@ -5,8 +5,8 @@
     margin-top: 10px;
     min-height: 35px;
     background-color: #fff;
-    border: 1px solid #8729ff;
-    border-radius: 18px;
+    border: 1px solid #000;
+    border-radius: 5px;
 }
 
 .input {
@@ -19,6 +19,11 @@
     border-radius: 18px;
     background: transparent;
     line-height: 20px;
+}
+
+.input::placeholder {
+    font-size: 13px;
+    letter-spacing: -0.5px;
 }
 
 .input_btn {
@@ -39,7 +44,3 @@
     color: black;
 }
 
-.input::placeholder {
-    font-size: 13px;
-    letter-spacing: -0.5px;
-}

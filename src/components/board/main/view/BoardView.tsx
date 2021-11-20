@@ -57,6 +57,10 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
         onRegisterLikes();
     }
 
+    const onUserIdClick = () =>{
+        router.push(`/profile/${boardView.userId}`);
+    }
+
     return(
         <div className={style.container}>
             <div className={style.view_wrap}>
@@ -74,7 +78,7 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
                             <span className={style.header_box}>No</span>
                             <span className={style.text_box}>{boardView.id}</span>
                             <span className={style.header_box}>글쓴이</span>
-                            <span className={style.text_box}>{boardView.userId}</span>
+                            <span className={style.text_box_user} onClick={onUserIdClick}>{boardView.userId}</span>
                             <span className={style.header_box}>게시일</span>
                             <span className={style.text_box}>{boardView.createdTime.slice(0,10)}</span>
                             <span className={style.header_box}>조회수</span>

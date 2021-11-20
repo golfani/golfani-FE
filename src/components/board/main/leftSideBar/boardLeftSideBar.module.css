@@ -65,18 +65,23 @@
 
 .menu_category{
     margin-top : 30px;
-    display: block;
     margin-left : 15px;
     padding: 0;
 }
 
-.menu_category li{
+.main_menu{
     display: block;
-    margin-bottom: 10px;
     cursor : pointer;
 }
 
 .menu_type{
     margin-left:5px;
     font-size: 0.8em;
+}
+
+.home_menu{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
 }

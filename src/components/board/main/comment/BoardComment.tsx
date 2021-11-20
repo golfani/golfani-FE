@@ -47,7 +47,7 @@ const BoardComment = ({boardView} : IBoardProps) => {
                         ))
                     }
                     {replyQuery.hasNextPage && <button onClick={moreReply}> 댓글 더보기 </button>}
-                    <div>
+                    <div className={style.addReply}>
                         <div className={style.divider}></div>
                         <BoardReplyInputAdd postId={boardView.id} postUser={boardView.userId} refId={null} refUser={null}/>
                     </div>

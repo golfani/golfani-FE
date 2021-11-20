@@ -1,6 +1,6 @@
 import {IPostReplyAddProps} from "src/domain/Reply";
 import {useMutation, useQueryClient} from "react-query";
-import {ChangeEvent, useCallback, useRef, useState} from "react";
+import {ChangeEvent, KeyboardEventHandler, useCallback, useRef, useState} from "react";
 import {registerReply} from "src/apis/Reply";
 import style from "src/components/board/main/comment/boardReplyInputAdd.module.css";
 import {sendAlarmBySocket} from "src/apis/Alarm";
@@ -53,10 +53,17 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddPr
         setReplyPayload(input.value);
     }
 
+    const handleOnPress = (e : React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key == 'Enter' && !e.shiftKey)
+        {
+            handleSubmit();
+        }
+    }
+
     return(
         <div>
             <div className={style.form}>
-                <textarea value={replyPayload} onChange={handleChangeTextArea} className={style.input} placeholder={"댓글을 달아보세요!"} ref={textAreaRef}/>
+                <textarea value={replyPayload} onChange={handleChangeTextArea} className={style.input} onKeyPress={handleOnPress} placeholder={"댓글을 달아보세요!"} ref={textAreaRef}/>
                 <button className={style.input_btn} onClick={handleSubmit}>등록</button>
             </div>
         </div>
