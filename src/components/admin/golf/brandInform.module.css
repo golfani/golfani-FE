@@ -1,0 +1,122 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 350px;
+    border: 2px solid #2196F3;
+    border-radius: 3px;
+    width: 900px;
+    height: calc(100% - 30px);
+}
+
+.brand_title_box {
+    display: flex;
+    height: 100px;
+    padding: 10px;
+    border-bottom: 1px solid #2196F3;
+}
+
+.brand_logo_img {
+    width: 150px;
+    height: 80px;
+    object-fit: contain;
+    margin-right: 15px;
+}
+
+.brand_name_txt {
+    display: block;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.brand_desc_txt {
+    display: inline-block;
+    max-width: 500px;
+    max-height: 50px;
+    font-size: 14px;
+    overflow-y: auto;
+    color: gray;
+    letter-spacing: -0.5px;
+}
+
+.brand_btn_box {
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+}
+
+.brand_modify_btn {
+    width: 50px;
+    height: 50px;
+    background-color: #0A4A95;
+    color: white;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+
+.brand_delete_btn {
+    width: 50px;
+    height: 50px;
+    background-color: #ff6969;
+    color: white;
+    border-radius: 5px;
+}
+
+.golfClub_main_box {
+    display: flex;
+    width: 100%;
+    flex: 1;
+}
+
+.golfClub_type_box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    padding: 0 10px;
+    border-bottom: 1px solid #2196F3;
+}
+
+.golfClub_name_box {
+    display: flex;
+}
+
+.golfClub_type_list_box {
+    display: flex;
+    align-items: center;
+}
+
+.golfClub_type_list {
+    font-size: 13px;
+    font-weight: 500;
+    color: #a9a9a9;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.golfClub_type_list:hover {
+    color: black;
+}
+
+.golfClub_type_list_active {
+    font-size: 13px;
+    font-weight: 500;
+    color: black;
+    cursor: pointer;
+    margin-right: 10px;
+    text-decoration: underline;
+}
+
+
+
+.golfClub_add_btn {
+    margin-left: auto;
+    width: 60px;
+    height: 30px;
+    padding: 5px;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: #2196F3;
+    border-radius: 5px;
+}

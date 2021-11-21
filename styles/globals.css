@@ -34,6 +34,7 @@ li {
 
 input {
   outline: none;
+  border: 1px solid black;
 }
 
 input[type="radio"] {

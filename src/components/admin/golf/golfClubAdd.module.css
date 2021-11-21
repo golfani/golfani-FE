@@ -1,0 +1,168 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    background-color: #e5e5db;
+}
+
+.title_txt {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.input_box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    margin-right: 50px;
+}
+
+.img_input_box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    height: 120px;
+}
+
+.input_title_txt {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+
+.golfClub_name_box {
+    display: flex;
+}
+
+.golfClub_type_list_box {
+    display: flex;
+    align-items: center;
+}
+
+.golfClub_type_list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    width: 60px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: gray;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.golfClub_type_list:hover {
+    background-color: #2196F3;
+    color: white;
+}
+
+.golfClub_type_list_active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    width: 60px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #2196F3;
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.input {
+    width: 200px;
+    height: 30px;
+}
+
+.textarea {
+    width: 400px;
+    height: 40px;
+}
+
+.input_img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2196F3;
+    font-size: 14px;
+    color: white;
+    border-radius: 3px;
+    letter-spacing: -1.0px;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}
+
+.img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+}
+
+.hidden {
+    display: none;
+}
+
+.sub_input_container {
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.sub_input_box {
+    height: 100%;
+    margin-right: 10px;
+}
+
+.sub_input_txt {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.sub_input {
+    width: 100px;
+    height: 20px;
+}
+
+.radio_input {
+    margin: 0;
+    padding: 0;
+}
+
+.radio_txt {
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.button_box {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.golfClub_register_btn {
+    width: 45%;
+    background-color: #2196F3;
+    height: 40px;
+    font-size: 15px;
+    border-radius: 5px;
+    color: white;
+}
+
+.golfClub_cancel_btn {
+    width: 45%;
+    background-color: #ff6969;
+    height: 40px;
+    font-size: 15px;
+    border-radius: 5px;
+    color: white;
+}
