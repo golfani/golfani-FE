@@ -27,6 +27,13 @@
     height: 120px;
 }
 
+.img_box {
+    display: flex;
+    max-width: 700px;
+    overflow: auto;
+    margin-right: 30px;
+}
+
 .input_title_txt {
     display: inline-block;
     font-size: 16px;

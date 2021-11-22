@@ -66,7 +66,7 @@ const GolfClubAdd = ({setOpenGolfClubAdd, brandId} : IGolfClubProps) : JSX.Eleme
             canvas.width = width;
             canvas.height = height;
             ctx?.drawImage(canvasImage, 0 ,0, width, height);
-            const resizeImageUrl = canvas.toDataURL(file.type, 0.75);
+            const resizeImageUrl = canvas.toDataURL('image/webp', 0.75);
             const imgFile = dataURLtoFile(resizeImageUrl,file.name);
             setImgFiles(imgFiles.concat(imgFile));
             setImgUrls(imgUrls.concat(resizeImageUrl));
@@ -143,9 +143,11 @@ const GolfClubAdd = ({setOpenGolfClubAdd, brandId} : IGolfClubProps) : JSX.Eleme
             <div className={style.input_box}>
                 <span className={style.input_title_txt}>장비 이미지</span>
                 <div className={style.img_input_box}>
-                    {imgUrls.map((url,index) => (
-                        <img src={url} key={index} className={style.img}/>
-                    ))}
+                    <div className={style.img_box}>
+                        {imgUrls.map((url,index) => (
+                            <img src={url} key={index} className={style.img}/>
+                        ))}
+                    </div>
                     <label htmlFor='img' className={style.input_img}>이미지 추가</label>
                     <input className={style.hidden} id='img' type='file' accept="image/jpeg, image/png" onChange={onChangeImage}/>
                 </div>
