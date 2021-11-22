@@ -21,6 +21,11 @@ const BoardComment = ({boardView} : IBoardProps) => {
         staleTime : 1000 * 60
     });
 
+    const moreReply = async () => {
+        if(replyQuery.hasNextPage) await replyQuery.fetchNextPage();
+
+    }
+
     return (
         <div className={style.container}>
             <div className={style.comment_wrap}>
@@ -41,7 +46,8 @@ const BoardComment = ({boardView} : IBoardProps) => {
                             ))
                         ))
                     }
-                    <div>
+                    {replyQuery.hasNextPage && <button onClick={moreReply}> 댓글 더보기 </button>}
+                    <div className={style.addReply}>
                         <div className={style.divider}></div>
                         <BoardReplyInputAdd postId={boardView.id} postUser={boardView.userId} refId={null} refUser={null}/>
                     </div>

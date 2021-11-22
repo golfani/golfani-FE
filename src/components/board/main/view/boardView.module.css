@@ -38,6 +38,14 @@
     opacity:0.8;
 }
 
+.text_box_user{
+    margin-left :10px;
+    font-size:1.0rem;
+    opacity:0.8;
+    font-weight: bold;
+    cursor:pointer;
+}
+
 .header_box{
     margin-left:10px;
     font-weight: bold;
