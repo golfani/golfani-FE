@@ -55,7 +55,7 @@ export const getGolfClub = async (id : number) => {
  * @param size
  */
 export const getAllGolfClub = async (brandId : number, page : number = 0, size : number = 10) => {
-    const response = await axios.get(`${API_URL}/all?brandId=${brandId}&page=${page}&size=${size}`);
+    const response = await axios.get(`${API_URL}/all/${brandId}?page=${page}&size=${size}`);
     return response.data;
 }
 
@@ -67,6 +67,15 @@ export const getAllGolfClub = async (brandId : number, page : number = 0, size :
  * @param size
  */
 export const getGolfClubByType = async (brandId : number, type : TGolfClub, page : number = 0, size : number = 10) => {
-    const response = await axios.get(`${API_URL}/list?brandId=${brandId}&type=${type}&page=${page}&size=${size}`);
+    const response = await axios.get(`${API_URL}/list/${brandId}?type=${type}&page=${page}&size=${size}`);
+    return response.data;
+}
+
+/**
+ * 골프클럽 삭제 API
+ * @param id
+ */
+export const deleteGolfClub = async (id : number) => {
+    const response = await securityAxios.delete(`${API_URL}/${id}`);
     return response.data;
 }

@@ -10,8 +10,8 @@ interface  IGolfClubListProps {
 }
 
 const GolfClubList = ({type,brandId} : IGolfClubListProps) : JSX.Element => {
-    const allGolfClubQuery = useQuery<IPages<IGolfClubDto>>('allGolfClub', () => getAllGolfClub(brandId,0,Number.MAX_SAFE_INTEGER));
-    const typeGolfClubQuery = useQuery<IPages<IGolfClubDto>>(['golfClub',type], () => getGolfClubByType(brandId,type!,0,Number.MAX_SAFE_INTEGER),{
+    const allGolfClubQuery = useQuery<IPages<IGolfClubDto>>(['allGolfClub',brandId], () => getAllGolfClub(brandId,0,Number.MAX_SAFE_INTEGER));
+    const typeGolfClubQuery = useQuery<IPages<IGolfClubDto>>(['golfClub',brandId,type], () => getGolfClubByType(brandId,type!,0,Number.MAX_SAFE_INTEGER),{
         enabled : type !== undefined,
     });
 

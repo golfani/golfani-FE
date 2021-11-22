@@ -1,9 +1,10 @@
 import style from './brandInform.module.css';
-import {IBrandDto} from "src/apis/Brand";
+import {deleteBrand, IBrandDto} from "src/apis/Brand";
 import GolfClubAdd from "./GolfClubAdd";
 import {useState} from "react";
 import GolfClubList from "./GolfClubList";
 import {TGolfClub} from "src/apis/GolfClub";
+import {useRouter} from "next/router";
 
 interface IBrandInformProps {
     brand : IBrandDto
@@ -12,9 +13,20 @@ interface IBrandInformProps {
 const BrandInform = ({brand} : IBrandInformProps) : JSX.Element => {
     const [openGolfClubAdd , setOpenGolfClubAdd] = useState(false);
     const [type, setType] = useState<TGolfClub>();
+    const router = useRouter();
 
     const onSetFalseGolfClubAdd = () => {
         setOpenGolfClubAdd(false);
+    }
+
+    const onDeleteBrand = async () => {
+        try {
+            const response = await deleteBrand(brand.id);
+            router.reload();
+        }
+        catch (e) {
+            alert(`${e} 서버 에러 발생!`);
+        }
     }
 
     const handleClickGolfClubAddButton = () => {
@@ -31,6 +43,12 @@ const BrandInform = ({brand} : IBrandInformProps) : JSX.Element => {
         onSetFalseGolfClubAdd();
     }
 
+    const handleClickDeleteBrand = async () => {
+        if(window.confirm(`${brand.brandName} 브랜드정보를 삭제하시겠습니까?`)) {
+            await onDeleteBrand();
+        }
+    }
+
     return (
         <div className={style.container}>
             <div className={style.brand_title_box}>
@@ -41,7 +59,7 @@ const BrandInform = ({brand} : IBrandInformProps) : JSX.Element => {
                 </div>
                 <div className={style.brand_btn_box}>
                     <button className={style.brand_modify_btn}>수정</button>
-                    <button className={style.brand_delete_btn}>삭제</button>
+                    <button className={style.brand_delete_btn} onClick={handleClickDeleteBrand}>삭제</button>
                 </div>
             </div>
             <div className={style.golfClub_type_box}>
