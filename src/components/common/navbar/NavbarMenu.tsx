@@ -25,6 +25,7 @@ const NavbarMenu = () => {
     });
     const unReadMessageQuery = useQuery('unReadMessage', () => getUnreadChatMessageCount());
     const [isUserProfile, setIsUserProfile] = useState(false);
+    const [isFeedPage, setIsFeedPage] = useState(false);
     const [userMenuOpen, setUserMenuOpen] = useState(false);
 
     const onCloseNotice = () => {
@@ -47,6 +48,10 @@ const NavbarMenu = () => {
         setUserMenuOpen(true);
     }
 
+    const handleClickFeedAddButton = () => {
+        onConflictRoute('/feed/write');
+    }
+
     handleClickRefOutSide(noticeRef,onCloseNotice);
 
     const onClickLogin = () => {
@@ -60,6 +65,12 @@ const NavbarMenu = () => {
         else {
             setIsUserProfile(false);
         }
+        if(router.asPath.split('/')[1] === 'feed') {
+            setIsFeedPage(true);
+        }
+        else {
+            setIsFeedPage(false);
+        }
     },[router.asPath])
 
     return (
@@ -67,6 +78,12 @@ const NavbarMenu = () => {
             {userId
                 ?
                 <div className={style.icon_box}>
+                    {isFeedPage &&
+                    <div className={style.menu_box}>
+                        <img src={'/plus_ico.png'} alt={'plus_ico.png'} className={style.icon}
+                             onClick={handleClickFeedAddButton}/>
+                    </div>
+                    }
                     <div className={style.menu_box} ref={noticeRef}>
                         <FavoriteBorderOutlinedIcon className={style.icon} onClick={handleClickNotice} fontSize={'inherit'}/>
                         {unReadAlarmQuery.data !== 0 && <span className={style.notice_count}>{unReadAlarmQuery.data}</span>}
