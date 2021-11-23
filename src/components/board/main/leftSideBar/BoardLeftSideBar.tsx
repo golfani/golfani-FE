@@ -35,7 +35,7 @@ const BoardLeftSideBar = (props: IBoardTypeProps): JSX.Element => {
     const menuClicked = (type : EType) =>{
         if(type !== selectMenu) setMenu(type);
         props.onSetBoardType(type);
-        window.location.href = `/board?type=${type}&page=0`
+        router.push(`/board?type=${type}&page=0`);
     }
 
     const handlerMouseOver = () => {

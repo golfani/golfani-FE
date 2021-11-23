@@ -130,4 +130,10 @@
     max-width: 300px;
     margin-top:20px;
     margin-left : 10px;
+    cursor: pointer;
+}
+
+.modal_box{
+    margin: 200px auto;
+    border: none;
 }

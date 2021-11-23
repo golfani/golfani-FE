@@ -8,7 +8,7 @@ import {useRouter} from "next/router";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import {useMutation, useQuery, useQueryClient} from "react-query";
-import {getAllPostLikes, getFeedLikes, getPostLikes, registerLikes} from "../../../../apis/Likes";
+import {getAllPostLikes, getPostLikes, registerLikes} from "src/apis/Likes";
 
 export interface IBoardProps{
     boardView : IBoardData
@@ -16,7 +16,6 @@ export interface IBoardProps{
 
 const BoardView = ({boardView} : IBoardProps): JSX.Element => {
     const queryClient = useQueryClient();
-
     const [showDeleteBtn, setShowDeleteBtn] = useState(false);
     const userId = getCookie('userId');
     const router = useRouter();
@@ -57,6 +56,16 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
         onRegisterLikes();
     }
 
+    const onHandleImgClick = (url : string) => {
+        const img = new Image();
+        img.onload = () => {
+            const popupX = (window.screen.width / 2) - (img.width / 2);
+            const popupY = (window.screen.height / 2) - (img.height / 2);
+            window.open(img.src,'',`height= ${img.height}, width=${img.width}, left=${popupX}, top=${popupY}, location=no,status=no,scrollbars=yes`);
+        }
+        img.src = url;
+    }
+
     return(
         <div className={style.container}>
             <div className={style.view_wrap}>
@@ -88,13 +97,12 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
                         }
                         <div className={style.img_wrap}>
                             {
-                                boardView.urlList.map( (img)=>(
-                                    <img src = {img} className={style.img_box}/>))
+                                boardView.urlList.map( (img,index)=>(
+                                    <img src = {img} onClick={() => onHandleImgClick(img)} className={style.img_box}/>))
                             }
                         </div>
                     </div>
                     <BoardComment boardView={boardView}/>
-
                 </div>
                 <div className={style.bt_wrap}>
                     <button className={style.list_button}>목록</button>

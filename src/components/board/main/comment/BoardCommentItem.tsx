@@ -10,7 +10,7 @@ import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutline
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ReportGmailerrorredOutlinedIcon from '@material-ui/icons/ReportGmailerrorredOutlined';
 import {useRouter} from "next/router";
-import {getCookie} from "../../../../utils/cookieUtil";
+import {getCookie} from "src/utils/cookieUtil";
 
 const BoardCommentItem = ({reply} : IReplyProps) => {
     const userId = getCookie('userId');
