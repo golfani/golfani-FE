@@ -1,0 +1,87 @@
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+.no_img_add_box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.no_img_icon {
+    width: 200px;
+    height: 200px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-image: url('public/image_ico.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.hidden {
+    display: none;
+}
+
+.no_img_txt {
+    display: inline-block;
+    opacity: 0.4;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.on_img_add_box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.img_box {
+    position: relative;
+}
+
+.on_img {
+    width: 100%;
+    height: 500px;
+    object-fit: contain;
+}
+
+.img_delete_btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    background: black;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    opacity: 0.2;
+}
+
+.img_delete_btn:hover {
+    opacity: 1;
+}
+
+.img_more_add_box {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.img_more_add_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 30px;
+    font-weight: 500;
+    color: white;
+    font-size: 13px;
+    background-color: #8729ff;
+    border-radius: 8px;
+    cursor: pointer;
+}

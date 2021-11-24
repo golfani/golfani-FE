@@ -13,6 +13,7 @@ import useCustomRouter from "src/hooks/routerHook";
 import {getProfileImage} from "src/apis/Member";
 import {useRouter} from "next/router";
 import UserMenuModal from "src/components/modals/UserMenuModal";
+import FeedAddModal from "src/components/modals/feed/FeedAddModal";
 
 const NavbarMenu = () => {
     const userId = getCookie('userId')
@@ -27,6 +28,7 @@ const NavbarMenu = () => {
     const [isUserProfile, setIsUserProfile] = useState(false);
     const [isFeedPage, setIsFeedPage] = useState(false);
     const [userMenuOpen, setUserMenuOpen] = useState(false);
+    const [feedAddModalOpen, setFeedAddModalOpen] = useState(false);
 
     const onCloseNotice = () => {
         setNoticeOpen(false);
@@ -49,7 +51,7 @@ const NavbarMenu = () => {
     }
 
     const handleClickFeedAddButton = () => {
-        onConflictRoute('/feed/write');
+        setFeedAddModalOpen(true);
     }
 
     handleClickRefOutSide(noticeRef,onCloseNotice);
@@ -82,6 +84,7 @@ const NavbarMenu = () => {
                     <div className={style.menu_box}>
                         <img src={'/plus_ico.png'} alt={'plus_ico.png'} className={style.icon}
                              onClick={handleClickFeedAddButton}/>
+                        {feedAddModalOpen && <FeedAddModal setModalOpen={setFeedAddModalOpen}/>}
                     </div>
                     }
                     <div className={style.menu_box} ref={noticeRef}>
