@@ -1,4 +1,4 @@
-import style from 'src/components/board/main/boardWrite.module.css';
+import style from 'src/components/board/boardWrite.module.css';
 import React, {useState} from 'react';
 import {registerBoard} from 'src/apis/Board';
 import {getCookie} from "src/utils/cookieUtil";

@@ -1,4 +1,4 @@
-import style from 'src/components/board/main/page/boardPage.module.css';
+import style from 'src/components/board/page/boardPage.module.css';
 import React from "react";
 import Link from 'next/link'
 import {ITypeProps} from "../BoardMain";

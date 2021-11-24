@@ -1,4 +1,4 @@
-import style from 'src/components/board/main/page/boardSearchType.module.css'
+import style from 'src/components/board/page/boardSearchType.module.css'
 import {useState} from "react";
 
 const BoardSearchType = () : JSX.Element => {

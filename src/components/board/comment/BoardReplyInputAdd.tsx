@@ -2,7 +2,7 @@ import {IPostReplyAddProps} from "src/domain/Reply";
 import {useMutation, useQueryClient} from "react-query";
 import {ChangeEvent, KeyboardEventHandler, useCallback, useRef, useState} from "react";
 import {registerReply} from "src/apis/Reply";
-import style from "src/components/board/main/comment/boardReplyInputAdd.module.css";
+import style from "src/components/board/comment/boardReplyInputAdd.module.css";
 import {sendAlarmBySocket} from "src/apis/Alarm";
 
 const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddProps) => {

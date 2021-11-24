@@ -1,7 +1,7 @@
-import style from 'src/components/board/main/view/boardView.module.css';
+import style from 'src/components/board/view/boardView.module.css';
 import React, {useEffect, useState} from 'react';
 import Link from "next/link";
-import BoardComment from "src/components/board/main/comment/BoardComment";
+import BoardComment from "src/components/board/comment/BoardComment";
 import {getCookie} from "src/utils/cookieUtil";
 import {deleteBoard, IBoardData} from "src/apis/Board";
 import {useRouter} from "next/router";
@@ -61,9 +61,10 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
         img.onload = () => {
             const popupX = (window.screen.width / 2) - (img.width / 2);
             const popupY = (window.screen.height / 2) - (img.height / 2);
-            window.open(img.src,'',`height= ${img.height}, width=${img.width}, left=${popupX}, top=${popupY}, location=no,status=no,scrollbars=yes`);
+            window.open(img.src, '', `height= ${img.height}, width=${img.width}, left=${popupX}, top=${popupY}, location=no,status=no,scrollbars=yes`);
         }
         img.src = url;
+    }
 
     const onUserIdClick = () =>{
         router.push(`/profile/${boardView.userId}`);
