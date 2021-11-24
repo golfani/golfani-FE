@@ -4,7 +4,7 @@ import {dataURLtoFile} from "src/utils/fileUtil";
 import {IBrandDto, registerBrand} from "src/apis/Brand";
 
 interface IBrandAddProps {
-    setOpenBrandAdd : (state : boolean) => void;
+    setOpenBrandAdd : (state : boolean) => void
 }
 
 const BrandAdd = ({setOpenBrandAdd} : IBrandAddProps) : JSX.Element => {

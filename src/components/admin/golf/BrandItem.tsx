@@ -3,10 +3,19 @@ import {IBrandDto} from "src/apis/Brand";
 
 interface IBrandItemProps {
     brand : IBrandDto
+    selectedBrand? : IBrandDto
+    setSelectedBrand : (state? : IBrandDto) => void
+    setOpenBrandAdd : (state : boolean) => void
 }
-const BrandItem = ({brand} : IBrandItemProps) : JSX.Element => {
+
+const BrandItem = ({brand,selectedBrand, setSelectedBrand,setOpenBrandAdd} : IBrandItemProps) : JSX.Element => {
+    const handleClickBrand = () => {
+        setSelectedBrand(brand);
+        setOpenBrandAdd(false);
+    }
+
     return (
-        <div className={style.item_box}>
+        <div className={selectedBrand?.id === brand.id ? style.item_box_selected : style.item_box} onClick={handleClickBrand}>
             <span className={style.brand_id}>{brand.id}</span>
             <img src={brand.imageUrl} alt={brand.brandName} className={style.brand_img}/>
             <span className={style.brand_name_txt}>{brand.brandName}</span>

@@ -6,15 +6,17 @@ import {IPages} from "src/domain/Page";
 import BrandItem from "./BrandItem";
 import SearchIcon from '@material-ui/icons/Search';
 import {useState} from "react";
-
+import BrandInform from "./BrandInform";
 
 const BrandList = () : JSX.Element => {
     const [startName, setStartName] = useState('');
     const brandQuery = useQuery<IPages<IBrandDto>>(['brandList',startName], ()=>getBrandListWithStartName(startName,0,Number.MAX_SAFE_INTEGER,'id,asc'));
     const [openBrandAdd, setOpenBrandAdd] = useState(false);
+    const [selectedBrand, setSelectedBrand] = useState<IBrandDto>();
 
     const handleClickBrandAdd = () => {
         setOpenBrandAdd(true);
+        setSelectedBrand(undefined);
     }
 
     return (
@@ -36,11 +38,18 @@ const BrandList = () : JSX.Element => {
                 </div>
                 <div className={style.item_list_box}>
                     {brandQuery.data?.content.map((brand)=> (
-                        <BrandItem key={brand.id} brand={brand}/>
+                        <BrandItem
+                            key={brand.id}
+                            brand={brand}
+                            selectedBrand={selectedBrand}
+                            setSelectedBrand={setSelectedBrand}
+                            setOpenBrandAdd={setOpenBrandAdd}
+                        />
                     ))}
                 </div>
             </div>
-            {openBrandAdd && <BrandAdd setOpenBrandAdd={setOpenBrandAdd}/>}
+            {openBrandAdd && <BrandAdd setOpenBrandAdd={setOpenBrandAdd} />}
+            {selectedBrand && <BrandInform brand={selectedBrand}/>}
         </div>
     );
 };

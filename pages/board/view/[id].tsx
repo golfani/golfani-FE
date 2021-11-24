@@ -16,20 +16,20 @@ const ViewPage = () : JSX.Element => {
         if (response.status === 200) await queryClient.invalidateQueries(['board', id]);
     }
 
-        useEffect(() => {
-            checkFun();
-        }, [])
+    useEffect(() => {
+        checkFun();
+    }, [])
 
-        const boardQuery = useQuery(['board', id], () => getBoardView(id as string), {
-            enabled: id !== undefined,
-        });
+    const boardQuery = useQuery(['board', id], () => getBoardView(id as string), {
+        enabled: id !== undefined,
+    });
 
-        return (
-            <div>
-                <Navbar/>
-                {boardQuery.data && <BoardView boardView={boardQuery.data}/>}
-            </div>
-        )
-    }
+    return (
+        <div>
+            <Navbar/>
+            {boardQuery.data && <BoardView boardView={boardQuery.data}/>}
+        </div>
+    )
+}
 
 export default ViewPage;

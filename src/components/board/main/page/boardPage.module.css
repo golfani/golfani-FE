@@ -101,10 +101,9 @@
 }
 
 .search_btn{
-    width: 5%;
-    height: 36px;
+    width: 8%;
     box-sizing: border-box;
-    margin-left: 1px;
+    margin-left: 3px;
     background-color: #8b00ff;
     color:#fff;
 }

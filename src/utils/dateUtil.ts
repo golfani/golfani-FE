@@ -13,7 +13,7 @@ export const dateDiff = (date : string | Date) : string => {
     }
     else if(now.getDate() !== target.getDate()) {
         diff = now.getDate() - target.getDate() >= 7
-            ? `${target.getMonth()}월 ${target.getDate()}일`
+            ? `${target.getMonth()+1}월 ${target.getDate()}일`
             : `${now.getDate() - target.getDate()}일 전`;
     }
     else if(now.getHours() !== target.getHours()) {

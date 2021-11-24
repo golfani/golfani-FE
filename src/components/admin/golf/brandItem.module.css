@@ -10,6 +10,15 @@
     background-color: #eff0f2;
 }
 
+.item_box_selected {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 0;
+    border-bottom: 1px solid #eff0f2;
+    background-color: #eff0f2;
+}
+
 .brand_id {
     display: inline-block;
     width: 30px;

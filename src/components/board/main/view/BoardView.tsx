@@ -64,6 +64,9 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
             window.open(img.src,'',`height= ${img.height}, width=${img.width}, left=${popupX}, top=${popupY}, location=no,status=no,scrollbars=yes`);
         }
         img.src = url;
+
+    const onUserIdClick = () =>{
+        router.push(`/profile/${boardView.userId}`);
     }
 
     return(
@@ -83,7 +86,7 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
                             <span className={style.header_box}>No</span>
                             <span className={style.text_box}>{boardView.id}</span>
                             <span className={style.header_box}>글쓴이</span>
-                            <span className={style.text_box}>{boardView.userId}</span>
+                            <span className={style.text_box_user} onClick={onUserIdClick}>{boardView.userId}</span>
                             <span className={style.header_box}>게시일</span>
                             <span className={style.text_box}>{boardView.createdTime.slice(0,10)}</span>
                             <span className={style.header_box}>조회수</span>
@@ -92,13 +95,13 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
                     </div>
                     <div className={style.content} >
                         {
-                            boardView.content.split('\n').map((line) => {
-                            return(<span>{line}<br /></span>)})
+                            boardView.content.split('\n').map((line,index) => {
+                            return(<span key={index} >{line}<br /></span>)})
                         }
                         <div className={style.img_wrap}>
                             {
                                 boardView.urlList.map( (img,index)=>(
-                                    <img src = {img} onClick={() => onHandleImgClick(img)} className={style.img_box}/>))
+                                    <img src = {img} onClick={() => onHandleImgClick(img)} className={style.img_box}/>))      
                             }
                         </div>
                     </div>
