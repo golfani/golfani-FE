@@ -3,7 +3,7 @@ import style from './modal.module.css';
 export interface IModalProps {
     message : String
     setModalOpen : (state : boolean) => void
-    successCallback : () => void
+    successCallback? : () => void
 }
 
 const Modal = (props : IModalProps) => {
@@ -17,7 +17,7 @@ const Modal = (props : IModalProps) => {
     }
 
     const handleClickOkButton = () => {
-        props.successCallback();
+        props.successCallback ? props.successCallback() : onModalClose();
     }
 
     return (
