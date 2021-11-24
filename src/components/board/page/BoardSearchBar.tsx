@@ -2,7 +2,12 @@ import style from "./boardPage.module.css";
 import React, {useState} from "react";
 import {TSelectMenu} from "./BoardPage";
 import {useRouter} from "next/router";
-import {useQueryClient} from "react-query";
+
+
+interface ISearchResult {
+    date : number,
+    payload : string
+}
 
 const BoardSearchBar = () : JSX.Element => {
     const router = useRouter();
