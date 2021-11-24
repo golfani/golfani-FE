@@ -9,6 +9,7 @@ import {useCallback, useState} from "react";
 import {getFeedOne} from "src/apis/Feed";
 import FeedModal from "src/components/modals/FeedModal";
 import useFeedZIndex from "src/store/modules/feedZIndex/feedZIndexHook";
+import useCustomRouter from "src/hooks/routerHook";
 
 interface INoticeItemProps {
     alarm : IAlarm
@@ -21,7 +22,8 @@ const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
         enabled : alarm.feedId !== null
     });
     const [openFeedModal, setOpenFeedModal] = useState(false);
-    const {onSetBelow} = useFeedZIndex();
+    const {onSetBelow} = useFeedZIndex()
+    const {onConflictRoute} = useCustomRouter();
 
     const onSetAlarmRead = useCallback(async ()=> {
         try {
@@ -44,7 +46,7 @@ const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
             await queryClient.invalidateQueries(['feedLikes',alarm.feedId]);
         }
         if(alarm.postId) {
-
+            await onConflictRoute(`/board/view/${alarm.postId}`);
         }
     }
 
