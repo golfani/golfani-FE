@@ -62,6 +62,6 @@ export const searchBoard = async ( searchType : TSelectMenu, payload : string, p
 }
 
 export const onClickBoard = async (postId : string) => {
-    const response = await axios.get(`${API_URL}/onClick/${postId}`);
+    const response = await axios.get(`${API_URL}/onClick/${postId}`, {withCredentials: true});
     return response;
 }

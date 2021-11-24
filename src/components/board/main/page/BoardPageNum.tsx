@@ -12,37 +12,37 @@ const BoardPageNum = (totalPage : INumber) : JSX.Element => {
 
     const onNextPage = () => {
         if(payload === undefined){
-            Number(page) < totalPage.totalPage -1 ? window.location.href = `/board?type=${type}&page=${Number(page)+1}` : null
+            Number(page) < totalPage.totalPage -1 ?  router.push(`/board?type=${type}&page=${Number(page)+1}`) : null
         }
         else{
-            Number(page) < totalPage.totalPage -1 ? window.location.href = `/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${Number(page)+1}` : null
+            Number(page) < totalPage.totalPage -1 ? router.push(`/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${Number(page)+1}`) : null
         }
     }
 
     const onFirstPage = () => {
-        if(payload === undefined)  window.location.href = `/board?type=${type}&page=0`
-        else window.location.href = `/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=0`
+        if(payload === undefined)  router.push(`/board?type=${type}&page=0`);
+        else router.push(`/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=0`);
     }
 
     const onLastPage = () => {
-        if(payload === undefined) window.location.href = `/board?type=${type}&page=${totalPage.totalPage-1}`
-        else window.location.href = `/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${totalPage.totalPage-1}`
+        if(payload === undefined) router.push(`/board?type=${type}&page=${totalPage.totalPage-1}`);
+        else router.push(`/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${totalPage.totalPage-1}`);
     }
 
     const onPrevPage = () => {
-        if(payload === undefined) Number(page) > 0 ? window.location.href = `/board?type=${type}&page=${Number(page)-1}` : null;
-        else Number(page) > 0 ? window.location.href = `/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${Number(page)-1}` : null;
+        if(payload === undefined) Number(page) > 0 ? router.push(`/board?type=${type}&page=${Number(page)-1}`) : null;
+        else Number(page) > 0 ? router.push(`/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${Number(page)-1}`) : null;
     }
 
     const onPageClick = (pageNum : number) => {
        if(payload === undefined){
            if(typeof window !== undefined) {
-               window.location.href = `/board?type=${type}&page=${Number(pageNum)}`;
+               router.push(`/board?type=${type}&page=${Number(pageNum)}`);
            }
        }
        else{
            if(typeof window !== undefined) {
-               window.location.href = `/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${Number(pageNum)}`;
+               router.push(`/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${Number(pageNum)}`);
            }
        }
     }

@@ -1,8 +1,8 @@
 import style from "./boardPage.module.css";
 import React, {useState} from "react";
 import {TSelectMenu} from "./BoardPage";
-import {searchBoard} from "src/apis/Board";
 import {useRouter} from "next/router";
+import {useQueryClient} from "react-query";
 
 const BoardSearchBar = () : JSX.Element => {
     const router = useRouter();
@@ -18,11 +18,16 @@ const BoardSearchBar = () : JSX.Element => {
     const [selectMenu, setSelectMenu] = useState<TSelectMenu>('TITLE');
     const [payload, setPayload] = useState('');
 
+    const saveData = () => {
+        const payloadObject = {payload : payload};
+        window.localStorage.setItem("payload", JSON.stringify(payloadObject));
+    }
+
     const handlerContentClick = () => {
         selectBarClick();
     }
 
-    const onTextChange = (e :React.ChangeEvent<HTMLInputElement>) => {
+    const onTextChange = (e : React.ChangeEvent<HTMLInputElement>) => {
         setPayload(e.target.value);
     }
 
@@ -31,8 +36,7 @@ const BoardSearchBar = () : JSX.Element => {
     }
 
     const onSearchBtnClick = async () => {
-        const response = await searchBoard(selectMenu,payload);
-
+        saveData();
         router.push(`/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=0`);
     }
 
