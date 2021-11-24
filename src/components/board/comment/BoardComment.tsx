@@ -1,4 +1,4 @@
-import style from 'src/components/board/main/comment/boardComment.module.css';
+import style from 'src/components/board/comment/boardComment.module.css';
 import React from 'react';
 import BoardCommentItem from "./BoardCommentItem";
 import {IBoardProps} from "../view/BoardView";

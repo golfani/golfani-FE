@@ -1,7 +1,7 @@
-import style from 'src/components/board/main/item/boardListHead.module.css';
+import style from 'src/components/board/item/boardListHead.module.css';
 import {ITypeProps} from "../BoardMain";
 import {useEffect, useState} from "react";
-import {EType} from "../../../../domain/board";
+import {EType} from "../../../domain/board";
 
 const BoardListHead = ({boardType} : ITypeProps) => {
     const [type, setType] = useState('')

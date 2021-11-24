@@ -1,13 +1,13 @@
-import style from 'src/components/board/main/item/boardItem.module.css';
+import style from 'src/components/board/item/boardItem.module.css';
 import React, {useEffect} from 'react';
-import BoardItem from 'src/components/board/main/item/BoardItem';
-import {getBoard, IBoardData} from "../../../../apis/Board";
+import BoardItem from 'src/components/board/item/BoardItem';
+import {getBoard, IBoardData} from "../../../apis/Board";
 import {ITypeProps} from "../BoardMain";
 import {useQuery} from "react-query";
-import {IPages} from "../../../../domain/Page";
+import {IPages} from "../../../domain/Page";
 import {useRouter} from "next/router";
-import {EType} from "../../../../domain/board";
-import BoardPageNum from "src/components/board/main/page/BoardPageNum";
+import {EType} from "../../../domain/board";
+import BoardPageNum from "src/components/board/page/BoardPageNum";
 
 const BoardList = (boardType : ITypeProps) : JSX.Element => {
     const router = useRouter();

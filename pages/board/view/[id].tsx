@@ -1,5 +1,5 @@
 import {useRouter} from "next/router";
-import BoardView from "src/components/board/main/view/BoardView";
+import BoardView from "src/components/board/view/BoardView";
 import {getBoardView, onClickBoard} from "src/apis/Board";
 import {useQuery, useQueryClient} from "react-query";
 import Navbar from "src/components/common/navbar/Navbar";

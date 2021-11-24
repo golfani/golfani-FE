@@ -1,7 +1,7 @@
-import style from 'src/components/board/main/view/boardView.module.css';
+import style from 'src/components/board/view/boardView.module.css';
 import React, {useEffect, useState} from 'react';
 import Link from "next/link";
-import BoardComment from "src/components/board/main/comment/BoardComment";
+import BoardComment from "src/components/board/comment/BoardComment";
 import {getCookie} from "src/utils/cookieUtil";
 import {deleteBoard, IBoardData} from "src/apis/Board";
 import {useRouter} from "next/router";

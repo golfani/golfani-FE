@@ -1,10 +1,10 @@
-import {ISearchProps} from "../../../../../pages/board/searchResult";
-import style from 'src/components/board/main/page/boardSearch.module.css'
+import {ISearchProps} from "../../../../pages/board/searchResult";
+import style from 'src/components/board/page/boardSearch.module.css'
 import {useQuery, useQueryClient} from "react-query";
-import {IPages} from"src/domain/Page";
+import {IPages} from "src/domain/Page";
 import {IBoardData, searchBoard} from "src/apis/Board";
 import {TSelectMenu} from "./BoardPage";
-import BoardItem from "src/components/board/main/item/BoardItem";
+import BoardItem from "src/components/board/item/BoardItem";
 import React, {useEffect} from "react";
 import BoardPageNum from "./BoardPageNum";
 import {useRouter} from "next/router";

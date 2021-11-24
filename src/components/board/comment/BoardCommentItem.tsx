@@ -1,4 +1,4 @@
-import style from 'src/components/board/main/comment/boardCommentItem.module.css';
+import style from 'src/components/board/comment/boardCommentItem.module.css';
 import React, {useState} from "react";
 import UserName from "src/components/common/UserName";
 import {IReplyProps} from "src/domain/Reply";

@@ -1,10 +1,10 @@
-import style from 'src/components/board/main/item/boardItem.module.css';
+import style from 'src/components/board/item/boardItem.module.css';
 import React from 'react';
 import {IBoardData} from "src/apis/Board";
 import {useRouter} from "next/router";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import {dateDiff} from "../../../../utils/dateUtil";
-import UserName from "../../../common/UserName";
+import {dateDiff} from "../../../utils/dateUtil";
+import UserName from "../../common/UserName";
 
 interface IBoardProps{
     board : IBoardData;

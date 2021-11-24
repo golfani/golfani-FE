@@ -1,10 +1,10 @@
 import Navbar from "src/components/common/navbar/Navbar";
 import {useRouter} from "next/router";
 import React from "react";
-import {TSelectMenu} from "src/components/board/main/page/BoardPage";
-import BoardSearchType from "src/components/board/main/page/BoardSearchType";
-import BoardSearch from "src/components/board/main/page/BoardSearch";
-import BoardSearchBar from "src/components/board/main/page/BoardSearchBar";
+import {TSelectMenu} from "src/components/board/page/BoardPage";
+import BoardSearchType from "src/components/board/page/BoardSearchType";
+import BoardSearch from "src/components/board/page/BoardSearch";
+import BoardSearchBar from "src/components/board/page/BoardSearchBar";
 
 export interface ISearchProps{
     selectMenu : TSelectMenu,

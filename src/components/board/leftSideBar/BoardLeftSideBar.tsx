@@ -1,6 +1,6 @@
-import style from 'src/components/board/main/leftSideBar/boardLeftSideBar.module.css';
+import style from 'src/components/board/leftSideBar/boardLeftSideBar.module.css';
 import {useEffect, useState} from 'react';
-import {EType} from "../../../../domain/board";
+import {EType} from "../../../domain/board";
 import {useRouter} from "next/router";
 import HomeIcon from '@material-ui/icons/Home';
 import AppsIcon from '@material-ui/icons/Apps';

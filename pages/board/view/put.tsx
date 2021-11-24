@@ -1,5 +1,5 @@
-import BoardNavbar from 'src/components/board/main/BoardNavBar';
-import BoardPut from "../../../src/components/board/main/BoardPut";
+import BoardNavbar from 'src/components/board/BoardNavBar';
+import BoardPut from "../../../src/components/board/BoardPut";
 import {useRouter} from "next/router";
 import Navbar from "../../../src/components/common/navbar/Navbar";
 

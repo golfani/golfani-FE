@@ -1,11 +1,11 @@
-import style from 'src/components/board/main/boardWrite.module.css';
+import style from 'src/components/board/boardWrite.module.css';
 import React, {useState} from 'react';
 import {IBoardData, putBoard} from 'src/apis/Board';
-import {getCookie} from "../../../utils/cookieUtil";
+import {getCookie} from "../../utils/cookieUtil";
 import {useRouter} from "next/router";
-import Modal from "../../modals/Modal";
+import Modal from "../modals/Modal";
 import {IBoardProps} from "./view/BoardView";
-import {EType} from "../../../domain/board";
+import {EType} from "../../domain/board";
 
 const BoardPut = (boardData:IBoardProps): JSX.Element => {
 

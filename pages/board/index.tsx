@@ -1,6 +1,6 @@
 import Navbar from "../../src/components/common/navbar/Navbar";
-import BoardMain from 'src/components/board/main/BoardMain';
-import BoardLeftSideBar from 'src/components/board/main/leftSideBar/BoardLeftSideBar';
+import BoardMain from 'src/components/board/BoardMain';
+import BoardLeftSideBar from 'src/components/board/leftSideBar/BoardLeftSideBar';
 import {useEffect, useState} from "react";
 import {EType} from "src/domain/board";
 import {useRouter} from "next/router";

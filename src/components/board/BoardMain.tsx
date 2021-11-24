@@ -1,7 +1,7 @@
-import style from 'src/components/board/main/boardMain.module.css'
-import BoardList from 'src/components/board/main/item/BoardList';
-import BoardPage from 'src/components/board/main/page/BoardPage';
-import {EType} from "../../../domain/board";
+import style from 'src/components/board/boardMain.module.css'
+import BoardList from 'src/components/board/item/BoardList';
+import BoardPage from 'src/components/board/page/BoardPage';
+import {EType} from "../../domain/board";
 import BoardListHead from "./item/BoardListHead";
 import {useEffect, useState} from "react";
 
