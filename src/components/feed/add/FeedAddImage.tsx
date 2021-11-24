@@ -97,7 +97,7 @@ const FeedAddImage = () : JSX.Element => {
                 <div className={style.no_img_add_box}>
                     <label htmlFor='no_img_input' className={style.no_img_icon}/>
                     <input id='no_img_input' type='file' accept='image/jpeg' className={style.hidden} onChange={onChangeImage} multiple={true}/>
-                    <span className={style.no_img_txt}>파일 업로드</span>
+                    <label htmlFor='no_img_input' className={style.no_img_txt}>파일 업로드</label>
                 </div>
             }
         </div>

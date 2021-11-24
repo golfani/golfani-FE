@@ -31,3 +31,13 @@
     flex: 1;
     border: none;
 }
+
+@media screen and (max-width: 768px){
+    .user_img {
+        width: 45px;
+        height: 45px;
+    }
+    .user_txt {
+        font-size: 18px;
+    }
+}
