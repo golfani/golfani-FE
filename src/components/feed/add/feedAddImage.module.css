@@ -19,6 +19,7 @@
     background-image: url('public/image_ico.png');
     background-repeat: no-repeat;
     background-size: cover;
+    opacity: 0.3;
 }
 
 .hidden {
@@ -28,8 +29,11 @@
 .no_img_txt {
     display: inline-block;
     opacity: 0.4;
+    width: 100%;
+    text-align: center;
     font-size: 22px;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .on_img_add_box {

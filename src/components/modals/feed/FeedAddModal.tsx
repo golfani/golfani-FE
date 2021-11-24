@@ -9,6 +9,7 @@ import {registerFeed} from "src/apis/Feed";
 import {useQueryClient} from "react-query";
 import useFeedZIndex from "src/store/modules/feedZIndex/feedZIndexHook";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
+import {bodyScrollActionForModal} from "src/utils/scrollUtil";
 
 const FEED_ADD_STATUS = {
     IMAGE : '사진 업로드',
@@ -29,6 +30,7 @@ const FeedAddModal = ({setModalOpen} : IFeedAddModalProps) : JSX.Element => {
     const queryClient = useQueryClient();
     const feedZIndex = useFeedZIndex();
     const modalRef = useRef<HTMLDivElement>(null);
+    const [isMobileClose, setIsMobileClose] = useState(false);
 
     const handleClickPrevButton = () => {
         switch (step) {
@@ -74,11 +76,25 @@ const FeedAddModal = ({setModalOpen} : IFeedAddModalProps) : JSX.Element => {
     }
 
     const onCancelFeedAdd = () => {
-        setMessageModalOpen(true);
+        if(typeof window !== 'undefined') {
+            if(window.innerWidth < 768) {
+                onMobileClose();
+            }
+            else {
+                setMessageModalOpen(true);
+            }
+        }
     }
 
     const modalSuccessCallback = () => {
         onCloseModal();
+    }
+
+    const onMobileClose = () => {
+        setIsMobileClose(true);
+        setTimeout(()=> {
+            onCloseModal();
+        }, 300)
     }
 
     useEffect(()=> {
@@ -87,9 +103,10 @@ const FeedAddModal = ({setModalOpen} : IFeedAddModalProps) : JSX.Element => {
     },[])
 
     handleClickRefOutSide(modalRef,onCancelFeedAdd);
+    bodyScrollActionForModal();
 
     return (
-        <div className={style.container}>
+        <div className={isMobileClose ? style.container_close :style.container}>
             <div className={style.modal_box} ref={modalRef}>
                 <div className={style.title_box}>
                     <button className={style.title_prev_btn} onClick={handleClickPrevButton}>{step === FEED_ADD_STATUS.IMAGE ? '취소' : '이전'}</button>

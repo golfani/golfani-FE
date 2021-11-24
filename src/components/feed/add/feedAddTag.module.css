@@ -1,12 +1,12 @@
 .tag_box {
     width: 100%;
-    height: 100px;
+    height: 150px;
     border-bottom: 1px solid #eff0f2;
     position: relative;
 }
 
 .tag_input_container {
-    height: 100px;
+    height: 150px;
     overflow-y: auto;
     padding: 0 15px;
 }
@@ -75,9 +75,9 @@
 
 .tag_search_container {
     position: absolute;
-    top: 100px;
+    top: 150px;
     width: 100%;
-    height: 505px;
+    height: 455px;
     overflow: auto;
     background-color: #efefdf;
     border-bottom-right-radius: 8px;
@@ -112,4 +112,11 @@
     color: #8729ff;
     font-size: 13px;
     font-weight: 500;
+}
+
+@media screen and (max-width: 768px){
+    .tag_search_container {
+        height: calc(100vmax - 145px);
+        border-radius: 0;
+    }
 }
