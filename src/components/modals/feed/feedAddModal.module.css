@@ -8,6 +8,18 @@
     background-color: rgba(0,0,0, 0.5);
 }
 
+.container_close {
+    width: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    top: 0; right: 0; left: 0; bottom: 0;
+    animation: slideOut 0.3s;
+    animation-fill-mode: forwards;
+}
+
 .modal_box {
     display: flex;
     flex-direction: column;
@@ -48,4 +60,35 @@
 
 .content_box {
     flex: 1;
+}
+
+@keyframes slideIn {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 0;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        left: 0;
+    }
+    to {
+        left: 100%;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .container {
+        width: 100%;
+        animation: slideIn 0.3s;
+        animation-fill-mode: forwards;
+    }
+    .modal_box {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
 }
