@@ -7,7 +7,6 @@ import {useRouter} from "next/router";
 
 
 const Board = () : JSX.Element => {
-
     const router = useRouter();
     const {type,page} = router.query;
 
