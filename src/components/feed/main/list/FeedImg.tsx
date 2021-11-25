@@ -79,7 +79,7 @@ const FeedImg = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
                     if(index % 3 === 0) {
                         return (
                             <div key={index}>
-                                <img className={style.img} src={image}/>
+                                <img id='feed_img' className={style.img} src={image}/>
                             </div>
                         )
                     }
