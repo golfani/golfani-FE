@@ -68,7 +68,14 @@ const CardList = () : JSX.Element => {
     return (
         <div className={style.container}>
             {type === 'HOT' && <span className={style.titleView_txt}>인기 피드게시물</span>}
-            {type === 'SEARCH' && <span className={style.titleView_txt}>{`#${search} 검색결과`}</span>}
+            {type === 'SEARCH' &&
+                <span className={style.titleView_txt}>
+                    {searchFeedQuery.data?.pages[0].totalElements
+                        ? `#${search} ${searchFeedQuery.data?.pages[0].totalElements}개 피드`
+                        : `#${search} 태그를 가진 게시물이 존재하지 않습니다`
+                    }
+                </span>
+            }
             <div className={style.card_container}>
                 <div className={style.card_box}>
                     {
@@ -92,12 +99,12 @@ const CardList = () : JSX.Element => {
                                 ? page.content.map((feed) => (
                                     <CardItem key={feed.id} feed={feed}/>
                                 ))
-                                : <span key={0} className={style.notFound_txt}>{`#${search} 태그를 가진 게시물이 존재하지 않습니다`}</span>
+                                : null
                         ))
                     }
                 </div>
             </div>
-            <div ref={scrollRef} className={style.scroll_ref}></div>
+            <div ref={scrollRef} className={style.scroll_ref}> </div>
         </div>
     );
 };
