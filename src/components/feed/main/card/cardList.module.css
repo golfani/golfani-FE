@@ -1,6 +1,6 @@
 .container {
     position: relative;
-    max-width: 610px;
+    width: 610px;
     height: auto;
 }
 
@@ -49,6 +49,11 @@
 @media screen and (max-width: 768px){
     .card_box {
         justify-content: space-between;
+    }
+    .titleView_txt {
+        box-shadow: none;
+        margin: 0;
+        border-bottom: 1px solid #eff0f2;
     }
 }
 
