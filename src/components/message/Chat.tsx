@@ -10,6 +10,7 @@ import ChatItem from "./ChatItem";
 import ArrowBackIosNewIcon from '@material-ui/icons/ArrowBackIosNew';
 import UserProfileImage from "src/components/common/UserProfileImage";
 import UserName from "src/components/common/UserName";
+import {handleModalSwipeEvent} from "../../utils/clickUtil";
 
 interface IChatProps {
     closeModal? : () => void;
@@ -34,6 +35,8 @@ const Chat = ({closeModal} : IChatProps) : JSX.Element => {
     const [isSendBySelf, setIsSendBySelf] = useState(false);
     const chatTopScrollRef = useRef<HTMLDivElement>(null);
     const observer = useRef<IntersectionObserver>();
+    const [isMobileClose, setIsMobileClose] = useState(false);
+    const [slideDiff, setSlideDiff] = useState<number>();
 
     const chatScrollDown = () => {
         chatScrollRef.current?.scrollIntoView({ block: 'end', inline: 'nearest'});
@@ -48,7 +51,10 @@ const Chat = ({closeModal} : IChatProps) : JSX.Element => {
     }
 
     const handleClickBackIcon = () => {
-        closeModal && closeModal();
+        setIsMobileClose(true);
+        setTimeout(()=> {
+            closeModal && closeModal();
+        },300)
     }
 
     useEffect(()=> {
@@ -65,8 +71,10 @@ const Chat = ({closeModal} : IChatProps) : JSX.Element => {
         chatRoomInvalidate();
     },[chatMessageQuery.data]);
 
+    handleModalSwipeEvent(handleClickBackIcon,setSlideDiff);
+
     return (
-        <div className={style.container}>
+        <div className={isMobileClose ? style.container_close :style.container} style={{left : slideDiff}}>
             {chatRoom.activeChatRoom ?
                 <div className={style.flex_box}>
                     <div className={style.chat_title_box}>
