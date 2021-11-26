@@ -81,3 +81,9 @@
     color: white;
     background-color: #8729ff;
 }
+
+@media screen and (max-width: 768px){
+    .container:hover {
+        background-color: #fff;
+    }
+}
