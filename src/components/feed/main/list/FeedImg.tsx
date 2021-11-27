@@ -9,7 +9,7 @@ import FeedLikeToastModal from "src/components/modals/FeedLikeToastModal";
 import {sendAlarmBySocket} from "src/apis/Alarm";
 import {IFeedItemProps} from "./FeedItem";
 
-const CustomNextArrow = ({className, style, onClick} : any) : JSX.Element=> {
+export const CustomNextArrow = ({className, style, onClick} : any) : JSX.Element=> {
     return (
         <div
             className={className}
@@ -19,7 +19,7 @@ const CustomNextArrow = ({className, style, onClick} : any) : JSX.Element=> {
     )
 }
 
-const CustomPrevArrow = ({className, style, onClick} : any) : JSX.Element=> {
+export const CustomPrevArrow = ({className, style, onClick} : any) : JSX.Element=> {
     return (
         <div
             className={className}
@@ -79,7 +79,7 @@ const FeedImg = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
                     if(index % 3 === 0) {
                         return (
                             <div key={index}>
-                                <img className={style.img} src={image}/>
+                                <img id='feed_img' className={style.img} src={image}/>
                             </div>
                         )
                     }

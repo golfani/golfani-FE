@@ -3,7 +3,6 @@ import BoardList from 'src/components/board/item/BoardList';
 import BoardPage from 'src/components/board/page/BoardPage';
 import {EType} from "../../domain/board";
 import BoardListHead from "./item/BoardListHead";
-import {useEffect, useState} from "react";
 
 export interface ITypeProps{
     boardType : EType | null

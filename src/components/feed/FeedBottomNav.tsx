@@ -12,11 +12,11 @@ const FeedBottomNav = () : JSX.Element => {
     const {type,onChangeListView,onChangeCardView,onChangeMobileSearchView} = useFeedType();
 
     const handleClickListView = () => {
-        onChangeListView();
+        type === 'LIST' ? window.scrollTo({top : 0, behavior : 'smooth'}) : onChangeListView();
     }
 
     const handleClickCardView = () => {
-        onChangeCardView();
+        type === 'CARD' ? window.scrollTo({top : 0, behavior : 'smooth'}) : onChangeCardView();
     }
 
     const handleClickSearch = () => {

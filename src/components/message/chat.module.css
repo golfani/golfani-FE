@@ -50,6 +50,7 @@
 
 @media screen and (max-width: 768px){
     .container {
+        position: fixed;
         width: 100%;
         border: 0;
     }

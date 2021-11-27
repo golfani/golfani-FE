@@ -82,28 +82,30 @@ const FeedAddTag = () : JSX.Element=> {
 
     return (
         <div className={style.tag_box}>
-            {feedAddState.tagList.map((item,index) =>
-                <span
-                    key={item}
-                    className={style.tag_item}
-                    onClick={()=>handleClickTag(index)}>
-                    {item}
-                </span>
-            )}
-            <form className={tagBoxClassName} onSubmit={handleSubmit}>
-                <span>#</span>
-                <input onChange={handleChange}
-                       onFocus={onFocus}
-                       value={value}
-                       size={size}
-                       onBlur={onBlur}
-                       onKeyDown={handleKeyDown}
-                       className={tagClassName}
-                       placeholder="태그를 입력해 주세요"
-                />
-                <button className={style.hidden}></button>
-            </form>
-            {search.searchTag ? search.searchTag.length > 0
+            <div className={style.tag_input_container}>
+                {feedAddState.tagList.map((item,index) =>
+                    <span
+                        key={item}
+                        className={style.tag_item}
+                        onClick={()=>handleClickTag(index)}>
+                        {item}
+                    </span>
+                )}
+                <form className={tagBoxClassName} onSubmit={handleSubmit}>
+                    <span className={style.hashtag_txt}>#</span>
+                    <input onChange={handleChange}
+                           onFocus={onFocus}
+                           value={value}
+                           size={size}
+                           onBlur={onBlur}
+                           onKeyDown={handleKeyDown}
+                           className={tagClassName}
+                           placeholder="태그를 입력해 주세요..."
+                    />
+                    <button className={style.hidden}></button>
+                </form>
+            </div>
+            {tagClassName === style.tag_input_active
                 ?   <div className={style.tag_search_container}>
                         {search.searchTag?.map((tag) => (
                             <div className={style.tag_search_box} key={tag.id}>
@@ -114,8 +116,7 @@ const FeedAddTag = () : JSX.Element=> {
                             </div>
                         ))}
                     </div>
-                : <></>
-                : <></>
+                : null
             }
         </div>
     );

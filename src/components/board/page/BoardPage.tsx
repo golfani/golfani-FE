@@ -13,8 +13,8 @@ const BoardPage = (boardType : ITypeProps) : JSX.Element => {
             <div className={style.button_wrap}>
                 <Link href={{
                     pathname: '/board/write',
-                    query : {boardType : boardType.boardType}
-                }} as ={'board/write'}>
+                    query: {boardType: boardType.boardType}
+                }} as={'board/write'}>
                     <button className={style.write_button}>
                         <p>글쓰기</p>
                     </button>

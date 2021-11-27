@@ -12,6 +12,22 @@
     overflow: auto;
 }
 
+.modal_close {
+    width: 100%;
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    overflow: auto;
+    animation: slideOut 0.1s;
+    animation-fill-mode: forwards;
+}
+
 .feedModal_box {
     position: relative;
     background-color: #fff;
@@ -45,6 +61,24 @@
     transform: translateX(-50%);
 }
 
+@keyframes slideIn {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 0;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        left: 0;
+    }
+    to {
+        left: 100%;
+    }
+}
+
 @media screen and (max-width: 1080px){
     .modal {
         align-items: start;
@@ -58,6 +92,14 @@
     .header {
         display: flex;
         max-width: 600px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .modal {
+        width: 100%;
+        animation: slideIn 0.3s;
+        animation-fill-mode: none;
     }
 }
 
