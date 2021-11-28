@@ -10,10 +10,10 @@ const ViewPage = () : JSX.Element => {
     const {id} = router.query;
     const queryClient = useQueryClient();
 
-    const checkFun = async () => {
+    const onLoadView = async () => {
         try {
             const response = await onClickBoard(id as string);
-            await queryClient.invalidateQueries(['board', id]);
+            //await queryClient.invalidateQueries(['board', id]);
         }
         catch (e) {
 
@@ -21,7 +21,7 @@ const ViewPage = () : JSX.Element => {
     }
 
     useEffect(() => {
-        checkFun();
+        onLoadView();
     }, [])
 
     const boardQuery = useQuery(['board', id], () => getBoardView(id as string), {

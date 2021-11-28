@@ -1,6 +1,6 @@
 import {boardDTO} from "../components/board/BoardWrite";
 import {securityAxios} from "../security/axios";
-import {EType} from "../domain/board";
+import {EBoardType} from "../domain/board";
 import axios from "axios";
 import {TSelectMenu} from "../components/board/page/BoardPage";
 
@@ -10,7 +10,7 @@ export interface IBoardData{
     boardId : number,
     title : string,
     content : string,
-    boardType: EType,
+    boardType: EBoardType,
     createdTime : string,
     modifiedTime : string,
     viewCount : number,
@@ -35,7 +35,7 @@ export const registerBoard = async (boardDto : boardDTO, imgList : File[] ) => {
     return response;
 }
 
-export const getBoard = async (boardType : EType = EType.FREE, page : number = 0, size : number = 10) => {
+export const getBoard = async (boardType : EBoardType = EBoardType.FREE, page : number = 0, size : number = 10) => {
     const response = await axios.get(`${API_URL}/list?boardType=${boardType}&page=${page}&size=${size}`);
     return response.data;
 }

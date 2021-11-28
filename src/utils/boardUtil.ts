@@ -1,14 +1,14 @@
-import {EType} from "src/domain/board";
+import {EBoardType} from "src/domain/board";
 
-export const boardTypeToString = (type : EType) => {
+export const boardTypeToString = (type : EBoardType) => {
     switch (type) {
-        case EType.ANONYMOUS:
+        case EBoardType.ANONYMOUS:
             return '익명';
-        case EType.FREE:
+        case EBoardType.FREE:
             return '자유'
-        case EType.TIP:
+        case EBoardType.TIP:
             return '팁'
-        case EType.TRADE:
+        case EBoardType.TRADE:
             return '거래'
     }
 }

@@ -137,8 +137,8 @@
 }
 
 .select_button:hover{
-    background-color: #3CD95E;
-
+    background-color: #ddd;
+    text-decoration: underline;
 }
 
 .arrow_icon{
@@ -150,4 +150,11 @@
     width: 10px;
     height: 10px;
     transform: rotate(180deg);
+}
+
+.delete_searchList{
+    font-size: 10px;
+    opacity: 0.3;
+    text-align: right;
+    cursor : pointer;
 }

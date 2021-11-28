@@ -9,6 +9,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getAllPostLikes, getPostLikes, registerLikes} from "src/apis/Likes";
+import {EBoardType} from "../../../domain/board";
 
 export interface IBoardProps{
     boardView : IBoardData
@@ -76,18 +77,13 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
                 <div className={style.board_view} id= "view">
                     <div className={style.title}>
                         {boardView.title}
-                        <div className={style.like_wrap}>
-                            {likeQuery.data?.likes ? <FavoriteIcon onClick={onLikeClick} style={{fontSize : '1.0rem'}}/> : <FavoriteBorderIcon onClick={onLikeClick} style={{fontSize : '1.0rem'}}/>}
-                            {totalLikesQuery.data}
-                        </div>
                     </div>
-
                     <div className={style.info}>
                         <div className={style.info_wrap}>
                             <span className={style.header_box}>No</span>
                             <span className={style.text_box}>{boardView.id}</span>
                             <span className={style.header_box}>글쓴이</span>
-                            <span className={style.text_box_user} onClick={onUserIdClick}>{boardView.userId}</span>
+                            {boardView.boardType !== EBoardType.ANONYMOUS ? <span className={style.text_box_user} onClick={onUserIdClick}>{boardView.userId}</span> : <span className={style.text_box_user}>Anonymous</span>}
                             <span className={style.header_box}>게시일</span>
                             <span className={style.text_box}>{boardView.createdTime.slice(0,10)}</span>
                             <span className={style.header_box}>조회수</span>
@@ -104,6 +100,10 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
                                 boardView.urlList.map( (img,index)=>(
                                     <img src = {img} onClick={() => onHandleImgClick(img)} className={style.img_box}/>))      
                             }
+                        </div>
+                        <div className={style.like_wrap}>
+                            {likeQuery.data?.likes ? <FavoriteIcon onClick={onLikeClick} style={{fontSize : '1.5rem'}}/> : <FavoriteBorderIcon onClick={onLikeClick} style={{fontSize : '1.5rem'}}/>}
+                            <span className={style.like_count}>{totalLikesQuery.data}</span>
                         </div>
                     </div>
                     <BoardComment boardView={boardView}/>

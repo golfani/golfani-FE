@@ -1,20 +1,20 @@
 import style from 'src/components/board/item/boardListHead.module.css';
 import {ITypeProps} from "../BoardMain";
 import {useEffect, useState} from "react";
-import {EType} from "../../../domain/board";
+import {EBoardType} from "../../../domain/board";
 
 const BoardListHead = ({boardType} : ITypeProps) => {
     const [type, setType] = useState('')
 
     useEffect(()=>{
-        if(boardType === EType.FREE)
+        if(boardType === EBoardType.FREE)
         {
             setType('자유게시판')
         }
-        else if(boardType === EType.TIP) {
+        else if(boardType === EBoardType.TIP) {
             setType('TIP 게시판')
         }
-        else if(boardType === EType.TRADE){
+        else if(boardType === EBoardType.TRADE){
             setType('거래게시판')
         }
         else{

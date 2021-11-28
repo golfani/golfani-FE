@@ -4,11 +4,11 @@ import {registerBoard} from 'src/apis/Board';
 import {getCookie} from "src/utils/cookieUtil";
 import {useRouter} from "next/router";
 import Modal from "src/components/modals/Modal"
-import {EType} from "src//domain/board";
+import {EBoardType} from "src//domain/board";
 
 export interface boardDTO {
     userId : string,
-    boardType: EType,
+    boardType: EBoardType,
     content : string,
     title : string
 }
@@ -27,7 +27,7 @@ const BoardWrite = (): JSX.Element => {
 
     const [inputs , setInputs] = useState<boardDTO>({
         userId : getUserId,
-        boardType: boardType as EType,
+        boardType: boardType as EBoardType,
         content : '',
         title : ''
     })
@@ -56,7 +56,7 @@ const BoardWrite = (): JSX.Element => {
         setImgList(fileArr);
     }
 
-    const typeChecked = (type : EType) => {
+    const typeChecked = (type : EBoardType) => {
         if(type === boardType) return true;
     }
 
@@ -86,10 +86,10 @@ const BoardWrite = (): JSX.Element => {
                         <textarea className={style.titleTextArea} placeholder="제목을 입력해 주세요." name = "title" value={title} onChange={onChange}> </textarea>
                     </div>
                     <div className={style.menu_wrap}>
-                        <input type="radio" id={EType.FREE} value="FREE" name="boardType"  checked={typeChecked(EType.FREE)} onChange={onChange}/>자유게시판
-                        <input type="radio" id={EType.TRADE} value ="TRADE" name="boardType" checked={typeChecked(EType.TRADE)} onChange={onChange}/>거래게시판
-                        <input type="radio" id={EType.TIP} value="TIP" name="boardType" checked={typeChecked(EType.TIP)} onChange={onChange}/>TIP게시판
-                        <input type="radio" id={EType.ANONYMOUS} value="ANONYMOUS" name="boardType" checked={typeChecked(EType.ANONYMOUS)} onChange={onChange}/>익명게시판
+                        <input type="radio" id={EBoardType.FREE} value="FREE" name="boardType"  checked={typeChecked(EBoardType.FREE)} onChange={onChange}/>자유게시판
+                        <input type="radio" id={EBoardType.TRADE} value ="TRADE" name="boardType" checked={typeChecked(EBoardType.TRADE)} onChange={onChange}/>거래게시판
+                        <input type="radio" id={EBoardType.TIP} value="TIP" name="boardType" checked={typeChecked(EBoardType.TIP)} onChange={onChange}/>TIP게시판
+                        <input type="radio" id={EBoardType.ANONYMOUS} value="ANONYMOUS" name="boardType" checked={typeChecked(EBoardType.ANONYMOUS)} onChange={onChange}/>익명게시판
                     </div>
                     <div className={style.info}>
                         <span className={style.writer}>글쓴이</span>

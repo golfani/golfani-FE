@@ -6,14 +6,14 @@ import {ITypeProps} from "../BoardMain";
 import {useQuery} from "react-query";
 import {IPages} from "../../../domain/Page";
 import {useRouter} from "next/router";
-import {EType} from "../../../domain/board";
+import {EBoardType} from "../../../domain/board";
 import BoardPageNum from "src/components/board/page/BoardPageNum";
 
 const BoardList = (boardType : ITypeProps) : JSX.Element => {
     const router = useRouter();
     const {page} = router.query;
 
-    const boardQuery = useQuery<IPages<IBoardData>>(['board', [boardType.boardType,Number(page)]], () => getBoard(boardType.boardType as EType, Number(page), 10), {
+    const boardQuery = useQuery<IPages<IBoardData>>(['board', [boardType.boardType,Number(page)]], () => getBoard(boardType.boardType as EBoardType, Number(page), 10), {
         enabled: boardType.boardType !== undefined
     });
 
@@ -28,7 +28,7 @@ const BoardList = (boardType : ITypeProps) : JSX.Element => {
                         <div className={style.num}>No.</div>
                         <div className={style.board_title}>글제목</div>
                         <div className={style.board_id}>글쓴이</div>
-                        <div className={style.board_date}>작성일</div>
+                        <div className={style.board_date_head}>작성일</div>
                         <div className={style.recommend}>추천</div>
                     </div>
                     {boardQuery.data &&

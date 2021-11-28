@@ -96,10 +96,10 @@ const BoardSearchBar = () : JSX.Element => {
             </div>
             <div ref={searchId}>
                 <input type="text" className={style.search_id} title={style.search_id} placeholder="검색어 입력" value = {payload} onClick={onSearchIdClick} onChange={onTextChange}></input>
+                {onSearchId && <div className={style.delete_searchList} onClick={onClear}>전체삭제</div>}
                 {onSearchId && <BoardSearchHistory searchResult={searchList} setSearchList={setSearchList} setPayload={setPayload}/>}
             </div>
             <button type="submit" className={style.search_btn} onClick={onSearchBtnClick}>검색</button>
-            <button type="submit" className={style.search_btn} onClick={onClear}>삭제</button>
         </div>
     )
 }

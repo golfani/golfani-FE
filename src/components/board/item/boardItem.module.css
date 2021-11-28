@@ -34,6 +34,7 @@
     width:10%;
     font-size:0.8rem;
     font-weight: bold;
+    margin-left:20px;
 }
 
 .board_title{
@@ -49,15 +50,23 @@
     font-size:0.8rem;
 }
 
+.board_date_head{
+    width:10%;
+    font-size: 0.8em;
+    opacity: 1;
+    margin-left: 10px
+}
+
 .board_date{
     width:10%;
     font-size: 0.8em;
     opacity: 0.3;
+    margin-left:10px;
 }
 
 .recommend{
     line-height: 40px;
-    margin-left:20px;
+    margin-left: 40px;
     font-size : 0.8rem;
 }
 

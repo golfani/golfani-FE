@@ -4,7 +4,7 @@ import {IBoardData, putBoard} from 'src/apis/Board';
 import {useRouter} from "next/router";
 import Modal from "../modals/Modal";
 import {IBoardProps} from "./view/BoardView";
-import {EType} from "../../domain/board";
+import {EBoardType} from "../../domain/board";
 
 const BoardPut = (boardData:IBoardProps): JSX.Element => {
     const router = useRouter();
@@ -68,7 +68,7 @@ const BoardPut = (boardData:IBoardProps): JSX.Element => {
                         <textarea className={style.titleTextArea} placeholder="제목을 입력해 주세요." name = "title" value={title} onChange={onChange}> </textarea>
                     </div>
                     <div className={style.menu_wrap}>
-                        <span className={style.board_type}>{boardType === EType.FREE ? '자유게시판 ' : boardType === EType.TIP ? 'TIP게시판' : boardType === EType.ANONYMOUS ? '익몃게시판' : '거래게시판' }</span>
+                        <span className={style.board_type}>{boardType === EBoardType.FREE ? '자유게시판 ' : boardType === EBoardType.TIP ? 'TIP게시판' : boardType === EBoardType.ANONYMOUS ? '익몃게시판' : '거래게시판' }</span>
                     </div>
                     <div className={style.info}>
                         <span className={style.writer}>글쓴이</span>
