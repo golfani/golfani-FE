@@ -7,9 +7,9 @@
 .reply_container{
     position: relative;
     margin-top : 5px;
-    width: 80%;
+    width: 95%;
     background-color: beige;
-    margin-left:20%;
+    margin-left:5%;
     padding: 10px;
     border-radius: 10px;
 }

@@ -1,12 +1,12 @@
 import style from 'src/components/board/leftSideBar/boardLeftSideBar.module.css';
 import {useEffect, useState} from 'react';
-import {EType} from "../../../domain/board";
+import {EBoardType} from "../../../domain/board";
 import {useRouter} from "next/router";
 import HomeIcon from '@material-ui/icons/Home';
 import AppsIcon from '@material-ui/icons/Apps';
 
 interface IBoardTypeProps {
-    onSetBoardType : (type:EType) => void
+    onSetBoardType : (type:EBoardType) => void
 }
 
 const BoardLeftSideBar
@@ -15,19 +15,19 @@ const BoardLeftSideBar
     const router = useRouter();
     const {type} = router.query;
     const [getList, setGetList] = useState(false);
-    const [selectMenu, setMenu] = useState<EType>(type as EType);
+    const [selectMenu, setMenu] = useState<EBoardType>(type as EBoardType);
 
     useEffect(()=>{
         if(type === undefined) {
-            props.onSetBoardType(EType.FREE);
-            setMenu(EType.FREE);
+            props.onSetBoardType(EBoardType.FREE);
+            setMenu(EBoardType.FREE);
         }
     },[])
 
     useEffect(()=>{
         if(type !== undefined){
-            props.onSetBoardType(type as EType);
-            setMenu(type as EType);
+            props.onSetBoardType(type as EBoardType);
+            setMenu(type as EBoardType);
         }
     },[type])
 
@@ -35,7 +35,7 @@ const BoardLeftSideBar
         setGetList(!getList);
     }
 
-    const menuClicked = (type : EType) =>{
+    const menuClicked = (type : EBoardType) =>{
         if(type !== selectMenu) setMenu(type);
         props.onSetBoardType(type);
         router.push(`/board?type=${type}&page=0`);
@@ -54,19 +54,11 @@ const BoardLeftSideBar
                 <span className={style.category_style}>Category</span>
             </div>
             <ul className={style.menu_category}>
-                <div className={style.home_menu}>
-                    <HomeIcon/>
-                    <li onClick={onClickHome}> Home</li>
-                </div>
-                <div className={style.home_menu}>
-                    <AppsIcon/>
-                    <li onMouseOver={handlerMouseOver} className={style.main_menu} >Menu</li>
-                </div>
-                <ul className={getList ? style.menu_type : style.box_wrap_hidden}>
-                    <li className={selectMenu === EType.FREE ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EType.FREE)}}>자유게시판</li>
-                    <li className={selectMenu === EType.TIP ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EType.TIP)}}>TIP게시판</li>
-                    <li className={selectMenu === EType.TRADE ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EType.TRADE)}}>거래게시판</li>
-                    <li className={selectMenu === EType.ANONYMOUS ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EType.ANONYMOUS)}}>익명게시판</li>
+                <ul className={style.menu_type}>
+                    <li className={selectMenu === EBoardType.FREE ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EBoardType.FREE)}}>자유게시판</li>
+                    <li className={selectMenu === EBoardType.TIP ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EBoardType.TIP)}}>TIP게시판</li>
+                    <li className={selectMenu === EBoardType.TRADE ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EBoardType.TRADE)}}>거래게시판</li>
+                    <li className={selectMenu === EBoardType.ANONYMOUS ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EBoardType.ANONYMOUS)}}>익명게시판</li>
                 </ul>
             </ul>
 

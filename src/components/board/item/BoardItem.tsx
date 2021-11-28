@@ -5,6 +5,7 @@ import {useRouter} from "next/router";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import {dateDiff} from "../../../utils/dateUtil";
 import UserName from "../../common/UserName";
+import {EBoardType} from "../../../domain/board";
 
 interface IBoardProps{
     board : IBoardData;
@@ -28,7 +29,7 @@ const BoardItem = (board: IBoardProps) : JSX.Element => {
                     <span
                         className={style.board_title_text} >{board.board.title.length > 30 ? board.board.title.slice(0, 27) + '...' : board.board.title}</span>
                 </div>
-                <div className={style.board_id}> {board.board.userId}</div>
+                <div className={style.board_id}> { board.board.boardType !== EBoardType.ANONYMOUS ? board.board.userId : '익명'}</div>
                 <div className={style.board_date}>{dateDiff(board.board.createdTime)}</div>
                 <div className={style.recommend}>
                     <span>❣️</span>

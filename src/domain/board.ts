@@ -1,4 +1,4 @@
-export enum EType {
+export enum EBoardType {
     TRADE = "TRADE",
     FREE = "FREE",
     TIP = "TIP",

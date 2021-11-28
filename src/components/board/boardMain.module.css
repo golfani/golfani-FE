@@ -1,9 +1,8 @@
 .container{
     margin: 100px auto;
     margin-bottom: 0px;
-    align-items: center;
     display: flex;
-    width: 60%;
+    width: 71%;
     padding: 10px;
     flex-direction: column;
 }
