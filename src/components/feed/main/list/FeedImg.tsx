@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {useMutation, useQueryClient} from "react-query";
 import {registerLikes} from "src/apis/Likes";
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import FeedLikeToastModal from "src/components/modals/FeedLikeToastModal";
 import {sendAlarmBySocket} from "src/apis/Alarm";
 import {IFeedItemProps} from "./FeedItem";
@@ -29,19 +29,20 @@ export const CustomPrevArrow = ({className, style, onClick} : any) : JSX.Element
     )
 }
 
-const settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    nextArrow : <CustomNextArrow/>,
-    prevArrow : <CustomPrevArrow/>,
-};
-
 const FeedImg = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
     const queryClient = useQueryClient();
     const [toastModalOpen, setToastModalOpen] = useState(false);
+    const [isMobileDevice, setIsMobileDevice] = useState(false);
+    const settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        nextArrow : <CustomNextArrow/>,
+        prevArrow : <CustomPrevArrow/>,
+        arrows : !isMobileDevice
+    };
 
     const likeMutation = useMutation(()=> registerLikes("FEED",feed.id));
 
@@ -71,6 +72,12 @@ const FeedImg = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
     const handleDoubleClick = async () => {
         await onRegisterLikes();
     }
+
+    useEffect(() => {
+        if(window.innerWidth <= 768) {
+            setIsMobileDevice(true);
+        }
+    },[])
 
     return (
         <div className={isModal ? style.modal_container : style.container} onDoubleClick={handleDoubleClick}>

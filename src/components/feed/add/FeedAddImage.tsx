@@ -1,5 +1,5 @@
 import style from './feedAddImage.module.css';
-import {ChangeEvent, useRef} from "react";
+import {ChangeEvent, useEffect, useRef, useState} from "react";
 import useFeedAdd from "src/store/modules/feedAdd/feedAddHook";
 import {IImg} from "src/store/modules/feedAdd/feedAdd";
 import {dataURLtoFile} from "src/utils/fileUtil";
@@ -8,19 +8,20 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    nextArrow : <CustomNextArrow/>,
-    prevArrow : <CustomPrevArrow/>,
-};
-
 const FeedAddImage = () : JSX.Element => {
     const feedAdd = useFeedAdd();
     const sliderRef = useRef<Slider>(null);
+    const [isMobileDevice, setIsMobileDevice] = useState(false);
+    const settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        nextArrow : <CustomNextArrow/>,
+        prevArrow : <CustomPrevArrow/>,
+        arrows : !isMobileDevice
+    };
 
     const onChangeImage = (event : ChangeEvent) => {
         const input = event.target as HTMLInputElement;
@@ -74,6 +75,12 @@ const FeedAddImage = () : JSX.Element => {
     const handleClickDeleteImg = (index : number) => {
         feedAdd.onDeleteImg(index);
     }
+
+    useEffect(() => {
+        if(window.innerWidth <= 768) {
+            setIsMobileDevice(true);
+        }
+    },[])
 
     return (
         <div className={style.container}>
