@@ -80,13 +80,13 @@ const FeedImg = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
     },[])
 
     return (
-        <div className={isModal ? style.modal_container : style.container} onDoubleClick={handleDoubleClick}>
+        <div className={isModal ? style.modal_container : style.container}>
             <Slider {...settings}>
                 {feed.urlList.map((image,index)=> {
                     if(index % 3 === 0) {
                         return (
                             <div key={index}>
-                                <img id='feed_img' className={style.img} src={image}/>
+                                <img id='feed_img' alt={image} className={style.img} src={image} onDoubleClick={handleDoubleClick}/>
                             </div>
                         )
                     }
