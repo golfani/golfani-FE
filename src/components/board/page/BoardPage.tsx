@@ -8,7 +8,6 @@ import BoardSearchBar from "./BoardSearchBar";
 export type TSelectMenu = 'USER' | 'CONTENT' | 'TITLE'
 
 const BoardPage = (boardType : ITypeProps) : JSX.Element => {
-
     return (
         <div className={style.container}>
             <div className={style.button_wrap}>
