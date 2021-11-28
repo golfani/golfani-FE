@@ -1,16 +1,13 @@
 import style from 'src/components/board/boardWrite.module.css';
 import React, {useState} from 'react';
 import {IBoardData, putBoard} from 'src/apis/Board';
-import {getCookie} from "../../utils/cookieUtil";
 import {useRouter} from "next/router";
 import Modal from "../modals/Modal";
 import {IBoardProps} from "./view/BoardView";
 import {EType} from "../../domain/board";
 
 const BoardPut = (boardData:IBoardProps): JSX.Element => {
-
-    const getUserId = getCookie('userId');
-    const router = useRouter(); //
+    const router = useRouter();
     const [openModal, setOpenModal] = useState(false);
     const [modalMsg, setModalMsg] = useState("");
 
@@ -79,7 +76,7 @@ const BoardPut = (boardData:IBoardProps): JSX.Element => {
                     </div>
                     <div className={style.content_wrap}>
                         <div className={style.content}>
-                            <textarea className={style.contentTextarea} placeholder="내용 입력을 입력해 주세요" name="content" value = {content} onChange={onChange}></textarea>
+                            <textarea className={style.contentTextarea} placeholder="내용 입력을 입력해 주세요" name="content" value = {content} onChange={onChange}/>
                         </div>
                         <div className={style.upload}>
                             <input
@@ -91,12 +88,9 @@ const BoardPut = (boardData:IBoardProps): JSX.Element => {
                                 onChange={handleChangeFile}
                             />
                             <div className={style.preview}>
-                                {fileURLs.map((img) => {
-                                        return (
-                                            <img className={style.preview_img} src={img}></img>
-                                        )
-                                    }
-                                )}
+                                {fileURLs.map((img) => (
+                                    <img className={style.preview_img} src={img}/>
+                                ))}
                             </div>
                         </div>
                     </div>

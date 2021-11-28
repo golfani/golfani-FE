@@ -11,9 +11,13 @@ const ViewPage = () : JSX.Element => {
     const queryClient = useQueryClient();
 
     const checkFun = async () => {
-        const response = await onClickBoard(id as string);
-        console.log(response);
-        if (response.status === 200) await queryClient.invalidateQueries(['board', id]);
+        try {
+            const response = await onClickBoard(id as string);
+            await queryClient.invalidateQueries(['board', id]);
+        }
+        catch (e) {
+
+        }
     }
 
     useEffect(() => {

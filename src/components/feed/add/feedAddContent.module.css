@@ -17,6 +17,7 @@
     height: 30px;
     object-fit: cover;
     margin-right: 5px;
+    border-radius: 50%;
 }
 
 .user_txt {
@@ -29,4 +30,18 @@
     width: 100%;
     flex: 1;
     border: none;
+    font-size: 14px;
+}
+
+@media screen and (max-width: 768px){
+    .user_img {
+        width: 45px;
+        height: 45px;
+    }
+    .user_txt {
+        font-size: 18px;
+    }
+    .textarea {
+        font-size: 16px;
+    }
 }

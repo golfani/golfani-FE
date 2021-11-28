@@ -5,6 +5,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import UserFeed from "./UserFeed";
 import {IProfileMemberProps} from "../../../pages/profile/[userId]";
 import {useState} from "react";
+import UserBoard from "./UserBoard";
 
 type TUserMenu = 'FEED' | 'BOARD' | 'ITEM';
 
@@ -36,6 +37,7 @@ const UserPost = ({member} : IProfileMemberProps) : JSX.Element => {
                 </div>
             </div>
             {userMenu === 'FEED' && <UserFeed member={member}/>}
+            {userMenu === 'BOARD' && <UserBoard member={member}/>}
         </div>
     );
 };

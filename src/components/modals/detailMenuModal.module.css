@@ -54,7 +54,7 @@
     height: 60px;
     background-color: transparent;
     color: black;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .menu_btn:nth-child(1) {
@@ -115,5 +115,8 @@
         position: fixed;
         animation: slideInY 0.3s;
         animation-fill-mode: forwards;
+    }
+    .menu_btn {
+        font-size: 16px;
     }
 }

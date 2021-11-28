@@ -21,7 +21,6 @@ const SearchResult = () : JSX.Element => {
             <BoardSearchType/>
             <BoardSearch selectMenu={selectMenu as TSelectMenu} payload={payload as string}/>
             <BoardSearchBar/>
-
         </div>
     )
 }

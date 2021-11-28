@@ -65,3 +65,12 @@ export const onClickBoard = async (postId : string) => {
     const response = await axios.get(`${API_URL}/onClick/${postId}`, {withCredentials: true});
     return response;
 }
+
+/**
+ * 해당 유저가 작성한 게시글 리스트 조회 API
+ * @param userId
+ */
+export const getAllUserPost = async (userId : string) => {
+    const response = await axios.get(`${API_URL}/all/${userId}`);
+    return response.data;
+}

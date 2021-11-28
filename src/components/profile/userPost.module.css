@@ -49,3 +49,9 @@
 .title_select:hover {
     color: black;
 }
+
+@media screen and (max-width: 768px) {
+    .title_box {
+        margin-bottom: 0;
+    }
+}
