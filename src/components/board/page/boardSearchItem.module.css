@@ -1,0 +1,16 @@
+.container{
+    display: flex;
+    justify-content: space-between;
+    border : 1px solid #ddd;
+    padding:10px;
+}
+
+.search_payload{
+    font-size: 12px;
+    cursor : pointer;
+}
+
+.delete_btn{
+    background-color: #fff;
+    color: #ddd;
+}

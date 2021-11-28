@@ -1,5 +1,7 @@
 .container{
     margin: 100px auto;
+    margin-bottom: 0px;
+    align-items: center;
     display: flex;
     width: 60%;
     padding: 10px;

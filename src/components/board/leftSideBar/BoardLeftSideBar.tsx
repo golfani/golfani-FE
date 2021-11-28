@@ -9,7 +9,8 @@ interface IBoardTypeProps {
     onSetBoardType : (type:EType) => void
 }
 
-const BoardLeftSideBar = (props: IBoardTypeProps): JSX.Element => {
+const BoardLeftSideBar
+    = (props: IBoardTypeProps): JSX.Element => {
 
     const router = useRouter();
     const {type} = router.query;
