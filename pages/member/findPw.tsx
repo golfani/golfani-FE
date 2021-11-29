@@ -52,12 +52,11 @@ const FindPw = () : JSX.Element => {
     const onSendEmail = async (data : IEmailForm) => {
         try {
             setAuthCodeError('');
+            setIsAuth(true);
             const response = await authMailForFindUser(data.email);
-            if(response.status === 200) {
-                setIsAuth(true);
-            }
         }
         catch (e) {
+            setIsAuth(false);
             if(e.response.status === 409) {
                 alert('존재하지 않는 이메일 입니다.');
             }
