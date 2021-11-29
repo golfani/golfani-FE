@@ -147,8 +147,7 @@ export const modifyMemberPassword = async (userId : string, password : string) =
     try {
         const member : IMember = await getMember(userId);
         member.password = password;
-        const modifyResponse = await axios.put(API_URL,member);
-        return modifyResponse;
+        return await axios.put(`${API_URL}/password`,member);
     }
     catch (e) {
         console.log(e);
@@ -197,6 +196,10 @@ export const registerOauthSignUp = async (member : Partial<IMember>) => {
     return response;
 }
 
+/**
+ * 유저 검색 API
+ * @param userId
+ */
 export const searchByUserId = async (userId : string) => {
     const response = await axios.get(`${API_URL}/search/${userId}`);
     return response.data;
