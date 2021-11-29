@@ -12,9 +12,9 @@
 }
 
 .form {
-    padding: 0px 20px;
     display: flex;
     align-items: center;
+    padding: 0 5px 0 20px;
     /*background-color: #f0f2f5;*/
     border: 1px solid #8729ff;
     width: 90%;
@@ -24,15 +24,34 @@
 
 .input {
     flex: 1;
-    height: 30px;
+    height: 40px;
     max-height: 50px;
     overflow: auto;
     border: none;
     margin-right: 5px;
     background-color: transparent;
-    padding: 8px 0;
+    font-size: 14px;
+    padding: 10px 0;
 }
 
 .send_button:enabled {
     color: black
+}
+
+.icon_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    background-color: #8729ff;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px){
+    .form {
+        width: 95%;
+    }
 }

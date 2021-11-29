@@ -2,6 +2,7 @@ import style from './chatInput.module.css';
 import React, {ChangeEvent, useRef, useState} from "react";
 import {sendChatBySocket} from "src/apis/Chat";
 import useChatRoom from "src/store/modules/chat/chatRoomHook";
+import ArrowUpwardRoundedIcon from '@material-ui/icons/ArrowUpwardRounded';
 
 interface IChatInput {
     setIsSendBySelf : (state : boolean) => void
@@ -14,7 +15,7 @@ const ChatInput = ({setIsSendBySelf} : IChatInput) : JSX.Element => {
 
     const handleResizeHeight = () => {
         if(textAreaRef.current) {
-            textAreaRef.current.style.height = '30px';
+            textAreaRef.current.style.height = '40px';
             textAreaRef.current.style.height = textAreaRef.current?.scrollHeight + "px";
         }
     }
@@ -31,6 +32,9 @@ const ChatInput = ({setIsSendBySelf} : IChatInput) : JSX.Element => {
     }
 
     const handleKeyPress = async (event : React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if(window.innerWidth <= 768) {
+            return;
+        }
         if(event.key === 'Enter' && chatInputText.replace(/\s/g,'').length) {
             if(!event.shiftKey) {
                 event.preventDefault();
@@ -47,6 +51,7 @@ const ChatInput = ({setIsSendBySelf} : IChatInput) : JSX.Element => {
     }
 
     const handleClickSendButton = async () => {
+        textAreaRef.current?.focus();
         await onSendMsg();
     }
 
@@ -59,7 +64,13 @@ const ChatInput = ({setIsSendBySelf} : IChatInput) : JSX.Element => {
                           onKeyPress={handleKeyPress}
                           ref={textAreaRef}
                 />
-                <button className={style.send_button} disabled={!chatInputText.trim()} onClick={handleClickSendButton}>전송</button>
+                {chatInputText.replace(/\s/g,'').length
+                    ?
+                    <div className={style.icon_box} onClick={handleClickSendButton}>
+                        <ArrowUpwardRoundedIcon/>
+                    </div>
+                    : <></>
+                }
             </div>
         </div>
     );
