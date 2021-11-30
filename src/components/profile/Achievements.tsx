@@ -1,6 +1,6 @@
 import style from './achievements.module.css';
 import Image from 'next/image';
-import HonorIcon from 'public/honor_ico.png';
+import HonorIcon from 'public/icon/honor_ico.png';
 
 const Achievements = () : JSX.Element => {
     return (

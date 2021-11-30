@@ -16,7 +16,7 @@
     height: 200px;
     margin-right: 10px;
     cursor: pointer;
-    background-image: url('public/image_ico.png');
+    background-image: url('../../../../public/icon/image_ico.png');
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 0.3;

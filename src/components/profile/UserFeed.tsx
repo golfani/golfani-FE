@@ -2,7 +2,7 @@ import style from './userFeed.module.css';
 import {useQuery} from "react-query";
 import {getAllUserFeed, IFeedContent} from "src/apis/Feed";
 import {IProfileMemberProps} from "../../../pages/profile/[userId]";
-import FeedModal from "src/components/modals/FeedModal";
+import FeedModal from "src/components/modals/feed/FeedModal";
 import {useEffect, useState} from "react";
 import {MID_LEVEL_FIRST_PICTURE} from "src/domain/Picture";
 

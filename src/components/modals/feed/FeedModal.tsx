@@ -1,5 +1,5 @@
 import {IFeedContent} from "src/apis/Feed";
-import FeedItem from "../feed/main/list/FeedItem";
+import FeedItem from "../../feed/main/list/FeedItem";
 import style from './feedModal.module.css';
 import {useRef, useState} from "react";
 import {handleClickRefOutSide, handleModalSwipeEvent} from "src/utils/clickUtil";

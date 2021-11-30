@@ -4,7 +4,7 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import {IFeedProps} from "src/domain/Feed";
 import {useQuery} from "react-query";
 import {getFeedReplyCount} from "src/apis/Reply";
-import FeedModal from "src/components/modals/FeedModal";
+import FeedModal from "src/components/modals/feed/FeedModal";
 import {useCallback, useEffect, useState} from "react";
 import UserName from "src/components/common/UserName";
 import {getProfileImage} from "src/apis/Member";

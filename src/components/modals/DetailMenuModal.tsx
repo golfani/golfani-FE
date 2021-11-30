@@ -6,7 +6,7 @@ import {handleClickRefOutSide} from "src/utils/clickUtil";
 import {deleteFeed, IFeedContent} from "src/apis/Feed";
 import ReportModal from "./ReportModal";
 import {getCookie} from "src/utils/cookieUtil";
-import FeedModifyModal from "./FeedModifyModal";
+import FeedModifyModal from "./feed/FeedModifyModal";
 import {IScrapDto, registerScrap} from "src/apis/Scrap";
 
 export type TRef = "FEED" | "POST" | "FEED_REPLY" | "POST_REPLY"
