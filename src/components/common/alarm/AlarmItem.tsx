@@ -7,7 +7,7 @@ import {useMutation, useQuery, useQueryClient} from "react-query";
 import {setAlarmRead} from "src/apis/Alarm";
 import {useCallback, useState} from "react";
 import {getFeedOne} from "src/apis/Feed";
-import FeedModal from "src/components/modals/FeedModal";
+import FeedModal from "src/components/modals/feed/FeedModal";
 import useFeedZIndex from "src/store/modules/feedZIndex/feedZIndexHook";
 import useCustomRouter from "src/hooks/routerHook";
 

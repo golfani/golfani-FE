@@ -7,7 +7,7 @@ import {IPages} from "src/domain/Page";
 import {getFeedOne, IFeedContent} from "src/apis/Feed";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import {LOW_LEVEL_FIRST_PICTURE} from "src/domain/Picture";
-import FeedModal from "src/components/modals/FeedModal";
+import FeedModal from "src/components/modals/feed/FeedModal";
 
 interface IFeedScrapModalProps {
     setModalOpen : (state : boolean) => void

@@ -1,12 +1,12 @@
 import style from './feedBottomNav.module.css';
 import useFeedType from "src/store/modules/feedType/feedTypeHook";
 import Image from 'next/image';
-import HomeIcon from 'public/home_ico.png';
-import HomeActiveIcon from 'public/home_active_ico.png';
-import CardViewIcon from 'public/card_view_ico.png';
-import CardViewActiveIcon from 'public/card_view_active_ico.png';
-import SearchIcon from 'public/search_ico.png';
-import SearchActiveIcon from 'public/search_active_ico.png';
+import HomeIcon from 'public/icon/home_ico.png';
+import HomeActiveIcon from 'public/icon/home_active_ico.png';
+import CardViewIcon from 'public/icon/card_view_ico.png';
+import CardViewActiveIcon from 'public/icon/card_view_active_ico.png';
+import SearchIcon from 'public/icon/search_ico.png';
+import SearchActiveIcon from 'public/icon/search_active_ico.png';
 
 const FeedBottomNav = () : JSX.Element => {
     const {type,onChangeListView,onChangeCardView,onChangeMobileSearchView} = useFeedType();

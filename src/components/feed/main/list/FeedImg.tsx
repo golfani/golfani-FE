@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import {useMutation, useQueryClient} from "react-query";
 import {registerLikes} from "src/apis/Likes";
 import {useCallback, useEffect, useState} from "react";
-import FeedLikeToastModal from "src/components/modals/FeedLikeToastModal";
+import FeedLikeToastModal from "src/components/modals/feed/FeedLikeToastModal";
 import {sendAlarmBySocket} from "src/apis/Alarm";
 import {IFeedItemProps} from "./FeedItem";
 

@@ -1,7 +1,7 @@
 import style from './feedThumbnail.module.css';
 import {IFeedProps} from "src/domain/Feed";
 import {useCallback, useState} from "react";
-import FeedModal from "../../modals/FeedModal";
+import FeedModal from "../../modals/feed/FeedModal";
 import {LOW_LEVEL_FIRST_PICTURE} from "src/domain/Picture";
 import useFeedZIndex from "src/store/modules/feedZIndex/feedZIndexHook";
 
