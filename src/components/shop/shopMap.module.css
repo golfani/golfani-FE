@@ -1,0 +1,50 @@
+.container {
+    margin-bottom: 20px;
+}
+
+.title_txt {
+    width: 100%;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    border-bottom: 1px solid black;
+    height: 25px;
+    margin-bottom: 15px;
+}
+
+.select_box {
+    display: flex;
+}
+
+.district_box {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.district_txt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 45px;
+    border: 1px solid #b2b2b2;
+    margin: 1px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.district_select_txt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 45px;
+    border: 1px solid #eff0f2;
+    cursor: pointer;
+    color: white;
+    background-color: black;
+    font-size: 16px;
+    font-weight: 500;
+}
