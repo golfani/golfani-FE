@@ -82,7 +82,7 @@ const NavbarMenu = () => {
                 <div className={style.icon_box}>
                     {isFeedPage &&
                     <div className={style.menu_box}>
-                        <img src={'/plus_ico.png'} alt={'plus_ico.png'} className={style.icon}
+                        <img src={'/icon/plus_ico.png'} alt={'plus_ico.png'} className={style.icon}
                              onClick={handleClickFeedAddButton}/>
                         {feedAddModalOpen && <FeedAddModal setModalOpen={setFeedAddModalOpen}/>}
                     </div>
