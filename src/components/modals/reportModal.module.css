@@ -1,4 +1,5 @@
 .modal {
+    width: 100%;
     display: flex;
     position: fixed;
     justify-content: center;
@@ -11,16 +12,6 @@
     bottom: 0;
 }
 
-.close_icon {
-    float: right;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.close_icon:hover {
-    color: black;
-}
-
 .modal_box {
     display: flex;
     flex-direction: column;
@@ -28,40 +19,100 @@
     height: auto;
     background-color: #fff;
     border-radius: 8px;
-    padding: 10px 15px;
 }
 
-.report_title {
+.report_type_btn {
     width: 100%;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 500;
-}
-
-.report_type_box {
-    display: flex;
-    align-items: center;
-    height: 50px;
-    font-size: 14px;
-}
-
-.report_type_txt {
+    height: 60px;
     font-weight: 600;
     color: black;
     font-size: 15px;
+    border-bottom: 1px solid #eff0f2;
+}
+
+.report_type_btn_active {
+    width: 100%;
+    height: 60px;
+    font-weight: 600;
+    color: white;
+    background-color: #8729ff;
+    font-size: 15px;
+    border-bottom: 1px solid #eff0f2;
+}
+
+.report_type_btn_active:nth-child(1) {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 .report_description {
     width: 100%;
-    height: 50px;
-    margin-bottom: 10px;
-    padding: 5px;
+    height: 80px;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #eff0f2;
+}
+
+.action_box {
+    display: flex;
+    height: 60px;
+}
+
+.cancel_btn {
+    flex: 1;
+    height: 60px;
+    background: transparent;
+    color: #ff6969;
+    font-size: 14px;
+    border-right: 1px solid #eff0f2;
 }
 
 .report_btn {
-    width: 100%;
-    height: 30px;
+    flex: 1;
+    height: 60px;
     background-color: transparent;
-    color: red;
+    color: #2196F3;
     font-size: 14px;
+}
+
+@keyframes slideInY {
+    from {
+        bottom: -100%;
+    }
+    to {
+        bottom: 10px;
+    }
+}
+
+@keyframes slideOutY {
+    from {
+        bottom: 10px;
+    }
+    to {
+        bottom: -100%;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .modal_box {
+        width: 95%;
+        position: fixed;
+        animation: slideInY 0.3s;
+        animation-fill-mode: forwards;
+    }
+    .report_type_btn {
+        font-size: 16px;
+    }
+    .report_type_btn_active {
+        font-size: 16px;
+    }
+    .report_description {
+        display: none;
+    }
+    .report_btn {
+        display: none;
+    }
+    .cancel_btn {
+        font-size: 16px;
+    }
 }
