@@ -15,7 +15,7 @@
     justify-content: center;
     align-items: center;
     z-index: 100;
-    animation: slideOut 0.3s;
+    animation: slideOut 0.1s;
     animation-fill-mode: forwards;
 }
 
@@ -138,7 +138,6 @@
 @media screen and (max-width: 768px){
     .modal {
         animation: slideIn 0.3s;
-        animation-fill-mode: forwards;
         height: 100%;
         width: 100%;
     }
