@@ -19,7 +19,13 @@ export const handleClickRefOutSide = (targetRef : RefObject<HTMLDivElement>, act
     },[targetRef])
 }
 
-export const handleModalSwipeEvent = (onCloseModal : () => void, setSlideDiff : (state : number) => void) => {
+/**
+ * DIV 의 Swipe 이벤트를 감지해 ACTION 실행
+ * @param ref
+ * @param onCloseModal
+ * @param setSlideDiff
+ */
+export const handleModalSwipeEvent = (ref : RefObject<HTMLDivElement>, onCloseModal : () => void, setSlideDiff : (state : number) => void) => {
     useEffect(()=> {
         let startX : number;
         let startY : number;
@@ -33,6 +39,9 @@ export const handleModalSwipeEvent = (onCloseModal : () => void, setSlideDiff : 
             const target = event.target as HTMLElement;
             if(target.id === 'feed_img' || target.className === 'slick-track') {
                 return;
+            }
+            else {
+                event.stopPropagation();
             }
             startTime = new Date();
             const touchStart = event.touches[0];
@@ -66,14 +75,14 @@ export const handleModalSwipeEvent = (onCloseModal : () => void, setSlideDiff : 
             }
             touchTimes ++;
         }
-        window.addEventListener('touchstart',touchStartEvent);
-        window.addEventListener('touchmove',touchMoveEvent);
-        window.addEventListener('touchend',touchEndEvent);
+        ref.current?.addEventListener('touchstart',touchStartEvent);
+        ref.current?.addEventListener('touchmove',touchMoveEvent);
+        ref.current?.addEventListener('touchend',touchEndEvent);
 
         return () => {
-            window.removeEventListener('touchstart',touchStartEvent);
-            window.removeEventListener('touchend',touchEndEvent);
-            window.removeEventListener('touchmove',touchMoveEvent);
+            ref.current?.removeEventListener('touchstart',touchStartEvent);
+            ref.current?.removeEventListener('touchend',touchEndEvent);
+            ref.current?.removeEventListener('touchmove',touchMoveEvent);
         }
     },[])
 }
