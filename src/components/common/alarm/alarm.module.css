@@ -36,6 +36,7 @@
     min-height: 50px;
     align-items: center;
     background-color: #fff;
+    border-bottom: 1px solid #eff0f2;
 }
 
 .back_icon {
@@ -71,7 +72,6 @@
     line-height: 35px;
     font-size: 14px;
     font-weight: 500;
-    border-top: 1px solid #eff0f2;
     margin-bottom: 10px;
     padding: 0 15px;
 }
@@ -122,5 +122,8 @@
         border-radius: 0;
         box-shadow: none;
         z-index: 2;
+    }
+    .title_box {
+        height: 55px;
     }
 }

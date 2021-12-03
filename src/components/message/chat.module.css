@@ -58,4 +58,8 @@
         display: inline-block;
         margin-right: 20px;
     }
+    .chat_title_box {
+        height: 55px;
+        padding: 0 15px;
+    }
 }
