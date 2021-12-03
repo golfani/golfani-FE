@@ -15,6 +15,7 @@ const FeedModal = (props : IFeedModalProps) : JSX.Element => {
     const targetRef = useRef<HTMLDivElement>(null);
     const [isMobileClose, setIsMobileClose] = useState(false);
     const [slideDiff, setSlideDiff] = useState<number>();
+    const _swipeRef = useRef<HTMLDivElement>(null);
 
     const onModalClose = () => {
         props.setModalOpen(false);
@@ -33,10 +34,10 @@ const FeedModal = (props : IFeedModalProps) : JSX.Element => {
 
     bodyScrollActionForModal();
     handleClickRefOutSide(targetRef,onModalClose);
-    handleModalSwipeEvent(onModalClose,setSlideDiff);
+    handleModalSwipeEvent(_swipeRef,onModalClose,setSlideDiff);
 
     return (
-        <div className={isMobileClose ? style.modal_close : style.modal} style={{left : slideDiff}}>
+        <div className={isMobileClose ? style.modal_close : style.modal} style={{left : slideDiff}} ref={_swipeRef}>
             <div className={style.feedModal_box} ref={targetRef}>
                 <div className={style.header}>
                     <ArrowBackIosNewIcon onClick={handleClickBackIcon} className={style.back_icon}/>
