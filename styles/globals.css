@@ -45,3 +45,9 @@ textarea {
   resize: none;
   outline: none;
 }
+
+@media screen and (max-width: 768px) {
+  * {
+    user-select: none;
+  }
+}
