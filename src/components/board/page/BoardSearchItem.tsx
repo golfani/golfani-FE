@@ -10,7 +10,6 @@ interface ISearchItemProps{
 }
 
 const BoardSearchItem = ({item,setSearchList,setPayload} : ISearchItemProps) => {
-    const router = useRouter();
     const searchId = useRef<HTMLDivElement>(null);
     const handleOnDelete = () => {
         onDelete();

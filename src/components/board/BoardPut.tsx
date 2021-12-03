@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {IBoardData, putBoard} from 'src/apis/Board';
 import {useRouter} from "next/router";
 import Modal from "../modals/Modal";
-import {IBoardProps} from "./view/BoardView";
+import {IBoardProps} from "./BoardView";
 import {EBoardType} from "../../domain/board";
 
 const BoardPut = (boardData:IBoardProps): JSX.Element => {
@@ -96,8 +96,8 @@ const BoardPut = (boardData:IBoardProps): JSX.Element => {
                     </div>
                 </div>
                 <div className={style.bt_wrap}>
-                    <a href="#" className={style.btn_on} onClick={handleOnSummit}>등록</a>
-                    <a href="/board" className={style.btn_off}>취소</a>
+                    <a href="#" className={style.btn_register} onClick={handleOnSummit}>등록</a>
+                    <a href="/board" className={style.btn_cancel}>취소</a>
                 </div>
                 {openModal && <Modal message={modalMsg} setModalOpen={setOpenModal}/>}
             </div>

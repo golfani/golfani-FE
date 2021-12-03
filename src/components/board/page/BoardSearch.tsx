@@ -10,7 +10,6 @@ import BoardPageNum from "./BoardPageNum";
 import {useRouter} from "next/router";
 
 const BoardSearch = ({selectMenu,payload} : ISearchProps) : JSX.Element => {
-    const queryClient = useQueryClient();
     const router = useRouter();
     const {page} = router.query;
 
@@ -19,6 +18,7 @@ const BoardSearch = ({selectMenu,payload} : ISearchProps) : JSX.Element => {
     })
 
     return(
+        <>
         <div className={style.container}>
             <div className={style.list_top}>
                 <div className={style.num}>No.</div>
@@ -35,8 +35,9 @@ const BoardSearch = ({selectMenu,payload} : ISearchProps) : JSX.Element => {
                     )
                 })
             }
-            <BoardPageNum totalPage={boardQuery.data?.totalPages as number}/>
         </div>
+            <BoardPageNum totalPage={boardQuery.data?.totalPages as number}/>
+        </>
     )
 }
 

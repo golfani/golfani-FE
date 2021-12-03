@@ -1,4 +1,4 @@
-import style from 'src/components/board/view/boardView.module.css';
+import style from 'src/components/board/boardView.module.css';
 import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import BoardComment from "src/components/board/comment/BoardComment";
@@ -9,7 +9,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getAllPostLikes, getPostLikes, registerLikes} from "src/apis/Likes";
-import {EBoardType} from "../../../domain/board";
+import {EBoardType} from "../../domain/board";
 
 export interface IBoardProps{
     boardView : IBoardData
@@ -92,7 +92,8 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
                     </div>
                     <div className={style.content} >
                         {
-                            boardView.content.split('\n').map((line,index) => {
+                            boardView.content.split('\n').map((line
+                                ,index) => {
                             return(<span key={index} >{line}<br /></span>)})
                         }
                         <div className={style.img_wrap}>

@@ -70,9 +70,8 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top:10px;
     vertical-align: top;
-
+    margin-bottom: 102px;
 }
 
 .select_component{

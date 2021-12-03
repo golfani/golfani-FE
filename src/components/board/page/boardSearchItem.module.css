@@ -2,7 +2,9 @@
     display: flex;
     justify-content: space-between;
     border : 1px solid #ddd;
-    padding:10px;
+    padding: 10px;
+    align-items: center;
+    height: 30px;
 }
 
 .search_payload{
@@ -13,4 +15,5 @@
 .delete_btn{
     background-color: #fff;
     color: #ddd;
+    font-size: 12px;
 }
