@@ -56,15 +56,17 @@ export const handleModalSwipeEvent = (ref : RefObject<HTMLDivElement>, onCloseMo
             }
             else {
                 _diff = 0;
-                setSlideDiff(0);
+                setSlideDiff(0)
+                ref.current!.style.overflow = 'auto';
             }
             touchTimes = 0;
             isScrollEvent = true;
         }
         const touchMoveEvent = (event : TouchEvent) => {
             const touchEnd = event.changedTouches[event.changedTouches.length - 1];
-            if(touchTimes === 0 && Math.abs(startY - touchEnd.clientY) < 10) {
+            if(touchTimes === 0 && Math.abs(startY - touchEnd.clientY) < 10 && Math.abs(startX - touchEnd.clientX) > 5) {
                 isScrollEvent = false;
+                ref.current!.style.overflow = 'hidden';
             }
             if(!isScrollEvent) {
                 const diff = touchEnd.clientX - startX;
