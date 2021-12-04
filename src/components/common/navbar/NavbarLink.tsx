@@ -24,6 +24,9 @@ const NavbarLink = () : JSX.Element => {
                 <li className={where === 'board' ? style.list_item_active : style.list_item} onClick={()=>handleClickLinkButton('board')}>
                     <span>커뮤니티</span>
                 </li>
+                <li className={where === 'shop' ? style.list_item_active : style.list_item} onClick={()=>handleClickLinkButton('shop')}>
+                    <span>스토어</span>
+                </li>
             </ul>
         </div>
     );
