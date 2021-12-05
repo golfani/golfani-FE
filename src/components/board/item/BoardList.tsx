@@ -34,10 +34,9 @@ const BoardList = (boardType : ITypeProps) : JSX.Element => {
                     {boardQuery.data &&
                     boardQuery.data.content.map((board : IBoardData)=> {
                         return(
-                            <BoardItem key={board.id} board={board}/>
+                            <BoardItem board={board} />
                         )
                     })}
-
                 </div>
             </div>
             <div>

@@ -39,7 +39,7 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddPr
         finally{
             setReplyPayload("");
             await queryClient.invalidateQueries(['replyQuery',refId]);
-            await queryClient.invalidateQueries(['getTotalReplies',refId]);
+            await queryClient.invalidateQueries(['getTotalReplies', postId]);
             await queryClient.invalidateQueries(['totalReply', refId]);
         }
     },[[replyMutation]])
