@@ -38,7 +38,7 @@ securityAxios.interceptors.response.use((config) => {
             return Promise.reject(error);
         }
     } else {
-        window.location.href = 'login';
+        window.location.href = '/login';
     }
     return Promise.reject(error);
 });

@@ -1,0 +1,19 @@
+.container {
+
+}
+
+.shop_main_box {
+    margin-top: 80px;
+    padding: 0 160px;
+}
+
+.shop_txt {
+    display: inline-block;
+    width: 100%;
+    color: white;
+    background-color: black;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 10px;
+    margin: 10px 0;
+}

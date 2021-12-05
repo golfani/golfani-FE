@@ -5,7 +5,7 @@ import {getFeedScrap, getPostScrap, IScrapDto} from "src/apis/Scrap";
 import {IPages} from "src/domain/Page";
 import {useEffect, useRef, useState} from "react";
 import {getFeedOne, IFeedContent} from "src/apis/Feed";
-import {handleClickRefOutSide} from "src/utils/clickUtil";
+import {handleClickRefOutSide, handleModalSwipeEvent} from "src/utils/clickUtil";
 import {bodyScrollActionForModal} from "src/utils/scrollUtil";
 import FeedScrapModal from "src/components/modals/scrap/FeedScrapModal";
 import {LOW_LEVEL_FIRST_PICTURE} from "src/domain/Picture";
@@ -23,6 +23,8 @@ const ScrapModal = (props : IScrapModalProps) : JSX.Element => {
     const [imgWidth, setImgWidth] = useState(200);
     const [allFeedScrapModalOpen, setAllFeedScrapModalOpen] = useState(false);
     const [allPostScrapModalOpen, setAllPostScrapModalOpen] = useState(false);
+    const [slideDiff, setSlideDiff] = useState<number>();
+    const _swipeRef = useRef<HTMLDivElement>(null);
 
     const onLoadFeedData = () => {
         let temp : IFeedContent[] = [];
@@ -47,7 +49,7 @@ const ScrapModal = (props : IScrapModalProps) : JSX.Element => {
         setIsClose(true);
         setTimeout(()=> {
             onCloseModal();
-        },300)
+        },100)
     }
 
     const handleClickBackIcon = () => {
@@ -85,9 +87,10 @@ const ScrapModal = (props : IScrapModalProps) : JSX.Element => {
 
     handleClickRefOutSide(scrapModalRef,onCloseModal);
     bodyScrollActionForModal();
+    handleModalSwipeEvent(_swipeRef,onCloseModal,setSlideDiff);
 
     return (
-        <div className={isClose ? style.modal_close : style.modal}>
+        <div className={isClose ? style.modal_close : style.modal} style={{left : slideDiff}} ref={_swipeRef}>
             <div className={style.scrap_box} ref={scrapModalRef}>
                 <div className={style.title_box}>
                     <div className={style.title_icon} onClick={handleClickBackIcon}>

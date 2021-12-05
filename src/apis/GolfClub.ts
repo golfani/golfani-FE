@@ -8,6 +8,7 @@ export type TGolfClub = 'PUTTER' | 'DRIVER' | 'WOOD' | 'IRON' | 'WEDGE' | 'UTIL'
 export interface IGolfClubDto {
     id : number
     brandId : number
+    brandName : string
     name : string
     description : string
     cost : number

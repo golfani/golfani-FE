@@ -2,9 +2,9 @@ import style from './userMenuModal.module.css';
 import ArrowBackIosNewIcon from '@material-ui/icons/ArrowBackIosNew';
 import {removeCookie} from "src/utils/cookieUtil";
 import {useRef, useState} from "react";
-import {handleClickRefOutSide} from "src/utils/clickUtil";
+import {handleClickRefOutSide, handleModalSwipeEvent} from "src/utils/clickUtil";
 import ScrapModal from "./scrap/ScrapModal";
-import {bodyScrollActionForModal} from "../../utils/scrollUtil";
+import {bodyScrollActionForModal} from "src/utils/scrollUtil";
 
 interface IUserMenuModalProps {
     setModalOpen : (state : boolean) => void
@@ -14,6 +14,8 @@ const UserMenuModal = (props : IUserMenuModalProps) : JSX.Element => {
     const [isClose, setIsClose] = useState(false);
     const userMenuRef = useRef<HTMLDivElement>(null);
     const [scrapModalOpen, setScrapModalOpen] = useState(false);
+    const _swipeRef = useRef<HTMLDivElement>(null);
+    const [slideDiff, setSlideDiff] = useState<number>();
 
     const onCloseModal = () => {
         props.setModalOpen(false);
@@ -23,7 +25,7 @@ const UserMenuModal = (props : IUserMenuModalProps) : JSX.Element => {
         setIsClose(true);
         setTimeout(()=> {
             onCloseModal();
-        },500)
+        },100)
     }
 
     const handleClickBackIcon = () => {
@@ -44,9 +46,10 @@ const UserMenuModal = (props : IUserMenuModalProps) : JSX.Element => {
 
     handleClickRefOutSide(userMenuRef,onCloseModal);
     bodyScrollActionForModal();
+    handleModalSwipeEvent(_swipeRef,onCloseModal,setSlideDiff)
 
     return (
-        <div className={isClose ? style.modal_close : style.modal}>
+        <div className={isClose ? style.modal_close : style.modal} ref={_swipeRef} style={{left : slideDiff}}>
             <div className={style.container} ref={userMenuRef}>
                 <div className={style.title_box}>
                     <div className={style.title_icon}>

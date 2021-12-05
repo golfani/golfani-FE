@@ -31,6 +31,7 @@ const Alarm = ({setModalOpen} : IAlarmProps) : JSX.Element => {
     let isShowPrevAlarm = false;
     const [isClose, setIsClose] = useState(false);
     const [slideDiff, setSlideDiff] = useState<number>();
+    const _swipeRef = useRef<HTMLDivElement>(null);
 
     useEffect(()=> {
         observer.current = new IntersectionObserver(intersectionObserver);
@@ -66,10 +67,10 @@ const Alarm = ({setModalOpen} : IAlarmProps) : JSX.Element => {
     }
 
     bodyScrollActionForModal();
-    handleModalSwipeEvent(onCloseModal,setSlideDiff);
+    handleModalSwipeEvent(_swipeRef,onCloseModal,setSlideDiff);
 
     return (
-        <div className={isClose ? style.container_close : style.container} style={{left : slideDiff}}>
+        <div className={isClose ? style.container_close : style.container} style={{left : slideDiff}} ref={_swipeRef}>
             <div className={style.title_box}>
                 <div className={style.back_icon}>
                     <ArrowBackIosNewIcon onClick={onCloseModal}/>

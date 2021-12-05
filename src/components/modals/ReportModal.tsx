@@ -1,33 +1,27 @@
 import style from './reportModal.module.css';
-import {ChangeEvent, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {registerReport, TReportType} from "src/apis/Report";
 import {TRef} from "./DetailMenuModal";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
-import CloseIcon from '@material-ui/icons/Close'
 
 interface IReportModalProps {
     targetId : number
     type : TRef
     setModalOpen : (state : boolean)=> void
+    closeMenuModal : () => void
 }
 
 const ReportModal = (props : IReportModalProps) : JSX.Element => {
-    const [reportType, setReportType] = useState<string>();
+    const [reportType, setReportType] = useState<TReportType | undefined>();
     const [description, setDescription] = useState('');
     const targetRef = useRef<HTMLDivElement>(null);
+    const [isMobileDevice , setIsMobileDevice] = useState(false);
 
-    const onModalClose = () => {
-        props.setModalOpen(false);
-    }
-
-    const handleRadioChange = (event : ChangeEvent<HTMLInputElement>) => {
-        setReportType((reportType) => event.target.value);
-    }
-
-    const handleReport = async () => {
-        if (reportType) {
+    const onReport = async (type? : TReportType) => {
+        if (reportType || type) {
             try {
-                const response = await registerReport(props.type, props.targetId, description, reportType as TReportType);
+                const _reportType = reportType || type;
+                const response = await registerReport(props.type, props.targetId, description, _reportType!);
                 if (response.data) {
                     alert('신고가 접수되었습니다.');
                 } else {
@@ -38,6 +32,7 @@ const ReportModal = (props : IReportModalProps) : JSX.Element => {
                 console.log(e);
             } finally {
                 onModalClose();
+                props.closeMenuModal();
             }
         }
         else {
@@ -45,40 +40,41 @@ const ReportModal = (props : IReportModalProps) : JSX.Element => {
         }
     }
 
+    const onModalClose = () => {
+        props.setModalOpen(false);
+    }
+
+    const handleClickReportType = (type : TReportType) => {
+        isMobileDevice ? onReport(type) : setReportType(type);
+    }
+
+    const handleClickReportButton = async () => {
+        await onReport();
+    }
+
     handleClickRefOutSide(targetRef,onModalClose);
+
+    useEffect(()=> {
+        if(window.innerWidth <= 768) {
+            setIsMobileDevice(true);
+        }
+    },[]);
 
     return (
         <div className={style.modal}>
             <div className={style.modal_box} ref={targetRef}>
-                <CloseIcon className={style.close_icon} color={"disabled"} onClick={onModalClose}/>
-                <span className={style.report_title}>신고 사유</span>
-                <div>
-                    <div className={style.report_type_box}>
-                        <input type='radio' name='report_type' value={'REPORT_ABUSE'} onChange={handleRadioChange}/>
-                        <span className={style.report_type_txt}>욕설</span>
-                        <span>을 포함하고있는 컨텐츠입니다.</span>
-                    </div>
-                    <div className={style.report_type_box}>
-                        <input type='radio' name='report_type' value={'REPORT_PORN'} onChange={handleRadioChange}/>
-                        <span className={style.report_type_txt}>음란성</span>
-                        <span>을 포함하고있는 컨텐츠입니다.</span>
-                    </div>
-                    <div className={style.report_type_box}>
-                        <input type='radio' name='report_type' value={'REPORT_AD'} onChange={handleRadioChange}/>
-                        <span className={style.report_type_txt}>광고</span>
-                        <span>를 포함하고있는 컨텐츠입니다.</span>
-                    </div>
-                    <div className={style.report_type_box}>
-                        <input type='radio' name='report_type' value={'REPORT_REPEAT'} onChange={handleRadioChange}/>
-                        <span className={style.report_type_txt}>도배</span>
-                        <span>를 포함하고있는 컨텐츠입니다.</span>
-                    </div>
-                    <textarea className={style.report_description}
-                              placeholder="신고내용"
-                              value={description}
-                              onChange={(e)=>setDescription(e.target.value)}
-                    />
-                    <button onClick={handleReport} className={style.report_btn}>접수</button>
+                <button className={reportType === 'REPORT_ABUSE' ? style.report_type_btn_active : style.report_type_btn} onClick={()=>handleClickReportType('REPORT_ABUSE')}>욕설</button>
+                <button className={reportType === 'REPORT_PORN' ? style.report_type_btn_active : style.report_type_btn} onClick={()=>handleClickReportType('REPORT_PORN')}>음란성</button>
+                <button className={reportType === 'REPORT_AD' ? style.report_type_btn_active : style.report_type_btn} onClick={()=>handleClickReportType('REPORT_AD')}>광고</button>
+                <button className={reportType === 'REPORT_REPEAT' ? style.report_type_btn_active : style.report_type_btn} onClick={()=>handleClickReportType('REPORT_REPEAT')}>도배</button>
+                <textarea className={style.report_description}
+                          placeholder="신고 상세 내용..."
+                          value={description}
+                          onChange={(e)=>setDescription(e.target.value)}
+                />
+                <div className={style.action_box}>
+                    <button onClick={onModalClose} className={style.cancel_btn}>취소</button>
+                    <button onClick={handleClickReportButton} className={style.report_btn}>접수</button>
                 </div>
             </div>
         </div>

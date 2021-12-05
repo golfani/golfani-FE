@@ -124,7 +124,12 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
                 }
                 <button className={style.menu_btn} onClick={onModalClose}>취소</button>
                 {reportModalOpen &&
-                <ReportModal targetId={props.target.id} type={props.type} setModalOpen={setReportModalOpen}/>
+                <ReportModal
+                    targetId={props.target.id}
+                    type={props.type}
+                    setModalOpen={setReportModalOpen}
+                    closeMenuModal={onModalClose}
+                />
                 }
                 {feedModifyModalOpen &&
                 <FeedModifyModal

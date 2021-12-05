@@ -1,7 +1,7 @@
 import style from './chatModal.module.css';
 import Chat from "../message/Chat";
 import {bodyScrollActionForModal} from "src/utils/scrollUtil";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {handleModalSwipeEvent} from "src/utils/clickUtil";
 
 interface IChatModalProps {
@@ -11,6 +11,7 @@ interface IChatModalProps {
 const ChatModal = (props : IChatModalProps) : JSX.Element => {
     const [isMobileClose, setIsMobileClose] = useState(false);
     const [slideDiff, setSlideDiff] = useState<number>();
+    const _swipeRef = useRef<HTMLDivElement>(null);
 
     const onCloseModalByMobile = () => {
         setIsMobileClose(true);
@@ -20,10 +21,10 @@ const ChatModal = (props : IChatModalProps) : JSX.Element => {
     }
 
     bodyScrollActionForModal();
-    handleModalSwipeEvent(onCloseModalByMobile,setSlideDiff);
+    handleModalSwipeEvent(_swipeRef,onCloseModalByMobile,setSlideDiff);
 
     return (
-        <div className={isMobileClose ? style.modal_close : style.modal} style={{left : slideDiff}}>
+        <div className={isMobileClose ? style.modal_close : style.modal} style={{left : slideDiff}} ref={_swipeRef}>
             <Chat closeModal={onCloseModalByMobile}/>
         </div>
     );
