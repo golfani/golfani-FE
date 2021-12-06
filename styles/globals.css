@@ -50,4 +50,10 @@ textarea {
   * {
     user-select: none;
   }
+  input {
+    user-select: auto;
+  }
+  textarea {
+    user-select: auto;
+  }
 }
