@@ -1,5 +1,5 @@
 import style from 'src/components/board/boardWrite.module.css';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {registerBoard} from 'src/apis/Board';
 import {getCookie} from "src/utils/cookieUtil";
 import {useRouter} from "next/router";
@@ -48,6 +48,12 @@ const BoardWrite = (): JSX.Element => {
     const [imgList, setImgList] = useState<File[]>([]);
     const [fileURLs,setFileURLs] = useState<Array<string>>([]);
 
+    useEffect(() => {
+        console.log(imgList);
+        console.log(fileURLs);
+    },[imgList])
+
+
     const handleChangeFile = (e: any) => {
         const fileArr =  e.target.files;
         const fileUrls = Array<string>();
@@ -57,12 +63,14 @@ const BoardWrite = (): JSX.Element => {
         }
         setFileURLs(fileURLs.concat(fileUrls));
         setImgList(imgList.concat(Array.from(fileArr)));
+        e.target.value=''; // 같은 파일 재입력시 onChange 이벤트 적용할 수 있도록 적용
     }
 
     const handleDeleteImg = (index: number) => {
         const data = fileURLs.filter(data => data !== fileURLs[index]);
         setFileURLs(data);
-        setImgList(imgList.splice(index,1));
+        const img = imgList.filter(img => img !== imgList[index]);
+        setImgList(img);
     }
 
     const onEnterPress = (e : React.KeyboardEvent<HTMLTextAreaElement>) => {
