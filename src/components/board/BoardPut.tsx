@@ -1,10 +1,11 @@
-import style from 'src/components/board/boardWrite.module.css';
+import style from 'src/components/board/boardPut.module.css';
 import React, {useState} from 'react';
 import {IBoardData, putBoard} from 'src/apis/Board';
 import {useRouter} from "next/router";
 import Modal from "../modals/Modal";
 import {IBoardProps} from "./BoardView";
 import {EBoardType} from "../../domain/board";
+import Link from "next/link";
 
 const BoardPut = (boardData:IBoardProps): JSX.Element => {
     const router = useRouter();
@@ -63,11 +64,19 @@ const BoardPut = (boardData:IBoardProps): JSX.Element => {
     return(
         <div className={style.container}>
             <div className={style.write_wrap}>
+                <div className={style.write_top}>
+                    <div className={style.write_head}>게시판 수정</div>
+                    <div className={style.bt_wrap}>
+                        <button className={style.btn_register} onClick={handleOnSummit}>수정</button>
+                        <Link href={'/board'}>
+                            <button className={style.btn_cancel}>취소</button>
+                        </Link>
+                    </div>
+                </div>
                 <div className={style.board_write}>
                     <div className={style.title}>
+                        <span className={style.title_head}>글제목</span>
                         <textarea className={style.titleTextArea} placeholder="제목을 입력해 주세요." name = "title" value={title} onChange={onChange}> </textarea>
-                    </div>
-                    <div className={style.menu_wrap}>
                         <span className={style.board_type}>{boardType === EBoardType.FREE ? '자유게시판 ' : boardType === EBoardType.TIP ? 'TIP게시판' : boardType === EBoardType.ANONYMOUS ? '익몃게시판' : '거래게시판' }</span>
                     </div>
                     <div className={style.info}>
@@ -94,10 +103,6 @@ const BoardPut = (boardData:IBoardProps): JSX.Element => {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className={style.bt_wrap}>
-                    <a href="#" className={style.btn_register} onClick={handleOnSummit}>등록</a>
-                    <a href="/board" className={style.btn_cancel}>취소</a>
                 </div>
                 {openModal && <Modal message={modalMsg} setModalOpen={setOpenModal}/>}
             </div>

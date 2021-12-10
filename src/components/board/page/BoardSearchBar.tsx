@@ -83,7 +83,6 @@ const BoardSearchBar = () : JSX.Element => {
         console.log(e.key);
         if(e.key === "Enter" && !e.shiftKey)
         {
-            console.log('123');
             onSearchBtnClick();
         }
     }
