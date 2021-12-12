@@ -3,15 +3,11 @@ import Slider from "react-slick";
 import {CustomNextArrow, CustomPrevArrow} from "src/components/feed/main/list/FeedImg";
 import {dataURLtoFile} from "src/utils/fileUtil";
 import style from './shopRegisterImage.module.css';
+import useShopRegister from "src/store/modules/shopRegister/shopRegisterHook";
+import {IShopRegisterImg} from "src/store/modules/shopRegister/shopRegister";
 
-interface IShopRegisterImageProps {
-    imgFiles : File[]
-    setImgFiles : (files : File[]) => void
-    imgUrls : string[]
-    setImgUrls : (urls : string[]) => void
-}
-
-const ShopRegisterImage = ({imgFiles,setImgFiles,imgUrls,setImgUrls} : IShopRegisterImageProps) : JSX.Element => {
+const ShopRegisterImage = () : JSX.Element => {
+    const shopRegister = useShopRegister();
     const sliderRef = useRef<Slider>(null);
     const [isMobileDevice, setIsMobileDevice] = useState(false);
     const settings = {
@@ -61,16 +57,18 @@ const ShopRegisterImage = ({imgFiles,setImgFiles,imgUrls,setImgUrls} : IShopRegi
                 const resizeImageDataUrl = canvas.toDataURL('image/jpeg', 0.75);
                 const resizeImageFile = dataURLtoFile(resizeImageDataUrl, file.name);
                 const resizeImageUrl = URL.createObjectURL(resizeImageFile);
-                setImgFiles(imgFiles.concat(resizeImageFile));
-                setImgUrls(imgUrls.concat(resizeImageUrl));
-                sliderRef.current?.slickGoTo(imgFiles.length);
+                const img : IShopRegisterImg = {
+                    imgFiles : resizeImageFile,
+                    imgUrls : resizeImageUrl
+                }
+                shopRegister.onAddImg(img);
+                sliderRef.current?.slickGoTo(shopRegister.img.length);
             }
         }
     }
 
     const handleClickDeleteImg = (index : number) => {
-        setImgFiles(imgFiles.filter((img, id)=> id !== index));
-        setImgUrls(imgUrls.filter((img, id)=> id !== index));
+        shopRegister.onDeleteImg(index);
     }
 
     useEffect(() => {
@@ -81,13 +79,13 @@ const ShopRegisterImage = ({imgFiles,setImgFiles,imgUrls,setImgUrls} : IShopRegi
 
     return (
         <div className={style.container}>
-            {imgFiles.length
+            {shopRegister.img.length
                 ?
                 <div className={style.on_img_add_box}>
                     <Slider {...settings} ref={sliderRef}>
-                        {imgUrls.map((img,index) => (
+                        {shopRegister.img.map((img,index) => (
                             <div className={style.img_box} key={index}>
-                                <img src={img} alt={img} className={style.on_img}/>
+                                <img src={img.imgUrls} alt={img.imgUrls} className={style.on_img}/>
                                 <button className={style.img_delete_btn} onClick={()=>handleClickDeleteImg(index)}>X</button>
                             </div>
                         ))}
