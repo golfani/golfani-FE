@@ -27,6 +27,7 @@
 }
 
 .prev_btn {
+    font-size: 14px;
 }
 
 .title_txt {
@@ -38,6 +39,7 @@
 }
 
 .next_btn {
+    font-size: 14px;
     margin-left: auto;
 }
 
