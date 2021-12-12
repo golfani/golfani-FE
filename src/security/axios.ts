@@ -29,7 +29,7 @@ securityAxios.interceptors.response.use((config) => {
                 if (e.response.data === '재발급 실패') {
                     removeCookie('userId');
                     removeCookie('refreshToken');
-                    window.location.href = 'login';
+                    window.location.href = '/login';
                     alert('로그인 세션 만료, 다시 로그인 해주세요');
                 }
             }

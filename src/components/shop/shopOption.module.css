@@ -1,0 +1,43 @@
+.container {
+    margin-top: 15px;
+    border: 1px solid black;
+}
+
+.option_box {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    height: 40px;
+}
+
+.option_title_txt {
+    display: inline-block;
+    font-size: 17px;
+    font-weight: 500;
+    width: 60px;
+    margin-right: 10px;
+}
+
+.checkBox_label {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #b2b2b2;
+    cursor: pointer;
+    margin-right: 3px;
+}
+
+.input {
+    display: none;
+}
+
+.input:checked + .checkBox_label {
+    background: #ff6969;
+}
+
+.option_txt {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 10px;
+    width: 100px;
+}

@@ -1,0 +1,10 @@
+.container {
+    width: 100%;
+    padding: 0 160px;
+    margin-top: 50px;
+}
+
+.menu_title_txt {
+    font-size: 24px;
+    font-weight: 600;
+}

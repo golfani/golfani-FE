@@ -41,6 +41,11 @@ input[type="radio"] {
   margin: 0 3px 0 0;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
 textarea {
   resize: none;
   outline: none;
@@ -49,5 +54,11 @@ textarea {
 @media screen and (max-width: 768px) {
   * {
     user-select: none;
+  }
+  input {
+    user-select: auto;
+  }
+  textarea {
+    user-select: auto;
   }
 }
