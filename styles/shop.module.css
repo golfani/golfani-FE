@@ -17,3 +17,37 @@
     padding: 10px;
     margin: 10px 0;
 }
+
+.shop_add_box {
+    position: fixed;
+    bottom: 20px;
+    right: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    border: 1px solid #dadada;
+    border-radius: 18px;
+    z-index: 1;
+    background-color: white;
+    cursor: pointer;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+    padding: 0 15px;
+}
+
+.shop_img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.shop_add_txt {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.shop_add_sub_txt {
+    display: inline-block;
+    font-size: 12px;
+}
