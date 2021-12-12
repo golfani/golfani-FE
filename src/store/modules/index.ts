@@ -13,6 +13,7 @@ import {searchSaga} from "./search/saga";
 import search from "./search/search";
 import chatRoom from "./chat/chatRoom";
 import feedZIndex from "./feedZIndex/feedZIndex";
+import shopRegister from "./shopRegister/shopRegister";
 
 
 interface SagaStore extends Store {
@@ -27,7 +28,8 @@ const rootReducer = combineReducers({
     feedAdd : feedAdd,
     search : search,
     chatRoom : chatRoom,
-    feedZIndex : feedZIndex
+    feedZIndex : feedZIndex,
+    shopRegister : shopRegister,
 })
 
 // 스토어 생성
