@@ -18,6 +18,14 @@
     margin: 10px 0;
 }
 
+.shop_add_container {
+    position: fixed;
+    width: auto;
+    height: 60px;
+    bottom: 20px;
+    right: 40px;
+}
+
 .shop_add_box {
     position: fixed;
     bottom: 20px;
@@ -33,6 +41,18 @@
     cursor: pointer;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
     padding: 0 15px;
+}
+
+.close_btn {
+    position: absolute;
+    top: -10px;
+    width: 16px;
+    height: 16px;
+    background: black;
+    color: white;
+    border-radius: 50%;
+    font-size: 1px;
+    opacity: 0.2;
 }
 
 .shop_img {

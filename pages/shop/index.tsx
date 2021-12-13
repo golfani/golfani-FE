@@ -8,9 +8,14 @@ import ShopRegisterModal from "src/components/modals/ShopRegisterModal";
 
 const Shop = () : JSX.Element => {
     const [openShopRegisterModal, setOpenShopRegisterModal] = useState(false);
+    const [shopRegisterMenuOpen, setShopRegisterMenuOpen] = useState(true);
 
     const handleClickShopAddButton = () => {
         setOpenShopRegisterModal(true);
+    }
+
+    const handleClickCloseRegisterMenuButton = () => {
+        setShopRegisterMenuOpen(false);
     }
 
     return (
@@ -23,13 +28,18 @@ const Shop = () : JSX.Element => {
                 <ShopRecommendGolfClub/>
                 {openShopRegisterModal && <ShopRegisterModal setModalOpen={setOpenShopRegisterModal}/>}
             </div>
-            <div className={style.shop_add_box} onClick={handleClickShopAddButton}>
-                <img src={'/icon/shop_ico.png'} alt={'shop_add'} className={style.shop_img}/>
-                <div>
-                    <span className={style.shop_add_txt}>스토어 등록</span>
-                    <span className={style.shop_add_sub_txt}>운영중인 매장을 등록해보세요</span>
+            {shopRegisterMenuOpen &&
+            <div className={style.shop_add_container}>
+                <button className={style.close_btn} onClick={handleClickCloseRegisterMenuButton}>X</button>
+                <div className={style.shop_add_box} onClick={handleClickShopAddButton}>
+                    <img src={'/icon/shop_ico.png'} alt={'shop_add'} className={style.shop_img}/>
+                    <div>
+                        <span className={style.shop_add_txt}>스토어 등록</span>
+                        <span className={style.shop_add_sub_txt}>운영중인 매장을 등록해보세요</span>
+                    </div>
                 </div>
             </div>
+            }
         </div>
     );
 };
