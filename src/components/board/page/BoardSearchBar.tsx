@@ -12,7 +12,7 @@ export interface ISearchResult {
 
 const BoardSearchBar = () : JSX.Element => {
     const router = useRouter();
-    const [searchList, setSearchList] = useState(JSON.parse(window.localStorage.getItem('searchList') as string ));
+    const [searchList, setSearchList] = useState<Array<ISearchResult>>([]);
     const [onSearchId, setOnSearchId] = useState(false);
     const searchId = useRef<HTMLDivElement>(null);
     const searchMenu = useRef<HTMLDivElement>(null);
@@ -29,8 +29,13 @@ const BoardSearchBar = () : JSX.Element => {
         setSelectMenu(menu)
     }
 
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem('searchList') as string || '[]') ;
+        setSearchList(data);
+    },[])
+
     useEffect(()=>{
-        window.localStorage.setItem('searchList', JSON.stringify(searchList));
+        localStorage.setItem('searchList', JSON.stringify(searchList));
     },[searchList])
 
     const handleOnAddList = () => {
@@ -39,7 +44,10 @@ const BoardSearchBar = () : JSX.Element => {
             payload : payload
         }
         const data = searchList.find((el:ISearchResult) => el.payload === payload);
-        if(!data) setSearchList([newData, ...searchList]);
+        if(!data) {
+            console.log(searchList);
+            setSearchList([newData, ...searchList]);
+        }
     }
 
     const onClear = () => {
@@ -71,6 +79,14 @@ const BoardSearchBar = () : JSX.Element => {
         router.push(`/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=0`);
     }
 
+    const onKeyPress = (e :  React.KeyboardEvent<HTMLInputElement>) => {
+        console.log(e.key);
+        if(e.key === "Enter" && !e.shiftKey)
+        {
+            onSearchBtnClick();
+        }
+    }
+
     handleClickRefOutSide(searchId, focusIdOut);
 
     return (
@@ -92,14 +108,14 @@ const BoardSearchBar = () : JSX.Element => {
                             <button className={style.select_button} onClick={() => handlerSelectMenu("TITLE")}>제목</button>
                         </li>
                     </ul>
-                 </div>
+                </div>
             </div>
             <div ref={searchId}>
-                <input type="text" className={style.search_id} title={style.search_id} placeholder="검색어 입력" value = {payload} onClick={onSearchIdClick} onChange={onTextChange}></input>
+                <input type="text" className={style.search_id} title={style.search_id} placeholder="검색어 입력" value = {payload} onClick={onSearchIdClick} onKeyPress={onKeyPress} onChange={onTextChange}></input>
                 {onSearchId && <div className={style.delete_searchList} onClick={onClear}>전체삭제</div>}
                 {onSearchId && <BoardSearchHistory searchResult={searchList} setSearchList={setSearchList} setPayload={setPayload}/>}
             </div>
-            <button type="submit" className={style.search_btn} onClick={onSearchBtnClick}>검색</button>
+            <button type="submit" className={style.search_btn} onClick={onSearchBtnClick} >검색</button>
         </div>
     )
 }

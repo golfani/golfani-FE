@@ -1,14 +1,13 @@
 import {useRouter} from "next/router";
-import BoardView from "src/components/board/view/BoardView";
+import BoardView from "src/components/board/BoardView";
 import {getBoardView, onClickBoard} from "src/apis/Board";
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery} from "react-query";
 import Navbar from "src/components/common/navbar/Navbar";
 import {useEffect} from "react";
 
 const ViewPage = () : JSX.Element => {
     const router = useRouter()
     const {id} = router.query;
-    const queryClient = useQueryClient();
 
     const onLoadView = async () => {
         try {

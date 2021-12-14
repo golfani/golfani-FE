@@ -1,7 +1,7 @@
 import style from 'src/components/board/comment/boardComment.module.css';
 import React from 'react';
 import BoardCommentItem from "./BoardCommentItem";
-import {IBoardProps} from "../view/BoardView";
+import {IBoardProps} from "../BoardView";
 import {useInfiniteQuery, useQuery} from "react-query";
 import {IPages} from "src/domain/Page";
 import {getPostReply, getTotalPostReplies, IReplyDto} from "src/apis/Reply";;
