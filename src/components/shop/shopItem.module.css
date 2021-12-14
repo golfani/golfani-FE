@@ -1,6 +1,6 @@
 .container {
     width: 250px;
-    height: 500px;
+    height: 400px;
     display: flex;
     flex-direction: column;
 }
@@ -64,7 +64,7 @@
     width: 45px;
     padding: 0 3px;
     border-radius: 30px;
-    background-color: #ff6969;
+    background-color: #ff4949;
 }
 
 .review_count_txt {
@@ -87,4 +87,31 @@
     font-size: 13px;
     color: #8f8f8f;
     margin-right: 3px;
+}
+
+.tag_box {
+    margin-top: 10px;
+    display: flex;
+}
+
+.low_price_tag {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    background-color: #0A4A95;
+    color: white;
+    padding: 0 4px;
+    margin-right: 10px;
+    height: 18px;
+}
+
+.special_price_tag {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    background-color: #000000;
+    color: white;
+    padding: 0 4px;
+    margin-right: 10px;
+    height: 18px;
 }

@@ -9,7 +9,6 @@ const ShopTitle = () : JSX.Element => {
                 <div className={style.bookmark_box}>
                     <BookmarkBorderIcon/>
                     <span className={style.bookmark_txt}>즐겨찾기</span>
-                    <span className={style.bookmark_count_txt}>3,120</span>
                 </div>
                 <div className={style.review_box}>
                     <span className={style.review_txt}>평점</span>

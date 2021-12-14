@@ -4,6 +4,7 @@ const ShopMenu = () : JSX.Element => {
     return (
         <div className={style.container}>
             <ul className={style.menu_list_box}>
+                <li>홈</li>
                 <li>전체상품</li>
                 <li>드라이버</li>
                 <li>우드</li>
