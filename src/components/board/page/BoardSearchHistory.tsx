@@ -12,7 +12,7 @@ const BoardSearchHistory = ({searchResult,setSearchList, setPayload} : ISearchRe
     return(
         <div className={style.container}>
             {
-                searchResult.map((data,index) => (
+                searchResult?.map((data,index) => (
                     <BoardSearchItem key={index} item={data} setSearchList={setSearchList} setPayload={setPayload}/>
                 ))
             }
