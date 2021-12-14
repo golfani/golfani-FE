@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    border-top: 1px solid #e2e2e2;
+    padding-top: 60px;
+}
+
+.title_txt {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.info_box {
+    margin-bottom: 5px;
+}
+
+.info_title_txt {
+    display: inline-block;
+    width: 100px;
+    font-size: 13px;
+    color: #888;
+    margin-right: 10px;
+}
+
+.info_txt {
+    display: inline-block;
+    font-size: 13px;
+}
+
