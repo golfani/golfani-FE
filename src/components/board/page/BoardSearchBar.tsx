@@ -30,7 +30,12 @@ const BoardSearchBar = () : JSX.Element => {
     }
 
     useEffect(() => {
-        const data = JSON.parse(localStorage.getItem('searchList') as string || '[]') ;
+        const data = JSON.parse(localStorage.getItem('searchList') as string || '[]');
+        if(JSON.stringify(data) === 'null') {
+            localStorage.removeItem('searchList');
+            localStorage.setItem('searchList', '[]');
+        }
+        console.log(localStorage.getItem('searchList'));
         setSearchList(data);
     },[])
 
@@ -45,7 +50,6 @@ const BoardSearchBar = () : JSX.Element => {
         }
         const data = searchList.find((el:ISearchResult) => el.payload === payload);
         if(!data) {
-            console.log(searchList);
             setSearchList([newData, ...searchList]);
         }
     }
@@ -80,10 +84,8 @@ const BoardSearchBar = () : JSX.Element => {
     }
 
     const onKeyPress = (e :  React.KeyboardEvent<HTMLInputElement>) => {
-        console.log(e.key);
         if(e.key === "Enter" && !e.shiftKey)
         {
-            console.log('123');
             onSearchBtnClick();
         }
     }
