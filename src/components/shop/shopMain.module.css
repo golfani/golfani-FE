@@ -1,7 +1,8 @@
 .container {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    padding: 0 160px;
-    margin-top: 50px;
+    padding: 0 160px 100px;
 }
 
 .menu_title_txt {
