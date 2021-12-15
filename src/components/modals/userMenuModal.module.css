@@ -34,23 +34,24 @@
 .container {
     position: relative;
     width: 100%;
-    max-width: 300px;
+    max-width: 350px;
     background-color: white;
 }
 
 .title_box {
     position: fixed;
     width: 100%;
-    max-width: 300px;
+    max-width: 350px;
     display: flex;
     align-items: center;
-    padding: 10px 15px;
+    padding: 0 15px;
     border-bottom: 1px solid #eff0f2;
-    height: 55px;
+    height: 45px;
 }
 
 .menu_container {
-    margin-top: 55px;
+    margin-top: 45px;
+    padding-top: 10px;
 }
 
 .title_icon {
@@ -70,12 +71,12 @@
 .menu_box {
     display: flex;
     flex-direction: column;
-    padding: 0 15px;
 }
 
 .menu_title_txt {
     margin: 10px 0;
     font-size: 16px;
+    padding: 0 15px;
 }
 
 .menu_txt {
@@ -85,9 +86,24 @@
     font-size: 14px;
     letter-spacing: -0.5px;
     cursor: pointer;
+    padding: 0 15px;
 }
 
 .menu_txt:hover {
+    background-color: #eff0f2;
+}
+
+.close_btn {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    letter-spacing: -0.5px;
+    cursor: pointer;
+    padding: 0 15px;
+}
+
+.close_btn:hover {
     background-color: #eff0f2;
 }
 
@@ -121,8 +137,12 @@
     }
     .title_box {
         max-width: none;
+        height: 55px;
     }
     .title_icon {
         display: block;
+    }
+    .menu_container {
+        margin-top: 55px;
     }
 }
