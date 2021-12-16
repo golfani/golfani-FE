@@ -11,6 +11,8 @@ interface IFeedModifyModalProps {
 
 const FeedModifyModal = (props : IFeedModifyModalProps) : JSX.Element => {
     const [content, setContent] = useState(props.feed.content);
+    const [isReplyActive , setIsReplyActive] = useState(props.feed.isReplyActive);
+    const [isLikesActive , setIsLikesActive] = useState(props.feed.isLikesActive);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
     const queryClient = useQueryClient();
     const feedMutate = useMutation((feed : IFeedContent)=>modifyFeed(feed));
@@ -20,9 +22,17 @@ const FeedModifyModal = (props : IFeedModifyModalProps) : JSX.Element => {
         await props.closeMenuModal();
     }
 
+    const handleChangeReplyOption = () => {
+        setIsReplyActive((isReplyActive) => !isReplyActive);
+    }
+
+    const handleChangeLikesOption = () => {
+        setIsLikesActive((isLikesActive) => !isLikesActive);
+    }
+
     const onModifyFeed = async () => {
         try {
-            const newFeed = {...props.feed, content : content};
+            const newFeed : IFeedContent = {...props.feed, content : content, isLikesActive : isLikesActive, isReplyActive : isReplyActive};
             const response = await feedMutate.mutateAsync(newFeed);
         }
         catch (e) {
@@ -30,6 +40,8 @@ const FeedModifyModal = (props : IFeedModifyModalProps) : JSX.Element => {
         }
         finally {
             await queryClient.invalidateQueries('feed');
+            await queryClient.invalidateQueries(['userFeed',props.feed.userId]);
+            await queryClient.invalidateQueries(['recentFeed',props.feed.userId]);
             await onCloseModal();
         }
     }
@@ -55,7 +67,7 @@ const FeedModifyModal = (props : IFeedModifyModalProps) : JSX.Element => {
                     <span className={style.title_txt}>피드수정</span>
                     <span className={style.title_btn} onClick={handleClickModifyButton}>완료</span>
                 </div>
-                <img src={props.feed.urlList[0]} width={300} height={300} className={style.img}/>
+                <img src={props.feed.urlList[0]} alt={props.feed.urlList[0]} width={300} height={300} className={style.img}/>
                 <textarea
                     ref={textAreaRef}
                     value={content}
@@ -63,9 +75,27 @@ const FeedModifyModal = (props : IFeedModifyModalProps) : JSX.Element => {
                     className={style.textArea}
                 />
                 <span className={style.tag}>{props.feed.tag}</span>
-                <div className={style.button_box}>
-                    <button className={style.button} onClick={handleClickCloseButton}>취소</button>
-                    <button className={style.button} onClick={handleClickModifyButton}>완료</button>
+                <div className={style.option_box}>
+                    <div className={style.option_sub_box}>
+                        <div className={style.option_txt_box}>
+                            <span className={style.option_txt}>댓글 기능 해제</span>
+                            <span className={style.option_sub_txt}>댓글 작성기능을 해제합니다</span>
+                        </div>
+                        <label className={style.switch}>
+                            <input defaultChecked={!isReplyActive} className={style.option_input} type='checkbox'/>
+                            <span onClick={handleChangeReplyOption} className={style.slider_round}> </span>
+                        </label>
+                    </div>
+                    <div className={style.option_sub_box}>
+                        <div className={style.option_txt_box}>
+                            <span className={style.option_txt}>좋아요 숨기기</span>
+                            <span className={style.option_sub_txt}>좋아요 수를 표시하지 않습니다</span>
+                        </div>
+                        <label className={style.switch}>
+                            <input defaultChecked={!isLikesActive} className={style.option_input} type='checkbox'/>
+                            <span onClick={handleChangeLikesOption} className={style.slider_round}> </span>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
