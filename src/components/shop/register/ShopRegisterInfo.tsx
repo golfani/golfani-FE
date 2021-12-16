@@ -44,6 +44,15 @@ const ShopRegisterInfo = () : JSX.Element => {
                 />
             </div>
             <div className={style.input_box}>
+                <span className={style.input_txt}>사업자 등록번호</span>
+                <input
+                    onFocus={shopRegister.onInitRegistrationNumber}
+                    className={style.input}
+                    value={shopRegister.registrationNumber}
+                    onChange={(e) => shopRegister.onSetRegistrationNumber(e.target.value)}
+                />
+            </div>
+            <div className={style.input_box}>
                 <span className={style.input_txt}>스토어 주소</span>
                 <div className={style.address_box}>
                     <span className={style.address_txt}>{shopRegister.address}</span>

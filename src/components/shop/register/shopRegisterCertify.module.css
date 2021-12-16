@@ -16,7 +16,7 @@
     height: 100px;
     margin-right: 10px;
     cursor: pointer;
-    background-image: url('public/icon/image_ico.png');
+    background-image: url('public/icon/certify_ico.png');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -32,13 +32,7 @@
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
-}
-
-.on_img_add_box {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
+    margin-top: 10px;
 }
 
 .img_box {
@@ -66,24 +60,4 @@
 
 .img_delete_btn:hover {
     opacity: 1;
-}
-
-.img_more_add_box {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.img_more_add_btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 30px;
-    font-weight: 500;
-    color: white;
-    font-size: 13px;
-    background-color: #81B147;
-    border-radius: 8px;
-    cursor: pointer;
 }
