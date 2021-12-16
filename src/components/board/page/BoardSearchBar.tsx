@@ -17,7 +17,7 @@ const BoardSearchBar = () : JSX.Element => {
     const searchId = useRef<HTMLDivElement>(null);
     const searchMenu = useRef<HTMLDivElement>(null);
     const [showMenu,setShowMenu] = useState(false);
-    const [selectMenu, setSelectMenu] = useState<TSelectMenu>('TITLE');
+    const [selectMenu, setSelectMenu] = useState<TSelectMenu | string>('제목');
     const [payload, setPayload] = useState('');
 
     const handlerSelectMenu = (menu: TSelectMenu) => {
@@ -30,8 +30,16 @@ const BoardSearchBar = () : JSX.Element => {
     }
 
     useEffect(() => {
-        const data = JSON.parse(localStorage.getItem('searchList') as string || '[]') ;
-        setSearchList(data);
+        const data = JSON.parse(localStorage.getItem('searchList') as string || '[]');
+        console.log(data);
+        //기존 localStorage 가 저장되어있는 경우 새로운 배열로 초기화 해준다.
+        if(JSON.stringify(data) === 'null') {
+            localStorage.removeItem('searchList');
+            localStorage.setItem('searchList', '[]');
+        }
+        else{
+            setSearchList(data);
+        }
     },[])
 
     useEffect(()=>{
@@ -45,7 +53,6 @@ const BoardSearchBar = () : JSX.Element => {
         }
         const data = searchList.find((el:ISearchResult) => el.payload === payload);
         if(!data) {
-            console.log(searchList);
             setSearchList([newData, ...searchList]);
         }
     }
@@ -80,7 +87,6 @@ const BoardSearchBar = () : JSX.Element => {
     }
 
     const onKeyPress = (e :  React.KeyboardEvent<HTMLInputElement>) => {
-        console.log(e.key);
         if(e.key === "Enter" && !e.shiftKey)
         {
             onSearchBtnClick();
@@ -93,7 +99,7 @@ const BoardSearchBar = () : JSX.Element => {
         <div className={style.search_bar}>
             <div className={style.select_wrap}>
                 <button onClick={handlerContentClick} className={style.select_component}>
-                    <span className={style.select_text}>{selectMenu}</span>
+                    <span className={style.select_text}>{selectMenu === 'TITLE' ? '제목' : selectMenu === "CONTENT" ? '제목' : '글쓴이' }</span>
                     <img src="https://img.icons8.com/external-those-icons-lineal-color-those-icons/24/000000/external-arrow-arrows-those-icons-lineal-color-those-icons-1.png" className={showMenu ? style.arrow_icon_open : style.arrow_icon} />
                 </button>
                 <div className={showMenu ? style.select_menu_wrap : style.select_hidden} ref={searchMenu}>
@@ -113,7 +119,7 @@ const BoardSearchBar = () : JSX.Element => {
             <div ref={searchId}>
                 <input type="text" className={style.search_id} title={style.search_id} placeholder="검색어 입력" value = {payload} onClick={onSearchIdClick} onKeyPress={onKeyPress} onChange={onTextChange}></input>
                 {onSearchId && <div className={style.delete_searchList} onClick={onClear}>전체삭제</div>}
-                {onSearchId && <BoardSearchHistory searchResult={searchList} setSearchList={setSearchList} setPayload={setPayload}/>}
+                {onSearchId && <BoardSearchHistory searchResult={searchList} setSearchList={setSearchList} setPayload={setPayload} setOnSearchId={setOnSearchId}/>}
             </div>
             <button type="submit" className={style.search_btn} onClick={onSearchBtnClick} >검색</button>
         </div>

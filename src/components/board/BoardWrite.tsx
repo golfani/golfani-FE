@@ -6,6 +6,7 @@ import {useRouter} from "next/router";
 import Modal from "src/components/modals/Modal"
 import {EBoardType} from "src//domain/board";
 import Link from 'next/link';
+import BoardWriteImage from "./BoardWriteImage";
 
 export interface boardDTO {
     userId : string,
@@ -164,7 +165,7 @@ const BoardWrite = (): JSX.Element => {
                         <div className={style.preview}>
                             {
                                 fileURLs.map((img,index) => (
-                                    <img src={img} key={index} onClick={() => handleDeleteImg(index)} className={style.preview_img}/>
+                                    <BoardWriteImage index={index} src={img} handleDeleteImg={handleDeleteImg}/>
                                 ))}
                         </div>
                     </div>

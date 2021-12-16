@@ -17,8 +17,12 @@ const BoardListHead = ({boardType} : ITypeProps) => {
         else if(boardType === EBoardType.TRADE){
             setType('거래게시판')
         }
+        else if(boardType === EBoardType.ANONYMOUS)
+        {
+            setType('익명게시판');
+        }
         else{
-            setType('익명게시판')
+            setType('검색결과')
         }
     },[boardType])
 

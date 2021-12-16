@@ -7,9 +7,10 @@ interface ISearchItemProps{
     item : ISearchResult
     setSearchList : (searchList : ISearchResult[]) => void
     setPayload: (payload: string) => void
+    setOnSearchId: (OnSearchId: boolean) => void
 }
 
-const BoardSearchItem = ({item,setSearchList,setPayload} : ISearchItemProps) => {
+const BoardSearchItem = ({item,setSearchList,setPayload, setOnSearchId} : ISearchItemProps) => {
     const searchId = useRef<HTMLDivElement>(null);
     const handleOnDelete = () => {
         onDelete();
@@ -17,6 +18,7 @@ const BoardSearchItem = ({item,setSearchList,setPayload} : ISearchItemProps) => 
 
     const onClickPayload = () => {
         setPayload(item.payload);
+        setOnSearchId(false);
     }
 
     const onDelete = () => {

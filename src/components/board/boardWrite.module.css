@@ -66,8 +66,10 @@
 }
 
 .content{
+    position: relative;
     border: 1px solid #ebecef;
     margin-bottom: 5px;
+    z-index: 0;
 }
 
 .contentTextarea{
@@ -134,16 +136,12 @@
 }
 
 .preview {
+    display: flex;
+    position: relative;
     display: inline-block;
     align-items: baseline;
     overflow-x: scroll;
-}
-
-.preview_img{
-    background-color: #fff;
-    max-width: 300px;
-    max-height: 300px;
-    margin-left:5px;
+    z-index: 1;
 }
 
 .menu_wrap{
@@ -169,7 +167,6 @@
 .menu_wrap li:hover{
     background-color: #f1eeee;
 }
-
 
 @keyframes fadeIn {
     0% {opacity: 0;}

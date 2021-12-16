@@ -6,14 +6,15 @@ interface ISearchResultProps{
     searchResult : ISearchResult[]
     setSearchList : (searchList : ISearchResult[]) => void
     setPayload : (payload : string) => void
+    setOnSearchId : (OnSearch : boolean) => void
 }
 
-const BoardSearchHistory = ({searchResult,setSearchList, setPayload} : ISearchResultProps) : JSX.Element =>{
+const BoardSearchHistory = ({searchResult,setSearchList, setPayload,setOnSearchId} : ISearchResultProps) : JSX.Element =>{
     return(
         <div className={style.container}>
             {
-                searchResult.map((data,index) => (
-                    <BoardSearchItem key={index} item={data} setSearchList={setSearchList} setPayload={setPayload}/>
+                searchResult?.map((data,index) => (
+                    <BoardSearchItem key={index} item={data} setSearchList={setSearchList} setPayload={setPayload} setOnSearchId={setOnSearchId}/>
                 ))
             }
         </div>
