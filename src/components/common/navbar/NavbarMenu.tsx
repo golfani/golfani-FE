@@ -22,9 +22,12 @@ const NavbarMenu = () => {
     const {onConflictRoute} = useCustomRouter();
     const router = useRouter();
     const unReadAlarmQuery = useQuery('unReadAlarm', ()=>getUnreadAlarmCount(),{
-        staleTime : 60 * 10 * 1000
+        staleTime : 60 * 10 * 1000,
+        enabled : userId !== undefined
     });
-    const unReadMessageQuery = useQuery('unReadMessage', () => getUnreadChatMessageCount());
+    const unReadMessageQuery = useQuery('unReadMessage', () => getUnreadChatMessageCount(), {
+        enabled : userId !== undefined
+    });
     const [isUserProfile, setIsUserProfile] = useState(false);
     const [isFeedPage, setIsFeedPage] = useState(false);
     const [userMenuOpen, setUserMenuOpen] = useState(false);

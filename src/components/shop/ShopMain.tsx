@@ -1,15 +1,14 @@
 import style from './shopMain.module.css';
-import ShopOption from "./ShopOption";
-import ShopSort from "./ShopSort";
-import ShopItemList from "./ShopItemList";
+import ShopIntroduce from "./ShopIntroduce";
+import ShopFooter from "./ShopFooter";
+import ShopProduct from "./ShopProduct";
 
 const ShopMain = () : JSX.Element => {
     return (
         <div className={style.container}>
-            <span className={style.menu_title_txt}>전체상품</span>
-            <ShopOption/>
-            <ShopSort/>
-            <ShopItemList/>
+            <ShopIntroduce/>
+            {/*<ShopProduct/>*/}
+            <ShopFooter/>
         </div>
     );
 };

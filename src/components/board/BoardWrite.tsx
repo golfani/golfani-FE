@@ -6,7 +6,6 @@ import {useRouter} from "next/router";
 import Modal from "src/components/modals/Modal"
 import {EBoardType} from "src//domain/board";
 import Link from 'next/link';
-import Board from "../../../pages/board";
 import BoardWriteImage from "./BoardWriteImage";
 
 export interface boardDTO {

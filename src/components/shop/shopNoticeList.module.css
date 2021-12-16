@@ -1,0 +1,12 @@
+.container {
+    margin-top: 70px;
+}
+
+.title_txt {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+    font-size: 30px;
+    margin-bottom: 30px;
+}

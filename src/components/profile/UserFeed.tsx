@@ -13,6 +13,7 @@ const UserFeed = ({member} : IProfileMemberProps) : JSX.Element => {
     const [feedModalOpen, setModalOpen] = useState(false);
     const [feedModalData, setFeedModalData] = useState<IFeedContent>();
     const [imgWidth, setImgWidth] = useState(300);
+    const [feedModalId, setFeedModalId] = useState<number>();
 
     const onSetFeedModalOpen = () => {
         setModalOpen(true);
@@ -26,6 +27,7 @@ const UserFeed = ({member} : IProfileMemberProps) : JSX.Element => {
     }
 
     const handleClickFeed = (feedId : number) => {
+        setFeedModalId(feedId);
         onSetFeedModalOpen();
         onSetFeedModalData(feedId);
     }
@@ -45,7 +47,11 @@ const UserFeed = ({member} : IProfileMemberProps) : JSX.Element => {
         resizeListener();
         window.addEventListener('resize',resizeListener);
         return () => window.removeEventListener('resize',resizeListener);
-    },[])
+    },[]);
+
+    useEffect(() => {
+        feedModalId && onSetFeedModalData(feedModalId);
+    },[userFeedQuery.data])
 
     return (
         <div className={style.container}>

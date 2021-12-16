@@ -22,6 +22,7 @@
 
 .title{
     display: flex;
+    position: relative;
     width: 100%;
     z-index: 10;
     margin-top:10px;
@@ -66,10 +67,8 @@
 }
 
 .content{
-    position: relative;
     border: 1px solid #ebecef;
     margin-bottom: 5px;
-    z-index: 0;
 }
 
 .contentTextarea{
@@ -136,12 +135,16 @@
 }
 
 .preview {
-    display: flex;
-    position: relative;
     display: inline-block;
     align-items: baseline;
     overflow-x: scroll;
-    z-index: 1;
+}
+
+.preview_img{
+    background-color: #fff;
+    max-width: 300px;
+    max-height: 300px;
+    margin-left:5px;
 }
 
 .menu_wrap{
@@ -167,6 +170,7 @@
 .menu_wrap li:hover{
     background-color: #f1eeee;
 }
+
 
 @keyframes fadeIn {
     0% {opacity: 0;}
@@ -224,30 +228,14 @@
     width: 100%;
 }
 
-.arrow_icon{
-    position:absolute;
-    top: 12px;
-    right: 10px;
-    width: 13px;
-    height: 13px;
+.title_head{
+    margin-right: 10px;
+    font-size: 14px;
 }
 
-.arrow_icon_open{
-    position:absolute;
-    top: 12px;
-    right: 10px;
-    width: 13px;
-    height: 13px;
-    transform: rotate(180deg);
-}
-
-.photo_wrap{
-    display: flex;
-    padding: 2px 10px;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    background-color: #ebecef;
-    margin-bottom: 50px;
+.board_type{
+    position: absolute;
+    right: 3px;
+    font-size: 14px;
+    padding: 10px;
 }

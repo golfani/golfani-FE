@@ -17,6 +17,11 @@ const ShopItem = () : JSX.Element => {
                 <span className={style.review_rate_txt}>평점</span>
                 <span className={style.count_number_txt}>4.3 / 5</span>
             </div>
+            <span className={style.interest_txt}>12명의 회원님이 해당상품을 관심있어합니다</span>
+            <div className={style.tag_box}>
+                <span className={style.low_price_tag}>최저가 보장</span>
+                <span className={style.special_price_tag}>특가</span>
+            </div>
         </div>
     );
 };

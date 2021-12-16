@@ -70,6 +70,7 @@ const UserMenuModal = (props : IUserMenuModalProps) : JSX.Element => {
                     <div className={style.menu_box}>
                         <h3 className={style.menu_title_txt}>기타</h3>
                         <span className={style.menu_txt} onClick={handleClickLogOut}>로그아웃</span>
+                        <span className={style.close_btn} onClick={onCloseModal}>취소</span>
                     </div>
                 </div>
                 {scrapModalOpen && <ScrapModal setModalOpen={setScrapModalOpen}/>}
