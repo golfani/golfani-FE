@@ -1,7 +1,6 @@
 import {dateDiff} from "src/utils/dateUtil";
 import style from './alarmItem.module.css';
 import {IAlarm} from "src/domain/Alarm";
-import {getProfileImage} from "src/apis/Member";
 import UserProfileImage from "src/components/common/UserProfileImage";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {setAlarmRead} from "src/apis/Alarm";
@@ -63,7 +62,6 @@ const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
         <div className={style.container}>
             <div style={{opacity : alarm.isRead ? 0.3 : 1}} className={style.item_box}>
                 <UserProfileImage
-                    src={getProfileImage(alarm.sender,'MID')}
                     height={40}
                     width={40}
                     userId={alarm.sender}
