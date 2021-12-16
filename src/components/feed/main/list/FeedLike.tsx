@@ -6,6 +6,7 @@ import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getFeedLikes, getUserIsFeedLikes, ILikesDto, registerLikes} from "src/apis/Likes";
 import {useCallback} from "react";
 import {sendAlarmBySocket} from "src/apis/Alarm";
+import {getCookie} from "src/utils/cookieUtil";
 
 interface IFeedLikeProps {
     feed : IFeedContent
@@ -20,6 +21,7 @@ const FeedLike = ({feed} : IFeedLikeProps) : JSX.Element => {
         staleTime : 1000 * 60
     })
     const mutation = useMutation(()=> registerLikes("FEED",feed.id));
+    const userId = getCookie('userId');
 
     const onRegisterLikes = useCallback( async ()=> {
         try {
@@ -45,7 +47,7 @@ const FeedLike = ({feed} : IFeedLikeProps) : JSX.Element => {
                 ? <FavoriteIcon fontSize={'small'} color={'error'}/>
                 : <FavoriteBorderOutlinedIcon fontSize={'small'} color={'error'}/>
             }
-            {feed.isLikesActive
+            {feed.isLikesActive || feed.userId === userId
                 ?
                 <div>
                     <span className={style.like_txt}>좋아요</span>
