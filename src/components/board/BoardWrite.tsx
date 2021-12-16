@@ -26,6 +26,8 @@ const BoardWrite = (): JSX.Element => {
     const ref = useRef<HTMLTextAreaElement | null>(null);
     const [showType,setShowType] = useState(false);
 
+    // 테스트 이슈 커밋입니다.
+
     const setMsg = (msg : string) => {
         setOpenModal(true);
         setModalMsg(msg);
