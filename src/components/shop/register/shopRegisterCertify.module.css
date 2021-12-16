@@ -1,0 +1,63 @@
+.container {
+    width: 100%;
+    height: 600px;
+}
+
+.no_img_add_box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.no_img_icon {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-image: url('public/icon/certify_ico.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.hidden {
+    display: none;
+}
+
+.no_img_txt {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.img_box {
+    position: relative;
+}
+
+.on_img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+}
+
+.img_delete_btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    background: black;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    opacity: 0.2;
+}
+
+.img_delete_btn:hover {
+    opacity: 1;
+}
