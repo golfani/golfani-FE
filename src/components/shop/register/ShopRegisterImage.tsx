@@ -90,16 +90,16 @@ const ShopRegisterImage = () : JSX.Element => {
                             </div>
                         ))}
                     </Slider>
-                    <div className={style.img_more_add_box}>
-                        <label htmlFor='img_more_input' className={style.img_more_add_btn}>이미지 추가</label>
-                        <input id='img_more_input' className={style.hidden} type='file' accept='image/jpeg' onChange={onChangeImage}/>
-                    </div>
+                    {/*<div className={style.img_more_add_box}>*/}
+                    {/*    <label htmlFor='img_more_input' className={style.img_more_add_btn}>이미지 추가</label>*/}
+                    {/*    <input id='img_more_input' className={style.hidden} type='file' accept='image/jpeg' onChange={onChangeImage}/>*/}
+                    {/*</div>*/}
                 </div>
                 :
                 <div className={style.no_img_add_box}>
                     <label htmlFor='no_img_input' className={style.no_img_icon}/>
-                    <input id='no_img_input' type='file' accept='image/jpeg' className={style.hidden} onChange={onChangeImage} multiple={true}/>
-                    <label htmlFor='no_img_input' className={style.no_img_txt}>파일 업로드</label>
+                    <input id='no_img_input' type='file' accept='image/jpeg' className={style.hidden} onChange={onChangeImage}/>
+                    <label htmlFor='no_img_input' className={style.no_img_txt}>스토어 대표사진 등록</label>
                 </div>
             }
         </div>
