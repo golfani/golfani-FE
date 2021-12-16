@@ -2,7 +2,6 @@ import style from './feedMain.module.css';
 import {IFeedContent} from "src/apis/Feed";
 import {dateDiff} from "src/utils/dateUtil";
 import UserName from "src/components/common/UserName";
-import {getProfileImage} from "src/apis/Member";
 import {useState} from "react";
 import UserProfileImage from "src/components/common/UserProfileImage";
 import useCustomRouter from "src/hooks/routerHook";
@@ -44,7 +43,6 @@ const FeedMain =({feed} : IFeedMainProps) : JSX.Element => {
                 <div className={style.img_box}>
                     <UserProfileImage
                         userId={feed.userId}
-                        src={getProfileImage(feed.userId,'MID')}
                         width={35}
                         height={35}
                     />

@@ -5,7 +5,6 @@ import useChatRoom from "src/store/modules/chat/chatRoomHook";
 import {useInfiniteQuery, useQueryClient} from "react-query";
 import {getChatMessageByRoomId, IChatMessageDto} from "src/apis/Chat";
 import {IPages} from "src/domain/Page";
-import {getProfileImage} from "src/apis/Member";
 import ChatItem from "./ChatItem";
 import ArrowBackIosNewIcon from '@material-ui/icons/ArrowBackIosNew';
 import UserProfileImage from "src/components/common/UserProfileImage";
@@ -75,7 +74,6 @@ const Chat = ({closeModal} : IChatProps) : JSX.Element => {
                         </div>
                         {chatRoom.activeChatRoom &&
                         <UserProfileImage
-                            src={getProfileImage(chatRoom.activeChatRoom?.receiver,'MID')}
                             userId={chatRoom.activeChatRoom?.receiver!}
                             width={30}
                             height={30}

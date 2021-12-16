@@ -7,7 +7,6 @@ import {getFeedReplyCount} from "src/apis/Reply";
 import FeedModal from "src/components/modals/feed/FeedModal";
 import {useCallback, useEffect, useState} from "react";
 import UserName from "src/components/common/UserName";
-import {getProfileImage} from "src/apis/Member";
 import {MID_LEVEL_FIRST_PICTURE} from "src/domain/Picture";
 import UserProfileImage from "src/components/common/UserProfileImage";
 import useCustomRouter from "src/hooks/routerHook";
@@ -66,7 +65,6 @@ const CardItem = ({feed} : IFeedProps) : JSX.Element => {
             <div className={style.user_box}>
                 <UserProfileImage
                     userId={feed.userId}
-                    src={getProfileImage(feed.userId,'MID')}
                     width={30}
                     height={30}
                 />
