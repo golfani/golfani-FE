@@ -12,7 +12,10 @@ import {
     setStep,
     addImg,
     deleteImg,
-    IShopRegisterImg
+    IShopRegisterImg,
+    addCertifyImg,
+    deleteCertifyImg,
+    setRegistrationNumber
 } from './shopRegister';
 import {SHOP_REGISTER_STATUS} from "src/domain/Shop";
 
@@ -26,6 +29,8 @@ const useShopRegister = () => {
     const contactMiddle = useSelector((state : RootState) => state.shopRegister.inputs.contactMiddle);
     const contactLast = useSelector((state : RootState) => state.shopRegister.inputs.contactLast);
     const description = useSelector((state : RootState) => state.shopRegister.inputs.description);
+    const certifyImg = useSelector((state : RootState) => state.shopRegister.certifyImg);
+    const registrationNumber = useSelector((state : RootState) => state.shopRegister.inputs.registrationNumber);
 
     const dispatch = useDispatch();
 
@@ -73,8 +78,33 @@ const useShopRegister = () => {
         dispatch(deleteImg(index));
     }
 
+    const onAddCertifyImg = (img : IShopRegisterImg) => {
+        dispatch(addCertifyImg(img));
+    }
+
+    const onDeleteCertifyImg = (index : number) => {
+        dispatch(deleteCertifyImg(index));
+    }
+
+    const onInitRegistrationNumber = () => {
+        dispatch(setRegistrationNumber(''));
+    }
+
+    const onSetRegistrationNumber = (registrationNumber : string) => {
+        if(registrationNumber.length === 3) {
+            registrationNumber = registrationNumber + '-';
+        }
+        if(registrationNumber.length === 6) {
+            registrationNumber = registrationNumber + '-';
+        }
+        if(registrationNumber.length === 13) {
+            return;
+        }
+        dispatch(setRegistrationNumber(registrationNumber));
+    }
+
     const checkValidInputs = () => {
-        return !!(shopName && address && contactFirst && contactMiddle && contactLast && description && location);
+        return !!(shopName && address && registrationNumber && contactFirst && contactMiddle && contactLast && description && location);
     }
 
     return {
@@ -87,6 +117,8 @@ const useShopRegister = () => {
         contactFirst,
         contactMiddle,
         contactLast,
+        certifyImg,
+        registrationNumber,
         onInitState,
         onSetDescription,
         onSetShopName,
@@ -98,7 +130,11 @@ const useShopRegister = () => {
         onSetSubAddress,
         onSetContactFirst,
         onSetContactMiddle,
-        onSetContactLast
+        onSetContactLast,
+        onAddCertifyImg,
+        onDeleteCertifyImg,
+        onSetRegistrationNumber,
+        onInitRegistrationNumber
     }
 }
 

@@ -14,12 +14,14 @@ export interface IShopRegisterInputs {
     contactFirst : string
     contactMiddle : string
     contactLast : string
+    registrationNumber : string
 }
 
 interface IShopRegisterState {
     step : SHOP_REGISTER_STATUS
     img : IShopRegisterImg[]
     inputs : IShopRegisterInputs
+    certifyImg : IShopRegisterImg[]
 }
 
 const initialState : IShopRegisterState = {
@@ -33,7 +35,9 @@ const initialState : IShopRegisterState = {
         contactFirst : '',
         contactMiddle : '',
         contactLast : '',
-    }
+        registrationNumber : '',
+    },
+    certifyImg : []
 }
 
 export const shopRegisterSlice = createSlice({
@@ -51,7 +55,9 @@ export const shopRegisterSlice = createSlice({
                 contactFirst : '',
                 contactMiddle : '',
                 contactLast : '',
+                registrationNumber : '',
             };
+            state.certifyImg = [];
         },
         setShopName(state : IShopRegisterState, action : PayloadAction<string>) {
             state.inputs.shopName = action.payload;
@@ -77,14 +83,23 @@ export const shopRegisterSlice = createSlice({
         setStep(state : IShopRegisterState, action : PayloadAction<SHOP_REGISTER_STATUS>) {
             state.step = action.payload;
         },
+        setRegistrationNumber(state : IShopRegisterState, action : PayloadAction<string>) {
+            state.inputs.registrationNumber = action.payload;
+        },
         addImg(state : IShopRegisterState, action : PayloadAction<IShopRegisterImg>) {
             state.img.push(action.payload);
         },
         deleteImg (state : IShopRegisterState, action : PayloadAction<number>) {
             state.img = state.img.filter((item,index) => index !== action.payload);
+        },
+        addCertifyImg(state : IShopRegisterState, action : PayloadAction<IShopRegisterImg>) {
+            state.certifyImg.push(action.payload);
+        },
+        deleteCertifyImg (state : IShopRegisterState, action : PayloadAction<number>) {
+            state.certifyImg = state.certifyImg.filter((item,index) => index !== action.payload);
         }
     }
 })
 
 export default shopRegisterSlice.reducer;
-export const {initState,setDescription,setAddress,setSubAddress,setContactFirst,setContactMiddle,setContactLast,setShopName,setStep,addImg,deleteImg} = shopRegisterSlice.actions;
+export const {initState,setDescription,setAddress,setSubAddress,setContactFirst,setContactMiddle,setContactLast,setShopName,setStep,addImg,deleteImg,addCertifyImg,deleteCertifyImg,setRegistrationNumber} = shopRegisterSlice.actions;
