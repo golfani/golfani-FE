@@ -1,11 +1,13 @@
 .container{
-    width:100%;
-    border-bottom: 10px solid #ddd;
+    width: 100%;
+    align-items: center;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .head_text{
     font-size: 20px;
     font-weight: bold;
+    padding: 10px;
 }
 

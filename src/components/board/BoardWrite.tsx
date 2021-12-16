@@ -1,10 +1,13 @@
 import style from 'src/components/board/boardWrite.module.css';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {registerBoard} from 'src/apis/Board';
 import {getCookie} from "src/utils/cookieUtil";
 import {useRouter} from "next/router";
 import Modal from "src/components/modals/Modal"
 import {EBoardType} from "src//domain/board";
+import Link from 'next/link';
+import Board from "../../../pages/board";
+import BoardWriteImage from "./BoardWriteImage";
 
 export interface boardDTO {
     userId : string,
@@ -22,6 +25,7 @@ const BoardWrite = (): JSX.Element => {
     const {boardType} = router.query;
     const [selectBoard, setSelectBoard] = useState('게시판선택');
     const ref = useRef<HTMLTextAreaElement | null>(null);
+    const [showType,setShowType] = useState(false);
 
     const setMsg = (msg : string) => {
         setOpenModal(true);
@@ -47,12 +51,6 @@ const BoardWrite = (): JSX.Element => {
 
     const [imgList, setImgList] = useState<File[]>([]);
     const [fileURLs,setFileURLs] = useState<Array<string>>([]);
-
-    useEffect(() => {
-        console.log(imgList);
-        console.log(fileURLs);
-    },[imgList])
-
 
     const handleChangeFile = (e: any) => {
         const fileArr =  e.target.files;
@@ -83,6 +81,7 @@ const BoardWrite = (): JSX.Element => {
 
     const handleTypeClick = () => {
         setOnType(!onType);
+        setShowType(!showType);
     }
 
     const handleOnSummit = async () => {
@@ -122,21 +121,40 @@ const BoardWrite = (): JSX.Element => {
     return(
         <div className={style.container}>
             <div className={style.write_wrap}>
-                <div>글작성페이지</div>
+                <div className={style.write_top}>
+                    <div className={style.write_head}>게시판 글쓰기</div>
+                    <div className={style.bt_wrap}>
+                        <button className={style.btn_register} onClick={handleOnSummit}>등록</button>
+                        <Link href={'/board'}>
+                            <button className={style.btn_cancel}>취소</button>
+                        </Link>
+                    </div>
+                </div>
                 <div className={style.board_write}>
                     <div className={style.title}>
                         <textarea className={style.titleTextArea} placeholder="제목을 입력해 주세요." name = "title" value={title} onChange={onChange} onKeyPress={onEnterPress}> </textarea>
-                    </div>
-                    <button className={style.boardType_btn} onClick={handleTypeClick}>{selectBoard}</button>
-                    {
-                        onType &&
-                        <div className={style.menu_wrap}>
-                            <div className={style.board_type_free} id={EBoardType.FREE} onClick={() => handleOnTypeClick(EBoardType.FREE)}>자유게시판</div>
-                            <div className={style.board_type_trade} id={EBoardType.TRADE} onClick={() => handleOnTypeClick(EBoardType.TRADE)}>거래게시판</div>
-                            <div className={style.board_type_tip} id={EBoardType.TIP} onClick={() => handleOnTypeClick(EBoardType.TIP)}>TIP게시판</div>
-                            <div className={style.board_type_anonymous} id={EBoardType.ANONYMOUS} onClick={() => handleOnTypeClick(EBoardType.ANONYMOUS)}>익명게시판</div>
+                        <div className={style.select_type_wrap}>
+                            <button className={style.boardType_btn} onClick={handleTypeClick}>{selectBoard}</button>
+                            <img src="https://img.icons8.com/external-those-icons-lineal-color-those-icons/24/000000/external-arrow-arrows-those-icons-lineal-color-those-icons-1.png" className={showType ? style.arrow_icon_open : style.arrow_icon } />
+                            {
+                                onType &&
+                                <ul className={style.menu_wrap}>
+                                    <li className={style.menu}>
+                                        <div className={style.board_type_free} id={EBoardType.FREE} onClick={() => handleOnTypeClick(EBoardType.FREE)}>자유게시판</div>
+                                    </li>
+                                    <li className={style.menu}>
+                                        <div className={style.board_type_trade} id={EBoardType.TRADE} onClick={() => handleOnTypeClick(EBoardType.TRADE)}>거래게시판</div>
+                                    </li>
+                                    <li className={style.menu}>
+                                        <div className={style.board_type_tip} id={EBoardType.TIP} onClick={() => handleOnTypeClick(EBoardType.TIP)}>TIP게시판</div>
+                                    </li>
+                                    <li className={style.menu}>
+                                        <div className={style.board_type_anonymous} id={EBoardType.ANONYMOUS} onClick={() => handleOnTypeClick(EBoardType.ANONYMOUS)}>익명게시판</div>
+                                    </li>
+                                </ul>
+                            }
                         </div>
-                    }
+                    </div>
                     <div className={style.info}>
                         <span className={style.writer}>글쓴이</span>
                         <span className={style.userId}>{userId}</span>
@@ -148,12 +166,14 @@ const BoardWrite = (): JSX.Element => {
                         <div className={style.preview}>
                             {
                                 fileURLs.map((img,index) => (
-                                    <img src={img} key={index} onClick={() => handleDeleteImg(index)} className={style.preview_img}/>
+                                    <BoardWriteImage index={index} src={img} handleDeleteImg={handleDeleteImg}/>
                                 ))}
                         </div>
                     </div>
                     <div className={style.upload}>
-                        <label htmlFor="input-file" className={style.plus_img}> 사진 추가</label>
+                        <div className={style.photo_wrap} >
+                            <label htmlFor="input-file" className={style.plus_img}>사진 추가</label>
+                        </div>
                         <input
                             className={style.file_input}
                             type="file"
@@ -163,10 +183,6 @@ const BoardWrite = (): JSX.Element => {
                             onChange={handleChangeFile}
                         />
                     </div>
-                </div>
-                <div className={style.bt_wrap}>
-                    <button className={style.btn_register} onClick={handleOnSummit}>등록</button>
-                    <a href="/board" className={style.btn_cancel}>취소</a>
                 </div>
                 {openModal && <Modal message={modalMsg} setModalOpen={setOpenModal}/>}
             </div>

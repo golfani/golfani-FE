@@ -5,6 +5,8 @@ import {TSelectMenu} from "src/components/board/page/BoardPage";
 import BoardSearchType from "src/components/board/page/BoardSearchType";
 import BoardSearch from "src/components/board/page/BoardSearch";
 import BoardSearchBar from "src/components/board/page/BoardSearchBar";
+import style from "src/components/board/boardMain.module.css"
+import BoardListHead from "../../src/components/board/item/BoardListHead";
 
 export interface ISearchProps{
     selectMenu : TSelectMenu,
@@ -16,8 +18,9 @@ const SearchResult = () : JSX.Element => {
     const {selectMenu, payload} = router.query;
 
     return(
-        <div>
+        <div className={style.container}>
             <Navbar/>
+            <BoardListHead boardType={null}/>
             <BoardSearchType/>
             <BoardSearch selectMenu={selectMenu as TSelectMenu} payload={payload as string}/>
             <BoardSearchBar/>

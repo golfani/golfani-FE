@@ -8,7 +8,7 @@ import {useRouter} from "next/router";
 
 const Board = () : JSX.Element => {
     const router = useRouter();
-    const {type,page} = router.query;
+    const {type} = router.query;
 
     const [boardType,setBoardType] = useState<EBoardType | null>(type as EBoardType);
 
@@ -18,7 +18,7 @@ const Board = () : JSX.Element => {
 
     useEffect(()=>{
         if(type === undefined) router.push(`/board?type=FREE&page=0`);
-    },[]) // 교체 예정
+    },[])
 
     return (
         <div>

@@ -4,7 +4,7 @@
     width: 15%;
     height: 100%;
     margin-top: 20px;
-    padding: 10px
+    padding: 10px;
 }
 
 .category_style{
@@ -57,12 +57,11 @@
     cursor: pointer;
     font-weight: bold;
     color:#8729ff;
-    text-decoration: 1
-    px solid underline;
 }
 
 .board_category{
-    border-bottom: 2px solid #ddd;
+    text-align: center;
+    border: 2px solid #ddd;
 }
 
 .menu_category{

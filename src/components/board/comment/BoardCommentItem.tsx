@@ -78,7 +78,6 @@ const BoardCommentItem = ({reply} : IReplyProps) => {
 
     return(
         <div>
-
             <div className={reply.referenceId ? style.reply_container: style.container}>
                 {reply.referenceId && <ShortcutIcon style ={{fontSize: '20px'}} className={style.arrowIcon}/>}
                 <div className={style.headLine}/>

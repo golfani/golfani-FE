@@ -10,6 +10,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getAllPostLikes, getPostLikes, registerLikes} from "src/apis/Likes";
 import {EBoardType} from "../../domain/board";
+import {onHandleImgClick} from "../../domain/board";
 
 export interface IBoardProps{
     boardView : IBoardData
@@ -55,16 +56,6 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
 
     const onLikeClick = () => {
         onRegisterLikes();
-    }
-
-    const onHandleImgClick = (url : string) => {
-        const img = new Image();
-        img.onload = () => {
-            const popupX = (window.screen.width / 2) - (img.width / 2);
-            const popupY = (window.screen.height / 2) - (img.height / 2);
-            window.open(img.src, '', `height= ${img.height}, width=${img.width}, left=${popupX}, top=${popupY}, location=no,status=no,scrollbars=yes`);
-        }
-        img.src = url;
     }
 
     const onUserIdClick = () =>{

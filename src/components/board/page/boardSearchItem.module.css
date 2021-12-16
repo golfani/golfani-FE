@@ -7,13 +7,16 @@
     height: 30px;
 }
 
+.container:hover{
+    background-color: #8a8a8a;
+}
+
 .search_payload{
     font-size: 12px;
     cursor : pointer;
 }
 
 .delete_btn{
-    background-color: #fff;
     color: #ddd;
     font-size: 12px;
 }

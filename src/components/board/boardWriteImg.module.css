@@ -1,0 +1,16 @@
+.container{
+    display: flex;
+    position:relative;
+    flex-direction: column;
+    align-items: center;
+}
+
+.preview_img{
+    background-color: #fff;
+    max-width: 300px;
+    max-height: 300px;
+    margin: 5px;
+}
+
+
+
