@@ -99,7 +99,7 @@ const BoardSearchBar = () : JSX.Element => {
         <div className={style.search_bar}>
             <div className={style.select_wrap}>
                 <button onClick={handlerContentClick} className={style.select_component}>
-                    <span className={style.select_text}>{selectMenu === 'TITLE' ? '제목' : selectMenu === "CONTENT" ? '제목' : '글쓴이' }</span>
+                    <span className={style.select_text}>{selectMenu === 'TITLE' ? '제목' : selectMenu === "CONTENT" ? '내용' : '글쓴이' }</span>
                     <img src="https://img.icons8.com/external-those-icons-lineal-color-those-icons/24/000000/external-arrow-arrows-those-icons-lineal-color-those-icons-1.png" className={showMenu ? style.arrow_icon_open : style.arrow_icon} />
                 </button>
                 <div className={showMenu ? style.select_menu_wrap : style.select_hidden} ref={searchMenu}>
@@ -118,7 +118,7 @@ const BoardSearchBar = () : JSX.Element => {
             </div>
             <div ref={searchId}>
                 <input type="text" className={style.search_id} title={style.search_id} placeholder="검색어 입력" value = {payload} onClick={onSearchIdClick} onKeyPress={onKeyPress} onChange={onTextChange}></input>
-                {onSearchId && <div className={style.delete_searchList} onClick={onClear}>전체삭제</div>}
+                {searchList.length > 0 && onSearchId && <div className={style.delete_searchList} onClick={onClear}>전체삭제</div>}
                 {onSearchId && <BoardSearchHistory searchResult={searchList} setSearchList={setSearchList} setPayload={setPayload} setOnSearchId={setOnSearchId}/>}
             </div>
             <button type="submit" className={style.search_btn} onClick={onSearchBtnClick} >검색</button>

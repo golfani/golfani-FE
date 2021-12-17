@@ -7,6 +7,7 @@ import Modal from "src/components/modals/Modal"
 import {EBoardType} from "src//domain/board";
 import Link from 'next/link';
 import BoardWriteImage from "./BoardWriteImage";
+import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
 export interface boardDTO {
     userId : string,
@@ -133,7 +134,7 @@ const BoardWrite = (): JSX.Element => {
                 </div>
                 <div className={style.board_write}>
                     <div className={style.title}>
-                        <textarea className={style.titleTextArea} placeholder="제목을 입력해 주세요." name = "title" value={title} onChange={onChange} onKeyPress={onEnterPress}> </textarea>
+                        <textarea className={style.titleTextArea} placeholder="제목을 입력해 주세요." name = "title" value={title} onChange={onChange} onKeyPress={onEnterPress} autoFocus={true}> </textarea>
                         <div className={style.select_type_wrap}>
                             <button className={style.boardType_btn} onClick={handleTypeClick}>{selectBoard}</button>
                             <img src="https://img.icons8.com/external-those-icons-lineal-color-those-icons/24/000000/external-arrow-arrows-those-icons-lineal-color-those-icons-1.png" className={showType ? style.arrow_icon_open : style.arrow_icon } />
@@ -160,6 +161,11 @@ const BoardWrite = (): JSX.Element => {
                         <span className={style.writer}>글쓴이</span>
                         <span className={style.userId}>{userId}</span>
                     </div>
+                    <div className={style.photo_wrap} >
+                        <label htmlFor="input-file" className={style.plus_img}>
+                            <InsertPhotoIcon/>
+                        </label>
+                    </div>
                     <div className={style.content_wrap}>
                         <div className={style.content}>
                             <textarea className={style.contentTextarea} placeholder="내용 입력을 입력해 주세요" name="content" value = {content} onChange={onChange} ref={ref}></textarea>
@@ -172,9 +178,6 @@ const BoardWrite = (): JSX.Element => {
                         </div>
                     </div>
                     <div className={style.upload}>
-                        <div className={style.photo_wrap} >
-                            <label htmlFor="input-file" className={style.plus_img}>사진 추가</label>
-                        </div>
                         <input
                             className={style.file_input}
                             type="file"
