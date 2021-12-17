@@ -1,0 +1,37 @@
+.container {
+    position: fixed;
+    right: 10px;
+    bottom: 150px;
+    width: 60px;
+    border: 1px solid #ccc;
+}
+
+.menu_box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.menu_list {
+
+}
+
+.menu_list + .menu_list {
+    border-top: 1px solid #ccc;
+}
+
+.menu_txt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: black;
+    color: white;
+    letter-spacing: -1.0px;
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+}
