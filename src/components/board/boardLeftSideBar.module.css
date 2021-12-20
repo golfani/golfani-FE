@@ -3,7 +3,7 @@
     left : 0;
     width: 15%;
     height: 100%;
-    margin-top: 20px;
+    margin-top: 40px;
     padding: 10px;
 }
 
@@ -13,32 +13,6 @@
     cursor:pointer;
     padding : 3px;
     font-weight: bold;
-}
-
-.box_wrap{
-    display: block;
-    padding:10px;
-    left: 60px;
-    width: 100%;
-    margin-top:10px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-    animation: fadeIn linear 1s;
-}
-
-@keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
-}
-
-@keyframes fadeOut {
-    0% {opacity:1;}
-    100% {opacity:0;}
-}
-
-.box_wrap_hidden{
-    display: none;
 }
 
 .board_menu_default{
@@ -61,12 +35,15 @@
 
 .board_category{
     text-align: center;
-    border: 2px solid #ddd;
+    border-radius: 5px;
 }
 
 .menu_category{
-    margin-top : 30px;
+    margin-top : 20px;
     padding: 0;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
 }
 
 .main_menu{

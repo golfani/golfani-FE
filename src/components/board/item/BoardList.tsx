@@ -30,11 +30,12 @@ const BoardList = (boardType : ITypeProps) : JSX.Element => {
                         <div className={style.board_id}>글쓴이</div>
                         <div className={style.board_date_head}>작성일</div>
                         <div className={style.recommend}>추천</div>
+                        <div className={style.board_views}>조회수</div>
                     </div>
                     {boardQuery.data &&
-                    boardQuery.data.content.map((board : IBoardData)=> {
+                    boardQuery.data.content.map((board : IBoardData,index : number)=> {
                         return(
-                            <BoardItem board={board} />
+                            <BoardItem board={board} key={index}/>
                         )
                     })}
                 </div>

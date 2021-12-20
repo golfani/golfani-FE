@@ -17,7 +17,7 @@ const BoardSearchBar = () : JSX.Element => {
     const searchId = useRef<HTMLDivElement>(null);
     const searchMenu = useRef<HTMLDivElement>(null);
     const [showMenu,setShowMenu] = useState(false);
-    const [selectMenu, setSelectMenu] = useState<TSelectMenu | string>('제목');
+    const [selectMenu, setSelectMenu] = useState<TSelectMenu | string>('TITLE');
     const [payload, setPayload] = useState('');
 
     const handlerSelectMenu = (menu: TSelectMenu) => {
@@ -117,7 +117,7 @@ const BoardSearchBar = () : JSX.Element => {
                 </div>
             </div>
             <div ref={searchId}>
-                <input type="text" className={style.search_id} title={style.search_id} placeholder="검색어 입력" value = {payload} onClick={onSearchIdClick} onKeyPress={onKeyPress} onChange={onTextChange}></input>
+                <input type="text" className={style.search_word} title={style.search_id} placeholder="검색어 입력" value = {payload} onClick={onSearchIdClick} onKeyPress={onKeyPress} onChange={onTextChange}></input>
                 {searchList.length > 0 && onSearchId && <div className={style.delete_searchList} onClick={onClear}>전체삭제</div>}
                 {onSearchId && <BoardSearchHistory searchResult={searchList} setSearchList={setSearchList} setPayload={setPayload} setOnSearchId={setOnSearchId}/>}
             </div>

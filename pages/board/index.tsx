@@ -4,6 +4,7 @@ import BoardLeftSideBar from 'src/components/board/BoardLeftSideBar';
 import {useEffect, useState} from "react";
 import {EBoardType} from "src/domain/board";
 import {useRouter} from "next/router";
+import style from 'src/components/board/board.module.css'
 
 
 const Board = () : JSX.Element => {
@@ -21,7 +22,7 @@ const Board = () : JSX.Element => {
     },[])
 
     return (
-        <div>
+        <div className={style.container}>
             <Navbar/>
             <BoardLeftSideBar onSetBoardType={onSetBoardType}/>
             <BoardMain boardType={boardType}/>

@@ -175,6 +175,7 @@
 
 .boardType_btn{
     padding: 10px 12px;
+    height: 40px;
     width: 100%;
     text-align: left;
     border-radius: 5px;
@@ -211,6 +212,8 @@
     border-radius: 5px;
     color:#000;
     text-align: center;
+    width: 100%;
+    cursor: pointer;
 }
 
 .select_type_wrap{

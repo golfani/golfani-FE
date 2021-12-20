@@ -8,12 +8,13 @@ import ReportModal from "./ReportModal";
 import {getCookie} from "src/utils/cookieUtil";
 import FeedModifyModal from "./feed/FeedModifyModal";
 import {IScrapDto, registerScrap} from "src/apis/Scrap";
+import {IBoardData} from "../../apis/Board";
 
 export type TRef = "FEED" | "POST" | "FEED_REPLY" | "POST_REPLY"
 
 export interface DetailMenuModalProps {
     setModalOpen: (state : boolean) => void
-    target: IReplyDto | IFeedContent
+    target: IReplyDto | IFeedContent | IBoardData
     type: TRef
 }
 
