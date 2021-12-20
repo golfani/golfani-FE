@@ -30,8 +30,6 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
     const isScrappedQuery = useQuery(['isScrapped',props.type,props.target.id], () => isScrapped(props.type, props.target.id));
     const deleteScrapMutate = useMutation((id:number)=> deleteScrap(id));
 
-    console.log(isScrappedQuery.data);
-
     const onModalClose = () => {
         if(typeof window !== 'undefined') {
             if(window.innerWidth <= 768) {

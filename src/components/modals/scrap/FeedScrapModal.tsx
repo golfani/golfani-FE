@@ -32,25 +32,19 @@ const FeedScrapModal = (props : IFeedScrapModalProps) : JSX.Element => {
     const deleteScrapMutate = useMutation((id : number) => deleteScrap(id));
     const queryClient = useQueryClient();
 
-    const onLoadFeedData = () => {
-        let temp : IScrapFeed[] = [];
-
-        allFeedScrapQuery.data?.pages.map((page)=> (
-            page.content.map(async (scrap)=> {
-                try {
-                    const feed = await getFeedOne(scrap.refId);
-                    const data : IScrapFeed = {
-                        scrapId : scrap.id!,
-                        feed : feed
-                    }
-                    temp = temp.concat(data);
-                    setScrapFeed(temp);
+    const onLoadFeedData = async () => {
+        allFeedScrapQuery.data?.pages.map(async (page)=> {
+            const reduceResponse =  await page.content.reduce(async (prevPromise : any, data) => {
+                const prevResponse = await prevPromise;
+                const response = await getFeedOne(data.refId);
+                const scrapFeed : IScrapFeed = {
+                    scrapId : data.id!,
+                    feed : response
                 }
-                catch (e) {
-                    
-                }
-            })
-        ))
+                return [...prevResponse, scrapFeed];
+            },[])
+            setScrapFeed(reduceResponse);
+        });
     }
 
     const onCloseModal = () => {
