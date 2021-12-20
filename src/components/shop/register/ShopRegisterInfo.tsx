@@ -2,12 +2,18 @@ import style from './shopRegisterInfo.module.css';
 import DaumPostcode from "react-daum-postcode";
 import {ChangeEvent, CSSProperties, useState} from "react";
 import useShopRegister from "src/store/modules/shopRegister/shopRegisterHook";
+import ShopRegNumCertifyModal from "src/components/modals/shop/ShopRegNumCertifyModal";
 
 const daumPostStyle : CSSProperties = {width : '400px', height : '500px'}
 
 const ShopRegisterInfo = () : JSX.Element => {
     const shopRegister = useShopRegister();
     const [openPost, setOpenPost] = useState(false);
+    const [openRegNumCertifyModal, setOpenRegNumCertifyModal] = useState(false);
+
+    const handleClickCertify = () => {
+        setOpenRegNumCertifyModal(true);
+    }
 
     const handleClickFindPost = () => {
         setOpenPost(true);
@@ -45,12 +51,10 @@ const ShopRegisterInfo = () : JSX.Element => {
             </div>
             <div className={style.input_box}>
                 <span className={style.input_txt}>사업자 등록번호</span>
-                <input
-                    onFocus={shopRegister.onInitRegistrationNumber}
-                    className={style.input}
-                    value={shopRegister.registrationNumber}
-                    onChange={(e) => shopRegister.onSetRegistrationNumber(e.target.value)}
-                />
+                <div className={style.registrationNumber_box}>
+                    <span className={style.registrationNumber_txt}>{shopRegister.registrationNumber}</span>
+                    <button className={style.find_btn} onClick={handleClickCertify}>등록</button>
+                </div>
             </div>
             <div className={style.input_box}>
                 <span className={style.input_txt}>스토어 주소</span>
@@ -96,6 +100,7 @@ const ShopRegisterInfo = () : JSX.Element => {
                 <DaumPostcode onComplete={handleDaumPostClose} style={daumPostStyle}/>
             </div>
             }
+            {openRegNumCertifyModal && <ShopRegNumCertifyModal setModalOpen={setOpenRegNumCertifyModal}/>}
         </div>
     );
 };

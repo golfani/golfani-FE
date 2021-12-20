@@ -91,15 +91,6 @@ const useShopRegister = () => {
     }
 
     const onSetRegistrationNumber = (registrationNumber : string) => {
-        if(registrationNumber.length === 3) {
-            registrationNumber = registrationNumber + '-';
-        }
-        if(registrationNumber.length === 6) {
-            registrationNumber = registrationNumber + '-';
-        }
-        if(registrationNumber.length === 13) {
-            return;
-        }
         dispatch(setRegistrationNumber(registrationNumber));
     }
 

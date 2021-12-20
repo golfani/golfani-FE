@@ -1,0 +1,61 @@
+.container {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    top: 0; right: 0; left: 0; bottom: 0;
+    background-color: rgba(0,0,0, 0.5);
+}
+
+.modal_box {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 350px;
+    background-color: #fff;
+}
+
+.title_box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 45px;
+    padding: 0 15px;
+    border-bottom: 1px solid #eff0f2;
+}
+
+.action_btn {
+    font-size: 13px;
+}
+
+.title_txt {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+}
+
+.input_box {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.input_txt {
+    display: inline-block;
+    font-size: 15px;
+    letter-spacing: -0.5px;
+}
+
+.input {
+    margin-left: auto;
+    width: 200px;
+    height: 35px;
+    padding: 0 5px;
+}
+
+.input:focus {
+    border: 2px solid #81B147;
+}
