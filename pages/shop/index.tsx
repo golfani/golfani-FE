@@ -4,7 +4,7 @@ import ShopSearch from "src/components/shop/ShopSearch";
 import ShopHotStoreList from "src/components/shop/ShopHotStoreList";
 import ShopRecommendGolfClub from "src/components/shop/ShopRecommendGolfClub";
 import {useState} from "react";
-import ShopRegisterModal from "src/components/modals/ShopRegisterModal";
+import ShopRegisterModal from "src/components/modals/shop/ShopRegisterModal";
 import ShopFloatingMenu from "src/components/shop/floatingMenu/ShopFloatingMenu";
 
 const Shop = () : JSX.Element => {
