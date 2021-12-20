@@ -34,6 +34,24 @@
     border: 2px solid #81B147;
 }
 
+.registrationNumber_box {
+    display: flex;
+}
+
+.registrationNumber_txt {
+    display: flex;
+    align-items: center;
+    width: 150px;
+    height: 45px;
+    border-radius: 12px;
+    font-size: 16px;
+    padding: 0 10px;
+    border: 1px solid #dadada;
+    background-color: #eeeeee;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+}
+
 .address_box {
     display: flex;
     margin-bottom: 10px;

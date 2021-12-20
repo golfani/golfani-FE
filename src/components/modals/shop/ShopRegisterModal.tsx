@@ -3,7 +3,7 @@ import ShopRegisterInfo from "src/components/shop/register/ShopRegisterInfo";
 import ShopRegisterImage from "src/components/shop/register/ShopRegisterImage";
 import {useEffect, useRef, useState} from "react";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
-import Modal from "./Modal";
+import Modal from "../Modal";
 import {SHOP_REGISTER_STATUS} from "src/domain/Shop";
 import useShopRegister from "src/store/modules/shopRegister/shopRegisterHook";
 import ShopRegisterCertify from "src/components/shop/register/ShopRegisterCertify";
