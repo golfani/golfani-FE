@@ -12,6 +12,35 @@ import {IMessage} from "@stomp/stompjs";
 import {socket, socketConnect, socketDisconnect, subChatChannel} from "src/socket/socket";
 import SocketLoading from "src/components/common/SocketLoading";
 import Head from "next/head";
+import {getMessaging, getToken} from "firebase/messaging";
+import {initializeApp} from "firebase/app";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCslF4Q0fxcHKw0Gibc5v0fP4qb9zrs5BQ",
+    authDomain: "golfani.firebaseapp.com",
+    projectId: "golfani",
+    storageBucket: "golfani.appspot.com",
+    messagingSenderId: "754644573375",
+    appId: "1:754644573375:web:92b8afc4bd06032777ba0a",
+    measurementId: "G-SXKEJV1VYX"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const messaging = getMessaging();
+getToken(messaging, { vapidKey: 'BA2rpGOuAMUraL15Zjml-4pkQYD8z6l0jY96jtKF4E9ebC_kjqrPOXSRh7MXhmS_U8UoV1AeQEjUHxBBR50FJxM' }).then((currentToken) => {
+    if (currentToken) {
+        console.log(currentToken);
+    } else {
+        // Show permission request UI
+        console.log('No registration token available. Request permission to generate one.');
+        // ...
+    }
+}).catch((err) => {
+    console.log('An error occurred while retrieving token. ', err);
+    // ...
+});
+
 
 const queryClient = new QueryClient();
 const reduxStore = store();

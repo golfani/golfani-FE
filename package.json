@@ -22,6 +22,7 @@
     "@types/redux-logger": "^3.0.9",
     "axios": "^0.21.1",
     "faker": "^5.5.3",
+    "firebase": "^9.6.1",
     "lottie-web": "^5.7.14",
     "next": "11.0.1",
     "next-redux-wrapper": "^7.0.2",
