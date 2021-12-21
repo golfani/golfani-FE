@@ -19,12 +19,15 @@ const SearchResult = () : JSX.Element => {
 
     return(
         <div className={style.container}>
-            <Navbar/>
-            <BoardListHead boardType={null}/>
-            <BoardSearchType/>
-            <BoardSearch selectMenu={selectMenu as TSelectMenu} payload={payload as string}/>
-            <BoardSearchBar/>
+            <div className={style.board_container}>
+                <Navbar/>
+                <BoardListHead boardType={null}/>
+                <BoardSearchType/>
+                <BoardSearch selectMenu={selectMenu as TSelectMenu} payload={payload as string}/>
+                <BoardSearchBar/>
+            </div>
         </div>
+
     )
 }
 

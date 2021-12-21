@@ -1,10 +1,13 @@
 .container{
     display: flex;
     width:100%;
-    padding: 10px;
+    padding: 15px;
     flex-direction: column;
     line-height: 40px;
+    border-top: 2px solid #000;
     border-bottom: 2px solid #000;
+    background-color: #fff;
+    border-radius: 10px;
 }
 
 .board_item_container{
@@ -19,7 +22,7 @@
 .list_top{
     display: flex;
     width:100%;
-    border-top: 2px solid #000;
+    padding: 0 5px;
     border-bottom: 1px solid #ddd;
     align-items: center;
 }
@@ -36,7 +39,9 @@
 }
 
 .board_title{
-    width:50%;
+    display: flex;
+    align-items:center;
+    width:40%;
 }
 
 .board_title_text{
@@ -46,6 +51,12 @@
 .board_id{
     width:12%;
     font-size:0.8rem;
+}
+
+.board_views{
+    width: 10%;
+    font-size: 0.8rem;
+    text-align: center;
 }
 
 .board_date_head{
@@ -65,6 +76,7 @@
 .recommend{
     line-height: 40px;
     margin-left: 40px;
+    width: 6%;
     font-size : 0.8rem;
 }
 
@@ -86,17 +98,7 @@
 }
 
 .click_num_wrap{
-    display: flex;
-    padding: 12px;
-    height: 40px;
-    position: absolute;
-    line-height: 20px;
-    flex-direction: column;
-    right:-35px;
-    justify-content: center;
-    background-color: #f0f2f5;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
+    width: 10%;
 }
 
 .check{
@@ -104,9 +106,5 @@
     width: 100%;
 }
 
-.click_cnt{
-    font-size: 13px;
-    text-align: center;
-}
 
 

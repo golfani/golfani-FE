@@ -7,10 +7,11 @@ import {deleteBoard, IBoardData} from "src/apis/Board";
 import {useRouter} from "next/router";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getAllPostLikes, getPostLikes, registerLikes} from "src/apis/Likes";
-import {EBoardType} from "../../domain/board";
-import {onHandleImgClick} from "../../domain/board";
+import {EBoardType,onHandleImgClick} from "src/domain/board";
+import DetailMenuModal from "src/components/modals/DetailMenuModal";
 
 export interface IBoardProps{
     boardView : IBoardData
@@ -21,6 +22,7 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
     const [showDeleteBtn, setShowDeleteBtn] = useState(false);
     const userId = getCookie('userId');
     const router = useRouter();
+    const [detailModalOpen, setDetailModalOpen] = useState(false);
 
     const totalLikesQuery = useQuery(['totalLikes',boardView.id], () => getAllPostLikes(boardView.id),{
         staleTime : 1000 * 60
@@ -62,6 +64,10 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
         router.push(`/profile/${boardView.userId}`);
     }
 
+    const infoClickHandler = () => {
+        setDetailModalOpen(true);
+    }
+
     return(
         <div className={style.container}>
             <div className={style.view_wrap}>
@@ -71,14 +77,18 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
                     </div>
                     <div className={style.info}>
                         <div className={style.info_wrap}>
-                            <span className={style.header_box}>No</span>
-                            <span className={style.text_box}>{boardView.id}</span>
-                            <span className={style.header_box}>글쓴이</span>
-                            {boardView.boardType !== EBoardType.ANONYMOUS ? <span className={style.text_box_user} onClick={onUserIdClick}>{boardView.userId}</span> : <span className={style.text_box_user}>Anonymous</span>}
-                            <span className={style.header_box}>게시일</span>
-                            <span className={style.text_box}>{boardView.createdTime.slice(0,10)}</span>
-                            <span className={style.header_box}>조회수</span>
-                            <span className={style.text_box}>{boardView.viewCount}</span>
+                            <div>
+                                <span className={style.header_box}>No</span>
+                                <span className={style.text_box}>{boardView.id}</span>
+                                <span className={style.header_box}>글쓴이</span>
+                                {boardView.boardType !== EBoardType.ANONYMOUS ? <span className={style.text_box_user} onClick={onUserIdClick}>{boardView.userId}</span> : <span className={style.text_box_user}>Anonymous</span>}
+                                <span className={style.header_box}>게시일</span>
+                                <span className={style.text_box}>{boardView.createdTime.slice(0,10)}</span>
+                                <span className={style.header_box}>조회수</span>
+                                <span className={style.text_box}>{boardView.viewCount}</span>
+                            </div>
+                            <MoreVertIcon className={style.info_icon} onClick={infoClickHandler}/>
+                            {detailModalOpen && <DetailMenuModal setModalOpen={setDetailModalOpen} target={boardView} type={"POST"}/>}
                         </div>
                     </div>
                     <div className={style.content} >

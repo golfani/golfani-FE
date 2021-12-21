@@ -32,6 +32,11 @@
     position: relative;
 }
 
+.info_wrap{
+    display: flex;
+    justify-content: space-between;
+}
+
 .text_box{
     margin-left :10px;
     font-size:1.0rem;
@@ -52,6 +57,14 @@
 }
 
 .text_box:after{ /* 가상선 생성*/
+    margin-left:10px;
+    content:"|";
+    width:1px;
+    height: 13px;
+    color:#ddd;
+}
+
+.text_box_user:after{ /* 가상선 생성*/
     margin-left:10px;
     content:"|";
     width:1px;
@@ -131,7 +144,7 @@
     position: relative;
     white-space: nowrap;
     font-size:0;
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 .img_box{
@@ -151,4 +164,9 @@
 
 .like_count{
     font-size: 1.5em;
+}
+
+.info_icon{
+    cursor: pointer;
+
 }

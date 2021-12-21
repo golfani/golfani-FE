@@ -1,9 +1,9 @@
 .container{
     display: flex;
     margin-top: 20px;
-    width:100%;
     padding: 10px;
     justify-content: center;
+
 }
 
 .num_on{
@@ -14,6 +14,7 @@
     line-height: 20px;
     font-weight: bold;
     color:#8b00ff;
+    background-color: #fff;
 }
 
 .num{
@@ -24,4 +25,5 @@
     line-height: 20px;
     font-weight: bold;
     color:#000;
+    background-color: #fff;
 }

@@ -2,8 +2,6 @@ import style from 'src/components/board/boardLeftSideBar.module.css';
 import {useEffect, useState} from 'react';
 import {EBoardType} from "../../domain/board";
 import {useRouter} from "next/router";
-import HomeIcon from '@material-ui/icons/Home';
-import AppsIcon from '@material-ui/icons/Apps';
 
 interface IBoardTypeProps {
     onSetBoardType : (type:EBoardType) => void
@@ -41,13 +39,6 @@ const BoardLeftSideBar
         router.push(`/board?type=${type}&page=0`);
     }
 
-    const onClickHome = () => {
-        router.push('/');
-    }
-    const handlerMouseOver = () => {
-        getMenuList();
-    }
-
     return(
         <div className={style.container}>
             <div className={style.board_category}>
@@ -61,7 +52,6 @@ const BoardLeftSideBar
                     <li className={selectMenu === EBoardType.ANONYMOUS ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EBoardType.ANONYMOUS)}}>익명게시판</li>
                 </ul>
             </ul>
-
         </div>
     )
 }

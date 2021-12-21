@@ -8,11 +8,11 @@ import {deletePostReply, getReply, getTotalReply, IReplyDto} from "src/apis/Repl
 import {getReplyLikes, getUserIsReplyLikes, ILikesDto, registerLikes} from "src/apis/Likes";
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ReportGmailerrorredOutlinedIcon from '@material-ui/icons/ReportGmailerrorredOutlined';
 import {useRouter} from "next/router";
 import {getCookie} from "src/utils/cookieUtil";
 import {toStringByFormatting} from "src/utils/dateUtil";
 import ShortcutIcon from '@material-ui/icons/Shortcut';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 
 const BoardCommentItem = ({reply} : IReplyProps) => {
@@ -72,7 +72,7 @@ const BoardCommentItem = ({reply} : IReplyProps) => {
             }
         }
         catch (e) {
-
+            console.log()
         }
     }
 
@@ -88,7 +88,7 @@ const BoardCommentItem = ({reply} : IReplyProps) => {
                         <div className={style.right_menu}>
                             {userIsReplyLikesQuery.data?.likes ? <FavoriteIcon style={{fontSize: '1.0rem'}} className={style.like} onClick={handlerClickLike}/> : <FavoriteBorderOutlinedIcon style={{fontSize: '1.0rem'}} className={style.like} onClick={handlerClickLike}/>}
                             <span className={style.likeCount}>{replyLikesQuery.data}</span>
-                            <ReportGmailerrorredOutlinedIcon style={{fontSize: '1.0rem'}} className={style.report} onClick={onDeleteReply}/>
+                            <DeleteForeverIcon style={{fontSize: '1.0rem'}} className={style.report} onClick={onDeleteReply}/>
                         </div>
                     </div>
                     <div>

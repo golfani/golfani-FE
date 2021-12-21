@@ -23,7 +23,6 @@ const BoardComment = ({boardView} : IBoardProps) => {
 
     const moreReply = async () => {
         if(replyQuery.hasNextPage) await replyQuery.fetchNextPage();
-
     }
 
     return (
@@ -42,7 +41,7 @@ const BoardComment = ({boardView} : IBoardProps) => {
                         replyQuery.data?.pages.map((page)=>(
                             page.content.map((reply)=>(
                                 !reply.isDeleted &&
-                                <BoardCommentItem key = {reply.id} reply={reply}/>
+                                <BoardCommentItem key={reply.id} reply={reply}/>
                             ))
                         ))
                     }

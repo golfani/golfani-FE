@@ -4,6 +4,7 @@ import {IBoardData} from "src/apis/Board";
 import {useRouter} from "next/router";
 import {dateDiff} from "../../../utils/dateUtil";
 import {EBoardType} from "../../../domain/board";
+import ImageIcon from '@material-ui/icons/Image';
 
 interface IBoardProps{
     board : IBoardData;
@@ -21,7 +22,12 @@ const BoardItem = (board: IBoardProps) : JSX.Element => {
                 <div className={style.num}>{board.board.id}</div>
                 <div className={style.board_title} onClick={() => onTitleClick(board.board.id)} >
                     <span
-                        className={style.board_title_text} >{board.board.title.length > 30 ? board.board.title.slice(0, 27) + '...' : board.board.title}</span>
+                        className={style.board_title_text} >{board.board.title.length > 30 ? board.board.title.slice(0, 27) + '...' : board.board.title}
+                    </span>
+                    {
+                        board.board.urlList !== [] &&
+                        <ImageIcon style={{fontSize : '15px'}}/>
+                    }
                 </div>
                 <div className={style.board_id}> { board.board.boardType !== EBoardType.ANONYMOUS ? board.board.userId : '익명'}</div>
                 <div className={style.board_date}>{dateDiff(board.board.createdTime)}</div>
@@ -29,10 +35,7 @@ const BoardItem = (board: IBoardProps) : JSX.Element => {
                     <span>❣️</span>
                     <span> {board.board.likesCount}</span>
                 </div>
-                <div className={style.click_num_wrap}>
-                    <span className={style.check}>조회수</span>
-                    <span className={style.click_cnt}>{board.board.viewCount}</span>
-                </div>
+                <div className={style.board_views}>{board.board.viewCount}</div>
             </div>
 
         </>
