@@ -99,6 +99,9 @@
         width: 100%;
         animation: slideIn 0.3s;
         animation-fill-mode: none;
+        padding-top: 1px;
+        margin-top: -1px;
+        background-color: #fff;
     }
 }
 

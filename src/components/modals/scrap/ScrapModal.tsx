@@ -26,19 +26,13 @@ const ScrapModal = (props : IScrapModalProps) : JSX.Element => {
     const [slideDiff, setSlideDiff] = useState<number>();
     const _swipeRef = useRef<HTMLDivElement>(null);
 
-    const onLoadFeedData = () => {
-        let temp : IFeedContent[] = [];
-
-        scrapFeedQuery.data?.content.map(async (scrap)=> {
-            try {
-                const feed = await getFeedOne(scrap.refId);
-                temp = temp.concat(feed);
-                setScrapFeed(temp);
-            }
-            catch (e) {
-
-            }
-        });
+    const onLoadFeedData = async () => {
+        const reduceResponse = await scrapFeedQuery.data?.content.reduce( async (prevPromise : any, data) => {
+           const prevResponse = await prevPromise;
+           const response = await getFeedOne(data.refId);
+           return [...prevResponse, response];
+        }, []);
+        setScrapFeed(reduceResponse);
     }
 
     const onCloseModal = () => {
@@ -109,7 +103,7 @@ const ScrapModal = (props : IScrapModalProps) : JSX.Element => {
                                 ?
                                 <span className={style.no_scrap_txt}>스크랩한 컨텐츠가 존재하지 않습니다</span>
                                 :
-                                scrapFeed.map((feed)=> (
+                                scrapFeed?.map((feed)=> (
                                     <img
                                         key={feed.id}
                                         style={{width : imgWidth, height : imgWidth as number}}

@@ -1,5 +1,5 @@
 import style from './detailMenuModal.module.css';
-import {useMutation, useQueryClient} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import {deleteFeedReply, IReplyDto} from "src/apis/Reply";
 import {useCallback, useRef, useState} from "react";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
@@ -7,8 +7,8 @@ import {deleteFeed, IFeedContent} from "src/apis/Feed";
 import ReportModal from "./ReportModal";
 import {getCookie} from "src/utils/cookieUtil";
 import FeedModifyModal from "./feed/FeedModifyModal";
-import {IScrapDto, registerScrap} from "src/apis/Scrap";
 import {IBoardData} from "../../apis/Board";
+import {deleteScrap, IScrapDto, isScrapped, registerScrap} from "src/apis/Scrap";
 
 export type TRef = "FEED" | "POST" | "FEED_REPLY" | "POST_REPLY"
 
@@ -28,6 +28,8 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
     const [feedModifyModalOpen, setFeedModifyModalOpen] = useState(false);
     const scrapMutate = useMutation((scrapDto : IScrapDto)=> registerScrap(scrapDto));
     const [isMobileClose, setIsMobileClose] = useState(false);
+    const isScrappedQuery = useQuery(['isScrapped',props.type,props.target.id], () => isScrapped(props.type, props.target.id));
+    const deleteScrapMutate = useMutation((id:number)=> deleteScrap(id));
 
     const onModalClose = () => {
         if(typeof window !== 'undefined') {
@@ -108,6 +110,22 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
         await onScrap();
     }
 
+    const handleClickDeleteScrap = async () => {
+        try {
+            const response = await deleteScrapMutate.mutateAsync(isScrappedQuery.data);
+        }
+        catch (e) {
+
+        }
+        finally {
+            await queryClient.invalidateQueries(['isScrapped',props.type,props.target.id]);
+            await queryClient.invalidateQueries('scrapFeed');
+            await queryClient.invalidateQueries('scrapPost');
+            await queryClient.invalidateQueries('scrapAllFeed');
+            await onModalClose();
+        }
+    }
+
     handleClickRefOutSide(ref, onModalClose);
 
     return (
@@ -120,8 +138,11 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
                 {props.target.userId === userId && props.type === 'FEED' &&
                 <button className={style.menu_btn} onClick={handleClickModify}>수정</button>
                 }
-                {(props.type === 'FEED' || props.type === 'POST') &&
+                {(props.type === 'FEED' || props.type === 'POST') && !isScrappedQuery.data &&
                     <button className={style.menu_btn} onClick={handleClickScrap}>스크랩</button>
+                }
+                {(props.type === 'FEED' || props.type === 'POST') && isScrappedQuery.data &&
+                <button className={style.menu_btn} onClick={handleClickDeleteScrap}>스크랩 취소</button>
                 }
                 <button className={style.menu_btn} onClick={onModalClose}>취소</button>
                 {reportModalOpen &&

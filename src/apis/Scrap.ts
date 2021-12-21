@@ -50,3 +50,13 @@ export const deleteScrap = async (id : number) => {
     const response = await securityAxios.delete(`${API_URL}/${id}`);
     return response.data;
 }
+
+/**
+ * 해당 ref 가 스크랩중인 아이템인지 확인하는 API
+ * @param type
+ * @param refId
+ */
+export const isScrapped = async (type : TTarget, refId : number) => {
+    const response = await securityAxios.get(`${API_URL}/isScrapped?type=${type}&user_id=${userId}&ref_id=${refId}`);
+    return response.data;
+}
