@@ -12,7 +12,7 @@ import {IMessage} from "@stomp/stompjs";
 import {socket, socketConnect, socketDisconnect, subChatChannel} from "src/socket/socket";
 import SocketLoading from "src/components/common/SocketLoading";
 import Head from "next/head";
-import {getMessaging, getToken, isSupported} from "firebase/messaging";
+import {getMessaging, getToken, isSupported, onMessage} from "firebase/messaging";
 import {FirebaseApp, initializeApp} from "firebase/app";
 
 const firebaseConfig = {
@@ -58,12 +58,15 @@ function MyApp({Component, pageProps}: AppProps) {
         socket.chatRoomId && subChatChannel(socket.chatRoomId,chatCallback);
     }
 
-    const onGetToken = async () => {
-        const message = await getMessaging();
-        await getToken(message, { vapidKey: 'BA2rpGOuAMUraL15Zjml-4pkQYD8z6l0jY96jtKF4E9ebC_kjqrPOXSRh7MXhmS_U8UoV1AeQEjUHxBBR50FJxM' }).then((currentToken) => {
+    const onGetToken = () => {
+        const message = getMessaging();
+        getToken(message, { vapidKey: 'BA2rpGOuAMUraL15Zjml-4pkQYD8z6l0jY96jtKF4E9ebC_kjqrPOXSRh7MXhmS_U8UoV1AeQEjUHxBBR50FJxM' }).then((currentToken) => {
             if (currentToken) {
                 // Send the token to your server and update the UI if necessary
                 console.log(currentToken);
+                onMessage(message, (payload)=> {
+                    console.log(payload);
+                })
                 // ...
             } else {
                 // Show permission request UI
