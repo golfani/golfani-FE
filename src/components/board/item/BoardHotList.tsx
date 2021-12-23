@@ -16,6 +16,7 @@ const BoardHotList = () => {
                     <LocalFireDepartmentIcon className={style.fire_icon} style={{color:"red",fontSize: '20px'}}/>
                     <span className={style.title_text}>Hot 게시글</span>
                 </div>
+                <div className={style.more_view}>더보기</div>
                 {boardQuery.data &&
                     boardQuery.data.content.map((data,index) => (
                         <BoardHotItem board={data}/>

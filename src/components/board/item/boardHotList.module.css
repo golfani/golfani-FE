@@ -24,3 +24,16 @@
     color:#ff6969;
     font-size:18px;
 }
+
+.more_view{
+    position: absolute;
+    font-weight: bold;
+    border-radius: 5px;
+    color: #ff6969;
+    padding: 3px;
+    right:10px;
+    top:-10px;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: #f0f2f5;
+}
