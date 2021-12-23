@@ -8,6 +8,7 @@ import {IPages} from "../../../domain/Page";
 import {useRouter} from "next/router";
 import {EBoardType} from "../../../domain/board";
 import BoardPageNum from "src/components/board/page/BoardPageNum";
+import BoardHotList from "./BoardHotList";
 
 const BoardList = (boardType : ITypeProps) : JSX.Element => {
     const router = useRouter();
@@ -18,7 +19,8 @@ const BoardList = (boardType : ITypeProps) : JSX.Element => {
     });
 
     useEffect(() =>{
-    },[boardType.boardType])
+        console.log(boardQuery.data);
+    },[boardQuery.data])
 
     return(
         <div>
