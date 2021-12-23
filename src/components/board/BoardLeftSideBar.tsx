@@ -7,9 +7,7 @@ interface IBoardTypeProps {
     onSetBoardType : (type:EBoardType) => void
 }
 
-const BoardLeftSideBar
-    = (props: IBoardTypeProps): JSX.Element => {
-
+const BoardLeftSideBar = (props: IBoardTypeProps): JSX.Element => {
     const router = useRouter();
     const {type} = router.query;
     const [getList, setGetList] = useState(false);
