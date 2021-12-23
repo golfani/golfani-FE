@@ -61,9 +61,11 @@ function MyApp({Component, pageProps}: AppProps) {
             onSilentRefresh(userId);
             // 로그인 상태일시 소켓연결 실행
             socketConnect(alarmCallback,onSetSocketConnect,subForActivatedChat);
-            checkPermission();
-            // 로그인 상태일시 FCM
-            fcm.onGetToken();
+            if(window.innerWidth > 768) {
+                checkPermission();
+                // 로그인 상태일시 FCM
+                fcm.onGetToken();
+            }
         }
 
         return () => socketDisconnect();
