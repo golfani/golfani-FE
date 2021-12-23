@@ -12,18 +12,8 @@ import {IMessage} from "@stomp/stompjs";
 import {socket, socketConnect, socketDisconnect, subChatChannel} from "src/socket/socket";
 import SocketLoading from "src/components/common/SocketLoading";
 import Head from "next/head";
-import {getMessaging, getToken, isSupported, onMessage} from "firebase/messaging";
-import {FirebaseApp, initializeApp} from "firebase/app";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyCslF4Q0fxcHKw0Gibc5v0fP4qb9zrs5BQ",
-    authDomain: "golfani.firebaseapp.com",
-    projectId: "golfani",
-    storageBucket: "golfani.appspot.com",
-    messagingSenderId: "754644573375",
-    appId: "1:754644573375:web:92b8afc4bd06032777ba0a",
-    measurementId: "G-SXKEJV1VYX"
-};
+import useFCM from "src/hooks/fcmHook";
+import NotificationPermissionModal from "src/components/modals/NotificationPermissionModal";
 
 const queryClient = new QueryClient();
 const reduxStore = store();
@@ -44,7 +34,8 @@ const alarmCallback = async (data : IMessage) => {
 function MyApp({Component, pageProps}: AppProps) {
     const userId = getCookie('userId');
     const [isSocketConnected, setIsSocketConnected] = useState(false);
-    const app = initializeApp(firebaseConfig);
+    const [openPermissionModal, setOpenPermissionModal] = useState(false);
+    const fcm = useFCM();
 
     const onSetSocketConnect = (state : boolean) => {
         setIsSocketConnected(state);
@@ -58,38 +49,26 @@ function MyApp({Component, pageProps}: AppProps) {
         socket.chatRoomId && subChatChannel(socket.chatRoomId,chatCallback);
     }
 
-    const onGetToken = () => {
-        const message = getMessaging();
-        getToken(message, { vapidKey: 'BA2rpGOuAMUraL15Zjml-4pkQYD8z6l0jY96jtKF4E9ebC_kjqrPOXSRh7MXhmS_U8UoV1AeQEjUHxBBR50FJxM' }).then((currentToken) => {
-            if (currentToken) {
-                // Send the token to your server and update the UI if necessary
-                console.log(currentToken);
-                onMessage(message, (payload)=> {
-                    console.log(payload);
-                })
-                // ...
-            } else {
-                // Show permission request UI
-                console.log('No registration token available. Request permission to generate one.');
-                // ...
-            }
-        }).catch((err) => {
-            console.log('An error occurred while retrieving token. ', err);
-            // ...
-        });
+    const checkPermission = () => {
+        if(Notification.permission === 'denied' || Notification.permission === 'default') {
+            setOpenPermissionModal(true);
+        }
     }
 
-    // 로그인 상태일시 silentRefresh 진행
     useEffect(() => {
-        userId && onSilentRefresh(userId);
-        userId && socketConnect(alarmCallback,onSetSocketConnect,subForActivatedChat);
+        if(userId) {
+            // 로그인 상태일시 silentRefresh 진행
+            onSilentRefresh(userId);
+            // 로그인 상태일시 소켓연결 실행
+            socketConnect(alarmCallback,onSetSocketConnect,subForActivatedChat);
+            checkPermission();
+            // 로그인 상태일시 FCM
+            fcm.onGetToken();
+        }
 
         return () => socketDisconnect();
     }, []);
 
-    useEffect(()=> {
-        onGetToken();
-    },[])
     return (
         <QueryClientProvider client={queryClient}>
             <PersistGate persistor={persistor} loading={null}>
@@ -98,6 +77,7 @@ function MyApp({Component, pageProps}: AppProps) {
                         <meta name={'viewport'} content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
                     </Head>
                     {userId ? isSocketConnected ? <Component {...pageProps} /> : <SocketLoading/> : <Component {...pageProps}/>}
+                    {openPermissionModal && <NotificationPermissionModal setOpenModal={setOpenPermissionModal}/>}
                 </Hydrate>
             </PersistGate>
         </QueryClientProvider>
