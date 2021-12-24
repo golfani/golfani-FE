@@ -1,0 +1,23 @@
+.container {
+    width: 500px;
+}
+
+.main_img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+}
+
+.img_box {
+    margin-top: 15px;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.sub_img {
+    width: 95px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
