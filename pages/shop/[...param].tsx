@@ -7,8 +7,6 @@ import ShopMain from "src/components/shop/ShopMain";
 import ShopFloatingMenu from "src/components/shop/floatingMenu/ShopFloatingMenu";
 
 const ShopPage = () : JSX.Element => {
-    const router = useRouter();
-    const {shop} = router.query;
 
     return (
         <div className={style.container}>
