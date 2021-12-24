@@ -1,0 +1,91 @@
+.container {
+}
+
+.review_container {
+
+}
+
+.review_box {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.total_review_count_txt {
+    font-size: 18px;
+    letter-spacing: -1.0px;
+    font-weight: 500;
+    margin-right: 15px;
+}
+
+.review_txt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    width: 60px;
+    border: 2px solid black;
+    letter-spacing: -1.0px;
+    border-radius: 5px;
+    user-select: none;
+}
+
+.review_desc_txt {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: -1.0px;
+}
+
+.sort_box {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    width: 100%;
+    background-color: black;
+    padding: 15px;
+    margin: 30px 0 15px;
+}
+
+.sort_txt {
+    display: inline-block;
+    color: gray;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.sort_txt_active {
+    display: inline-block;
+    color: white;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.page_box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+
+.page_number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 35px;
+    margin: 0 5px;
+    cursor: pointer;
+    color: #8f8f8f;
+}
+
+.page_number_active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 37px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-weight: 500;
+    border-bottom: 2px solid black;
+}
