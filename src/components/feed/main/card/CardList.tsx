@@ -15,8 +15,8 @@ const CardList = () : JSX.Element => {
     const observer = useRef<IntersectionObserver>();
     const feedQuery = useInfiniteQuery<IPages<IFeedContent>>('cardFeed',({pageParam = ''})=>getFeed(pageParam,0,9), {
         getNextPageParam : (lastPage) => {
-            if(lastPage.totalPages === 1) {
-                return undefined
+            if(lastPage.totalPages <= 1) {
+                return undefined;
             }
             return lastPage.content && lastPage.content[lastPage.content.length-1].id;
         },
