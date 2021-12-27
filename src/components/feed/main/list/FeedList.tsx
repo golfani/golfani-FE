@@ -8,8 +8,8 @@ import {useEffect, useRef} from "react";
 const FeedList = () : JSX.Element => {
     const {data, fetchNextPage, hasNextPage} = useInfiniteQuery<IPages<IFeedContent>,Error>('feed',({pageParam = undefined})=>getFeed(pageParam),{
         getNextPageParam : (lastPage) => {
-            if(lastPage.totalPages === 1) {
-                return undefined
+            if(lastPage.totalPages <= 1) {
+                return undefined;
             }
             return lastPage.content && lastPage.content[lastPage.content.length-1].id;
         },
@@ -35,7 +35,7 @@ const FeedList = () : JSX.Element => {
     useEffect(() => {
         observer.current = new IntersectionObserver(intersectionObserver);
         scrollRef.current && observer.current?.observe(scrollRef.current);
-    },[data])
+    },[data]);
 
     return (
         <div className={style.container}>
@@ -44,7 +44,7 @@ const FeedList = () : JSX.Element => {
                     <FeedItem feed={feed} isModal={false} key={feed.id}/>
                 ))
             ))}
-            <div ref={scrollRef} className={style.scroll_ref}></div>
+            <div ref={scrollRef} className={style.scroll_ref}> </div>
         </div>
     )
 }
