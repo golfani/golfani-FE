@@ -19,6 +19,7 @@ interface IBoardSearchProps {
 const BoardSearch = ({selectMenu,payload} : IBoardSearchProps) : JSX.Element => {
     const router = useRouter();
     const {page} = router.query;
+    console.log(selectMenu,payload);
 
     const boardQuery = useQuery<IPages<IBoardData>>(['searchResult', [payload,Number(page)]], () => searchBoard(selectMenu as TSelectMenu, payload as string, Number(page)),{
         enabled : selectMenu !== undefined

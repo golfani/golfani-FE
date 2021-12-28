@@ -1,4 +1,5 @@
 export enum EBoardType {
+    HOME = 'HOME',
     TRADE = "TRADE",
     FREE = "FREE",
     TIP = "TIP",
