@@ -27,8 +27,6 @@ const ViewPage = () : JSX.Element => {
         enabled: id !== undefined,
     });
 
-
-
     return (
         <div>
             <Navbar/>

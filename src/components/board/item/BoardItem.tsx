@@ -13,7 +13,7 @@ interface IBoardProps{
 const BoardItem = (board: IBoardProps) : JSX.Element => {
     const router = useRouter();
     const onTitleClick = async (id : number) => { // 클릭 되는 객체 반환
-        router.push(`/board/view/${id}`);
+        router.push(`/board/${id}`);
     }
 
     return(
