@@ -97,36 +97,6 @@
     border-bottom: 1px solid #000;
 }
 
-.bt_wrap{
-    width:1000px;
-    margin:100px auto;
-    text-align: center;
-    font-size:0;
-}
-
-.list_button{
-    min-width: 80px;
-    padding:10px;
-    border: 1px solid #000;
-    border-radius: 2px;
-    font-size:1.0rem;
-    margin-left:10px;
-}
-
-.modify_button{
-    background-color: #8b00ff;
-    color:#fff44f;
-}
-
-.delete_btn{
-    min-width: 80px;
-    padding:10px;
-    border: 1px solid #000;
-    border-radius: 2px;
-    font-size:1.0rem;
-    margin-left:10px;
-}
-
 .comment_wrap{
     margin-top : 10px;
 }
