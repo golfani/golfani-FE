@@ -2,8 +2,8 @@ import style from 'src/components/board/item/boardItem.module.css';
 import React from 'react';
 import {IBoardData} from "src/apis/Board";
 import {useRouter} from "next/router";
-import {dateDiff} from "../../../utils/dateUtil";
-import {EBoardType} from "../../../domain/board";
+import {dateDiff} from "src/utils/dateUtil";
+import {EBoardType} from "src/domain/board";
 import ImageIcon from '@material-ui/icons/Image';
 
 interface IBoardProps{
@@ -12,8 +12,9 @@ interface IBoardProps{
 
 const BoardItem = (board: IBoardProps) : JSX.Element => {
     const router = useRouter();
+
     const onTitleClick = async (id : number) => { // 클릭 되는 객체 반환
-        router.push(`/board/view/${id}`);
+        router.push(`/board/${id}`);
     }
 
     return(

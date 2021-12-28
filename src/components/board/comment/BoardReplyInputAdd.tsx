@@ -16,7 +16,6 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddPr
         try {
             const response = await commentMutation.mutateAsync();
             postUser && sendAlarmBySocket('REPLY', postUser, "게시글에 댓글을 남겼습니다.", postId, replyPayload, 'POST');
-            console.log(response);
         }
         catch (e) {
             console.log(e);
@@ -31,7 +30,6 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddPr
     const onRegisterReply = useCallback( async ()=>{
         try{
             const response = await replyMutation.mutateAsync();
-            console.log(response);
         }
         catch (e) {
             console.log(e);

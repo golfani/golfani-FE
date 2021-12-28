@@ -3,7 +3,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {TSelectMenu} from "./BoardPage";
 import {useRouter} from "next/router";
 import BoardSearchHistory from "./BoardSearchHistory";
-import {handleClickRefOutSide} from "../../../utils/clickUtil";
+import {handleClickRefOutSide} from "src/utils/clickUtil";
 
 export interface ISearchResult {
     date : number,
@@ -31,7 +31,6 @@ const BoardSearchBar = () : JSX.Element => {
 
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('searchList') as string || '[]');
-        console.log(data);
         //기존 localStorage 가 저장되어있는 경우 새로운 배열로 초기화 해준다.
         if(JSON.stringify(data) === 'null') {
             localStorage.removeItem('searchList');
@@ -83,7 +82,7 @@ const BoardSearchBar = () : JSX.Element => {
 
     const onSearchBtnClick = () => {
         handleOnAddList();
-        router.push(`/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=0`);
+        router.push(`/board?selectMenu=${selectMenu}&payload=${payload}&page=0`);
     }
 
     const onKeyPress = (e :  React.KeyboardEvent<HTMLInputElement>) => {

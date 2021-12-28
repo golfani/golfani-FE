@@ -1,13 +1,12 @@
 import style from 'src/components/board/boardView.module.css';
 import React, {useEffect, useState} from 'react';
-import Link from "next/link";
 import BoardComment from "src/components/board/comment/BoardComment";
 import {getCookie} from "src/utils/cookieUtil";
-import {deleteBoard, IBoardData} from "src/apis/Board";
+import {IBoardData} from "src/apis/Board";
 import {useRouter} from "next/router";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getAllPostLikes, getPostLikes, registerLikes} from "src/apis/Likes";
 import {EBoardType,onHandleImgClick} from "src/domain/board";
@@ -47,17 +46,12 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
         }
     )
 
-    useEffect(()=>{
-        if(userId === boardView.userId) setShowDeleteBtn(true);
-        },[showDeleteBtn,likeQuery]);
+    useEffect(() => {
+        if (userId === boardView.userId) setShowDeleteBtn(true);
+    }, [showDeleteBtn, likeQuery]);
 
-    const onDeleteBoard = (boardId : number) => {
-        const response = deleteBoard(boardId);
-        router.push("/board");
-    }
-
-    const onLikeClick = () => {
-        onRegisterLikes();
+    const onLikeClick = async () => {
+       await onRegisterLikes();
     }
 
     const onUserIdClick = () =>{
@@ -74,49 +68,38 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
                 <div className={style.board_view} id= "view">
                     <div className={style.title}>
                         {boardView.title}
+                        <MoreHorizIcon className={style.info_icon} onClick={infoClickHandler}/>
+                        {detailModalOpen && <DetailMenuModal setModalOpen={setDetailModalOpen} target={boardView} type={"POST"}/>}
                     </div>
                     <div className={style.info}>
-                        <div className={style.info_wrap}>
-                            <div>
-                                <span className={style.header_box}>No</span>
-                                <span className={style.text_box}>{boardView.id}</span>
-                                <span className={style.header_box}>글쓴이</span>
-                                {boardView.boardType !== EBoardType.ANONYMOUS ? <span className={style.text_box_user} onClick={onUserIdClick}>{boardView.userId}</span> : <span className={style.text_box_user}>Anonymous</span>}
-                                <span className={style.header_box}>게시일</span>
-                                <span className={style.text_box}>{boardView.createdTime.slice(0,10)}</span>
-                                <span className={style.header_box}>조회수</span>
-                                <span className={style.text_box}>{boardView.viewCount}</span>
-                            </div>
-                            <MoreVertIcon className={style.info_icon} onClick={infoClickHandler}/>
-                            {detailModalOpen && <DetailMenuModal setModalOpen={setDetailModalOpen} target={boardView} type={"POST"}/>}
+                        <span className={style.user_txt} onClick={onUserIdClick}>{boardView.boardType !== EBoardType.ANONYMOUS ? boardView.userId : '익명'}</span>
+                        <div className={style.info_sub_box}>
+                            <span className={style.view_txt}>조회수</span>
+                            <span className={style.view_count_txt}>{boardView.viewCount}</span>
+                            <span className={style.date_txt}>{boardView.createdTime.slice(0,10)}</span>
                         </div>
                     </div>
                     <div className={style.content} >
                         {
-                            boardView.content.split('\n').map((line
-                                ,index) => {
-                            return(<span key={index} >{line}<br /></span>)})
+                            boardView.content.split('\n').map((line, index) => (
+                                <span key={index}>{line}<br/></span>
+                            ))
                         }
                         <div className={style.img_wrap}>
                             {
                                 boardView.urlList.map( (img,index)=>(
-                                    <img src = {img} onClick={() => onHandleImgClick(img)} className={style.img_box}/>))      
+                                    <img src={img} alt={img} onClick={() => onHandleImgClick(img)} className={style.img_box}/>))
                             }
                         </div>
-                        <div className={style.like_wrap}>
-                            {likeQuery.data?.likes ? <FavoriteIcon onClick={onLikeClick} style={{fontSize : '1.5rem'}}/> : <FavoriteBorderIcon onClick={onLikeClick} style={{fontSize : '1.5rem'}}/>}
+                        <div className={style.like_wrap} onClick={onLikeClick}>
+                            {likeQuery.data?.likes
+                                ? <FavoriteIcon style={{fontSize : '23px', color : 'red'}}/>
+                                : <FavoriteBorderIcon style={{fontSize : '23px', color : 'red'}}/>
+                            }
                             <span className={style.like_count}>{totalLikesQuery.data}</span>
                         </div>
                     </div>
                     <BoardComment boardView={boardView}/>
-                </div>
-                <div className={style.bt_wrap}>
-                    <button className={style.list_button}>목록</button>
-                    <Link href={{
-                        pathname: `put`,
-                        query : { boardData : JSON.stringify(boardView)},
-                    }} as={`put`}><a className={userId === boardView.userId ? style.list_button : style.block}>수정</a></Link>
-                    <button className={showDeleteBtn ? style.delete_btn : style.block} onClick={(e) => onDeleteBoard(boardView.id)}>삭제</button>
                 </div>
             </div>
         </div>

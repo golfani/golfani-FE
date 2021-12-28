@@ -45,15 +45,3 @@
     border-radius: 5px;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
 }
-
-.main_menu{
-    display: block;
-    cursor : pointer;
-}
-
-.home_menu{
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    cursor: pointer;
-}

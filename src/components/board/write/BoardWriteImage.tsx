@@ -1,7 +1,7 @@
 import style from "./boardWriteImg.module.css";
 import React, {useRef, useState} from "react";
-import BoardImgModal from "../modals/board/BoardImgModal";
-import {handleClickRefOutSide} from "../../utils/clickUtil";
+import BoardImgModal from "../../modals/board/BoardImgModal";
+import {handleClickRefOutSide} from "../../../utils/clickUtil";
 
 export interface IBoardWriteImg{
     index : number,

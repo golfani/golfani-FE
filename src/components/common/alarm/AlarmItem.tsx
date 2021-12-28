@@ -45,7 +45,7 @@ const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
             await queryClient.invalidateQueries(['feedLikes',alarm.feedId]);
         }
         if(alarm.postId) {
-            await onConflictRoute(`/board/view/${alarm.postId}`);
+            await onConflictRoute(`/board/${alarm.postId}`);
         }
     }
 

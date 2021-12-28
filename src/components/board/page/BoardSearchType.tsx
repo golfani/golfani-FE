@@ -14,13 +14,12 @@ const BoardSearchType = () : JSX.Element => {
 
     return (
         <div className={style.container}>
-                <div className={style.list_style}>
-                    <div className={style.sort_menu}>
-                        <label className={state ? style.label_clicked : style.label}><input type="checkbox" value = "최신순" name = "box" defaultChecked={state} onClick={onHandlerOnclick}></input> 최신순</label>
-                    </div>
+            <div className={style.list_style}>
+                <div className={style.sort_menu}>
+                    <label className={state ? style.label_clicked : style.label}><input type="checkbox" value = "최신순" name = "box" defaultChecked={state} onClick={onHandlerOnclick}></input> 최신순</label>
                 </div>
+            </div>
         </div>
-
     )
 }
 

@@ -1,11 +1,10 @@
-import style from 'src/components/board/boardWrite.module.css';
+import style from 'src/components/board/write/boardWrite.module.css';
 import React, {useRef, useState} from 'react';
 import {registerBoard} from 'src/apis/Board';
 import {getCookie} from "src/utils/cookieUtil";
 import {useRouter} from "next/router";
 import Modal from "src/components/modals/Modal"
 import {EBoardType} from "src//domain/board";
-import Link from 'next/link';
 import BoardWriteImage from "./BoardWriteImage";
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
@@ -26,8 +25,6 @@ const BoardWrite = (): JSX.Element => {
     const [selectBoard, setSelectBoard] = useState('게시판선택');
     const ref = useRef<HTMLTextAreaElement | null>(null);
     const [showType,setShowType] = useState(false);
-
-    // 테스트 이슈 커밋입니다.
 
     const setMsg = (msg : string) => {
         setOpenModal(true);
@@ -101,7 +98,6 @@ const BoardWrite = (): JSX.Element => {
 
         else {
             try{
-                console.log(imgList);
                 const response = await registerBoard(inputs, imgList);
                 await router.push(`/board?type=${boardType}`);
             }catch (e) {
@@ -120,6 +116,10 @@ const BoardWrite = (): JSX.Element => {
         setOnType(false);
     }
 
+    const handleClickCancelButton = () => {
+        router.back();
+    }
+
     return(
         <div className={style.container}>
             <div className={style.write_wrap}>
@@ -127,9 +127,7 @@ const BoardWrite = (): JSX.Element => {
                     <div className={style.write_head}>게시판 글쓰기</div>
                     <div className={style.bt_wrap}>
                         <button className={style.btn_register} onClick={handleOnSummit}>등록</button>
-                        <Link href={'/board'}>
-                            <button className={style.btn_cancel}>취소</button>
-                        </Link>
+                        <button className={style.btn_cancel} onClick={handleClickCancelButton}>취소</button>
                     </div>
                 </div>
                 <div className={style.board_write}>

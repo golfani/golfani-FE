@@ -4,8 +4,7 @@ import {IBoardData, putBoard} from 'src/apis/Board';
 import {useRouter} from "next/router";
 import Modal from "../modals/Modal";
 import {IBoardProps} from "./BoardView";
-import {EBoardType} from "../../domain/board";
-import Link from "next/link";
+import {EBoardType} from "src/domain/board";
 
 const BoardPut = (boardData:IBoardProps): JSX.Element => {
     const router = useRouter();
@@ -61,6 +60,10 @@ const BoardPut = (boardData:IBoardProps): JSX.Element => {
         }
     }
 
+    const handleClickCancelButton = () => {
+        router.back();
+    }
+
     return(
         <div className={style.container}>
             <div className={style.write_wrap}>
@@ -68,9 +71,7 @@ const BoardPut = (boardData:IBoardProps): JSX.Element => {
                     <div className={style.write_head}>게시판 수정</div>
                     <div className={style.bt_wrap}>
                         <button className={style.btn_register} onClick={handleOnSummit}>수정</button>
-                        <Link href={'/board'}>
-                            <button className={style.btn_cancel}>취소</button>
-                        </Link>
+                        <button className={style.btn_cancel} onClick={handleClickCancelButton}>취소</button>
                     </div>
                 </div>
                 <div className={style.board_write}>

@@ -1,7 +1,7 @@
 import style from './boardImgModal.module.css';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
-import {IBoardWriteImg} from "../../board/BoardWriteImage";
+import {IBoardWriteImg} from "../../board/write/BoardWriteImage";
 import {onHandleImgClick} from "../../../domain/board";
 
 interface IBoardImgProps{

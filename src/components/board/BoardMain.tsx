@@ -12,14 +12,10 @@ export interface ITypeProps{
 
 const BoardMain = ({boardType} : ITypeProps): JSX.Element => {
     return(
-        <div>
-            <div className={style.board_container}>
-                <div>
-                    <BoardListHead boardType={boardType}/>
-                    <BoardHotList/>
-                    <BoardList boardType={boardType}/>
-                </div>
-            </div>
+        <div className={style.container}>
+            <BoardListHead boardType={boardType}/>
+            <BoardHotList/>
+            <BoardList boardType={boardType}/>
             <BoardPage boardType={boardType}/>
         </div>
     )

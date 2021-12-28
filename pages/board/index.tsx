@@ -1,15 +1,17 @@
 import Navbar from "../../src/components/common/navbar/Navbar";
 import BoardMain from 'src/components/board/BoardMain';
-import BoardLeftSideBar from 'src/components/board/BoardLeftSideBar';
-import {useEffect, useState} from "react";
+import BoardCategory from 'src/components/board/BoardCategory';
+import React, {useEffect, useState} from "react";
 import {EBoardType} from "src/domain/board";
 import {useRouter} from "next/router";
-import style from 'src/components/board/board.module.css'
-
+import style from 'styles/board.module.css';
+import BoardSearch from "src/components/board/page/BoardSearch";
+import {TSelectMenu} from "src/components/board/page/BoardPage";
 
 const Board = () : JSX.Element => {
     const router = useRouter();
     const {type} = router.query;
+    const {selectMenu, payload} = router.query;
 
     const [boardType,setBoardType] = useState<EBoardType | null>(type as EBoardType);
 
@@ -17,15 +19,16 @@ const Board = () : JSX.Element => {
         setBoardType(type as EBoardType);
     }
 
-    useEffect(()=>{
-        if(type === undefined) router.push(`/board?type=FREE&page=0`);
-    },[])
-
     return (
         <div className={style.container}>
             <Navbar/>
-            <BoardLeftSideBar onSetBoardType={onSetBoardType}/>
-            <BoardMain boardType={boardType}/>
+            <div className={style.main_box}>
+                <BoardCategory onSetBoardType={onSetBoardType}/>
+                {selectMenu && payload
+                    ? <BoardSearch selectMenu={selectMenu as TSelectMenu} payload={payload as string}/>
+                    : <BoardMain boardType={boardType}/>
+                }
+            </div>
         </div>
     )
 };

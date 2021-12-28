@@ -1,4 +1,4 @@
-import {boardDTO} from "../components/board/BoardWrite";
+import {boardDTO} from "../components/board/write/BoardWrite";
 import {securityAxios} from "../security/axios";
 import {EBoardType} from "../domain/board";
 import axios from "axios";
@@ -46,7 +46,6 @@ export const getBoardView = async (id : string) => {
 }
 
 export const putBoard = async (boardDto : IBoardData) => {
-    console.log(boardDto);
     const response = await securityAxios.put(`${API_URL}`, boardDto);
     return response;
 }

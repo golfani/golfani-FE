@@ -10,7 +10,7 @@ const UserBoard = ({member} : IProfileMemberProps) : JSX.Element => {
     const router = useRouter();
 
     const handleClickPost = (id : number) => {
-        router.push(`/board/view/${id}`);
+        router.push(`/board/${id}`);
     }
 
     return (
