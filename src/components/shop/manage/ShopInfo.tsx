@@ -27,7 +27,7 @@ const ShopInfo = () : JSX.Element => {
                     <span>(15개)</span>
                 </div>
                 <div className={style.menu_wrap}>
-                    <div className={style.medal_wrap}> 싸게사서 비싸게 파는 매장입니다. 여러분들 때문에 제가 벤츠 끌고 다닙니다.</div>
+                    <div className={style.medal_wrap}> 싸게사서 비싸게 파는 매장입니다. 여러분들 덕분에 제가 벤츠 끌고 다닙니다.</div>
                 </div>
             </div>
             <button className={style.modify_btn}>+</button>
