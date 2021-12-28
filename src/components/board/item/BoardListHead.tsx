@@ -1,7 +1,7 @@
 import style from 'src/components/board/item/boardListHead.module.css';
 import {ITypeProps} from "../BoardMain";
 import {useEffect, useState} from "react";
-import {EBoardType} from "../../../domain/board";
+import {EBoardType} from "src/domain/board";
 
 const BoardListHead = ({boardType} : ITypeProps) => {
     const [type, setType] = useState('')
@@ -32,6 +32,5 @@ const BoardListHead = ({boardType} : ITypeProps) => {
         </div>
     )
 }
-
 
 export default BoardListHead;

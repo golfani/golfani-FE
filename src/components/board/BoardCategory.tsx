@@ -1,16 +1,15 @@
-import style from 'src/components/board/boardLeftSideBar.module.css';
+import style from 'src/components/board/boardCategory.module.css';
 import {useEffect, useState} from 'react';
-import {EBoardType} from "../../domain/board";
+import {EBoardType} from "src/domain/board";
 import {useRouter} from "next/router";
 
 interface IBoardTypeProps {
     onSetBoardType : (type:EBoardType) => void
 }
 
-const BoardLeftSideBar = (props: IBoardTypeProps): JSX.Element => {
+const BoardCategory = (props: IBoardTypeProps): JSX.Element => {
     const router = useRouter();
     const {type} = router.query;
-    const [getList, setGetList] = useState(false);
     const [selectMenu, setMenu] = useState<EBoardType>(type as EBoardType);
 
     useEffect(()=>{
@@ -25,11 +24,7 @@ const BoardLeftSideBar = (props: IBoardTypeProps): JSX.Element => {
             props.onSetBoardType(type as EBoardType);
             setMenu(type as EBoardType);
         }
-    },[type])
-
-    const getMenuList = () : void =>{
-        setGetList(!getList);
-    }
+    },[type]);
 
     const menuClicked = (type : EBoardType) =>{
         if(type !== selectMenu) setMenu(type);
@@ -43,15 +38,13 @@ const BoardLeftSideBar = (props: IBoardTypeProps): JSX.Element => {
                 <span className={style.category_style}>Category</span>
             </div>
             <ul className={style.menu_category}>
-                <ul className={style.menu_type}>
-                    <li className={selectMenu === EBoardType.FREE ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EBoardType.FREE)}}>자유게시판</li>
-                    <li className={selectMenu === EBoardType.TIP ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EBoardType.TIP)}}>TIP게시판</li>
-                    <li className={selectMenu === EBoardType.TRADE ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EBoardType.TRADE)}}>거래게시판</li>
-                    <li className={selectMenu === EBoardType.ANONYMOUS ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EBoardType.ANONYMOUS)}}>익명게시판</li>
-                </ul>
+                <li className={selectMenu === EBoardType.FREE ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EBoardType.FREE)}}>자유게시판</li>
+                <li className={selectMenu === EBoardType.TIP ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EBoardType.TIP)}}>TIP게시판</li>
+                <li className={selectMenu === EBoardType.TRADE ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EBoardType.TRADE)}}>거래게시판</li>
+                <li className={selectMenu === EBoardType.ANONYMOUS ? style.board_menu_clicked : style.board_menu_default } onClick={() => {menuClicked(EBoardType.ANONYMOUS)}}>익명게시판</li>
             </ul>
         </div>
     )
 }
 
-export default BoardLeftSideBar;
+export default BoardCategory;

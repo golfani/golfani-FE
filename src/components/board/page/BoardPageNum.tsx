@@ -15,23 +15,23 @@ const BoardPageNum = (totalPage : INumber) : JSX.Element => {
             Number(page) < totalPage.totalPage -1 ?  router.push(`/board?type=${type}&page=${Number(page)+1}`) : null
         }
         else{
-            Number(page) < totalPage.totalPage -1 ? router.push(`/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${Number(page)+1}`) : null
+            Number(page) < totalPage.totalPage -1 ? router.push(`/board?selectMenu=${selectMenu}&payload=${payload}&page=${Number(page)+1}`) : null
         }
     }
 
     const onFirstPage = () => {
         if(payload === undefined)  router.push(`/board?type=${type}&page=0`);
-        else router.push(`/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=0`);
+        else router.push(`/board?selectMenu=${selectMenu}&payload=${payload}&page=0`);
     }
 
     const onLastPage = () => {
         if(payload === undefined) router.push(`/board?type=${type}&page=${totalPage.totalPage-1}`);
-        else router.push(`/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${totalPage.totalPage-1}`);
+        else router.push(`/board?selectMenu=${selectMenu}&payload=${payload}&page=${totalPage.totalPage-1}`);
     }
 
     const onPrevPage = () => {
         if(payload === undefined) Number(page) > 0 ? router.push(`/board?type=${type}&page=${Number(page)-1}`) : null;
-        else Number(page) > 0 ? router.push(`/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${Number(page)-1}`) : null;
+        else Number(page) > 0 ? router.push(`/board?selectMenu=${selectMenu}&payload=${payload}&page=${Number(page)-1}`) : null;
     }
 
     const onPageClick = (pageNum : number) => {
@@ -42,7 +42,7 @@ const BoardPageNum = (totalPage : INumber) : JSX.Element => {
        }
        else{
            if(typeof window !== undefined) {
-               router.push(`/board/searchResult?selectMenu=${selectMenu}&payload=${payload}&page=${Number(pageNum)}`);
+               router.push(`/board?selectMenu=${selectMenu}&payload=${payload}&page=${Number(pageNum)}`);
            }
        }
     }
@@ -50,7 +50,7 @@ const BoardPageNum = (totalPage : INumber) : JSX.Element => {
     const makeNum = (totalPage : number) => {
         let array = [];
         for(let i = 0 ; i < totalPage ; i++){
-            array.push(<button className={Number(page) === i ? style.num_on : style.num} key={i} disabled={Number(page) === i ? true : false} name="page" onClick={()=>onPageClick(i)}>{i+1}</button>)
+            array.push(<button className={Number(page) === i ? style.num_on : style.num} key={i} disabled={Number(page) === i} name="page" onClick={()=>onPageClick(i)}>{i+1}</button>)
         }
         return array;
     }

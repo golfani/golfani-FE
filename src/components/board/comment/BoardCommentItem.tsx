@@ -14,7 +14,6 @@ import {toStringByFormatting} from "src/utils/dateUtil";
 import ShortcutIcon from '@material-ui/icons/Shortcut';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
-
 const BoardCommentItem = ({reply} : IReplyProps) => {
     const userId = getCookie('userId');
     const queryClient = useQueryClient();
@@ -35,7 +34,6 @@ const BoardCommentItem = ({reply} : IReplyProps) => {
     const onRegisterLikes = ( async () => {
         try{
             const response = await registerLikesMutate.mutateAsync();
-            console.log(response);
         }
         catch (e) {
             console.log(e);

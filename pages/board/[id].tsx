@@ -1,3 +1,4 @@
+import style from 'styles/board.module.css';
 import {useRouter} from "next/router";
 import BoardView from "src/components/board/BoardView";
 import {getBoardView, onClickBoard} from "src/apis/Board";
@@ -30,7 +31,9 @@ const ViewPage = () : JSX.Element => {
     return (
         <div>
             <Navbar/>
-            {boardQuery.data && <BoardView boardView={boardQuery.data}/>}
+            <div className={style.main_box}>
+                {boardQuery.data && <BoardView boardView={boardQuery.data}/>}
+            </div>
         </div>
     )
 }

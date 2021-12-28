@@ -68,21 +68,15 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
                 <div className={style.board_view} id= "view">
                     <div className={style.title}>
                         {boardView.title}
+                        <MoreHorizIcon className={style.info_icon} onClick={infoClickHandler}/>
+                        {detailModalOpen && <DetailMenuModal setModalOpen={setDetailModalOpen} target={boardView} type={"POST"}/>}
                     </div>
                     <div className={style.info}>
-                        <div className={style.info_wrap}>
-                            <div>
-                                <span className={style.header_box}>No</span>
-                                <span className={style.text_box}>{boardView.id}</span>
-                                <span className={style.header_box}>글쓴이</span>
-                                {boardView.boardType !== EBoardType.ANONYMOUS ? <span className={style.text_box_user} onClick={onUserIdClick}>{boardView.userId}</span> : <span className={style.text_box_user}>Anonymous</span>}
-                                <span className={style.header_box}>게시일</span>
-                                <span className={style.text_box}>{boardView.createdTime.slice(0,10)}</span>
-                                <span className={style.header_box}>조회수</span>
-                                <span className={style.text_box}>{boardView.viewCount}</span>
-                            </div>
-                            <MoreHorizIcon className={style.info_icon} onClick={infoClickHandler}/>
-                            {detailModalOpen && <DetailMenuModal setModalOpen={setDetailModalOpen} target={boardView} type={"POST"}/>}
+                        <span className={style.user_txt} onClick={onUserIdClick}>{boardView.boardType !== EBoardType.ANONYMOUS ? boardView.userId : '익명'}</span>
+                        <div className={style.info_sub_box}>
+                            <span className={style.view_txt}>조회수</span>
+                            <span className={style.view_count_txt}>{boardView.viewCount}</span>
+                            <span className={style.date_txt}>{boardView.createdTime.slice(0,10)}</span>
                         </div>
                     </div>
                     <div className={style.content} >
@@ -97,8 +91,11 @@ const BoardView = ({boardView} : IBoardProps): JSX.Element => {
                                     <img src={img} alt={img} onClick={() => onHandleImgClick(img)} className={style.img_box}/>))
                             }
                         </div>
-                        <div className={style.like_wrap}>
-                            {likeQuery.data?.likes ? <FavoriteIcon onClick={onLikeClick} style={{fontSize : '1.5rem'}}/> : <FavoriteBorderIcon onClick={onLikeClick} style={{fontSize : '1.5rem'}}/>}
+                        <div className={style.like_wrap} onClick={onLikeClick}>
+                            {likeQuery.data?.likes
+                                ? <FavoriteIcon style={{fontSize : '23px', color : 'red'}}/>
+                                : <FavoriteBorderIcon style={{fontSize : '23px', color : 'red'}}/>
+                            }
                             <span className={style.like_count}>{totalLikesQuery.data}</span>
                         </div>
                     </div>

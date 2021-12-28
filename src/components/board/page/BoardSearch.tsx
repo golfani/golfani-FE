@@ -1,51 +1,54 @@
-import {ISearchProps} from "../../../../pages/board/searchResult";
 import style from 'src/components/board/page/boardSearch.module.css'
 import {useQuery} from "react-query";
 import {IPages} from "src/domain/Page";
 import {IBoardData, searchBoard} from "src/apis/Board";
 import {TSelectMenu} from "./BoardPage";
 import BoardItem from "src/components/board/item/BoardItem";
-import React, {useEffect} from "react";
+import React from "react";
 import BoardPageNum from "./BoardPageNum";
 import {useRouter} from "next/router";
+import BoardListHead from "../item/BoardListHead";
+import BoardSearchType from "./BoardSearchType";
+import BoardSearchBar from "./BoardSearchBar";
 
-const BoardSearch = ({selectMenu,payload} : ISearchProps) : JSX.Element => {
+interface IBoardSearchProps {
+    selectMenu : TSelectMenu
+    payload : string
+}
+
+const BoardSearch = ({selectMenu,payload} : IBoardSearchProps) : JSX.Element => {
     const router = useRouter();
     const {page} = router.query;
 
     const boardQuery = useQuery<IPages<IBoardData>>(['searchResult', [payload,Number(page)]], () => searchBoard(selectMenu as TSelectMenu, payload as string, Number(page)),{
         enabled : selectMenu !== undefined
-    })
-
-    useEffect(()=>{
-        console.log(selectMenu);
-        console.log(boardQuery.data);
-    },[boardQuery])
+    });
 
     return(
-        <>
         <div className={style.container}>
-            <div className={style.list_top}>
-                <div className={style.num}>No.</div>
-                <div className={style.board_title}>글제목</div>
-                <div className={style.board_id}>글쓴이</div>
-                <div className={style.board_date}>작성일</div>
-                <div className={style.recommend}>추천</div>
+            <BoardListHead boardType={null}/>
+            <BoardSearchType/>
+            <div className={style.search_box}>
+                <div className={style.list_top}>
+                    <div className={style.num}>No.</div>
+                    <div className={style.board_title}>글제목</div>
+                    <div className={style.board_id}>글쓴이</div>
+                    <div className={style.board_date}>작성일</div>
+                    <div className={style.recommend}>추천</div>
+                </div>
+                {
+                    boardQuery.data &&
+                    boardQuery.data?.content.map((data) =>{
+                        return(
+                            <BoardItem key = {data.id} board={data}/>
+                        )
+                    })
+                }
             </div>
-            {
-                boardQuery.data &&
-                boardQuery.data?.content.map((data) =>{
-                    return(
-                        <BoardItem key = {data.id} board={data}/>
-                    )
-                })
-            }
-        </div>
             <BoardPageNum totalPage={boardQuery.data?.totalPages as number}/>
-        </>
+            <BoardSearchBar/>
+        </div>
     )
 }
 
 export default BoardSearch;
-
-

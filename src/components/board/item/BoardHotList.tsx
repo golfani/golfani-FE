@@ -1,8 +1,8 @@
 import style from 'src/components/board/item/boardHotList.module.css';
 import {useQuery} from "react-query";
-import {IPages} from "../../../domain/Page";
-import {getBoard, IBoardData} from "../../../apis/Board";
-import {EBoardType} from "../../../domain/board";
+import {IPages} from "src/domain/Page";
+import {getBoard, IBoardData} from "src/apis/Board";
+import {EBoardType} from "src/domain/board";
 import BoardHotItem from "./BoardHotItem";
 import LocalFireDepartmentIcon from '@material-ui/icons/LocalFireDepartment';
 

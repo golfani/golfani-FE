@@ -1,6 +1,5 @@
 import style from 'src/components/board/page/boardSearchItem.module.css'
 import {ISearchResult} from "./BoardSearchBar";
-import {useRouter} from "next/router";
 import {useRef} from "react";
 
 interface ISearchItemProps{

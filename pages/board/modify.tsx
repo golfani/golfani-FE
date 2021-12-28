@@ -6,7 +6,7 @@ import {getBoardView, IBoardData} from "src/apis/Board";
 import {useEffect} from "react";
 import {getCookie} from "src/utils/cookieUtil";
 
-const put = (): JSX.Element => {
+const Modify = (): JSX.Element => {
     const userId = getCookie('userId');
     const router = useRouter();
     const {boardNo} = router.query;
@@ -29,4 +29,4 @@ const put = (): JSX.Element => {
     )
 }
 
-export default put;
+export default Modify;

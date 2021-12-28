@@ -1,0 +1,11 @@
+.container{
+    background-color: #f0f2f5;
+}
+
+.main_box {
+    display: flex;
+    justify-content: center;
+    padding-top: 80px;
+    margin-top: 30px;
+    min-height: calc(100vh - 30px);
+}

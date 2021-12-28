@@ -1,14 +1,13 @@
 import style from 'src/components/board/item/boardItem.module.css';
 import React, {useEffect} from 'react';
 import BoardItem from 'src/components/board/item/BoardItem';
-import {getBoard, IBoardData} from "../../../apis/Board";
+import {getBoard, IBoardData} from "src/apis/Board";
 import {ITypeProps} from "../BoardMain";
 import {useQuery} from "react-query";
-import {IPages} from "../../../domain/Page";
+import {IPages} from "src/domain/Page";
 import {useRouter} from "next/router";
-import {EBoardType} from "../../../domain/board";
+import {EBoardType} from "src/domain/board";
 import BoardPageNum from "src/components/board/page/BoardPageNum";
-import BoardHotList from "./BoardHotList";
 
 const BoardList = (boardType : ITypeProps) : JSX.Element => {
     const router = useRouter();
@@ -17,10 +16,6 @@ const BoardList = (boardType : ITypeProps) : JSX.Element => {
     const boardQuery = useQuery<IPages<IBoardData>>(['board', [boardType.boardType,Number(page)]], () => getBoard(boardType.boardType as EBoardType, Number(page), 10), {
         enabled: boardType.boardType !== undefined
     });
-
-    useEffect(() =>{
-        console.log(boardQuery.data);
-    },[boardQuery.data])
 
     return(
         <div>

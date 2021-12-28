@@ -1,9 +1,9 @@
 .container{
+    margin-top : 120px;
     width: 100%;
 }
 
 .comment_wrap{
-    margin-top : 80px;
     height:100%;
 }
 
