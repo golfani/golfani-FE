@@ -1,5 +1,5 @@
 import style from 'src/components/board/item/boardItem.module.css';
-import React, {useEffect} from 'react';
+import React from 'react';
 import BoardItem from 'src/components/board/item/BoardItem';
 import {getBoard, IBoardData} from "src/apis/Board";
 import {ITypeProps} from "../BoardMain";
@@ -14,7 +14,7 @@ const BoardList = (boardType : ITypeProps) : JSX.Element => {
     const {page} = router.query;
 
     const boardQuery = useQuery<IPages<IBoardData>>(['board', [boardType.boardType,Number(page)]], () => getBoard(boardType.boardType as EBoardType, Number(page), 10), {
-        enabled: boardType.boardType !== undefined
+        enabled: boardType.boardType !== EBoardType.HOME
     });
 
     return(

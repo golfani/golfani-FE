@@ -1,7 +1,7 @@
-import Navbar from "../../src/components/common/navbar/Navbar";
+import Navbar from "src/components/common/navbar/Navbar";
 import BoardMain from 'src/components/board/BoardMain';
 import BoardCategory from 'src/components/board/BoardCategory';
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {EBoardType} from "src/domain/board";
 import {useRouter} from "next/router";
 import style from 'styles/board.module.css';
@@ -13,7 +13,7 @@ const Board = () : JSX.Element => {
     const {type} = router.query;
     const {selectMenu, payload} = router.query;
 
-    const [boardType,setBoardType] = useState<EBoardType | null>(type as EBoardType);
+    const [boardType,setBoardType] = useState<EBoardType>(type as EBoardType);
 
     const onSetBoardType = (type: EBoardType) => {
         setBoardType(type as EBoardType);
