@@ -1,28 +1,32 @@
-import style from "./boardPage.module.css";
+import style from "./boardSearchBar.module.css";
 import React, {useEffect, useRef, useState} from "react";
 import {TSelectMenu} from "./BoardPage";
-import {useRouter} from "next/router";
 import BoardSearchHistory from "./BoardSearchHistory";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
+import SearchIcon from '@material-ui/icons/Search';
+import useCustomRouter from "src/hooks/routerHook";
 
 export interface ISearchResult {
-    date : number,
+    date : number
     payload : string
 }
 
 const BoardSearchBar = () : JSX.Element => {
-    const router = useRouter();
     const [searchList, setSearchList] = useState<Array<ISearchResult>>([]);
     const [onSearchId, setOnSearchId] = useState(false);
     const searchId = useRef<HTMLDivElement>(null);
-    const searchMenu = useRef<HTMLDivElement>(null);
-    const [showMenu,setShowMenu] = useState(false);
-    const [selectMenu, setSelectMenu] = useState<TSelectMenu | string>('TITLE');
+    const [selectMenu, setSelectMenu] = useState<TSelectMenu>('TITLE');
     const [payload, setPayload] = useState('');
+    const router = useCustomRouter();
 
-    const handlerSelectMenu = (menu: TSelectMenu) => {
-        selectMenuClick(menu);
-        selectBarClick();
+    const onInitSearch = () => {
+        setSelectMenu('TITLE');
+        setPayload('');
+        setOnSearchId(false);
+    }
+
+    const handleChangeSelectMenu = (menu : string) => {
+        selectMenuClick(menu as TSelectMenu);
     }
 
     const selectMenuClick = (menu : TSelectMenu) => {
@@ -39,13 +43,9 @@ const BoardSearchBar = () : JSX.Element => {
         else{
             setSearchList(data);
         }
-    },[])
+    },[]);
 
-    useEffect(()=>{
-        localStorage.setItem('searchList', JSON.stringify(searchList));
-    },[searchList])
-
-    const handleOnAddList = () => {
+    const onAddHistoryList = () => {
         const newData = {
             date : Date.now(),
             payload : payload
@@ -53,15 +53,12 @@ const BoardSearchBar = () : JSX.Element => {
         const data = searchList.find((el:ISearchResult) => el.payload === payload);
         if(!data) {
             setSearchList([newData, ...searchList]);
+            updateSearchList();
         }
     }
 
-    const onClear = () => {
-        setSearchList([]);
-    }
-
-    const handlerContentClick = () => {
-        selectBarClick();
+    const updateSearchList = () => {
+        localStorage.setItem('searchList', JSON.stringify(searchList));
     }
 
     const onTextChange = (e : React.ChangeEvent<HTMLInputElement>) => {
@@ -76,51 +73,40 @@ const BoardSearchBar = () : JSX.Element => {
         setOnSearchId(false);
     }
 
-    const selectBarClick = () => {
-        setShowMenu(!showMenu);
-    }
-
-    const onSearchBtnClick = () => {
-        handleOnAddList();
-        router.push(`/board?selectMenu=${selectMenu}&payload=${payload}&page=0`);
+    const handleClickSearchButton = () => {
+        onAddHistoryList();
+        router.onConflictRoute(`/board?selectMenu=${selectMenu}&payload=${payload}&page=0`);
+        onInitSearch();
     }
 
     const onKeyPress = (e :  React.KeyboardEvent<HTMLInputElement>) => {
         if(e.key === "Enter" && !e.shiftKey)
         {
-            onSearchBtnClick();
+            handleClickSearchButton();
         }
     }
 
     handleClickRefOutSide(searchId, focusIdOut);
 
     return (
-        <div className={style.search_bar}>
-            <div className={style.select_wrap}>
-                <button onClick={handlerContentClick} className={style.select_component}>
-                    <span className={style.select_text}>{selectMenu === 'TITLE' ? '제목' : selectMenu === "CONTENT" ? '내용' : '글쓴이' }</span>
-                    <img src="https://img.icons8.com/external-those-icons-lineal-color-those-icons/24/000000/external-arrow-arrows-those-icons-lineal-color-those-icons-1.png" className={showMenu ? style.arrow_icon_open : style.arrow_icon} />
-                </button>
-                <div className={showMenu ? style.select_menu_wrap : style.select_hidden} ref={searchMenu}>
-                    <ul>
-                        <li className={style.select_menu}>
-                            <button className={style.select_button} onClick={() => handlerSelectMenu("CONTENT")}>내용</button>
-                        </li>
-                        <li className={style.select_menu}>
-                            <button className={style.select_button} onClick={() => handlerSelectMenu("USER")}>글쓴이</button>
-                        </li>
-                        <li className={style.select_menu}>
-                            <button className={style.select_button} onClick={() => handlerSelectMenu("TITLE")}>제목</button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div ref={searchId}>
-                <input type="text" className={style.search_word} title={style.search_id} placeholder="검색어 입력" value = {payload} onClick={onSearchIdClick} onKeyPress={onKeyPress} onChange={onTextChange}></input>
-                {searchList.length > 0 && onSearchId && <div className={style.delete_searchList} onClick={onClear}>전체삭제</div>}
+        <div className={style.container}>
+            <select className={style.select_box} onChange={(e)=> handleChangeSelectMenu(e.target.value)}>
+                <option value='TITLE'>제목</option>
+                <option value='USER'>글쓴이</option>
+                <option value='CONTENT'>내용</option>
+            </select>
+            <div className={style.search_box} ref={searchId}>
+                <input
+                    className={style.search_input}
+                    title={style.search_id}
+                    value = {payload}
+                    onClick={onSearchIdClick}
+                    onKeyPress={onKeyPress}
+                    onChange={onTextChange}
+                />
                 {onSearchId && <BoardSearchHistory searchResult={searchList} setSearchList={setSearchList} setPayload={setPayload} setOnSearchId={setOnSearchId}/>}
+                <SearchIcon className={style.search_icon} onClick={handleClickSearchButton}/>
             </div>
-            <button type="submit" className={style.search_btn} onClick={onSearchBtnClick} >검색</button>
         </div>
     )
 }

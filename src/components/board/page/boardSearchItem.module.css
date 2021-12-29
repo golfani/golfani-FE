@@ -1,23 +1,26 @@
 .container{
     display: flex;
-    justify-content: space-between;
-    border-bottom : 1px solid #ddd;
     padding: 10px;
     align-items: center;
-    height: 30px;
+    height: 40px;
     background-color: #fff;
+    cursor: pointer;
 }
 
 .container:hover{
-    background-color: #8a8a8a;
+    background-color: #eff0f2;
 }
 
 .search_payload{
-    font-size: 12px;
-    cursor : pointer;
+    display: inline-block;
+    flex: 1;
+    font-size: 13px;
+    font-weight: 500;
+    margin-right: 10px;
 }
 
 .delete_btn{
-    color: #ddd;
+    margin-left: auto;
+    color: #7c7c7c;
     font-size: 12px;
 }

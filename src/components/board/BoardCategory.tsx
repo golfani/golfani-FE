@@ -3,6 +3,8 @@ import {useEffect, useState} from 'react';
 import {EBoardType} from "src/domain/board";
 import {useRouter} from "next/router";
 import HomeIcon from '@material-ui/icons/Home';
+import BoardSearchBar from "./page/BoardSearchBar";
+import SearchIcon from '@material-ui/icons/Search';
 
 interface IBoardTypeProps {
     onSetBoardType : (type:EBoardType) => void
@@ -12,6 +14,7 @@ const BoardCategory = (props: IBoardTypeProps): JSX.Element => {
     const router = useRouter();
     const {type} = router.query;
     const [selectMenu, setMenu] = useState<EBoardType>(type as EBoardType);
+    const [openSearch, setOpenSearch] = useState(false);
 
     useEffect(()=>{
         if(type === undefined) {
@@ -37,6 +40,10 @@ const BoardCategory = (props: IBoardTypeProps): JSX.Element => {
         props.onSetBoardType(type);
     }
 
+    const handleClickSearchIcon = () => {
+        setOpenSearch(true);
+    }
+
     return(
         <div className={style.container}>
             <ul className={style.menu_category}>
@@ -46,6 +53,12 @@ const BoardCategory = (props: IBoardTypeProps): JSX.Element => {
                 <li className={selectMenu === EBoardType.TRADE ? style.board_menu_clicked : style.board_menu_default} onClick={() => {menuClicked(EBoardType.TRADE)}}>거래게시판</li>
                 <li className={selectMenu === EBoardType.ANONYMOUS ? style.board_menu_clicked : style.board_menu_default} onClick={() => {menuClicked(EBoardType.ANONYMOUS)}}>익명게시판</li>
             </ul>
+            <div className={style.search_box}>
+                {openSearch
+                    ? <BoardSearchBar/>
+                    : <SearchIcon className={style.search_icon} onClick={handleClickSearchIcon}/>
+                }
+            </div>
         </div>
     )
 }

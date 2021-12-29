@@ -2,7 +2,6 @@ import style from 'src/components/board/page/boardPage.module.css';
 import React from "react";
 import Link from 'next/link'
 import {ITypeProps} from "../BoardMain";
-import BoardSearchBar from "./BoardSearchBar";
 import {getCookie} from "src/utils/cookieUtil";
 
 export type TSelectMenu = 'USER' | 'CONTENT' | 'TITLE'
@@ -24,7 +23,6 @@ const BoardPage = (boardType : ITypeProps) : JSX.Element => {
                     </Link>
                 }
             </div>
-            <BoardSearchBar/>
         </div>
     )
 }
