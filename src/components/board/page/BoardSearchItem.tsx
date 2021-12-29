@@ -11,6 +11,7 @@ interface ISearchItemProps{
 
 const BoardSearchItem = ({item,setSearchList,setPayload, setOnSearchId} : ISearchItemProps) => {
     const searchId = useRef<HTMLDivElement>(null);
+
     const handleOnDelete = () => {
         onDelete();
     }
@@ -24,6 +25,11 @@ const BoardSearchItem = ({item,setSearchList,setPayload, setOnSearchId} : ISearc
         const data = JSON.parse(window.localStorage.getItem('searchList') as string);
         const filterData = data.filter((el:ISearchResult) => el.payload !== item.payload)
         setSearchList(filterData);
+        updateSearchList(filterData);
+    }
+
+    const updateSearchList = (data : string[]) => {
+        localStorage.setItem('searchList', JSON.stringify(data));
     }
 
     return(
