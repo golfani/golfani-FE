@@ -45,6 +45,7 @@
     background-color: #ebecef;
     padding: 3px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .page_wrap{
