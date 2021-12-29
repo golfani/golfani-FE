@@ -1,0 +1,27 @@
+.container{
+    display: flex;
+    top: 0; right: 0; left: 0; bottom:0 ;
+    align-items: center;
+    justify-content: center;
+}
+
+.box_wrap{
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    background-color: #ddd;
+    height: 100px;
+}
+
+.notice_menu{
+    display: flex;
+    flex-direction: column;
+}
+
+.notice_menu li{
+
+}
+
+.notice_type{
+
+}
