@@ -71,7 +71,7 @@ const ShopNotice = () : JSX.Element => {
                     <span className={style.notice_insert}>공지사항 추가</span>
                 </div>
             </>
-            <ShopRegNoticeModal/>
+            {/*<ShopRegNoticeModal/>*/}
         </div>
     )
 }
