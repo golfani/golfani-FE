@@ -1,7 +1,7 @@
 import Navbar from "src/components/common/navbar/Navbar";
 import BoardMain from 'src/components/board/BoardMain';
 import BoardCategory from 'src/components/board/BoardCategory';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {EBoardType, TSelectMenu} from "src/domain/board";
 import {useRouter} from "next/router";
 import style from 'styles/board.module.css';
@@ -18,11 +18,15 @@ const Board = () : JSX.Element => {
         setBoardType(type as EBoardType);
     }
 
+    useEffect(()=> {
+        type || setBoardType(EBoardType.HOME);
+    },[type]);
+
     return (
         <div className={type || payload ? style.container_white : style.container}>
             <Navbar/>
             <div className={style.main_box}>
-                <BoardCategory onSetBoardType={onSetBoardType}/>
+                <BoardCategory onSetBoardType={onSetBoardType} boardType={boardType}/>
                 {selectMenu && payload
                     ? <BoardSearch selectMenu={selectMenu as TSelectMenu} payload={payload as string}/>
                     : <BoardMain boardType={boardType}/>
