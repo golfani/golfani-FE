@@ -49,9 +49,11 @@ const BoardCategory = (props: IBoardTypeProps): JSX.Element => {
             <ul className={style.menu_category}>
                 <HomeIcon className={selectMenu === EBoardType.HOME ? style.board_menu_clicked : style.board_menu_default} onClick={() => {menuClicked(EBoardType.HOME)}}/>
                 <li className={selectMenu === EBoardType.FREE ? style.board_menu_clicked : style.board_menu_default} onClick={() => {menuClicked(EBoardType.FREE)}}>자유게시판</li>
-                <li className={selectMenu === EBoardType.TIP ? style.board_menu_clicked : style.board_menu_default} onClick={() => {menuClicked(EBoardType.TIP)}}>TIP게시판</li>
-                <li className={selectMenu === EBoardType.TRADE ? style.board_menu_clicked : style.board_menu_default} onClick={() => {menuClicked(EBoardType.TRADE)}}>거래게시판</li>
                 <li className={selectMenu === EBoardType.ANONYMOUS ? style.board_menu_clicked : style.board_menu_default} onClick={() => {menuClicked(EBoardType.ANONYMOUS)}}>익명게시판</li>
+                <li className={selectMenu === EBoardType.TIP ? style.board_menu_clicked : style.board_menu_default} onClick={() => {menuClicked(EBoardType.TIP)}}>정보게시판</li>
+                <li className={selectMenu === EBoardType.REVIEW ? style.board_menu_clicked : style.board_menu_default} onClick={() => {menuClicked(EBoardType.REVIEW)}}>후기게시판</li>
+                <li className={selectMenu === EBoardType.TRADE ? style.board_menu_clicked : style.board_menu_default} onClick={() => {menuClicked(EBoardType.TRADE)}}>거래게시판</li>
+                <li className={selectMenu === EBoardType.ASK ? style.board_menu_clicked : style.board_menu_default} onClick={() => {menuClicked(EBoardType.ASK)}}>문의게시판</li>
             </ul>
             <div className={style.search_box}>
                 {openSearch
