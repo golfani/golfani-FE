@@ -1,4 +1,4 @@
-import style from 'src/components/board/page/boardSearchItem.module.css'
+import style from 'src/components/board/search/boardSearchItem.module.css'
 import {ISearchResult} from "./BoardSearchBar";
 import {useRef} from "react";
 

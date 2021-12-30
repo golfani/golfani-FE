@@ -1,4 +1,4 @@
-import style from "src/components/board/page/boardSearchHistory.module.css"
+import style from "src/components/board/search/boardSearchHistory.module.css"
 import {ISearchResult} from "./BoardSearchBar";
 import BoardSearchItem from "./BoardSearchItem";
 

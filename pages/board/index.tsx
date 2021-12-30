@@ -5,7 +5,7 @@ import React, {useState} from "react";
 import {EBoardType, TSelectMenu} from "src/domain/board";
 import {useRouter} from "next/router";
 import style from 'styles/board.module.css';
-import BoardSearch from "src/components/board/page/BoardSearch";
+import BoardSearch from "src/components/board/search/BoardSearch";
 
 const Board = () : JSX.Element => {
     const router = useRouter();
