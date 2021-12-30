@@ -1,55 +1,56 @@
-.list_item{
-    width: 100%;
+.container {
+
 }
 
-.num{
-    width:15%;
-    font-size: 12px;
-    font-weight: bold;
+.post_box {
+
 }
 
-.title {
-    width:40%;
-    font-size : 15px;
-}
-
-.top_recommend{
-    width:20%;
-    font-size:12px;
-}
-
-.list_item .recommend{
-    width:15%;
-}
-
-.menu{
-    margin:10px;
-}
-
-.list_main{
-    width: 100%;
-}
-
-.list_menu{
-    width: 40px;
+.title_box {
+    display: flex;
+    align-items: center;
     height: 40px;
-    border-radius: 10px;
-    background-color: coral;
-    font-size: 12px;
-    text-align: center;
-    line-height: 40px;
-    color: white;
-    margin-right: 5px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    font-size: 15px;
+    letter-spacing: -0.5px;
+    font-weight: 500;
+    padding: 0 10px;
+    color: #4e4e4e;
 }
 
-.recommend{
-    display:inline-block;
-    line-height: 40px;
-    justify-content: center;
+.no_txt {
+    display: inline-block;
+    text-align: center;
+    width: 60px;
 }
 
-.board_page{
-    margin-top:30px;
+.subject_txt {
+    display: inline-block;
     text-align: center;
-    font-size: 0;
+    width: 600px;
+}
+
+.writer_txt {
+    display: inline-block;
+    text-align: center;
+    width: 100px;
+}
+
+.date_txt {
+    display: inline-block;
+    text-align: center;
+    width: 100px;
+}
+
+.like_txt {
+    display: inline-block;
+    text-align: center;
+    width: 60px;
+}
+
+.visit_txt {
+    display: inline-block;
+    text-align: center;
+    width: 80px;
 }
