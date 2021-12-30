@@ -73,3 +73,8 @@ export const getAllUserPost = async (userId : string) => {
     const response = await axios.get(`${API_URL}/all/${userId}`);
     return response.data;
 }
+
+export const getHotPost = async (page : number = 0, size : number = 10) => {
+    const response = await axios.get(`${API_URL}/hot`);
+    return response.data;
+}
