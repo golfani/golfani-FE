@@ -19,7 +19,7 @@ const Board = () : JSX.Element => {
     }
 
     return (
-        <div className={type ? style.container_white : style.container}>
+        <div className={type || payload ? style.container_white : style.container}>
             <Navbar/>
             <div className={style.main_box}>
                 <BoardCategory onSetBoardType={onSetBoardType}/>

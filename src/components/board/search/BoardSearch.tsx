@@ -7,7 +7,6 @@ import React from "react";
 import BoardPageNav from "../page/BoardPageNav";
 import {useRouter} from "next/router";
 import BoardListHead from "../item/BoardListHead";
-import BoardSearchBar from "./BoardSearchBar";
 import {TSelectMenu} from "src/domain/board";
 
 interface IBoardSearchProps {
@@ -36,15 +35,12 @@ const BoardSearch = ({selectMenu,payload} : IBoardSearchProps) : JSX.Element => 
                 </div>
                 {
                     boardQuery.data &&
-                    boardQuery.data?.content.map((data) =>{
-                        return(
-                            <BoardItem key = {data.id} board={data}/>
-                        )
-                    })
+                    boardQuery.data?.content.map((data) => (
+                        <BoardItem key={data.id} board={data}/>
+                    ))
                 }
             </div>
             <BoardPageNav totalPage={boardQuery.data?.totalPages!}/>
-            <BoardSearchBar/>
         </div>
     )
 }
