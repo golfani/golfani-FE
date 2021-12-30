@@ -1,7 +1,7 @@
 import style from './shopNotice.module.css';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Link from 'next/link';
-import ShopRegNoticeModal from "src/components/modals/shop/ShopRefNotiveModal";
+import ShopRegNoticeModal from "src/components/modals/shop/ShopRegNotiveModal";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 const ShopNotice = () : JSX.Element => {

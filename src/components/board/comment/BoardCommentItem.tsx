@@ -64,9 +64,11 @@ const BoardCommentItem = ({reply} : IReplyProps) => {
         try {
             if(userId === reply.userId)
             {
+                console.log(reply);
                 const response = await deletePostReply(reply.id)
                 await queryClient.invalidateQueries(['postReply',Number(id)]);
                 await queryClient.invalidateQueries(['replyQuery',reply.referenceId]);
+                await queryClient.invalidateQueries(['getTotalReplies',reply.postId]);
             }
         }
         catch (e) {
