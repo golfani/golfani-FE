@@ -1,4 +1,3 @@
-import {boardDTO} from "src/components/board/write/BoardWrite";
 import {securityAxios} from "src/security/axios";
 import {EBoardType, TSelectMenu} from "src/domain/board";
 import axios from "axios";
@@ -28,7 +27,7 @@ export interface IBoardData{
 // API
 const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/board`;
 
-export const registerBoard = async (boardDto : boardDTO, imgList : File[] ) => {
+export const registerBoard = async (boardDto : Partial<IBoardData>, imgList : File[] ) => {
     const formData = new FormData();
     Array.from(imgList).forEach((imgItem)=> formData.append("uploadFiles", imgItem));
     formData.append("boardDto", JSON.stringify(boardDto));

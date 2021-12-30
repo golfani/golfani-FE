@@ -1,6 +1,6 @@
 import style from 'src/components/board/write/boardWrite.module.css';
 import React, {useRef, useState} from 'react';
-import {registerBoard} from 'src/apis/Board';
+import {IBoardData, registerBoard} from 'src/apis/Board';
 import {getCookie} from "src/utils/cookieUtil";
 import {useRouter} from "next/router";
 import Modal from "src/components/modals/Modal"
@@ -8,37 +8,27 @@ import {EBoardType} from "src//domain/board";
 import BoardWriteImage from "./BoardWriteImage";
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
-export interface boardDTO {
-    userId : string,
-    boardType: EBoardType,
-    content : string,
-    title : string
-}
-
 const BoardWrite = (): JSX.Element => {
     const getUserId = getCookie('userId');
     const router = useRouter();
     const [openModal, setOpenModal] = useState(false);
     const [modalMsg, setModalMsg] = useState("");
-    const [onType,setOnType] = useState(false);
-    const {boardType} = router.query;
-    const [selectBoard, setSelectBoard] = useState('게시판선택');
+    const {category} = router.query;
     const ref = useRef<HTMLTextAreaElement | null>(null);
-    const [showType,setShowType] = useState(false);
 
     const setMsg = (msg : string) => {
         setOpenModal(true);
         setModalMsg(msg);
     }
 
-    const [inputs , setInputs] = useState<boardDTO>({
+    const [inputs , setInputs] = useState<Partial<IBoardData>>({
         userId : getUserId,
-        boardType: boardType as EBoardType,
+        boardType: category as EBoardType,
         content : '',
         title : ''
     })
 
-    const {userId, content, title}  = inputs;
+    const {userId, content, title, boardType}  = inputs;
 
     const onChange = (e : React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         const { value , name } = e.target;
@@ -78,17 +68,12 @@ const BoardWrite = (): JSX.Element => {
         }
     }
 
-    const handleTypeClick = () => {
-        setOnType(!onType);
-        setShowType(!showType);
-    }
-
     const handleOnSummit = async () => {
-        if(inputs.title.length <= 0)
+        if(inputs.title!.length <= 0)
         {
             setMsg("제목을 입력해주세요");
         }
-        else if(inputs.content.length <= 0){
+        else if(inputs.content!.length <= 0){
             setMsg("내용을 입력해주세요");
         }
         else if(boardType === undefined)
@@ -106,14 +91,11 @@ const BoardWrite = (): JSX.Element => {
         }
     }
 
-    const handleOnTypeClick =  (type : EBoardType) => {
+    const handleClickCategory =  (type : EBoardType) => {
         setInputs({
             ...inputs,
             boardType : type
         })
-        const data = type.toString();
-        setSelectBoard(data);
-        setOnType(false);
     }
 
     const handleClickCancelButton = () => {
@@ -126,34 +108,45 @@ const BoardWrite = (): JSX.Element => {
                 <div className={style.write_top}>
                     <div className={style.write_head}>게시판 글쓰기</div>
                     <div className={style.bt_wrap}>
-                        <button className={style.btn_register} onClick={handleOnSummit}>등록</button>
                         <button className={style.btn_cancel} onClick={handleClickCancelButton}>취소</button>
+                        <button className={style.btn_register} onClick={handleOnSummit}>등록</button>
                     </div>
                 </div>
                 <div className={style.board_write}>
                     <div className={style.title}>
-                        <textarea className={style.titleTextArea} placeholder="제목을 입력해 주세요." name = "title" value={title} onChange={onChange} onKeyPress={onEnterPress} autoFocus={true}> </textarea>
-                        <div className={style.select_type_wrap}>
-                            <button className={style.boardType_btn} onClick={handleTypeClick}>{selectBoard}</button>
-                            <img src="https://img.icons8.com/external-those-icons-lineal-color-those-icons/24/000000/external-arrow-arrows-those-icons-lineal-color-those-icons-1.png" className={showType ? style.arrow_icon_open : style.arrow_icon } />
-                            {
-                                onType &&
-                                <ul className={style.menu_wrap}>
-                                    <li className={style.menu}>
-                                        <div className={style.board_type_free} id={EBoardType.FREE} onClick={() => handleOnTypeClick(EBoardType.FREE)}>자유게시판</div>
-                                    </li>
-                                    <li className={style.menu}>
-                                        <div className={style.board_type_trade} id={EBoardType.TRADE} onClick={() => handleOnTypeClick(EBoardType.TRADE)}>거래게시판</div>
-                                    </li>
-                                    <li className={style.menu}>
-                                        <div className={style.board_type_tip} id={EBoardType.TIP} onClick={() => handleOnTypeClick(EBoardType.TIP)}>TIP게시판</div>
-                                    </li>
-                                    <li className={style.menu}>
-                                        <div className={style.board_type_anonymous} id={EBoardType.ANONYMOUS} onClick={() => handleOnTypeClick(EBoardType.ANONYMOUS)}>익명게시판</div>
-                                    </li>
-                                </ul>
-                            }
-                        </div>
+                        <textarea className={style.titleTextArea} placeholder="제목을 입력해 주세요" name = "title" value={title} onChange={onChange} onKeyPress={onEnterPress} autoFocus={true}> </textarea>
+                    </div>
+                    <div className={style.select_type_wrap}>
+                        <button
+                            className={boardType === EBoardType.FREE ? style.category_btn_active : style.category_btn}
+                            onClick={() => handleClickCategory(EBoardType.FREE)}
+                        >자유
+                        </button>
+                        <button
+                            className={boardType === EBoardType.ANONYMOUS ? style.category_btn_active : style.category_btn}
+                            onClick={() => handleClickCategory(EBoardType.ANONYMOUS)}
+                        >익명
+                        </button>
+                        <button
+                            className={boardType === EBoardType.TIP ? style.category_btn_active : style.category_btn}
+                            onClick={() => handleClickCategory(EBoardType.TIP)}
+                        >정보
+                        </button>
+                        <button
+                            className={boardType === EBoardType.REVIEW ? style.category_btn_active : style.category_btn}
+                            onClick={() => handleClickCategory(EBoardType.REVIEW)}
+                        >후기
+                        </button>
+                        <button
+                            className={boardType === EBoardType.TRADE ? style.category_btn_active : style.category_btn}
+                            onClick={() => handleClickCategory(EBoardType.TRADE)}
+                        >거래
+                        </button>
+                        <button
+                            className={boardType === EBoardType.ASK ? style.category_btn_active : style.category_btn}
+                            onClick={() => handleClickCategory(EBoardType.ASK)}
+                        >문의
+                        </button>
                     </div>
                     <div className={style.info}>
                         <span className={style.writer}>글쓴이</span>

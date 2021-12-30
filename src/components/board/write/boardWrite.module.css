@@ -1,7 +1,8 @@
 .container{
     margin: 100px auto;
     display: flex;
-    width:80%;
+    width: 70%;
+    max-width: 1080px;
     padding: 10px;
     flex-direction: column;
     height: 100px;;
@@ -31,7 +32,7 @@
 
 .titleTextArea{
     height: 40px;
-    width: 70%;
+    width: 100%;
     padding: 10px;
     resize: none;
     font-size: 15px;
@@ -102,7 +103,6 @@
     font-size: 13px;
     line-height:36px;
     border: 1px solid #000;
-    margin-left: 3px;
     height: 36px;
 }
 
@@ -115,11 +115,12 @@
 .btn_register{
     padding: 0 12px;
     border-radius:5px;
-    background-color: #8b00ff;
+    background-color: #2196F3;
     font-size: 13px;
     line-height:36px;
-    color:#fff44f;
+    color: white;
     height: 36px;
+    margin-left: 10px;
 }
 
 .content_wrap{
@@ -218,30 +219,31 @@
 
 .select_type_wrap{
     display: block;
-    width: 30%;
-    position:relative;
-    margin-left: 10px;
-}
-
-.menu{
     width: 100%;
+    margin: 10px 0;
 }
 
-.arrow_icon{
-    position:absolute;
-    top: 12px;
-    right: 10px;
-    width: 13px;
-    height: 13px;
+.category_btn {
+    width: 60px;
+    height: 40px;
+    border: 1px solid #ebecef;
+    margin-right: 15px;
+    border-radius: 10px;
 }
 
-.arrow_icon_open{
-    position:absolute;
-    top: 12px;
-    right: 10px;
-    width: 13px;
-    height: 13px;
-    transform: rotate(180deg);
+.category_btn:hover {
+    background-color: #2196F3;
+    color: white;
+}
+
+.category_btn_active {
+    width: 60px;
+    height: 40px;
+    border: 1px solid #ebecef;
+    margin-right: 15px;
+    border-radius: 10px;
+    background-color: #2196F3;
+    color: white;
 }
 
 .photo_wrap{
