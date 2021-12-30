@@ -1,10 +1,9 @@
 import style from "src/components/board/search/boardSearchHistory.module.css"
-import {ISearchResult} from "./BoardSearchBar";
 import BoardSearchItem from "./BoardSearchItem";
 
 interface ISearchResultProps{
-    searchResult : ISearchResult[]
-    setSearchList : (searchList : ISearchResult[]) => void
+    searchResult : string[]
+    setSearchList : (searchList : string[]) => void
     setPayload : (payload : string) => void
     setOnSearchId : (OnSearch : boolean) => void
 }
