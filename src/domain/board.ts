@@ -3,7 +3,10 @@ export enum EBoardType {
     TRADE = "TRADE",
     FREE = "FREE",
     TIP = "TIP",
-    ANONYMOUS = "ANONYMOUS"
+    ANONYMOUS = "ANONYMOUS",
+    REVIEW = "REVIEW",
+    ASK = "ASK",
+    HOT = "HOT"
 }
 
 export const onHandleImgClick = (url : string) => {

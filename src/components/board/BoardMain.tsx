@@ -4,6 +4,7 @@ import BoardPage from 'src/components/board/page/BoardPage';
 import {EBoardType} from "src/domain/board";
 import BoardListHead from "./item/BoardListHead";
 import React from "react";
+import BoardHome from "./home/BoardHome";
 
 export interface ITypeProps{
     boardType : EBoardType | null
@@ -19,7 +20,7 @@ const BoardMain = ({boardType} : ITypeProps): JSX.Element => {
                     <BoardPage boardType={boardType}/>
                 </div>
                 :
-                null // Home Category 컴포넌트 구현
+                <BoardHome/>
             }
         </div>
     )
