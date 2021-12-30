@@ -1,10 +1,9 @@
-import style from 'src/components/board/page/boardSearchItem.module.css'
-import {ISearchResult} from "./BoardSearchBar";
+import style from 'src/components/board/search/boardSearchItem.module.css'
 import {useRef} from "react";
 
 interface ISearchItemProps{
-    item : ISearchResult
-    setSearchList : (searchList : ISearchResult[]) => void
+    item : string
+    setSearchList : (searchList : string[]) => void
     setPayload: (payload: string) => void
     setOnSearchId: (OnSearchId: boolean) => void
 }
@@ -17,13 +16,13 @@ const BoardSearchItem = ({item,setSearchList,setPayload, setOnSearchId} : ISearc
     }
 
     const onClickPayload = () => {
-        setPayload(item.payload);
+        setPayload(item);
         setOnSearchId(false);
     }
 
     const onDelete = () => {
         const data = JSON.parse(window.localStorage.getItem('searchList') as string);
-        const filterData = data.filter((el:ISearchResult) => el.payload !== item.payload)
+        const filterData = data.filter((el: string) => el !== item);
         setSearchList(filterData);
         updateSearchList(filterData);
     }
@@ -34,7 +33,7 @@ const BoardSearchItem = ({item,setSearchList,setPayload, setOnSearchId} : ISearc
 
     return(
         <div className={style.container} ref={searchId}>
-            <span className={style.search_payload} onClick={onClickPayload}>{item.payload}</span>
+            <span className={style.search_payload} onClick={onClickPayload}>{item}</span>
             <button className={style.delete_btn} onClick={handleOnDelete}>삭제</button>
         </div>
     )

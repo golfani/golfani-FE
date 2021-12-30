@@ -6,13 +6,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import useCustomRouter from "src/hooks/routerHook";
 import {TSelectMenu} from "src/domain/board";
 
-export interface ISearchResult {
-    date : number
-    payload : string
-}
-
 const BoardSearchBar = () : JSX.Element => {
-    const [searchList, setSearchList] = useState<Array<ISearchResult>>([]);
+    const [searchList, setSearchList] = useState<Array<string>>([]);
     const [onSearchId, setOnSearchId] = useState(false);
     const searchId = useRef<HTMLDivElement>(null);
     const [selectMenu, setSelectMenu] = useState<TSelectMenu>('TITLE');
@@ -34,11 +29,11 @@ const BoardSearchBar = () : JSX.Element => {
     }
 
     useEffect(() => {
-        const data = JSON.parse(localStorage.getItem('searchList') as string || '[]');
+        const data = JSON.parse(window.localStorage.getItem('searchList') as string || '[]');
         //기존 localStorage 가 저장되어있는 경우 새로운 배열로 초기화 해준다.
         if(JSON.stringify(data) === 'null') {
-            localStorage.removeItem('searchList');
-            localStorage.setItem('searchList', '[]');
+            window.localStorage.removeItem('searchList');
+            window.localStorage.setItem('searchList', '[]');
         }
         else{
             setSearchList(data);
@@ -46,19 +41,11 @@ const BoardSearchBar = () : JSX.Element => {
     },[]);
 
     const onAddHistoryList = () => {
-        const newData = {
-            date : Date.now(),
-            payload : payload
-        }
-        const data = searchList.find((el:ISearchResult) => el.payload === payload);
+        const data = searchList.find((el) => el === payload);
         if(!data) {
-            setSearchList([newData, ...searchList]);
-            updateSearchList();
+            searchList.splice(0,0,payload);
+            window.localStorage.setItem('searchList', JSON.stringify(searchList));
         }
-    }
-
-    const updateSearchList = () => {
-        localStorage.setItem('searchList', JSON.stringify(searchList));
     }
 
     const onTextChange = (e : React.ChangeEvent<HTMLInputElement>) => {
@@ -74,9 +61,11 @@ const BoardSearchBar = () : JSX.Element => {
     }
 
     const handleClickSearchButton = () => {
-        onAddHistoryList();
-        router.onConflictRoute(`/board?selectMenu=${selectMenu}&payload=${payload}&page=0`);
-        onInitSearch();
+        if(payload.replace(/\s/g,'').length) {
+            router.onConflictRoute(`/board?selectMenu=${selectMenu}&payload=${payload}&page=0`);
+            onAddHistoryList();
+            onInitSearch();
+        }
     }
 
     const onKeyPress = (e :  React.KeyboardEvent<HTMLInputElement>) => {

@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {EBoardType} from "src/domain/board";
 import {useRouter} from "next/router";
 import HomeIcon from '@material-ui/icons/Home';
-import BoardSearchBar from "./page/BoardSearchBar";
+import BoardSearchBar from "./search/BoardSearchBar";
 import SearchIcon from '@material-ui/icons/Search';
 
 interface IBoardTypeProps {
