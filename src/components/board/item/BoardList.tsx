@@ -7,6 +7,7 @@ import {IPages} from "src/domain/Page";
 import {useRouter} from "next/router";
 import {EBoardType} from "src/domain/board";
 import BoardPageNav from "src/components/board/page/BoardPageNav";
+import React from "react";
 
 const BoardList = (boardType : IBoardTypeProps) : JSX.Element => {
     const router = useRouter();
@@ -28,13 +29,16 @@ const BoardList = (boardType : IBoardTypeProps) : JSX.Element => {
                     <span className={style.visit_txt}>조회</span>
                 </div>
                 <div>
-                    {boardQuery.data &&
-                    boardQuery.data.content.map((board: IBoardData, index) => (
-                        <BoardItem board={board} key={index}/>
-                    ))}
+                    {boardQuery.data?.totalPages ?
+                        boardQuery.data?.content.map((board: IBoardData, index) => (
+                            <BoardItem board={board} key={index}/>
+                        ))
+                        :
+                        <span className={style.no_content_txt}>등록된 글이 없습니다.</span>
+                    }
                 </div>
             </div>
-            <BoardPageNav totalPage={boardQuery.data?.totalPages!}/>
+            {boardQuery.data?.totalPages ? <BoardPageNav totalPage={boardQuery.data?.totalPages!}/> : null}
         </div>
     )
 }

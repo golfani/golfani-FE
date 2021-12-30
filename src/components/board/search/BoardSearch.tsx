@@ -25,22 +25,26 @@ const BoardSearch = ({selectMenu,payload} : IBoardSearchProps) : JSX.Element => 
     return(
         <div className={style.container}>
             <BoardListHead/>
-            <div className={style.search_box}>
-                <div className={style.list_top}>
-                    <div className={style.num}>No.</div>
-                    <div className={style.board_title}>글제목</div>
-                    <div className={style.board_id}>글쓴이</div>
-                    <div className={style.board_date}>작성일</div>
-                    <div className={style.recommend}>추천</div>
+            <div className={style.post_box}>
+                <div className={style.title_box}>
+                    <span className={style.no_txt}>번호</span>
+                    <span className={style.subject_txt}>제목</span>
+                    <span className={style.writer_txt}>글쓴이</span>
+                    <span className={style.date_txt}>작성일</span>
+                    <span className={style.like_txt}>추천</span>
+                    <span className={style.visit_txt}>조회</span>
                 </div>
-                {
-                    boardQuery.data &&
-                    boardQuery.data?.content.map((data) => (
-                        <BoardItem key={data.id} board={data}/>
-                    ))
-                }
+                <div>
+                    {boardQuery.data?.totalPages ?
+                        boardQuery.data?.content.map((board: IBoardData, index) => (
+                            <BoardItem board={board} key={index}/>
+                        ))
+                        :
+                        <span className={style.no_content_txt}>등록된 글이 없습니다.</span>
+                    }
+                </div>
             </div>
-            <BoardPageNav totalPage={boardQuery.data?.totalPages!}/>
+            {boardQuery.data?.totalPages ? <BoardPageNav totalPage={boardQuery.data?.totalPages!}/> : null}
         </div>
     )
 }
