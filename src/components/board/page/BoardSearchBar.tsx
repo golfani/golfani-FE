@@ -1,10 +1,10 @@
 import style from "./boardSearchBar.module.css";
 import React, {useEffect, useRef, useState} from "react";
-import {TSelectMenu} from "./BoardPage";
 import BoardSearchHistory from "./BoardSearchHistory";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import SearchIcon from '@material-ui/icons/Search';
 import useCustomRouter from "src/hooks/routerHook";
+import {TSelectMenu} from "src/domain/board";
 
 export interface ISearchResult {
     date : number

@@ -2,11 +2,10 @@ import Navbar from "src/components/common/navbar/Navbar";
 import BoardMain from 'src/components/board/BoardMain';
 import BoardCategory from 'src/components/board/BoardCategory';
 import React, {useState} from "react";
-import {EBoardType} from "src/domain/board";
+import {EBoardType, TSelectMenu} from "src/domain/board";
 import {useRouter} from "next/router";
 import style from 'styles/board.module.css';
 import BoardSearch from "src/components/board/page/BoardSearch";
-import {TSelectMenu} from "src/components/board/page/BoardPage";
 
 const Board = () : JSX.Element => {
     const router = useRouter();

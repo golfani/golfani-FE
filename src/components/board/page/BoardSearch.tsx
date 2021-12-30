@@ -2,7 +2,6 @@ import style from 'src/components/board/page/boardSearch.module.css'
 import {useQuery} from "react-query";
 import {IPages} from "src/domain/Page";
 import {IBoardData, searchBoard} from "src/apis/Board";
-import {TSelectMenu} from "./BoardPage";
 import BoardItem from "src/components/board/item/BoardItem";
 import React from "react";
 import BoardPageNum from "./BoardPageNum";
@@ -10,6 +9,7 @@ import {useRouter} from "next/router";
 import BoardListHead from "../item/BoardListHead";
 import BoardSearchType from "./BoardSearchType";
 import BoardSearchBar from "./BoardSearchBar";
+import {TSelectMenu} from "src/domain/board";
 
 interface IBoardSearchProps {
     selectMenu : TSelectMenu

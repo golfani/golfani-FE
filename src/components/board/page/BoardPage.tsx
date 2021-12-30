@@ -4,10 +4,9 @@ import Link from 'next/link'
 import {ITypeProps} from "../BoardMain";
 import {getCookie} from "src/utils/cookieUtil";
 
-export type TSelectMenu = 'USER' | 'CONTENT' | 'TITLE'
-
 const BoardPage = (boardType : ITypeProps) : JSX.Element => {
     const userId = getCookie("userId");
+
     return (
         <div className={style.container}>
             <div className={style.button_wrap}>
