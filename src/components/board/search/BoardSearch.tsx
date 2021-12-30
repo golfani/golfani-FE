@@ -24,7 +24,7 @@ const BoardSearch = ({selectMenu,payload} : IBoardSearchProps) : JSX.Element => 
 
     return(
         <div className={style.container}>
-            <BoardListHead boardType={null}/>
+            <BoardListHead/>
             <div className={style.search_box}>
                 <div className={style.list_top}>
                     <div className={style.num}>No.</div>

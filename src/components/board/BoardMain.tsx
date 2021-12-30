@@ -6,11 +6,11 @@ import BoardListHead from "./item/BoardListHead";
 import React from "react";
 import BoardHome from "./home/BoardHome";
 
-export interface ITypeProps{
-    boardType : EBoardType | null
+export interface IBoardTypeProps{
+    boardType? : EBoardType
 }
 
-const BoardMain = ({boardType} : ITypeProps): JSX.Element => {
+const BoardMain = ({boardType} : IBoardTypeProps): JSX.Element => {
     return(
         <div className={style.container}>
             {boardType !== EBoardType.HOME ?

@@ -1,13 +1,12 @@
 .container{
     width: 100%;
-    align-items: center;
     margin-bottom: 10px;
-    text-align: left;
-    margin-left: 0px;
+    padding: 0 5px;
 }
 
 .head_text{
-    font-size: 25px;
+    font-size: 18px;
     font-weight: bold;
-    padding: 10px;
+    border-left: 4px solid black;
+    padding: 0 10px;
 }

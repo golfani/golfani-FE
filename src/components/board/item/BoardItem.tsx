@@ -5,41 +5,44 @@ import {useRouter} from "next/router";
 import {dateDiff} from "src/utils/dateUtil";
 import {EBoardType} from "src/domain/board";
 import ImageIcon from '@material-ui/icons/Image';
+import CloudQueueIcon from "@material-ui/icons/CloudQueue";
 
-interface IBoardProps{
+interface IBoardItemProps{
     board : IBoardData;
 }
 
-const BoardItem = (board: IBoardProps) : JSX.Element => {
+const BoardItem = ({board} : IBoardItemProps) : JSX.Element => {
     const router = useRouter();
 
-    const onTitleClick = async (id : number) => { // 클릭 되는 객체 반환
-        router.push(`/board/${id}`);
+    const handleClickSubject = async () => {
+        await router.push(`/board/${board.id}`);
     }
 
     return(
-        <>
-            <div className={style.board_item_container}>
-                <div className={style.num}>{board.board.id}</div>
-                <div className={style.board_title} onClick={() => onTitleClick(board.board.id)} >
-                    <span
-                        className={style.board_title_text} >{board.board.title.length > 30 ? board.board.title.slice(0, 27) + '...' : board.board.title}
-                    </span>
-                    {
-                        board.board.urlList !== [] &&
-                        <ImageIcon style={{fontSize : '15px'}}/>
-                    }
-                </div>
-                <div className={style.board_id}> { board.board.boardType !== EBoardType.ANONYMOUS ? board.board.userId : '익명'}</div>
-                <div className={style.board_date}>{dateDiff(board.board.createdTime)}</div>
-                <div className={style.recommend}>
-                    <span>❣️</span>
-                    <span> {board.board.likesCount}</span>
-                </div>
-                <div className={style.board_views}>{board.board.viewCount}</div>
+        <div className={style.container}>
+            <div className={style.no_txt}>{board.id}</div>
+            <div className={style.subject_box}>
+                <span className={style.subject_txt} onClick={handleClickSubject}>{board.title}</span>
+                {
+                    board.replyCount
+                        ?
+                        <div className={style.reply_box}>
+                            <CloudQueueIcon style={{fontSize: 16}} className={style.reply_icon}/>
+                            <span className={style.reply_txt}>{board.replyCount}</span>
+                        </div>
+                        : null
+                }
+                {
+                    board.hasImage &&
+                    <ImageIcon style={{fontSize : '15px'}} color={"disabled"}/>
+                }
             </div>
-
-        </>
+            <div className={style.writer_txt}>{board.boardType !== EBoardType.ANONYMOUS ? board.userId : '익명'}</div>
+            <div className={style.date_txt}>{dateDiff(board.createdTime)}</div>
+            <span className={style.like_txt}>{board.likesCount}</span>
+            <div className={style.visit_txt}>{board.viewCount}</div>
+        </div>
     )
 }
+
 export default BoardItem;

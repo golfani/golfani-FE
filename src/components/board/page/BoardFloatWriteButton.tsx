@@ -1,9 +1,9 @@
 import style from 'src/components/board/page/boardFloatWriteButton.module.css';
-import {ITypeProps} from "../BoardMain";
+import {IBoardTypeProps} from "../BoardMain";
 import {getCookie} from "src/utils/cookieUtil";
 import {useRouter} from "next/router";
 
-const BoardFloatWriteButton = (boardType : ITypeProps) : JSX.Element => {
+const BoardFloatWriteButton = (boardType : IBoardTypeProps) : JSX.Element => {
     const router = useRouter();
     const userId = getCookie("userId");
 
