@@ -1,8 +1,7 @@
-import {boardDTO} from "../components/board/write/BoardWrite";
-import {securityAxios} from "../security/axios";
-import {EBoardType} from "../domain/board";
+import {boardDTO} from "src/components/board/write/BoardWrite";
+import {securityAxios} from "src/security/axios";
+import {EBoardType, TSelectMenu} from "src/domain/board";
 import axios from "axios";
-import {TSelectMenu} from "../components/board/page/BoardPage";
 
 export interface IBoardData{
     id:number,

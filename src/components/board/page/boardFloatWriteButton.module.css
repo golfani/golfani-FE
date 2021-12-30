@@ -1,0 +1,22 @@
+.container {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 80px;
+    bottom: 60px;
+    width: 60px;
+    height: 60px;
+    background-color: #81B147;
+    border-radius: 50%;
+    font-size: 13px;
+    color: white;
+    letter-spacing: -0.5px;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 3px 5px rgba(0, 1, 3, 0.1);
+}
+
+.container:hover {
+    background-color: #6f993d;
+}

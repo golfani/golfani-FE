@@ -2,6 +2,10 @@
     background-color: #f0f2f5;
 }
 
+.container_white {
+    background-color: #fff;
+}
+
 .main_box {
     display: flex;
     flex-direction: column;

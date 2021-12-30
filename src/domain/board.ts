@@ -9,6 +9,8 @@ export enum EBoardType {
     HOT = "HOT"
 }
 
+export type TSelectMenu = 'USER' | 'CONTENT' | 'TITLE';
+
 export const onHandleImgClick = (url : string) => {
     const img = new Image();
     img.onload = () => {
