@@ -19,7 +19,7 @@ const Board = () : JSX.Element => {
     }
 
     useEffect(()=> {
-        type || setBoardType(EBoardType.HOME);
+        type ? setBoardType(type as EBoardType) : setBoardType(EBoardType.HOME);
     },[type]);
 
     return (
