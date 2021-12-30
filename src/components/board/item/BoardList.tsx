@@ -7,7 +7,7 @@ import {useQuery} from "react-query";
 import {IPages} from "src/domain/Page";
 import {useRouter} from "next/router";
 import {EBoardType} from "src/domain/board";
-import BoardPageNum from "src/components/board/page/BoardPageNum";
+import BoardPageNav from "src/components/board/page/BoardPageNav";
 
 const BoardList = (boardType : ITypeProps) : JSX.Element => {
     const router = useRouter();
@@ -38,7 +38,7 @@ const BoardList = (boardType : ITypeProps) : JSX.Element => {
                 </div>
             </div>
             <div>
-                <BoardPageNum totalPage={boardQuery.data?.totalPages as number}/>
+                <BoardPageNav totalPage={boardQuery.data?.totalPages!}/>
             </div>
         </div>
     )

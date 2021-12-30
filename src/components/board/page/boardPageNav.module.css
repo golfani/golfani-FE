@@ -1,0 +1,46 @@
+.container{
+    display: flex;
+    margin-top: 20px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.move_btn {
+    font-size: 13px;
+    height: 30px;
+    margin: 0 5px;
+    line-height: 32px;
+}
+
+.move_btn:hover {
+    text-decoration: underline;
+}
+
+.number_box {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.number {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+}
+
+.number:hover {
+    text-decoration: underline;
+}
+
+.number_active {
+    color: #81B147;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #dadada;
+    font-size: 13px;
+}
+
+.number_active:hover {
+    text-decoration: underline;
+}

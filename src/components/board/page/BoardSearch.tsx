@@ -4,7 +4,7 @@ import {IPages} from "src/domain/Page";
 import {IBoardData, searchBoard} from "src/apis/Board";
 import BoardItem from "src/components/board/item/BoardItem";
 import React from "react";
-import BoardPageNum from "./BoardPageNum";
+import BoardPageNav from "./BoardPageNav";
 import {useRouter} from "next/router";
 import BoardListHead from "../item/BoardListHead";
 import BoardSearchType from "./BoardSearchType";
@@ -19,7 +19,6 @@ interface IBoardSearchProps {
 const BoardSearch = ({selectMenu,payload} : IBoardSearchProps) : JSX.Element => {
     const router = useRouter();
     const {page} = router.query;
-    console.log(selectMenu,payload);
 
     const boardQuery = useQuery<IPages<IBoardData>>(['searchResult', [payload,Number(page)]], () => searchBoard(selectMenu as TSelectMenu, payload as string, Number(page)),{
         enabled : selectMenu !== undefined
@@ -46,7 +45,7 @@ const BoardSearch = ({selectMenu,payload} : IBoardSearchProps) : JSX.Element => 
                     })
                 }
             </div>
-            <BoardPageNum totalPage={boardQuery.data?.totalPages as number}/>
+            <BoardPageNav totalPage={boardQuery.data?.totalPages!}/>
             <BoardSearchBar/>
         </div>
     )
