@@ -14,6 +14,6 @@ export interface IFeedReplyAddProps {
 export interface IPostReplyAddProps{
     postId : number,
     postUser? : string
-    refId : number | null,
-    refUser : string | null
+    refId? : number
+    refUser? : string
 }

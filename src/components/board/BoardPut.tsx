@@ -3,10 +3,10 @@ import React, {useState} from 'react';
 import {IBoardData, putBoard} from 'src/apis/Board';
 import {useRouter} from "next/router";
 import Modal from "../modals/Modal";
-import {IBoardProps} from "./BoardView";
+import {IBoardProps} from "./view/BoardContent";
 import {EBoardType} from "src/domain/board";
 
-const BoardPut = (boardData:IBoardProps): JSX.Element => {
+const BoardPut = ({ board } :IBoardProps): JSX.Element => {
     const router = useRouter();
     const [openModal, setOpenModal] = useState(false);
     const [modalMsg, setModalMsg] = useState("");
@@ -16,7 +16,7 @@ const BoardPut = (boardData:IBoardProps): JSX.Element => {
         setModalMsg(msg);
     }
 
-    const [inputs , setInputs] = useState<IBoardData>(boardData.boardView);
+    const [inputs , setInputs] = useState<IBoardData>(board);
 
     const {userId, boardType, content, title}  = inputs;
 
