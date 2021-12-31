@@ -24,7 +24,7 @@ const Modify = (): JSX.Element => {
     return(
         <div>
             <Navbar/>
-            {boardQuery.data && <BoardPut boardView={boardQuery.data}/>}
+            {boardQuery.data && <BoardPut board={boardQuery.data}/>}
         </div>
     )
 }
