@@ -1,4 +1,7 @@
-
+/**
+ * 단순 오늘 날짜와 차이를 계산 해주는 유틸
+ * @param date
+ */
 export const dateDiff = (date : string | Date) : string => {
     const now = new Date();
     const target = new Date(date);
@@ -29,6 +32,10 @@ export const dateDiff = (date : string | Date) : string => {
     return diff;
 }
 
+/**
+ * leftPad 함수 유틸
+ * @param value
+ */
 const leftPad = (value : number) => {
     if(value >= 10) {
         return value;
@@ -36,6 +43,10 @@ const leftPad = (value : number) => {
     return `0${value}`;
 }
 
+/**
+ * 정해진 형식으로 format 해주는 유틸
+ * @param target
+ */
 export const toStringByFormatting = (target : Date | string) => {
     const source = new Date(target);
     const year = source.getFullYear();
@@ -47,6 +58,10 @@ export const toStringByFormatting = (target : Date | string) => {
     return [year,month,day,hour,minute].join('.');
 }
 
+/**
+ * 채팅 서비스에서 사용되는 date 반환 유틸
+ * @param source
+ */
 export const calcChatDate = (source : Date) => {
     const formatDate = toStringByFormatting(source);
     const date = formatDate.split('.');
@@ -77,6 +92,11 @@ export const isTodayAlarm = (source : string | Date) => {
     }
 }
 
+/**
+ * 채팅 날짜 구분 해주는 유틸
+ * @param prevDate
+ * @param curDate
+ */
 export const diffDayChat = (prevDate : Date, curDate : Date) => {
     const prev = new Date(prevDate);
     const cur = new Date(curDate);
@@ -88,4 +108,19 @@ export const diffDayChat = (prevDate : Date, curDate : Date) => {
         return [year,month,day].join(' ');
     }
     return false;
+}
+
+/**
+ * 커뮤니티 서비스에서 사용하는 date 반환 유틸
+ * @param source
+ */
+export const calcPostReplyDate = (source : string) => {
+    const nowDate = new Date();
+    const sourceDate = new Date(source);
+
+    let date = '';
+    if(nowDate.getFullYear() !== sourceDate.getFullYear())
+        date = date + sourceDate.getFullYear() + '/';
+    date += sourceDate.getMonth()+1 + '/' + sourceDate.getDate() + " " + leftPad(sourceDate.getHours()) + ":" + leftPad(sourceDate.getMinutes());
+    return date;
 }

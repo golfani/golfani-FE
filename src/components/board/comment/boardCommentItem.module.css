@@ -1,81 +1,83 @@
-.container{
+.container {
     width: 100%;
-    padding: 5px;
-    border-bottom: 1px solid #000;
+    padding: 15px 0;
+    border-bottom: 1px solid #e0e1e3;
 }
 
-.reply_container{
+.reply_container {
     position: relative;
-    margin-top : 5px;
+    margin-top: 15px;
     width: 95%;
-    background-color: beige;
     margin-left:5%;
-    padding: 10px;
-    border-radius: 10px;
 }
 
-.headLine{
-    width: 100%;
-}
-
-.comment_main{
-    position:relative;
-    padding:10px;
-}
-.comment_head{
-    width: 100%;
-    display: inline-block;
-}
-
-.userName{
-    font-size: 1.0rem;
-    font-weight: bold;
-}
-
-.uploadTime{
-    font-size:0.5rem;
-    opacity: 0.5;
-}
-
-.right_menu{
-    position:absolute;
+.info_box {
     display: flex;
     align-items: center;
-    top:10px; right:5px;
 }
 
-.reply{
-    display: inline-block;
-    opacity: 0.5;
-    font-size: 12px;
+.user_box {
+    display: flex;
+    align-items: center;
 }
 
-.reply a::before{
-    content:"|";
-    margin-right:5px;
-    opacity: 0.5;
+.user_img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
 }
 
-
-.like{
-    font-size:15px;
-}
-
-.likeCount{
-}
-
-.report{
-    margin-left:5px;
+.menu_icon {
+    margin-left: auto;
     cursor: pointer;
 }
 
-.comment{
-    font-size:0.8rem;
+.content_box {
+    margin: 5px 0 10px;
 }
 
-.arrowIcon{
+.tag_user_txt {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    color: #81B147;
+}
+
+.content {
+    display: block;
+    font-size: 14px;
+}
+
+.date_txt {
+    display: inline-block;
+    font-size: 11px;
+    opacity: 0.5;
+    margin-right: 5px;
+}
+
+.like_box {
+    display: flex;
+    align-items: center;
+    color: #ff6969;
+    cursor: pointer;
+}
+
+.like_icon {
+}
+
+.like_txt {
+    display: inline-block;
+    font-size: 11px;
+}
+
+.reply_add_btn {
+    font-size: 11px;
+}
+
+.arrowIcon {
     position: absolute;
-    top:20px;
-    left:-30px;
+    top: 5px;
+    left: -30px;
     transform: scaleY(-1);
 }

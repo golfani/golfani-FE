@@ -1,22 +1,20 @@
-.form{
+.form {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     width: 100%;
+    height: 110px;
     margin-top: 10px;
-    min-height: 35px;
     background-color: #fff;
     border: 1px solid #000;
     border-radius: 5px;
+    padding: 10px;
 }
 
 .input {
-    padding: 8px 15px;
-    width: calc(100% - 35px);
-    height: 36px;
+    flex: 1;
     border: none;
     outline: none;
     font-size: 14px;
-    border-radius: 18px;
     background: transparent;
     line-height: 20px;
 }
@@ -27,19 +25,16 @@
 }
 
 .input_btn {
-    border: none;
-    width: 23px;
-    margin-right: 10px;
+    margin-left: auto;
+    width: 50px;
+    height: 30px;
     background: transparent;
     font-size: 12px;
-    letter-spacing: 1px;
     color: gray;
 }
 
 .input_btn:enabled {
-    border: none;
-    background: transparent;
-    font-size: 12px;
-    letter-spacing: 1px;
-    color: black;
+    background-color: #81B147;
+    color: white;
+    border-radius: 3px;
 }

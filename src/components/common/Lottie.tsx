@@ -5,9 +5,10 @@ interface ILottie {
     width : number
     height : number
     animationData : object
+    speed? : number
 }
 
-const LottieAnimation = ({width,height,animationData} : ILottie) => {
+const LottieAnimation = ({width,height,animationData,speed = 1} : ILottie) => {
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(()=> {
@@ -16,8 +17,9 @@ const LottieAnimation = ({width,height,animationData} : ILottie) => {
             renderer : 'svg',
             loop : true,
             autoplay : true,
-            animationData : animationData
+            animationData : animationData,
         })
+        Lottie.setSpeed(speed);
     },[])
 
     return (
