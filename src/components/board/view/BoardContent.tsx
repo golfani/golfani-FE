@@ -14,6 +14,7 @@ import {dateDiff} from "src/utils/dateUtil";
 import {getProfileImage} from "src/apis/Member";
 import CloudQueueIcon from "@material-ui/icons/CloudQueue";
 import LottieAnimation from "src/components/common/Lottie";
+import BoardNavigation from "./BoardNavigation";
 
 export interface IBoardProps{
     board : IBoardData
@@ -123,6 +124,7 @@ const BoardContent = ({board} : IBoardProps): JSX.Element => {
                 </div>
             </div>
             {detailModalOpen && <DetailMenuModal setModalOpen={setDetailModalOpen} target={board} type={'POST'}/>}
+            <BoardNavigation board={board}/>
         </div>
     )
 }

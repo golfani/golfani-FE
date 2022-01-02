@@ -13,9 +13,10 @@ interface IBoardItemProps{
 
 const BoardItem = ({board} : IBoardItemProps) : JSX.Element => {
     const router = useRouter();
+    const {type, page} = router.query;
 
     const handleClickSubject = async () => {
-        await router.push(`/board/${board.id}`);
+        await router.push(`/board/${board.id}?type=${type}&page=${page}`);
     }
 
     return(

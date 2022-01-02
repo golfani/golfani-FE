@@ -75,7 +75,23 @@ export const getAllUserPost = async (userId : string) => {
     return response.data;
 }
 
+/**
+ * 인기게시글 카테고리 게시글 리스트 조회 API
+ * @param page
+ * @param size
+ */
 export const getHotPost = async (page : number = 0, size : number = 10) => {
     const response = await axios.get(`${API_URL}/hot`);
+    return response.data;
+}
+
+/**
+ * 현재 게시글 기준으로 이전글, 다음글 요청하는 API
+ * @param type
+ * @param postId
+ * @param boardType
+ */
+export const getNextOrPrevPost =  async (type : string, postId : number, boardType : string) => {
+    const response = await axios.get(`${API_URL}/move?type=${type}&postId=${postId}&boardType=${boardType}`);
     return response.data;
 }

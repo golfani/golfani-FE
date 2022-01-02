@@ -1,6 +1,7 @@
 .container {
     display: flex;
     flex-direction: column;
+    border-bottom: 1px solid #e0e1e3;
 }
 
 .title_box {
@@ -147,7 +148,6 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    border-bottom: 1px solid #e0e1e3;
 }
 
 .like_box {
