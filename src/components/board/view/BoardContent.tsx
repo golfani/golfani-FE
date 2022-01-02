@@ -83,7 +83,7 @@ const BoardContent = ({board} : IBoardProps): JSX.Element => {
             </div>
             <div className={style.info_box}>
                 <div className={style.user_box}>
-                    <img src={getProfileImage(board.userId,'MID')} className={style.user_img}/>
+                    <img alt={'user_profile'} src={getProfileImage(board.userId,'MID')} className={style.user_img}/>
                     <span className={style.user_txt}>{board.userId}</span>
                 </div>
                 <div className={style.info_sub_box}>
