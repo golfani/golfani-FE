@@ -141,6 +141,7 @@
     height: 300px;
     margin-right: 30px;
     object-fit: contain;
+    cursor: pointer;
 }
 
 .like_wrap {
