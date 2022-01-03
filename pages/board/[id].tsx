@@ -5,6 +5,7 @@ import {useQuery} from "react-query";
 import Navbar from "src/components/common/navbar/Navbar";
 import {useEffect} from "react";
 import BoardView from "src/components/board/view/BoardView";
+import Custom404 from "../404";
 
 const ViewPage = () : JSX.Element => {
     const router = useRouter()
@@ -26,14 +27,19 @@ const ViewPage = () : JSX.Element => {
 
     const boardQuery = useQuery(['board', id], () => getBoardView(id as string), {
         enabled: id !== undefined,
+        retry : false
     });
 
     return (
         <div>
             <Navbar/>
-            <div className={style.main_box}>
-                {boardQuery.data && <BoardView board={boardQuery.data}/>}
-            </div>
+            {boardQuery.error
+                ? <Custom404/>
+                :
+                <div className={style.main_box}>
+                    {boardQuery.data && <BoardView board={boardQuery.data}/>}
+                </div>
+            }
         </div>
     )
 }
