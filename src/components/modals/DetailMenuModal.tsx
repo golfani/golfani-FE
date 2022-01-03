@@ -1,14 +1,15 @@
 import style from './detailMenuModal.module.css';
 import {useMutation, useQuery, useQueryClient} from "react-query";
-import {deleteFeedReply, IReplyDto} from "src/apis/Reply";
+import {deleteFeedReply, deletePostReply, IReplyDto} from "src/apis/Reply";
 import {useCallback, useRef, useState} from "react";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import {deleteFeed, IFeedContent} from "src/apis/Feed";
 import ReportModal from "./ReportModal";
 import {getCookie} from "src/utils/cookieUtil";
 import FeedModifyModal from "./feed/FeedModifyModal";
-import {IBoardData} from "../../apis/Board";
+import {deleteBoard, IBoardData} from "src/apis/Board";
 import {deleteScrap, IScrapDto, isScrapped, registerScrap} from "src/apis/Scrap";
+import {useRouter} from "next/router";
 
 export type TRef = "FEED" | "POST" | "FEED_REPLY" | "POST_REPLY"
 
@@ -19,6 +20,7 @@ export interface DetailMenuModalProps {
 }
 
 const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
+    const router = useRouter();
     const userId = getCookie('userId');
     const ref = useRef<HTMLDivElement>(null);
     const queryClient = useQueryClient();
@@ -30,6 +32,8 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
     const [isMobileClose, setIsMobileClose] = useState(false);
     const isScrappedQuery = useQuery(['isScrapped',props.type,props.target.id], () => isScrapped(props.type, props.target.id));
     const deleteScrapMutate = useMutation((id:number)=> deleteScrap(id));
+    const deletePostReplyMutate = useMutation(() => deletePostReply(props.target.id));
+    const deletePostMutate = useMutation(() => deleteBoard(props.target.id));
 
     const onModalClose = () => {
         if(typeof window !== 'undefined') {
@@ -47,10 +51,21 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
 
     const onDeleteTarget = useCallback(async () => {
         try {
-            if (props.type === 'FEED_REPLY') {
-                const response = await deleteFeedReplyMutate.mutateAsync();
-            } else if (props.type === 'FEED') {
-                const response = await deleteFeedMutate.mutateAsync();
+            switch (props.type) {
+                case "FEED":
+                    await deleteFeedMutate.mutateAsync();
+                    break;
+                case "FEED_REPLY":
+                    await deleteFeedReplyMutate.mutateAsync();
+                    break;
+                case "POST":
+                    await deletePostMutate.mutateAsync();
+                    alert('삭제 되었습니다.');
+                    router.push('/board');
+                    break;
+                case "POST_REPLY":
+                    await deletePostReplyMutate.mutateAsync();
+                    break;
             }
         } catch (e) {
 
@@ -62,12 +77,20 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
                     await queryClient.invalidateQueries(['reply', target.referenceId]);
                     await queryClient.invalidateQueries(['totalReply', target.referenceId]);
                 }
-                await onModalClose();
             } else if (props.type === "FEED") {
                 const target: IFeedContent = props.target as IFeedContent;
-                await onModalClose();
                 await queryClient.invalidateQueries('feed');
+            } else if (props.type === 'POST') {
+
+            } else if (props.type === 'POST_REPLY') {
+                const target: IReplyDto = props.target as IReplyDto;
+                await queryClient.invalidateQueries(['postReply', target.postId]);
+                await queryClient.invalidateQueries(['board', String(target.postId)]);
+                if(target.referenceId) {
+                    await queryClient.invalidateQueries(['replyQuery', target.referenceId]);
+                }
             }
+            await onModalClose();
         }
     }, [deleteFeedReplyMutate])
 
@@ -88,7 +111,14 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
     }
 
     const handleClickModify = () => {
-        onOpenFeedModifyModal();
+        switch (props.type) {
+            case "FEED":
+                onOpenFeedModifyModal();
+                break;
+            case "POST":
+                router.push(`/board/modify?boardNo=${props.target.id}`);
+                break;
+        }
     }
 
     const onScrap = async () => {
@@ -135,7 +165,7 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
                 {props.target.userId === userId &&
                 <button className={style.menu_btn} onClick={handleClickDelete}>삭제</button>
                 }
-                {props.target.userId === userId && props.type === 'FEED' &&
+                {props.target.userId === userId && (props.type === 'FEED' || props.type === 'POST') &&
                 <button className={style.menu_btn} onClick={handleClickModify}>수정</button>
                 }
                 {(props.type === 'FEED' || props.type === 'POST') && !isScrappedQuery.data &&
