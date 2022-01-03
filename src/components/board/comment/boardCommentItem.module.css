@@ -5,10 +5,14 @@
 }
 
 .reply_container {
+    display: flex;
     position: relative;
     margin-top: 15px;
-    width: 95%;
-    margin-left:5%;
+    width: 100%;
+}
+
+.comment_main {
+    width: 100%;
 }
 
 .info_box {
@@ -76,8 +80,6 @@
 }
 
 .arrowIcon {
-    position: absolute;
-    top: 5px;
-    left: -30px;
+    margin-right: 10px;
     transform: scaleY(-1);
 }

@@ -6,6 +6,7 @@ import {EBoardType, TSelectMenu} from "src/domain/board";
 import {useRouter} from "next/router";
 import style from 'styles/board.module.css';
 import BoardSearch from "src/components/board/search/BoardSearch";
+import {isMobile} from "src/utils/detectDevice";
 
 const Board = () : JSX.Element => {
     const router = useRouter();
@@ -26,7 +27,7 @@ const Board = () : JSX.Element => {
         <div className={type || payload ? style.container_white : style.container}>
             <Navbar/>
             <div className={style.main_box}>
-                <BoardCategory onSetBoardType={onSetBoardType} boardType={boardType}/>
+                {isMobile() || <BoardCategory onSetBoardType={onSetBoardType} boardType={boardType}/>}
                 {selectMenu && payload
                     ? <BoardSearch selectMenu={selectMenu as TSelectMenu} payload={payload as string}/>
                     : <BoardMain boardType={boardType}/>
