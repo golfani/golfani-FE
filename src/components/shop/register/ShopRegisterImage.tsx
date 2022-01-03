@@ -90,11 +90,11 @@ const ShopRegisterImage = () : JSX.Element => {
                     {/*</div>*/}
                 </div>
                 :
-                <div className={style.no_img_add_box}>
-                    <label htmlFor='no_img_input' className={style.no_img_icon}/>
+                <label htmlFor='no_img_input' className={style.no_img_add_box}>
+                    <img src={'/icon/image_ico.png'} alt={'image'} className={style.no_img_icon}/>
                     <input id='no_img_input' type='file' accept='image/jpeg' className={style.hidden} onChange={onChangeImage}/>
                     <label htmlFor='no_img_input' className={style.no_img_txt}>스토어 대표사진 등록</label>
-                </div>
+                </label>
             }
         </div>
     );

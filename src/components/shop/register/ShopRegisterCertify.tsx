@@ -61,11 +61,11 @@ const ShopRegisterCertify = () : JSX.Element => {
                     <button className={style.img_delete_btn} onClick={handleClickDeleteImg}>X</button>
                 </div>
                 :
-                <div className={style.no_img_add_box}>
-                    <label htmlFor={'img'} className={style.no_img_icon}/>
+                <label htmlFor={'img'} className={style.no_img_add_box}>
+                    <img src={'/icon/certify_ico.png'} alt={'image'} className={style.no_img_icon}/>
                     <input id={'img'} className={style.hidden} type={'file'} accept={'image/jpeg'} onChange={onChangeImage}/>
                     <span className={style.no_img_txt}>사업자등록증 등록</span>
-                </div>
+                </label>
             }
         </div>
     );
