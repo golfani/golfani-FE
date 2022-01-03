@@ -1,12 +1,29 @@
 .container{
+    display: flex;
+    align-items: center;
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     padding: 0 5px;
 }
 
+.back_icon {
+    cursor: pointer;
+    margin-right: 5px;
+}
+
 .head_text{
+    height: 24px;
+    line-height: 26px;
     font-size: 18px;
     font-weight: bold;
-    border-left: 4px solid black;
-    padding: 0 10px;
+}
+
+@media screen and (max-width: 768px){
+    .container {
+        margin-bottom: 0;
+        padding: 10px 5px;
+    }
+    .head_text {
+        font-size: 16px;
+    }
 }

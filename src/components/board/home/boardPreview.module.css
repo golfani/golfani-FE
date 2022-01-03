@@ -52,3 +52,26 @@
     flex-wrap: wrap;
     height: 192px;
 }
+
+@media screen and (max-width: 768px){
+    .container {
+        width: 95%;
+        box-shadow: none;
+        margin-bottom: 15px;
+    }
+    .hot_container {
+        width: 95%;
+        box-shadow: none;
+        margin-bottom: 15px;
+    }
+    .title_txt {
+        font-size: 18px;
+        font-weight: 500;
+        color: black;
+    }
+    .more_txt {
+        font-size: 14px;
+        color: #81B147;
+        font-weight: 500;
+    }
+}

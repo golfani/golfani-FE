@@ -5,6 +5,7 @@ import {EBoardType} from "src/domain/board";
 import BoardListHead from "./item/BoardListHead";
 import React from "react";
 import BoardHome from "./home/BoardHome";
+import {isMobile} from "src/utils/detectDevice";
 
 export interface IBoardTypeProps{
     boardType? : EBoardType
@@ -17,7 +18,7 @@ const BoardMain = ({boardType} : IBoardTypeProps): JSX.Element => {
                 <div>
                     <BoardListHead boardType={boardType}/>
                     <BoardList boardType={boardType}/>
-                    <BoardFloatWriteButton boardType={boardType}/>
+                    {isMobile() || <BoardFloatWriteButton boardType={boardType}/>}
                 </div>
                 :
                 <BoardHome/>

@@ -24,9 +24,9 @@ const BoardList = (boardType : IBoardTypeProps) : JSX.Element => {
                     <span className={style.no_txt}>번호</span>
                     <span className={style.subject_txt}>제목</span>
                     <span className={style.writer_txt}>글쓴이</span>
-                    <span className={style.date_txt}>작성일</span>
                     <span className={style.like_txt}>추천</span>
                     <span className={style.visit_txt}>조회</span>
+                    <span className={style.date_txt}>작성일</span>
                 </div>
                 <div>
                     {boardQuery.data?.totalPages ?

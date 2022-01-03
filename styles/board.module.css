@@ -13,3 +13,12 @@
     padding-top: 80px;
     min-height: 100vh;
 }
+
+@media screen and (max-width: 768px){
+    .container {
+        background-color: #fff;
+    }
+    .main_box {
+        padding-top: 55px;
+    }
+}
