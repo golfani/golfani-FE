@@ -1,7 +1,12 @@
 import style from './shopRegNoticeModal.module.css';
 import {useRef, useState} from "react";
+import {handleClickRefOutSide} from "../../../utils/clickUtil";
 
-const ShopRegNoticeModal = () : JSX.Element => {
+interface ICloseNoticeModalProps{
+    closeModal : () => void;
+}
+
+const ShopRegNoticeModal = ({closeModal} : ICloseNoticeModalProps) : JSX.Element => {
     const ref = useRef<HTMLDivElement>(null);
     const [openType, setOpenType] = useState(true);
 
@@ -9,9 +14,11 @@ const ShopRegNoticeModal = () : JSX.Element => {
         setOpenType(!openType);
     }
 
+    handleClickRefOutSide(ref, closeModal);
+
     return(
-        <div className={style.container}>
-            <div className={style.box_wrap}>
+        <div className={style.container} >
+            <div className={style.box_wrap} ref={ref}>
                 <div className={style.notice_header} style={{padding:'0px'}}>
                     <span style={{color:'red'}}>취소</span>
                     <span style={{fontSize:'18px'}}>공지 모달</span>

@@ -36,20 +36,17 @@
     right:10px;
 }
 
-.floating_btn{
-    padding:10px 0px;
-    text-align: right;
-}
-
 .notice_insert{
     background-color: #ebecef;
-    padding: 3px;
-    border-radius: 5px;
+    padding: 5px;
+    border-radius: 20px;
     cursor: pointer;
+    font-size:15px;
 }
 
 .page_wrap{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-top :10px;
 }

@@ -1,0 +1,40 @@
+.container{
+    margin:100px;
+    text-align: center;
+}
+
+.list_txt{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.line{
+    margin-top:10px;
+    border: 1px solid #ddd;
+}
+
+.list_type_wrap{
+    display: flex;
+    justify-content: center;
+    min-width: 1200px;
+    margin-top:10px;
+}
+
+.head_txt{
+    min-width: 300px;
+    min-height: 50px;
+    line-height: 50px;
+    box-sizing: border-box;
+    background-color: rgb(250,250,250);
+    border: 1px solid rgb(238,238,238);
+}
+
+.head_txt_checked{
+    background-color: #fff;
+    border:1px solid #000;
+    border-bottom: none;
+    min-width: 300px;
+    min-height: 50px;
+    line-height: 50px;
+    font-weight: bold;
+}
