@@ -13,7 +13,7 @@ const BoardPreviewItem = ({board} : IBoardPreviewItemProps) : JSX.Element => {
     const router = useRouter();
 
     const handleClickTitle = () => {
-        router.push(`/board/${board.id}`);
+        router.push(`/board/${board.id}?type=${board.boardType}&page=0`);
     }
 
     return (
