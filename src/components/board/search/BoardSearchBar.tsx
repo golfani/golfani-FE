@@ -4,20 +4,25 @@ import BoardSearchHistory from "./BoardSearchHistory";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import SearchIcon from '@material-ui/icons/Search';
 import useCustomRouter from "src/hooks/routerHook";
-import {TSelectMenu} from "src/domain/board";
+import {EBoardType, TSelectMenu} from "src/domain/board";
 
 const BoardSearchBar = () : JSX.Element => {
     const [searchList, setSearchList] = useState<Array<string>>([]);
     const [onSearchId, setOnSearchId] = useState(false);
     const searchId = useRef<HTMLDivElement>(null);
     const [selectMenu, setSelectMenu] = useState<TSelectMenu>('TITLE');
+    const [boardType, setBoardType] = useState<EBoardType>(EBoardType.ALL);
     const [payload, setPayload] = useState('');
-    const router = useCustomRouter();
+    const {onConflictRoute} = useCustomRouter();
 
     const onInitSearch = () => {
         setSelectMenu('TITLE');
         setPayload('');
         setOnSearchId(false);
+    }
+
+    const handleChangeBoardType = (type : string) => {
+        setBoardType(type as EBoardType);
     }
 
     const handleChangeSelectMenu = (menu : string) => {
@@ -62,7 +67,7 @@ const BoardSearchBar = () : JSX.Element => {
 
     const handleClickSearchButton = () => {
         if(payload.replace(/\s/g,'').length) {
-            router.onConflictRoute(`/board?selectMenu=${selectMenu}&payload=${payload}&page=0`);
+            onConflictRoute(`/board?selectMenu=${selectMenu}&payload=${payload}&boardType=${boardType}&page=0`);
             onAddHistoryList();
             onInitSearch();
         }
@@ -79,6 +84,15 @@ const BoardSearchBar = () : JSX.Element => {
 
     return (
         <div className={style.container}>
+            <select className={style.select_box} onChange={(e)=> handleChangeBoardType(e.target.value)}>
+                <option value={EBoardType.ALL}>전체</option>
+                <option value={EBoardType.FREE}>자유</option>
+                <option value={EBoardType.ANONYMOUS}>익명</option>
+                <option value={EBoardType.TIP}>정보</option>
+                <option value={EBoardType.REVIEW}>후기</option>
+                <option value={EBoardType.TRADE}>거래</option>
+                <option value={EBoardType.ASK}>문의</option>
+            </select>
             <select className={style.select_box} onChange={(e)=> handleChangeSelectMenu(e.target.value)}>
                 <option value='TITLE'>제목</option>
                 <option value='USER'>글쓴이</option>

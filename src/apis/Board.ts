@@ -56,8 +56,8 @@ export const deleteBoard = async (boardId : number) => {
     return response;
 }
 
-export const searchBoard = async ( searchType : TSelectMenu, payload : string, page : number = 0) => {
-    const response = await axios.get(`${API_URL}/search?type=${searchType}&payload=${payload}&page=${page}`);
+export const searchBoard = async ( searchType : TSelectMenu, payload : string, boardType : EBoardType, page : number = 0) => {
+    const response = await axios.get(`${API_URL}/search?type=${searchType}&payload=${payload}&boardType=${boardType}&page=${page}`);
     return response.data;
 }
 

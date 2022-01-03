@@ -7,7 +7,7 @@ import React from "react";
 import BoardPageNav from "../page/BoardPageNav";
 import {useRouter} from "next/router";
 import BoardListHead from "../item/BoardListHead";
-import {TSelectMenu} from "src/domain/board";
+import {EBoardType, TSelectMenu} from "src/domain/board";
 
 interface IBoardSearchProps {
     selectMenu : TSelectMenu
@@ -16,11 +16,13 @@ interface IBoardSearchProps {
 
 const BoardSearch = ({selectMenu,payload} : IBoardSearchProps) : JSX.Element => {
     const router = useRouter();
-    const {page} = router.query;
+    const {page,boardType} = router.query;
 
-    const boardQuery = useQuery<IPages<IBoardData>>(['searchResult', [payload,Number(page)]], () => searchBoard(selectMenu as TSelectMenu, payload as string, Number(page)),{
+    const boardQuery = useQuery<IPages<IBoardData>>(['searchResult', [boardType,payload,Number(page)]], () => searchBoard(selectMenu as TSelectMenu, payload as string,boardType as EBoardType, Number(page)),{
         enabled : selectMenu !== undefined
     });
+
+    console.log(boardQuery.data);
 
     return(
         <div className={style.container}>
