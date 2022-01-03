@@ -9,17 +9,15 @@
     height: 100%;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .no_img_icon {
-    width: 200px;
-    height: 200px;
-    margin-right: 10px;
+    width: 100px;
+    height: 100px;
     cursor: pointer;
-    background-image: url('../../../../public/icon/image_ico.png');
     background-repeat: no-repeat;
     background-size: cover;
-    opacity: 0.3;
 }
 
 .hidden {
@@ -28,10 +26,9 @@
 
 .no_img_txt {
     display: inline-block;
-    opacity: 0.4;
     width: 100%;
     text-align: center;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 500;
     cursor: pointer;
 }

@@ -3,4 +3,5 @@ module.exports = {
   images: {
     domains: ['golfani.com'],
   },
+  swcMinify : true
 }
