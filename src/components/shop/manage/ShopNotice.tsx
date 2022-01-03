@@ -3,8 +3,29 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Link from 'next/link';
 import ShopRegNoticeModal from "src/components/modals/shop/ShopRegNotiveModal";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import {useState} from "react";
+import Modal from "../../modals/Modal";
 
 const ShopNotice = () : JSX.Element => {
+    const [openModal,setOpenModal] = useState(false);
+    const [openMsgModal, setOpenMsgModal] = useState(false);
+
+    const onRegNoticeClickHandler = () => {
+        onRegNoticeClick();
+    }
+
+    const onRegNoticeClick = () => {
+        setOpenModal(!openModal);
+    }
+
+    const closeModal = () => {
+        setOpenMsgModal(true);
+    }
+
+    const closeMsg = () => {
+        setOpenMsgModal(false);
+        setOpenModal(false);
+    }
 
     return(
         <div className={style.container} id="notice">
@@ -65,13 +86,12 @@ const ShopNotice = () : JSX.Element => {
                 </div>
                 <div className={style.page_wrap}>
                     <ArrowBackIosIcon style={{fontSize:'17px'}}/>
+                    <span className={style.notice_insert} onClick={onRegNoticeClickHandler}>공지사항 추가</span>
                     <ArrowBackIosIcon style={{transform:'rotateY(180deg)',fontSize:'17px'}}/>
                 </div>
-                <div className={style.floating_btn}>
-                    <span className={style.notice_insert}>공지사항 추가</span>
-                </div>
             </>
-            {/*<ShopRegNoticeModal/>*/}
+            {openModal && <ShopRegNoticeModal closeModal={closeModal}/>}
+            {openMsgModal && <Modal message="공지사항 추가 작업을 그만하시겠습니까?" setModalOpen={setOpenMsgModal} successCallback={closeMsg}/>}
         </div>
     )
 }
