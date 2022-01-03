@@ -10,6 +10,7 @@ import FeedModifyModal from "./feed/FeedModifyModal";
 import {deleteBoard, IBoardData} from "src/apis/Board";
 import {deleteScrap, IScrapDto, isScrapped, registerScrap} from "src/apis/Scrap";
 import {useRouter} from "next/router";
+import {isMobile} from "src/utils/detectDevice";
 
 export type TRef = "FEED" | "POST" | "FEED_REPLY" | "POST_REPLY"
 
@@ -36,16 +37,14 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
     const deletePostMutate = useMutation(() => deleteBoard(props.target.id));
 
     const onModalClose = () => {
-        if(typeof window !== 'undefined') {
-            if(window.innerWidth <= 768) {
-                setIsMobileClose(true);
-                setTimeout(()=> {
-                    props.setModalOpen(false);
-                }, 300);
-            }
-            else {
+        if(isMobile()) {
+            setIsMobileClose(true);
+            setTimeout(()=> {
                 props.setModalOpen(false);
-            }
+            }, 300);
+        }
+        else {
+            props.setModalOpen(false);
         }
     }
 

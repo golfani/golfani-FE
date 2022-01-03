@@ -1,21 +1,14 @@
 import Navbar from "src/components/common/navbar/Navbar";
 import MobileHome from "src/components/home/MobileHome";
-import {useEffect, useState} from "react";
 import Home from "src/components/home/Home";
+import {isMobile} from "src/utils/detectDevice";
 
 const HomePage = () : JSX.Element => {
-    const [isMobileDevice , setIsMobileDevice] = useState(false);
-
-    useEffect(()=> {
-        if(window.innerWidth <= 768) {
-            setIsMobileDevice(true);
-        }
-    },[]);
 
     return (
         <div>
             <Navbar/>
-            {isMobileDevice ? <MobileHome/> : <Home/>}
+            {isMobile() ? <MobileHome/> : <Home/>}
         </div>
     )
 }

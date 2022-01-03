@@ -8,6 +8,7 @@ import {useCallback, useEffect, useState} from "react";
 import FeedLikeToastModal from "src/components/modals/feed/FeedLikeToastModal";
 import {sendAlarmBySocket} from "src/apis/Alarm";
 import {IFeedItemProps} from "./FeedItem";
+import {isMobile} from "src/utils/detectDevice";
 
 export const CustomNextArrow = ({className, style, onClick} : any) : JSX.Element=> {
     return (
@@ -32,7 +33,6 @@ export const CustomPrevArrow = ({className, style, onClick} : any) : JSX.Element
 const FeedImg = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
     const queryClient = useQueryClient();
     const [toastModalOpen, setToastModalOpen] = useState(false);
-    const [isMobileDevice, setIsMobileDevice] = useState(false);
     const settings = {
         dots: true,
         infinite: false,
@@ -41,7 +41,7 @@ const FeedImg = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
         slidesToScroll: 1,
         nextArrow : <CustomNextArrow/>,
         prevArrow : <CustomPrevArrow/>,
-        arrows : !isMobileDevice
+        arrows : !isMobile()
     };
 
     const likeMutation = useMutation(()=> registerLikes("FEED",feed.id));
@@ -72,12 +72,6 @@ const FeedImg = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
     const handleDoubleClick = async () => {
         await onRegisterLikes();
     }
-
-    useEffect(() => {
-        if(window.innerWidth <= 768) {
-            setIsMobileDevice(true);
-        }
-    },[])
 
     return (
         <div className={isModal ? style.modal_container : style.container}>

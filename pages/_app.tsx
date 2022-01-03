@@ -14,6 +14,7 @@ import SocketLoading from "src/components/common/SocketLoading";
 import Head from "next/head";
 import useFCM from "src/hooks/fcmHook";
 import NotificationPermissionModal from "src/components/modals/NotificationPermissionModal";
+import {isMobile} from "src/utils/detectDevice";
 
 const queryClient = new QueryClient();
 const reduxStore = store();
@@ -61,7 +62,7 @@ function MyApp({Component, pageProps}: AppProps) {
             onSilentRefresh(userId);
             // 로그인 상태일시 소켓연결 실행
             socketConnect(alarmCallback,onSetSocketConnect,subForActivatedChat);
-            if(window.innerWidth > 768) {
+            if(!isMobile()) {
                 checkPermission();
                 // 로그인 상태일시 FCM
                 fcm.onGetToken();
