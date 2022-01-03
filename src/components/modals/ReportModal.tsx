@@ -1,8 +1,9 @@
 import style from './reportModal.module.css';
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {registerReport, TReportType} from "src/apis/Report";
 import {TRef} from "./DetailMenuModal";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
+import {isMobile} from "src/utils/detectDevice";
 
 interface IReportModalProps {
     targetId : number
@@ -15,7 +16,6 @@ const ReportModal = (props : IReportModalProps) : JSX.Element => {
     const [reportType, setReportType] = useState<TReportType | undefined>();
     const [description, setDescription] = useState('');
     const targetRef = useRef<HTMLDivElement>(null);
-    const [isMobileDevice , setIsMobileDevice] = useState(false);
 
     const onReport = async (type? : TReportType) => {
         if (reportType || type) {
@@ -45,7 +45,7 @@ const ReportModal = (props : IReportModalProps) : JSX.Element => {
     }
 
     const handleClickReportType = (type : TReportType) => {
-        isMobileDevice ? onReport(type) : setReportType(type);
+        isMobile() ? onReport(type) : setReportType(type);
     }
 
     const handleClickReportButton = async () => {
@@ -53,12 +53,6 @@ const ReportModal = (props : IReportModalProps) : JSX.Element => {
     }
 
     handleClickRefOutSide(targetRef,onModalClose);
-
-    useEffect(()=> {
-        if(window.innerWidth <= 768) {
-            setIsMobileDevice(true);
-        }
-    },[]);
 
     return (
         <div className={style.modal}>

@@ -10,6 +10,7 @@ import {useQueryClient} from "react-query";
 import useFeedZIndex from "src/store/modules/feedZIndex/feedZIndexHook";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import {bodyScrollActionForModal} from "src/utils/scrollUtil";
+import {isMobile} from "src/utils/detectDevice";
 
 const FEED_ADD_STATUS = {
     IMAGE : '사진 업로드',
@@ -76,13 +77,11 @@ const FeedAddModal = ({setModalOpen} : IFeedAddModalProps) : JSX.Element => {
     }
 
     const onCancelFeedAdd = () => {
-        if(typeof window !== 'undefined') {
-            if(window.innerWidth < 768) {
-                onMobileClose();
-            }
-            else {
-                setMessageModalOpen(true);
-            }
+        if(isMobile()) {
+            onMobileClose();
+        }
+        else {
+            setMessageModalOpen(true);
         }
     }
 

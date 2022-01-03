@@ -1,15 +1,15 @@
-import {ChangeEvent, useEffect, useRef, useState} from "react";
+import {ChangeEvent, useRef} from "react";
 import Slider from "react-slick";
 import {CustomNextArrow, CustomPrevArrow} from "src/components/feed/main/list/FeedImg";
 import {dataURLtoFile} from "src/utils/fileUtil";
 import style from './shopRegisterImage.module.css';
 import useShopRegister from "src/store/modules/shopRegister/shopRegisterHook";
 import {IShopRegisterImg} from "src/store/modules/shopRegister/shopRegister";
+import {isMobile} from "src/utils/detectDevice";
 
 const ShopRegisterImage = () : JSX.Element => {
     const shopRegister = useShopRegister();
     const sliderRef = useRef<Slider>(null);
-    const [isMobileDevice, setIsMobileDevice] = useState(false);
     const settings = {
         dots: true,
         infinite: false,
@@ -18,7 +18,7 @@ const ShopRegisterImage = () : JSX.Element => {
         slidesToScroll: 1,
         nextArrow : <CustomNextArrow/>,
         prevArrow : <CustomPrevArrow/>,
-        arrows : !isMobileDevice
+        arrows : !isMobile()
     };
 
     const onChangeImage = (event : ChangeEvent) => {
@@ -70,12 +70,6 @@ const ShopRegisterImage = () : JSX.Element => {
     const handleClickDeleteImg = (index : number) => {
         shopRegister.onDeleteImg(index);
     }
-
-    useEffect(() => {
-        if(window.innerWidth <= 768) {
-            setIsMobileDevice(true);
-        }
-    },[])
 
     return (
         <div className={style.container}>

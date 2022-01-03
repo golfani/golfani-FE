@@ -1,5 +1,5 @@
 import style from './feedAddImage.module.css';
-import {ChangeEvent, useEffect, useRef, useState} from "react";
+import {ChangeEvent, useRef} from "react";
 import useFeedAdd from "src/store/modules/feedAdd/feedAddHook";
 import {IImg} from "src/store/modules/feedAdd/feedAdd";
 import {dataURLtoFile} from "src/utils/fileUtil";
@@ -7,11 +7,11 @@ import {CustomNextArrow, CustomPrevArrow} from "../main/list/FeedImg";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import {isMobile} from "src/utils/detectDevice";
 
 const FeedAddImage = () : JSX.Element => {
     const feedAdd = useFeedAdd();
     const sliderRef = useRef<Slider>(null);
-    const [isMobileDevice, setIsMobileDevice] = useState(false);
     const settings = {
         dots: true,
         infinite: false,
@@ -20,7 +20,7 @@ const FeedAddImage = () : JSX.Element => {
         slidesToScroll: 1,
         nextArrow : <CustomNextArrow/>,
         prevArrow : <CustomPrevArrow/>,
-        arrows : !isMobileDevice
+        arrows : !isMobile()
     };
 
     const onChangeImage = (event : ChangeEvent) => {
@@ -75,12 +75,6 @@ const FeedAddImage = () : JSX.Element => {
     const handleClickDeleteImg = (index : number) => {
         feedAdd.onDeleteImg(index);
     }
-
-    useEffect(() => {
-        if(window.innerWidth <= 768) {
-            setIsMobileDevice(true);
-        }
-    },[])
 
     return (
         <div className={style.container}>
