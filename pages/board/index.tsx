@@ -7,6 +7,7 @@ import {useRouter} from "next/router";
 import style from 'styles/board.module.css';
 import BoardSearch from "src/components/board/search/BoardSearch";
 import {isMobile} from "src/utils/detectDevice";
+import BoardBottomNav from "src/components/board/BoardBottomNav";
 
 const Board = () : JSX.Element => {
     const router = useRouter();
@@ -27,7 +28,7 @@ const Board = () : JSX.Element => {
         <div className={type || payload ? style.container_white : style.container}>
             <Navbar/>
             <div className={style.main_box}>
-                {isMobile() || <BoardCategory onSetBoardType={onSetBoardType} boardType={boardType}/>}
+                {isMobile() ? <BoardBottomNav/> : <BoardCategory onSetBoardType={onSetBoardType} boardType={boardType}/>}
                 {selectMenu && payload
                     ? <BoardSearch selectMenu={selectMenu as TSelectMenu} payload={payload as string}/>
                     : <BoardMain boardType={boardType}/>
