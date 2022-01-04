@@ -46,6 +46,26 @@
     bottom: 100px;
 }
 
+.hot_box {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #eff0f2;
+}
+
+.hot_icon {
+    margin-left: auto;
+    color: #ff6969;
+}
+
+.hot_txt {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -1.0px;
+    color: #ff6969;
+}
+
 @media screen and (max-width: 768px){
     .card_box {
         justify-content: space-between;

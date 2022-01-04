@@ -7,9 +7,11 @@ import CardViewIcon from 'public/icon/card_view_ico.png';
 import CardViewActiveIcon from 'public/icon/card_view_active_ico.png';
 import SearchIcon from 'public/icon/search_ico.png';
 import SearchActiveIcon from 'public/icon/search_active_ico.png';
+import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const FeedBottomNav = () : JSX.Element => {
-    const {type,onChangeListView,onChangeCardView,onChangeMobileSearchView} = useFeedType();
+    const {type,onChangeListView,onChangeCardView,onChangeHotView,onChangeMobileSearchView} = useFeedType();
 
     const handleClickListView = () => {
         type === 'LIST' ? window.scrollTo({top : 0, behavior : 'smooth'}) : onChangeListView();
@@ -17,6 +19,10 @@ const FeedBottomNav = () : JSX.Element => {
 
     const handleClickCardView = () => {
         type === 'CARD' ? window.scrollTo({top : 0, behavior : 'smooth'}) : onChangeCardView();
+    }
+
+    const handleClickHotView = () => {
+        type === 'HOT' ? window.scrollTo({top : 0, behavior : 'smooth'}) : onChangeHotView();
     }
 
     const handleClickSearch = () => {
@@ -30,6 +36,9 @@ const FeedBottomNav = () : JSX.Element => {
             </li >
             <li className={style.menu_list} onClick={handleClickCardView}>
                 <Image src={type==='CARD' ? CardViewActiveIcon : CardViewIcon} width={20} height={20}/>
+            </li>
+            <li className={style.menu_list} onClick={handleClickHotView}>
+                {type === 'HOT' ? <FavoriteIcon/> : <FavoriteBorderOutlinedIcon/>}
             </li>
             <li className={style.menu_list} onClick={handleClickSearch}>
                 <Image src={type === 'MOBILE_SEARCH' ? SearchActiveIcon : SearchIcon} width={20} height={20}/>
