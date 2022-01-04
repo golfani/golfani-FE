@@ -6,7 +6,6 @@ import {IPages} from "src/domain/Page";
 import useFeedType from "src/store/modules/feedType/feedTypeHook";
 import {useRouter} from "next/router";
 import {useEffect, useRef} from "react";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const CardList = () : JSX.Element => {
     const {type} = useFeedType();
@@ -68,12 +67,6 @@ const CardList = () : JSX.Element => {
 
     return (
         <div className={style.container}>
-            {type === 'HOT' &&
-            <div className={style.hot_box}>
-                <FavoriteIcon className={style.hot_icon} style={{fontSize : 22}}/>
-                <span className={style.hot_txt}>인기피드</span>
-            </div>
-            }
             {type === 'SEARCH' &&
                 <span className={style.titleView_txt}>
                     {searchFeedQuery.data?.pages[0].totalElements
