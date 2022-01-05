@@ -4,11 +4,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {useMutation, useQueryClient} from "react-query";
 import {registerLikes} from "src/apis/Likes";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useState} from "react";
 import FeedLikeToastModal from "src/components/modals/feed/FeedLikeToastModal";
 import {sendAlarmBySocket} from "src/apis/Alarm";
 import {IFeedItemProps} from "./FeedItem";
 import {isMobile} from "src/utils/detectDevice";
+import {sendFCM} from "src/apis/FirebaseCloudMessage";
 
 export const CustomNextArrow = ({className, style, onClick} : any) : JSX.Element=> {
     return (
@@ -46,21 +47,26 @@ const FeedImg = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
 
     const likeMutation = useMutation(()=> registerLikes("FEED",feed.id));
 
-    const onRegisterLikes = useCallback( async ()=> {
-        const isLike = queryClient.getQueryData(['isFeedLikes',feed.id]);
-        if(!isLike) {
+    const onRegisterLikes = useCallback(async () => {
+        const isLike = queryClient.getQueryData(['isFeedLikes', feed.id]);
+        if (!isLike) {
             try {
                 const response = await likeMutation.mutateAsync();
-                sendAlarmBySocket('LIKES',feed.userId,'피드를 좋아합니다.',feed.id,null,'FEED');
                 await onToastMessage();
             } catch (e) {
                 console.log(e)
             } finally {
                 await queryClient.invalidateQueries(['feedLikes', feed.id]);
                 await queryClient.invalidateQueries(['isFeedLikes', feed.id]);
+                try {
+                    sendAlarmBySocket('LIKES', feed.userId, '피드를 좋아합니다.', feed.id, null, 'FEED');
+                    await sendFCM('피드를 좋아합니다.', feed.userId);
+                } catch (e) {
+
+                }
             }
         }
-    },[likeMutation])
+    }, [likeMutation]);
 
     const onToastMessage = () => {
         setToastModalOpen((toastModalOpen)=> true)

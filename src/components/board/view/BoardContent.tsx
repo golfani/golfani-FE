@@ -15,6 +15,8 @@ import {getProfileImage} from "src/apis/Member";
 import CloudQueueIcon from "@material-ui/icons/CloudQueue";
 import LottieAnimation from "src/components/common/Lottie";
 import BoardNavigation from "./BoardNavigation";
+import {sendAlarmBySocket} from "src/apis/Alarm";
+import {sendFCM} from "src/apis/FirebaseCloudMessage";
 
 export interface IBoardProps{
     board : IBoardData
@@ -29,16 +31,21 @@ const BoardContent = ({board} : IBoardProps): JSX.Element => {
     const likeMutation = useMutation(()=> registerLikes("POST",board.id));
 
     const onRegisterLikes = async () => {
-            try{
-                const response = await likeMutation.mutateAsync();
-                likeQuery.data || setLottieLike(true);
-            }catch (e) {
-                console.log(e);
+        try {
+            const response = await likeMutation.mutateAsync();
+            likeQuery.data || setLottieLike(true);
+        } catch (e) {
+            console.log(e);
+        } finally {
+            await queryClient.invalidateQueries(['postLikes', board.id]);
+            await queryClient.invalidateQueries(['board', String(board.id)]);
+            try {
+                likeQuery.data || sendAlarmBySocket('LIKES', board.userId, '게시글을 좋아합니다. ', board.id, null, 'POST');
+                likeQuery.data || await sendFCM('게시글을 좋아합니다.', board.userId);
+            } catch (e) {
+
             }
-            finally {
-                await queryClient.invalidateQueries(['postLikes',board.id]);
-                await queryClient.invalidateQueries(['board',String(board.id)]);
-            }
+        }
     }
 
     const likeQuery = useQuery(['postLikes',board.id],() => getPostLikes(board.id),{

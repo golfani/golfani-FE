@@ -4,6 +4,7 @@ import {ChangeEvent, useCallback, useRef, useState} from "react";
 import {registerReply} from "src/apis/Reply";
 import {IFeedReplyAddProps} from "src/domain/Reply";
 import {sendAlarmBySocket} from "src/apis/Alarm";
+import {sendFCM} from "src/apis/FirebaseCloudMessage";
 
 const FeedReplyAddInput = ({feedId,feedUser, refId, refUser} : IFeedReplyAddProps) : JSX.Element => {
     const queryClient = useQueryClient();
@@ -12,35 +13,41 @@ const FeedReplyAddInput = ({feedId,feedUser, refId, refUser} : IFeedReplyAddProp
     const replyMutation = useMutation(()=>registerReply("FEED_REPLY",feedId,replyPayload,refId,refUser));
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    const onRegisterReply = useCallback(async ()=> {
+    const onRegisterReply = useCallback(async () => {
         try {
             const response = await replyMutation.mutateAsync();
-            refUser && sendAlarmBySocket('REPLY',refUser,'댓글에 답글을 남겼습니다. ',feedId,replyPayload,'FEED_REPLY',refId!);
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e);
-        }
-        finally {
+        } finally {
             setReplyPayload("");
-            await queryClient.invalidateQueries(['feedReply',feedId]);
-            await queryClient.invalidateQueries(['reply',refId]);
-            await queryClient.invalidateQueries(['totalReply',refId]);
-        }
-    },[replyMutation])
+            await queryClient.invalidateQueries(['feedReply', feedId]);
+            await queryClient.invalidateQueries(['reply', refId]);
+            await queryClient.invalidateQueries(['totalReply', refId]);
+            try {
+                sendAlarmBySocket('REPLY', refUser!, '댓글에 답글을 남겼습니다. ', feedId, replyPayload, 'FEED_REPLY', refId!);
+                await sendFCM(`댓글에 답글을 남겼습니다. "${replyPayload}"`, refUser!);
+            } catch (e) {
 
-    const onRegisterComment = useCallback(async ()=> {
+            }
+        }
+    }, [replyMutation]);
+
+    const onRegisterComment = useCallback(async () => {
         try {
             const response = await commentMutation.mutateAsync();
-            feedUser && sendAlarmBySocket('REPLY',feedUser,'피드에 댓글을 남겼습니다. ',feedId,replyPayload,'FEED');
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e);
-        }
-        finally {
+        } finally {
             setReplyPayload("");
-            await queryClient.invalidateQueries(['feedReply',feedId]);
+            await queryClient.invalidateQueries(['feedReply', feedId]);
+            try {
+                sendAlarmBySocket('REPLY', feedUser!, '피드에 댓글을 남겼습니다. ', feedId, replyPayload, 'FEED');
+                await sendFCM(`피드에 답글을 남겼습니다. "${replyPayload}"`, feedUser!);
+            } catch (e) {
+
+            }
         }
-    },[commentMutation])
+    }, [commentMutation]);
 
     const handleSubmit = async () => {
         refId ? await onRegisterReply() : await onRegisterComment();
