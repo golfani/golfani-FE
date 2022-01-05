@@ -4,6 +4,7 @@ import {ChangeEvent, KeyboardEventHandler, useCallback, useState} from "react";
 import {registerReply} from "src/apis/Reply";
 import style from "src/components/board/comment/boardReplyInputAdd.module.css";
 import {sendAlarmBySocket} from "src/apis/Alarm";
+import {sendFCM} from "src/apis/FirebaseCloudMessage";
 
 const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddProps) => {
     const queryClient = useQueryClient();
@@ -14,15 +15,20 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddPr
     const onRegisterComment = useCallback(async () => {
         try {
             const response = await commentMutation.mutateAsync();
-            postUser && sendAlarmBySocket('REPLY', postUser, "게시글에 댓글을 남겼습니다.", postId, replyPayload, 'POST');
         } catch (e) {
             console.log(e);
         } finally {
             setReplyPayload("");
             await queryClient.invalidateQueries(['postReply', postId]);
             await queryClient.invalidateQueries(['board', String(postId)]);
+            try {
+                sendAlarmBySocket('REPLY', postUser!, "게시글에 댓글을 남겼습니다.", postId, replyPayload, 'POST');
+                await sendFCM(`게시글에 댓글을 남겼습니다. "${replyPayload}"`, postUser!);
+            } catch (e) {
+
+            }
         }
-    }, [commentMutation])
+    }, [commentMutation]);
 
     const onRegisterReply = useCallback(async () => {
         try {
@@ -33,8 +39,14 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddPr
             setReplyPayload("");
             await queryClient.invalidateQueries(['replyQuery', refId]);
             await queryClient.invalidateQueries(['board', String(postId)]);
+            try {
+                sendAlarmBySocket('REPLY', refUser!, "댓글에 답글을 남겼습니다.", postId, replyPayload, 'POST_REPLY', refId!);
+                await sendFCM(`댓글에 답글을 남겼습니다. "${replyPayload}"`, refUser!);
+            } catch (e) {
+
+            }
         }
-    }, [replyMutation])
+    }, [replyMutation]);
 
     const handleSubmit = async () => {
         refId ? await onRegisterReply() : await onRegisterComment();

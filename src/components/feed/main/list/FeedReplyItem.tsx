@@ -13,6 +13,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import DetailMenuModal from "src/components/modals/DetailMenuModal";
 import UserName from "src/components/common/UserName";
 import {sendAlarmBySocket} from "src/apis/Alarm";
+import {sendFCM} from "src/apis/FirebaseCloudMessage";
 
 const FeedReplyItem = ({reply} : IReplyProps) => {
     const [detailMenuModalOpen, setDetailMenuModalOpen] = useState(false);
@@ -43,16 +44,19 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
     const onRegisterLikes = useCallback(async () => {
         try {
             const response = await registerLikesMutate.mutateAsync();
-            userIsReplyLikesQuery.data?.likes || sendAlarmBySocket('LIKES',reply.userId,'댓글을 좋아합니다. ',reply.feedId!,reply.payload,'REPLY',reply.id);
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e);
+        } finally {
+            await queryClient.invalidateQueries(['isReplyLikes', reply.id]);
+            await queryClient.invalidateQueries(['replyLikes', reply.id]);
+            try {
+                userIsReplyLikesQuery.data?.likes || sendAlarmBySocket('LIKES', reply.userId, '댓글을 좋아합니다. ', reply.feedId!, reply.payload, 'REPLY', reply.id);
+                userIsReplyLikesQuery.data?.likes || await sendFCM('댓글을 좋아합니다.', reply.userId);
+            } catch (e) {
+
+            }
         }
-        finally {
-            await queryClient.invalidateQueries(['isReplyLikes',reply.id]);
-            await queryClient.invalidateQueries(['replyLikes',reply.id]);
-        }
-    },[registerLikesMutate])
+    }, [registerLikesMutate]);
 
     const handleClickLikes = async () => {
         await onRegisterLikes();
@@ -102,7 +106,7 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
                 </div>
                 <div className={style.bottom_box}>
                     {reply.referenceId
-                        ? <></>
+                        ? null
                         : !totalReplyQuery.data || <span className={style.show_reply_txt}
                           onClick={handleClickShowReply}>{showReply ? '닫기' : `답글보기(${totalReplyQuery.data})`}</span>
                     }
@@ -119,13 +123,13 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
                     <div className={style.reply_add_box}>
                         <FeedReplyAddInput feedId={reply.feedId!} refId={reply.referenceId || reply.id} refUser={reply.userId}/>
                     </div>
-                    : <></>
+                    : null
                 }
                 {showReply && replyQuery.data
                     ? replyQuery.data.map((reply)=> (
                         <FeedReplyItem reply={reply} key={reply.id}/>
                     ))
-                    : <></>
+                    : null
                 }
             </div>
             {detailMenuModalOpen &&

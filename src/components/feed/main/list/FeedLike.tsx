@@ -7,6 +7,7 @@ import {getFeedLikes, getUserIsFeedLikes, ILikesDto, registerLikes} from "src/ap
 import {useCallback} from "react";
 import {sendAlarmBySocket} from "src/apis/Alarm";
 import {getCookie} from "src/utils/cookieUtil";
+import {sendFCM} from "src/apis/FirebaseCloudMessage";
 
 interface IFeedLikeProps {
     feed : IFeedContent
@@ -23,19 +24,22 @@ const FeedLike = ({feed} : IFeedLikeProps) : JSX.Element => {
     const mutation = useMutation(()=> registerLikes("FEED",feed.id));
     const userId = getCookie('userId');
 
-    const onRegisterLikes = useCallback( async ()=> {
+    const onRegisterLikes = useCallback(async () => {
         try {
             const response = await mutation.mutateAsync();
-            userIsFeedLikes.data?.likes || sendAlarmBySocket('LIKES',feed.userId,'피드를 좋아합니다. ',feed.id,null,'FEED');
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e)
-        }
-        finally {
+        } finally {
             await queryClient.invalidateQueries(['feedLikes', feed.id]);
             await queryClient.invalidateQueries(['isFeedLikes', feed.id]);
+            try {
+                userIsFeedLikes.data?.likes || sendAlarmBySocket('LIKES', feed.userId, '피드를 좋아합니다. ', feed.id, null, 'FEED');
+                userIsFeedLikes.data?.likes || await sendFCM('피드를 좋아합니다.', feed.userId);
+            } catch (e) {
+
+            }
         }
-    },[mutation])
+    }, [mutation]);
 
     const handleClick = async () => {
         await onRegisterLikes();
@@ -53,7 +57,7 @@ const FeedLike = ({feed} : IFeedLikeProps) : JSX.Element => {
                     <span className={style.like_txt}>좋아요</span>
                     <span className={style.like_number_txt}>{` ${totalLikesQuery.data}`}</span>
                 </div>
-                : <></>
+                : null
             }
         </div>
     );

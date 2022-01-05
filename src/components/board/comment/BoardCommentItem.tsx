@@ -13,6 +13,8 @@ import ShortcutIcon from '@material-ui/icons/Shortcut';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import {getProfileImage} from "src/apis/Member";
 import DetailMenuModal from "src/components/modals/DetailMenuModal";
+import {sendAlarmBySocket} from "src/apis/Alarm";
+import {sendFCM} from "src/apis/FirebaseCloudMessage";
 
 const BoardCommentItem = ({reply} : IReplyProps) => {
     const queryClient = useQueryClient();
@@ -30,15 +32,19 @@ const BoardCommentItem = ({reply} : IReplyProps) => {
     const registerLikesMutate = useMutation(()=> registerLikes("REPLY", reply.id));
 
     const onRegisterLikes = async () => {
-        try{
+        try {
             const response = await registerLikesMutate.mutateAsync();
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e);
-        }
-        finally {
-            await queryClient.invalidateQueries(['replyLikes',reply.id]);
-            await queryClient.invalidateQueries(['isReplyLikes',reply.id]);
+        } finally {
+            await queryClient.invalidateQueries(['replyLikes', reply.id]);
+            await queryClient.invalidateQueries(['isReplyLikes', reply.id]);
+            try {
+                userIsReplyLikesQuery.data || sendAlarmBySocket('LIKES', reply.userId, '댓글을 좋아합니다. ', reply.postId, reply.payload, 'REPLY', reply.id);
+                userIsReplyLikesQuery.data || await sendFCM('댓글을 좋아합니다.', reply.userId);
+            } catch (e) {
+
+            }
         }
     };
 
