@@ -19,7 +19,6 @@ const BoardComment = ({board} : IBoardProps) => {
             }
             return currentPage + 1;
         },
-        staleTime : 1000 * 60 * 10
     });
     const allReplyQuery = useQuery<IReplyDto[]>(['postAllReply', board.id], () => getPostAllReply(board.id),{
         enabled : board.boardType === EBoardType.ANONYMOUS

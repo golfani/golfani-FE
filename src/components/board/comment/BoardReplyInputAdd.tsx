@@ -21,9 +21,10 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser, anonymous}: IPost
             setReplyPayload("");
             await queryClient.invalidateQueries(['postReply', postId]);
             await queryClient.invalidateQueries(['board', String(postId)]);
+            await queryClient.invalidateQueries(['postAllReply', postId]);
             try {
                 sendAlarmBySocket('REPLY', postUser!, "게시글에 댓글을 남겼습니다.", postId, replyPayload, 'POST');
-                await sendFCM(`게시글에 댓글을 남겼습니다. "${replyPayload}"`, postUser!);
+                await sendFCM(`게시글에 댓글을 남겼습니다. "${replyPayload}"`, postUser!, false, anonymous);
             } catch (e) {
 
             }
@@ -39,6 +40,7 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser, anonymous}: IPost
             setReplyPayload("");
             await queryClient.invalidateQueries(['replyQuery', refId]);
             await queryClient.invalidateQueries(['board', String(postId)]);
+            await queryClient.invalidateQueries(['postAllReply', postId]);
             try {
                 sendAlarmBySocket('REPLY', refUser!, "댓글에 답글을 남겼습니다.", postId, replyPayload, 'POST_REPLY', refId!);
                 await sendFCM(`댓글에 답글을 남겼습니다. "${replyPayload}"`, refUser!, false, anonymous);

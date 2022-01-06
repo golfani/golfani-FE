@@ -87,7 +87,7 @@ const BoardCommentItem = ({reply, board, replyRef} : IReplyProps) => {
     const renderUserText = () => {
         if (isAnonymousRef.current) {
             if (board?.userId === reply.userId) {
-                return <span className={style.anonymous_txt}>작성자</span>
+                return <span className={style.anonymous_txt}>글쓴이</span>
             } else {
                 return <span
                     className={userId === reply.userId ? style.anonymous_me_txt : style.anonymous_txt}>{`익명${anonymousIndex}`}</span>
