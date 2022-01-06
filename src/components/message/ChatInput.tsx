@@ -3,7 +3,6 @@ import React, {ChangeEvent, useRef, useState} from "react";
 import {sendChatBySocket} from "src/apis/Chat";
 import useChatRoom from "src/store/modules/chat/chatRoomHook";
 import ArrowUpwardRoundedIcon from '@material-ui/icons/ArrowUpwardRounded';
-import {sendFCM} from "src/apis/FirebaseCloudMessage";
 
 interface IChatInput {
     setIsSendBySelf : (state : boolean) => void
@@ -31,7 +30,6 @@ const ChatInput = ({setIsSendBySelf} : IChatInput) : JSX.Element => {
         try {
             await setChatInputText("");
             await sendChatBySocket(chatRoom.activeChatRoom?.id!,chatRoom.activeChatRoom?.receiver!,chatInputText);
-            await sendFCM(chatInputText, chatRoom.activeChatRoom?.receiver!, true);
         } catch (e) {
 
         } finally {

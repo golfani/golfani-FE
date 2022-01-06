@@ -3,7 +3,6 @@ import {deleteToken, getMessaging, getToken, onMessage} from "firebase/messaging
 import {
     manageNotificationGroup
 } from "src/apis/FirebaseCloudMessage";
-import {useRouter} from "next/router";
 
 const useFCM = () => {
     const firebaseConfig = {
@@ -20,10 +19,7 @@ const useFCM = () => {
     const onGetToken = () => {
         const message = getMessaging();
         onMessage(message, (payload)=> {
-            const router = useRouter();
-            if(router.asPath !== '/message') {
-                const notification = new Notification(payload.notification?.title!, {body: payload.notification?.body});
-            }
+            const notification = new Notification(payload.notification?.title!, {body: payload.notification?.body});
         });
         getToken(message, { vapidKey: 'BA2rpGOuAMUraL15Zjml-4pkQYD8z6l0jY96jtKF4E9ebC_kjqrPOXSRh7MXhmS_U8UoV1AeQEjUHxBBR50FJxM' }).then(async (currentToken) => {
             if (currentToken) {
