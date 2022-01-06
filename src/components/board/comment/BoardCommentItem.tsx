@@ -1,5 +1,5 @@
 import style from 'src/components/board/comment/boardCommentItem.module.css';
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import UserName from "src/components/common/UserName";
 import {IReplyProps} from "src/domain/Reply";
 import BoardReplyInputAdd from "./BoardReplyInputAdd";
@@ -15,11 +15,16 @@ import {getProfileImage} from "src/apis/Member";
 import DetailMenuModal from "src/components/modals/DetailMenuModal";
 import {sendAlarmBySocket} from "src/apis/Alarm";
 import {sendFCM} from "src/apis/FirebaseCloudMessage";
+import {EBoardType} from "src/domain/board";
+import {getCookie} from "src/utils/cookieUtil";
 
-const BoardCommentItem = ({reply} : IReplyProps) => {
+const BoardCommentItem = ({reply, board, replyRef} : IReplyProps) => {
+    const userId = getCookie('userId');
     const queryClient = useQueryClient();
     const [showReplyAdd, setShowReplyAdd] = useState(false);
     const [detailModalOpen, setDetailModalOpen] = useState(false);
+    const isAnonymousRef = useRef<boolean>(board?.boardType === EBoardType.ANONYMOUS);
+    const [anonymousIndex, setAnonymousIndex] = useState<number>();
 
     const replyLikesQuery = useQuery<ILikesDto>(['replyLikes',reply.id],() => getReplyLikes(reply.id), {
         staleTime : 1000 * 60
@@ -41,7 +46,7 @@ const BoardCommentItem = ({reply} : IReplyProps) => {
             await queryClient.invalidateQueries(['isReplyLikes', reply.id]);
             try {
                 userIsReplyLikesQuery.data || sendAlarmBySocket('LIKES', reply.userId, '댓글을 좋아합니다. ', reply.postId, reply.payload, 'REPLY', reply.id);
-                userIsReplyLikesQuery.data || await sendFCM('댓글을 좋아합니다.', reply.userId);
+                userIsReplyLikesQuery.data || await sendFCM('댓글을 좋아합니다.', reply.userId,false,isAnonymousRef.current);
             } catch (e) {
 
             }
@@ -65,12 +70,36 @@ const BoardCommentItem = ({reply} : IReplyProps) => {
     }
 
     const showRefUserTag = () => {
-        if(reply.referencedUser && reply.userId !== reply.referencedUser) {
-            return (
-                <span className={style.tag_user_txt}>{`@${reply.referencedUser}`}</span>
-            )
+        if (reply.referencedUser && reply.userId !== reply.referencedUser) {
+            if (isAnonymousRef.current) {
+                return (
+                    <span
+                        className={style.tag_user_txt}>{`@익명${replyRef?.current?.indexOf(reply.referencedUser)! + 1}`}</span>
+                )
+            } else {
+                return (
+                    <span className={style.tag_user_txt}>{`@${reply.referencedUser}`}</span>
+                )
+            }
         }
     }
+
+    const renderUserText = () => {
+        if (isAnonymousRef) {
+            if (board?.userId === reply.userId) {
+                return <span className={style.anonymous_txt}>작성자</span>
+            } else {
+                return <span
+                    className={userId === reply.userId ? style.anonymous_me_txt : style.anonymous_txt}>{`익명${anonymousIndex}`}</span>
+            }
+        } else {
+            return <UserName userName={reply.userId} fontSize={14}/>
+        }
+    }
+
+    useEffect(()=> {
+        setAnonymousIndex(replyRef?.current?.indexOf(reply.userId)! + 1);
+    },[]);
 
     return (
         <div className={reply.referenceId ? style.reply_container : style.container}>
@@ -78,15 +107,23 @@ const BoardCommentItem = ({reply} : IReplyProps) => {
             <div className={style.comment_main}>
                 <div className={style.info_box}>
                     <div className={style.user_box}>
-                        <img src={getProfileImage(reply.userId,'MID')} alt={'user_profile'} className={style.user_img}/>
-                        <UserName userName={reply.userId} fontSize={14}/>
+                        {isAnonymousRef.current
+                            ?
+                            <img src={process.env.NEXT_PUBLIC_DEFAULT_PROFILE} alt={'user_profile'}
+                                 className={style.user_img}/>
+                            : <img src={getProfileImage(reply.userId, 'MID')} alt={'user_profile'}
+                                   className={style.user_img}/>
+                        }
+                        {
+                            renderUserText()
+                        }
                     </div>
                     <MoreHorizIcon className={style.menu_icon} onClick={handleClickMenuButton}/>
                 </div>
-                <div className={style.content_box}>
+                <div className={board?.userId === reply.userId ? style.writer_content_box : style.content_box}>
                     {showRefUserTag()}
                     {
-                        reply.payload.split('\n').map((content,index)=> (
+                        reply.payload.split('\n').map((content, index) => (
                             <span key={index} className={style.content}>{content}</span>
                         ))
                     }
@@ -107,18 +144,19 @@ const BoardCommentItem = ({reply} : IReplyProps) => {
                     <button onClick={handleClickReplyAddButton} className={style.reply_add_btn}>답글쓰기</button>
                     <div>
                         {showReplyAdd &&
-                            <BoardReplyInputAdd
-                                postId={reply.postId!}
-                                refId={reply.referenceId || reply.id}
-                                refUser={reply.userId}
-                            />
+                        <BoardReplyInputAdd
+                            postId={reply.postId!}
+                            refId={reply.referenceId || reply.id}
+                            refUser={reply.userId}
+                            anonymous={isAnonymousRef.current}
+                        />
                         }
                     </div>
                 </div>
                 {
                     replyQuery.data?.map((reply) => (
                         !reply.isDeleted &&
-                        <BoardCommentItem key={reply.id} reply={reply}/>
+                        <BoardCommentItem key={reply.id} reply={reply} board={board} replyRef={replyRef}/>
                     ))
                 }
             </div>

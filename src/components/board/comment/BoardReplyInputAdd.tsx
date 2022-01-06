@@ -6,7 +6,7 @@ import style from "src/components/board/comment/boardReplyInputAdd.module.css";
 import {sendAlarmBySocket} from "src/apis/Alarm";
 import {sendFCM} from "src/apis/FirebaseCloudMessage";
 
-const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddProps) => {
+const BoardReplyInputAdd = ({postId, postUser, refId, refUser, anonymous}: IPostReplyAddProps) => {
     const queryClient = useQueryClient();
     const [replyPayload, setReplyPayload] = useState("");
     const commentMutation = useMutation(() => registerReply("POST", postId, replyPayload));
@@ -41,7 +41,7 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddPr
             await queryClient.invalidateQueries(['board', String(postId)]);
             try {
                 sendAlarmBySocket('REPLY', refUser!, "댓글에 답글을 남겼습니다.", postId, replyPayload, 'POST_REPLY', refId!);
-                await sendFCM(`댓글에 답글을 남겼습니다. "${replyPayload}"`, refUser!);
+                await sendFCM(`댓글에 답글을 남겼습니다. "${replyPayload}"`, refUser!, false, anonymous);
             } catch (e) {
 
             }
@@ -57,11 +57,11 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser} : IPostReplyAddPr
         setReplyPayload(input.value);
     }
 
-    const disableButton = () : boolean => {
+    const disableButton = (): boolean => {
         return !replyPayload.replace(/\s/g, '').length
     }
 
-    return(
+    return (
         <div>
             <div className={style.form}>
                 <textarea

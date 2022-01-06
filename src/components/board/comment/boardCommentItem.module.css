@@ -37,6 +37,11 @@
     cursor: pointer;
 }
 
+.writer_content_box {
+    margin: 5px 0 10px;
+    color: #5757ff;
+}
+
 .content_box {
     margin: 5px 0 10px;
 }
@@ -45,7 +50,7 @@
     display: inline-block;
     font-size: 12px;
     font-weight: 500;
-    color: #81B147;
+    color: black;
 }
 
 .content {
@@ -82,4 +87,13 @@
 .arrowIcon {
     margin-right: 10px;
     transform: scaleY(-1);
+}
+
+.anonymous_me_txt {
+    font-size: 14px;
+    color: #2196F3;
+}
+
+.anonymous_txt {
+    font-size: 14px;
 }

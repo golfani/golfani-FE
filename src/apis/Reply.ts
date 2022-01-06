@@ -117,3 +117,8 @@ export const getTotalPostReplies = async (postId : number) => {
     const response = await axios.get(`${API_URL}/total/post/${postId}`);
     return response.data;
 }
+
+export const getPostAllReply = async (postId: number) => {
+    const response = await axios.get(`${API_URL}/all/${postId}`);
+    return response.data;
+}
