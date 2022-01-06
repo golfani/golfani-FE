@@ -50,7 +50,7 @@ const FeedReplyItem = ({reply} : IReplyProps) => {
             await queryClient.invalidateQueries(['isReplyLikes', reply.id]);
             await queryClient.invalidateQueries(['replyLikes', reply.id]);
             try {
-                userIsReplyLikesQuery.data?.likes || sendAlarmBySocket('LIKES', reply.userId, '댓글을 좋아합니다. ', reply.feedId!, reply.payload, 'REPLY', reply.id);
+                userIsReplyLikesQuery.data?.likes || sendAlarmBySocket('LIKES', reply.userId, '댓글을 좋아합니다. ', reply.feedId!, reply.payload, 'FEED_REPLY', reply.id);
                 userIsReplyLikesQuery.data?.likes || await sendFCM('댓글을 좋아합니다.', reply.userId);
             } catch (e) {
 

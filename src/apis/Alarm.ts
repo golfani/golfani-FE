@@ -61,7 +61,7 @@ export const sendAlarmBySocket = (alarmType : TAlarm,
                 break;
             case "POST_REPLY":
                 alarmMessage.postId = referId;
-                alarmMessage.replyId = referId;
+                alarmMessage.replyId = refReplyId;
                 break;
         }
         publishAlarm(alarmMessage);

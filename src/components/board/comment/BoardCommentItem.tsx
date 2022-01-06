@@ -45,7 +45,7 @@ const BoardCommentItem = ({reply, board, replyRef} : IReplyProps) => {
             await queryClient.invalidateQueries(['replyLikes', reply.id]);
             await queryClient.invalidateQueries(['isReplyLikes', reply.id]);
             try {
-                userIsReplyLikesQuery.data || sendAlarmBySocket('LIKES', reply.userId, '댓글을 좋아합니다. ', reply.postId, reply.payload, 'REPLY', reply.id);
+                userIsReplyLikesQuery.data || sendAlarmBySocket('LIKES', reply.userId, '댓글을 좋아합니다. ', reply.postId, reply.payload, 'POST_REPLY', reply.id);
                 userIsReplyLikesQuery.data || await sendFCM('댓글을 좋아합니다.', reply.userId,false,isAnonymousRef.current);
             } catch (e) {
 
@@ -85,7 +85,7 @@ const BoardCommentItem = ({reply, board, replyRef} : IReplyProps) => {
     }
 
     const renderUserText = () => {
-        if (isAnonymousRef) {
+        if (isAnonymousRef.current) {
             if (board?.userId === reply.userId) {
                 return <span className={style.anonymous_txt}>작성자</span>
             } else {
