@@ -22,11 +22,11 @@ export const manageNotificationGroup = async (token : string) => {
  * @param to
  * @param isChat
  */
-export const sendFCM = async (msg : string, to : string, isChat : boolean = false) => {
+export const sendFCM = async (msg : string, to : string, isChat : boolean = false, isAnonymous = false) => {
     if (userId === to) return ;
 
     const formData = new FormData();
-    const alarmPrefix = `${userId}님이 `;
+    const alarmPrefix = isAnonymous ? '익명님이 ' : `${userId}님이 `;
     const chatPrefix = `${userId}님: `
     formData.append('message', `${isChat ? chatPrefix: alarmPrefix}${msg}`);
     formData.append('to',to);

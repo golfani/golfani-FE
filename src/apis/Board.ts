@@ -95,3 +95,12 @@ export const getNextOrPrevPost =  async (type : string, postId : number, boardTy
     const response = await axios.get(`${API_URL}/move?type=${type}&postId=${postId}&boardType=${boardType}`);
     return response.data;
 }
+
+/**
+ * 한개의 게시글 가져오는 API
+ * @param postId
+ */
+export const getPostOne = async (postId: number) => {
+    const response = await axios.get(`${API_URL}/${postId}`);
+    return response.data;
+}

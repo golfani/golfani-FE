@@ -7,7 +7,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getPostLikes, registerLikes} from "src/apis/Likes";
-import {onHandleImgClick} from "src/domain/board";
+import {EBoardType, onHandleImgClick} from "src/domain/board";
 import DetailMenuModal from "src/components/modals/DetailMenuModal";
 import {boardTypeToPostString} from "src/utils/boardUtil";
 import {dateDiff} from "src/utils/dateUtil";
@@ -41,7 +41,7 @@ const BoardContent = ({board} : IBoardProps): JSX.Element => {
             await queryClient.invalidateQueries(['board', String(board.id)]);
             try {
                 likeQuery.data || sendAlarmBySocket('LIKES', board.userId, '게시글을 좋아합니다. ', board.id, null, 'POST');
-                likeQuery.data || await sendFCM('게시글을 좋아합니다.', board.userId);
+                likeQuery.data || await sendFCM('게시글을 좋아합니다.', board.userId,false, board.boardType === EBoardType.ANONYMOUS);
             } catch (e) {
 
             }
@@ -91,7 +91,7 @@ const BoardContent = ({board} : IBoardProps): JSX.Element => {
             <div className={style.info_box}>
                 <div className={style.user_box}>
                     <img alt={'user_profile'} src={getProfileImage(board.userId,'MID')} className={style.user_img}/>
-                    <span className={style.user_txt}>{board.userId}</span>
+                    <span className={style.user_txt}>{board.boardType === EBoardType.ANONYMOUS ? '익명' : board.userId}</span>
                 </div>
                 <div className={style.info_sub_box}>
                     <FavoriteBorderIcon style={{fontSize : 16}} className={style.like_icon}/>
