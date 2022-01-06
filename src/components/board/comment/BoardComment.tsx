@@ -31,7 +31,7 @@ const BoardComment = ({board} : IBoardProps) => {
     }
 
     useEffect(()=> {
-        if(allReplyQuery.isSuccess) {
+        if(allReplyQuery.data) {
             allReplyQuery.data.map((reply, index)=> {
                 if(!reply.isDeleted && reply.userId !== board.userId) {
                     replyRef.current.indexOf(reply.userId) === -1 && replyRef.current.push(reply.userId);
@@ -39,7 +39,7 @@ const BoardComment = ({board} : IBoardProps) => {
                 index === allReplyQuery.data.length - 1 && setLoading(true);
             })
         }
-    },[allReplyQuery.isSuccess]);
+    },[allReplyQuery.data]);
 
     return (
         <div className={style.container}>
