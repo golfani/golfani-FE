@@ -14,7 +14,7 @@ const BoardListHead = ({boardType} : IBoardTypeProps) => {
     },[boardType]);
 
     const handleClickBackIcon = () => {
-        router.push('/board');
+        router.back();
     }
 
     return (
