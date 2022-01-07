@@ -1,6 +1,6 @@
 import style from 'src/components/board/item/boardList.module.css';
 import BoardItem from 'src/components/board/item/BoardItem';
-import {getBoard, IBoardData} from "src/apis/Board";
+import {getBoard, getHotPost, IBoardData} from "src/apis/Board";
 import {IBoardTypeProps} from "../BoardMain";
 import {useQuery} from "react-query";
 import {IPages} from "src/domain/Page";
@@ -9,15 +9,23 @@ import {EBoardType} from "src/domain/board";
 import BoardPageNav from "src/components/board/page/BoardPageNav";
 import React from "react";
 
-const BoardList = (boardType : IBoardTypeProps) : JSX.Element => {
+const BoardList = ({boardType}: IBoardTypeProps): JSX.Element => {
     const router = useRouter();
     const {page} = router.query;
 
-    const boardQuery = useQuery<IPages<IBoardData>>(['board', [boardType.boardType,Number(page)]], () => getBoard(boardType.boardType, Number(page), 20), {
-        enabled: boardType.boardType !== EBoardType.HOME
+    const fetchBoard = async () => {
+        if (boardType === EBoardType.HOT) {
+            return await getHotPost(Number(page), 20)
+        } else {
+            return await getBoard(boardType, Number(page), 20);
+        }
+    }
+
+    const boardQuery = useQuery<IPages<IBoardData>>(['board', [boardType, Number(page)]], fetchBoard, {
+        enabled: boardType !== EBoardType.HOME
     });
 
-    return(
+    return (
         <div className={style.container}>
             <div className={style.post_box}>
                 <div className={style.title_box}>
