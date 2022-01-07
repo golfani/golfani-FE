@@ -14,7 +14,11 @@ const BoardBottomNav = () => {
     const {type} = router.query;
 
     const handleClickHome = () => {
-        router.push('/board');
+        type && router.push('/board');
+    }
+
+    const handleClickCategory = () => {
+        type !== EBoardType.CATEGORY && router.push('/board?type=CATEGORY')
     }
 
     return (
@@ -23,8 +27,8 @@ const BoardBottomNav = () => {
                 <Image src={type === EBoardType.HOME || type === undefined ? HomeActiveIcon : HomeIcon} width={20}
                        height={20}/>
             </li>
-            <li className={style.menu_list}>
-                <Image src={type ==='CARD' ? CategoryActiveIcon : CategoryIcon} width={22} height={22}/>
+            <li className={style.menu_list} onClick={handleClickCategory}>
+                <Image src={type === EBoardType.CATEGORY ? CategoryActiveIcon : CategoryIcon} width={22} height={22}/>
             </li>
             <li className={style.menu_list}>
                 <Image src={type === 'MOBILE_SEARCH' ? SearchActiveIcon : SearchIcon} width={20} height={20}/>

@@ -8,6 +8,7 @@ import style from 'styles/board.module.css';
 import BoardSearch from "src/components/board/search/BoardSearch";
 import {isMobile} from "src/utils/detectDevice";
 import BoardBottomNav from "src/components/board/BoardBottomNav";
+import BoardMobileCategory from "src/components/board/mobile/BoardMobileCategory";
 
 const Board = () : JSX.Element => {
     const router = useRouter();
@@ -29,9 +30,11 @@ const Board = () : JSX.Element => {
             <Navbar/>
             <div className={style.main_box}>
                 {isMobile() ? <BoardBottomNav/> : <BoardCategory onSetBoardType={onSetBoardType} boardType={boardType}/>}
-                {selectMenu && payload
-                    ? <BoardSearch selectMenu={selectMenu as TSelectMenu} payload={payload as string}/>
-                    : <BoardMain boardType={boardType}/>
+                {
+                    boardType === EBoardType.CATEGORY ? <BoardMobileCategory/>
+                        : selectMenu && payload
+                            ? <BoardSearch selectMenu={selectMenu as TSelectMenu} payload={payload as string}/>
+                            : <BoardMain boardType={boardType}/>
                 }
             </div>
         </div>

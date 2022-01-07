@@ -7,7 +7,8 @@ export enum EBoardType {
     REVIEW = "REVIEW",
     ASK = "ASK",
     HOT = "HOT",
-    ALL = "ALL"
+    ALL = "ALL",
+    CATEGORY = "CATEGORY"
 }
 
 export type TSelectMenu = 'USER' | 'CONTENT' | 'TITLE';
