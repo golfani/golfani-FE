@@ -95,7 +95,7 @@ const BoardSearchBar = () : JSX.Element => {
             </select>
             <select className={style.select_box} onChange={(e)=> handleChangeSelectMenu(e.target.value)}>
                 <option value='TITLE'>제목</option>
-                <option value='USER'>글쓴이</option>
+                {boardType === EBoardType.ANONYMOUS || <option value='USER'>글쓴이</option>}
                 <option value='CONTENT'>내용</option>
             </select>
             <div className={style.search_box} ref={searchId}>
