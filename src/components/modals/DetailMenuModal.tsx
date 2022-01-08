@@ -7,7 +7,7 @@ import {deleteFeed, IFeedContent} from "src/apis/Feed";
 import ReportModal from "./ReportModal";
 import {getCookie} from "src/utils/cookieUtil";
 import FeedModifyModal from "./feed/FeedModifyModal";
-import {deleteBoard, IBoardData} from "src/apis/Board";
+import {deleteBoard, IBoardData, putBoard} from "src/apis/Board";
 import {deleteScrap, IScrapDto, isScrapped, registerScrap} from "src/apis/Scrap";
 import {useRouter} from "next/router";
 import {isMobile} from "src/utils/detectDevice";
@@ -15,7 +15,7 @@ import {isMobile} from "src/utils/detectDevice";
 export type TRef = "FEED" | "POST" | "FEED_REPLY" | "POST_REPLY"
 
 export interface DetailMenuModalProps {
-    setModalOpen: (state : boolean) => void
+    setModalOpen: (state: boolean) => void
     target: IReplyDto | IFeedContent | IBoardData
     type: TRef
 }
@@ -29,21 +29,21 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
     const deleteFeedMutate = useMutation(() => deleteFeed(props.target.id));
     const [reportModalOpen, setReportModalOpen] = useState(false);
     const [feedModifyModalOpen, setFeedModifyModalOpen] = useState(false);
-    const scrapMutate = useMutation((scrapDto : IScrapDto)=> registerScrap(scrapDto));
+    const scrapMutate = useMutation((scrapDto: IScrapDto) => registerScrap(scrapDto));
     const [isMobileClose, setIsMobileClose] = useState(false);
-    const isScrappedQuery = useQuery(['isScrapped',props.type,props.target.id], () => isScrapped(props.type, props.target.id));
-    const deleteScrapMutate = useMutation((id:number)=> deleteScrap(id));
+    const isScrappedQuery = useQuery(['isScrapped', props.type, props.target.id], () => isScrapped(props.type, props.target.id));
+    const deleteScrapMutate = useMutation((id: number) => deleteScrap(id));
     const deletePostReplyMutate = useMutation(() => deletePostReply(props.target.id));
     const deletePostMutate = useMutation(() => deleteBoard(props.target.id));
+    const pinnedMutate = useMutation((board: IBoardData) => putBoard(board));
 
     const onModalClose = () => {
-        if(isMobile()) {
+        if (isMobile()) {
             setIsMobileClose(true);
-            setTimeout(()=> {
+            setTimeout(() => {
                 props.setModalOpen(false);
             }, 300);
-        }
-        else {
+        } else {
             props.setModalOpen(false);
         }
     }
@@ -72,7 +72,7 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
             if (props.type === 'FEED_REPLY') {
                 const target: IReplyDto = props.target as IReplyDto;
                 await queryClient.invalidateQueries(['feedReply', target.feedId]);
-                if(target.referenceId) {
+                if (target.referenceId) {
                     await queryClient.invalidateQueries(['reply', target.referenceId]);
                     await queryClient.invalidateQueries(['totalReply', target.referenceId]);
                 }
@@ -85,7 +85,7 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
                 const target: IReplyDto = props.target as IReplyDto;
                 await queryClient.invalidateQueries(['postReply', target.postId]);
                 await queryClient.invalidateQueries(['board', String(target.postId)]);
-                if(target.referenceId) {
+                if (target.referenceId) {
                     await queryClient.invalidateQueries(['replyQuery', target.referenceId]);
                 }
             }
@@ -122,15 +122,14 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
 
     const onScrap = async () => {
         try {
-            const scrapDto : IScrapDto = {
-                userId : userId,
-                refId : props.target.id,
-                targetType : props.type
+            const scrapDto: IScrapDto = {
+                userId: userId,
+                refId: props.target.id,
+                targetType: props.type
             }
             const response = await scrapMutate.mutateAsync(scrapDto);
             await onModalClose();
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e);
         }
     }
@@ -142,17 +141,33 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
     const handleClickDeleteScrap = async () => {
         try {
             const response = await deleteScrapMutate.mutateAsync(isScrappedQuery.data);
-        }
-        catch (e) {
+        } catch (e) {
 
-        }
-        finally {
-            await queryClient.invalidateQueries(['isScrapped',props.type,props.target.id]);
+        } finally {
+            await queryClient.invalidateQueries(['isScrapped', props.type, props.target.id]);
             await queryClient.invalidateQueries('scrapFeed');
             await queryClient.invalidateQueries('scrapPost');
             await queryClient.invalidateQueries('scrapAllFeed');
             await onModalClose();
         }
+    }
+
+    const handleClickPinned = async () => {
+        const board = props.target as IBoardData;
+        try {
+            board.pinned = !board.pinned;
+            await pinnedMutate.mutateAsync(board);
+        } catch (e) {
+
+        } finally {
+            await queryClient.invalidateQueries(['board', String(board.id)]);
+            await onModalClose();
+        }
+    }
+
+    const isPinnedPost = () => {
+        const board = props.target as IBoardData;
+        return board.pinned;
     }
 
     handleClickRefOutSide(ref, onModalClose);
@@ -168,10 +183,14 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
                 <button className={style.menu_btn} onClick={handleClickModify}>수정</button>
                 }
                 {(props.type === 'FEED' || props.type === 'POST') && !isScrappedQuery.data &&
-                    <button className={style.menu_btn} onClick={handleClickScrap}>스크랩</button>
+                <button className={style.menu_btn} onClick={handleClickScrap}>스크랩</button>
                 }
                 {(props.type === 'FEED' || props.type === 'POST') && isScrappedQuery.data &&
                 <button className={style.menu_btn} onClick={handleClickDeleteScrap}>스크랩 취소</button>
+                }
+                {props.type === 'POST' &&
+                <button className={style.menu_btn}
+                        onClick={handleClickPinned}>{isPinnedPost() ? '게시글 고정해제' : '게시글 고정'}</button>
                 }
                 <button className={style.menu_btn} onClick={onModalClose}>취소</button>
                 {reportModalOpen &&
