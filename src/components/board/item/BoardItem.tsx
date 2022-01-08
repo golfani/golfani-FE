@@ -1,5 +1,4 @@
 import style from 'src/components/board/item/boardItem.module.css';
-import React from 'react';
 import {IBoardData} from "src/apis/Board";
 import {useRouter} from "next/router";
 import {dateDiff} from "src/utils/dateUtil";
@@ -11,11 +10,12 @@ import {getProfileImage} from "src/apis/Member";
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
-interface IBoardItemProps{
-    board : IBoardData;
+interface IBoardItemProps {
+    board: IBoardData;
+    pinned?: boolean
 }
 
-const BoardItem = ({board} : IBoardItemProps) : JSX.Element => {
+const BoardItem = ({board, pinned}: IBoardItemProps): JSX.Element => {
     const router = useRouter();
     const {type, page} = router.query;
 
@@ -32,10 +32,12 @@ const BoardItem = ({board} : IBoardItemProps) : JSX.Element => {
         isMobile() && await onRoutePost();
     }
 
-    return(
-        <div className={style.container} onClick={handleClickPost}>
-            <div className={style.no_txt}>{board.id}</div>
-            <div className={style.subject_box}>
+    return (
+        <div className={pinned ? style.pinned_container : style.container} onClick={handleClickPost}>
+            {
+                pinned ? <span className={style.pinned_txt}>공지</span> : <div className={style.no_txt}>{board.id}</div>
+            }
+            <div className={pinned ? style.pinned_subject_box : style.subject_box}>
                 <span className={style.subject_txt} onClick={handleClickSubject}>{board.title}</span>
                 {
                     board.replyCount
@@ -48,12 +50,14 @@ const BoardItem = ({board} : IBoardItemProps) : JSX.Element => {
                 }
                 {
                     board.hasImage &&
-                    <ImageIcon style={{fontSize : '15px'}} color={"disabled"}/>
+                    <ImageIcon style={{fontSize: '15px'}} color={"disabled"}/>
                 }
             </div>
-            <div className={style.info_box}>
-                {isMobile() && <img src={getProfileImage('default','MID')} alt={'user_icon'} className={style.user_img}/>}
-                <span className={style.writer_txt}>{board.boardType !== EBoardType.ANONYMOUS ? board.userId : '익명'}</span>
+            <div className={pinned ? style.pinned_info_box : style.info_box}>
+                {isMobile() &&
+                <img src={getProfileImage('default', 'MID')} alt={'user_icon'} className={style.user_img}/>}
+                <span
+                    className={style.writer_txt}>{board.boardType !== EBoardType.ANONYMOUS ? board.userId : '익명'}</span>
                 {isMobile() && <FavoriteBorderOutlinedIcon style={{fontSize: 14}} className={style.like_icon}/>}
                 <span className={style.like_txt}>{board.likesCount}</span>
                 {isMobile() && <VisibilityIcon style={{fontSize: 14}} className={style.view_icon}/>}
