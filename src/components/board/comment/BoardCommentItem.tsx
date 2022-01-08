@@ -93,7 +93,15 @@ const BoardCommentItem = ({reply, board, replyRef}: IReplyProps) => {
                     className={userId === reply.userId ? style.anonymous_me_txt : style.anonymous_txt}>{`익명${anonymousIndex}`}</span>
             }
         } else {
-            return <UserName userName={reply.userId} fontSize={14}/>
+            if (board?.userId === reply.userId) {
+                return (
+                    <div className={style.flex_box}>
+                        <UserName userName={reply.userId} fontSize={14}/>
+                        <span className={style.writer_txt}>(글쓴이)</span>
+                    </div>)
+            } else {
+                return <UserName userName={reply.userId} fontSize={14}/>
+            }
         }
     }
 
@@ -115,7 +123,6 @@ const BoardCommentItem = ({reply, board, replyRef}: IReplyProps) => {
                                    className={style.user_img}/>
                         }
                         {renderUserText()}
-                        {board?.userId === reply.userId && <span className={style.writer_txt}>(글쓴이)</span>}
                     </div>
                     <MoreHorizIcon className={style.menu_icon} onClick={handleClickMenuButton}/>
                 </div>
