@@ -32,6 +32,12 @@
     margin-right: 5px;
 }
 
+.writer_txt {
+    margin-left: 3px;
+    font-size: 11px;
+    display: inline-block;
+}
+
 .menu_icon {
     margin-left: auto;
     cursor: pointer;
@@ -40,6 +46,7 @@
 .writer_content_box {
     margin: 5px 0 10px;
     color: #5757ff;
+    font-weight: 500;
 }
 
 .content_box {

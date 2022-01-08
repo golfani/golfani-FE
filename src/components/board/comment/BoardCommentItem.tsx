@@ -18,7 +18,7 @@ import {sendFCM} from "src/apis/FirebaseCloudMessage";
 import {EBoardType} from "src/domain/board";
 import {getCookie} from "src/utils/cookieUtil";
 
-const BoardCommentItem = ({reply, board, replyRef} : IReplyProps) => {
+const BoardCommentItem = ({reply, board, replyRef}: IReplyProps) => {
     const userId = getCookie('userId');
     const queryClient = useQueryClient();
     const [showReplyAdd, setShowReplyAdd] = useState(false);
@@ -26,15 +26,15 @@ const BoardCommentItem = ({reply, board, replyRef} : IReplyProps) => {
     const isAnonymousRef = useRef<boolean>(board?.boardType === EBoardType.ANONYMOUS);
     const [anonymousIndex, setAnonymousIndex] = useState<number>();
 
-    const replyLikesQuery = useQuery<ILikesDto>(['replyLikes',reply.id],() => getReplyLikes(reply.id), {
-        staleTime : 1000 * 60
+    const replyLikesQuery = useQuery<ILikesDto>(['replyLikes', reply.id], () => getReplyLikes(reply.id), {
+        staleTime: 1000 * 60
     })
 
-    const userIsReplyLikesQuery = useQuery<ILikesDto>(['isReplyLikes',reply.id], () => getUserIsReplyLikes(reply.id), {
-        staleTime : 1000 * 60
+    const userIsReplyLikesQuery = useQuery<ILikesDto>(['isReplyLikes', reply.id], () => getUserIsReplyLikes(reply.id), {
+        staleTime: 1000 * 60
     })
 
-    const registerLikesMutate = useMutation(()=> registerLikes("REPLY", reply.id));
+    const registerLikesMutate = useMutation(() => registerLikes("REPLY", reply.id));
 
     const onRegisterLikes = async () => {
         try {
@@ -46,19 +46,19 @@ const BoardCommentItem = ({reply, board, replyRef} : IReplyProps) => {
             await queryClient.invalidateQueries(['isReplyLikes', reply.id]);
             try {
                 userIsReplyLikesQuery.data || sendAlarmBySocket('LIKES', reply.userId, '댓글을 좋아합니다. ', reply.postId, reply.payload, 'POST_REPLY', reply.id);
-                userIsReplyLikesQuery.data || await sendFCM('댓글을 좋아합니다.', reply.userId,false,isAnonymousRef.current);
+                userIsReplyLikesQuery.data || await sendFCM('댓글을 좋아합니다.', reply.userId, false, isAnonymousRef.current);
             } catch (e) {
 
             }
         }
     };
 
-    const handleClickLike = async () =>{
+    const handleClickLike = async () => {
         await onRegisterLikes();
     }
 
     const replyQuery = useQuery<IReplyDto[]>(['replyQuery', reply.id], () => getReply(reply.id), {
-        staleTime : 1000 * 60
+        staleTime: 1000 * 60
     })
 
     const handleClickReplyAddButton = () => {
@@ -97,9 +97,9 @@ const BoardCommentItem = ({reply, board, replyRef} : IReplyProps) => {
         }
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         setAnonymousIndex(replyRef?.current?.indexOf(reply.userId)! + 1);
-    },[]);
+    }, []);
 
     return (
         <div className={reply.referenceId ? style.reply_container : style.container}>
@@ -114,9 +114,8 @@ const BoardCommentItem = ({reply, board, replyRef} : IReplyProps) => {
                             : <img src={getProfileImage(reply.userId, 'MID')} alt={'user_profile'}
                                    className={style.user_img}/>
                         }
-                        {
-                            renderUserText()
-                        }
+                        {renderUserText()}
+                        {board?.userId === reply.userId && <span className={style.writer_txt}>(글쓴이)</span>}
                     </div>
                     <MoreHorizIcon className={style.menu_icon} onClick={handleClickMenuButton}/>
                 </div>
