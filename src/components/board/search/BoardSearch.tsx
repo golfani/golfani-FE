@@ -8,29 +8,30 @@ import BoardPageNav from "../page/BoardPageNav";
 import {useRouter} from "next/router";
 import BoardListHead from "../item/BoardListHead";
 import {EBoardType, TSelectMenu} from "src/domain/board";
+import {isMobile} from "src/utils/detectDevice";
 
 interface IBoardSearchProps {
-    selectMenu : TSelectMenu
-    payload : string
+    selectMenu: TSelectMenu
+    payload: string
 }
 
-const BoardSearch = ({selectMenu,payload} : IBoardSearchProps) : JSX.Element => {
+const BoardSearch = ({selectMenu, payload}: IBoardSearchProps): JSX.Element => {
     const router = useRouter();
-    const {page,boardType} = router.query;
+    const {page, boardType} = router.query;
 
-    const boardQuery = useQuery<IPages<IBoardData>>(['searchResult', [boardType,payload,Number(page)]], () => searchBoard(selectMenu as TSelectMenu, payload as string,boardType as EBoardType, Number(page)),{
-        enabled : selectMenu !== undefined
+    const boardQuery = useQuery<IPages<IBoardData>>(['searchResult', [boardType, payload, Number(page)]], () => searchBoard(selectMenu as TSelectMenu, payload as string, boardType as EBoardType, Number(page)), {
+        enabled: selectMenu !== undefined
     });
 
-    useEffect(()=> {
-        if(boardType === EBoardType.ANONYMOUS && selectMenu === "USER") {
+    useEffect(() => {
+        if (boardType === EBoardType.ANONYMOUS && selectMenu === "USER") {
             router.push(`/board`);
         }
-    },[boardType, selectMenu])
+    }, [boardType, selectMenu])
 
-    return(
+    return (
         <div className={style.container}>
-            <BoardListHead/>
+            {isMobile() || <BoardListHead/>}
             <div className={style.post_box}>
                 <div className={style.title_box}>
                     <span className={style.no_txt}>번호</span>

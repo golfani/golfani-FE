@@ -4,7 +4,7 @@
 }
 
 .select_box {
-    width: 60px;
+    width: 80px;
     height: 30px;
     border: 1px solid #eff0f2;
     margin-right: 5px;
@@ -30,4 +30,34 @@
 
 .search_icon {
     cursor: pointer;
+}
+
+@media screen and (max-width: 768px){
+    .container {
+        width: 95%;
+        justify-content: center;
+        background-color: #eff0f2;
+        height: 40px;
+        border-radius: 8px;
+        margin-top: 10px;
+        z-index: 2;
+    }
+    .select_box {
+        border: none;
+        flex: 1;
+        width: auto;
+        background-color: transparent;
+        height: 40px;
+    }
+    .search_box {
+        position: initial;
+        background-color: transparent;
+        flex: 4;
+        width: auto;
+        height: 40px;
+        border: none;
+    }
+    .search_input {
+        background-color: transparent;;
+    }
 }
