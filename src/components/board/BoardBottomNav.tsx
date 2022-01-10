@@ -21,6 +21,10 @@ const BoardBottomNav = () => {
         type !== EBoardType.CATEGORY && router.push('/board?type=CATEGORY')
     }
 
+    const handleClickSearch = () => {
+        type !== EBoardType.SEARCH && router.push('/board?type=SEARCH')
+    }
+
     return (
         <div className={style.container}>
             <li className={style.menu_list} onClick={handleClickHome}>
@@ -30,8 +34,8 @@ const BoardBottomNav = () => {
             <li className={style.menu_list} onClick={handleClickCategory}>
                 <Image src={type === EBoardType.CATEGORY ? CategoryActiveIcon : CategoryIcon} width={22} height={22}/>
             </li>
-            <li className={style.menu_list}>
-                <Image src={type === 'MOBILE_SEARCH' ? SearchActiveIcon : SearchIcon} width={20} height={20}/>
+            <li className={style.menu_list} onClick={handleClickSearch}>
+                <Image src={type === EBoardType.SEARCH ? SearchActiveIcon : SearchIcon} width={20} height={20}/>
             </li>
         </div>
     );

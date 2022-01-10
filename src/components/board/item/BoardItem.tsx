@@ -17,10 +17,10 @@ interface IBoardItemProps {
 
 const BoardItem = ({board, pinned}: IBoardItemProps): JSX.Element => {
     const router = useRouter();
-    const {type, page} = router.query;
+    const {page} = router.query;
 
     const onRoutePost = async () => {
-        await router.push(`/board/${board.id}?type=${type}&page=${page}`);
+        await router.push(`/board/${board.id}?type=${board.boardType}&page=${page}`);
 
     }
 
