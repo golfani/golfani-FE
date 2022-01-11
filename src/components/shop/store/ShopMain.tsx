@@ -3,7 +3,7 @@ import ShopIntroduce from "./ShopIntroduce";
 import ShopFooter from "./ShopFooter";
 import ShopProduct from "./ShopProduct";
 import {useRouter} from "next/router";
-import ShopItemDetail from "./detail/ShopItemDetail";
+import ShopItemDetail from "../detail/ShopItemDetail";
 
 const ShopMain = () : JSX.Element => {
     const router = useRouter();
