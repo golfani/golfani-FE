@@ -1,0 +1,115 @@
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 1080px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.year_txt {
+    display: block;
+    font-size: 14px;
+    letter-spacing: -0.5px;
+    opacity: 0.4;
+    margin-bottom: 15px;
+}
+
+.info_box {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 40px;
+    right: 10px;
+}
+
+.info_txt {
+    display: inline-block;
+    margin-left: 1px;
+    font-size: 11px;
+    letter-spacing: -0.5px;
+    opacity: 0.5;
+}
+
+.month_box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 100px;
+    width: 15%;
+    margin-bottom: 30px;
+}
+
+.arrow_icon {
+    opacity: 0.3;
+    cursor: pointer;
+}
+
+.month_txt {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.calendar_box {
+    width: 100%;
+    max-width: 1080px;
+}
+
+.day_header_box {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eff0f2;
+}
+
+.day_box {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+    height: 70px;
+}
+
+
+.day_txt {
+    flex: 1;
+    height: 30px;
+    text-align: center;
+}
+
+.day_txt:nth-child(1) {
+    color: #ff6969;
+}
+
+.day_txt:nth-child(7) {
+    color: #2196F3;
+}
+
+.date_box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.date_box:nth-child(1) {
+    color: #ff6969;
+}
+
+.date_box:nth-child(7) {
+    color: #2196F3;
+}
+
+.date_txt {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.reservation_icon {
+    color: #81B147;
+}
+
+.day_box:nth-last-child(1) > .date_box {
+    width: calc(100% / 7);
+    flex: initial;
+}
