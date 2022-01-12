@@ -2,8 +2,8 @@
     margin : 100px;
     text-align: center;
     min-width: 960px;
-    padding: 0 160px;
-    max-width: 1200px;
+    /*padding: 0 160px;*/
+    align-items: center;
     /*background-color: #fffdef;*/
 }
 
@@ -24,7 +24,9 @@
     align-items: center;
     position: relative;
     border: 1px solid #000;
+    margin: auto;
     margin-top:10px;
+    max-width: 1200px;
     padding: 10px 40px;
     background-color: #fffdef;
     cursor:pointer;
@@ -45,8 +47,13 @@
 }
 
 .page_wrap{
+    margin-top :10px;
+    width: 100%;
+}
+
+.page_box{
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-top :10px;
+    max-width: 1200px;
+    margin:auto;
 }

@@ -4,20 +4,22 @@ import ShopItem from "./ShopItem";
 const ShopManageItemList = () : JSX.Element => {
     return(
         <div className={style.container}>
-            <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
+                <div className={style.item_wrap}>
+                        <ShopItem/>
+                        <ShopItem/>
+                        <ShopItem/>
+                        <ShopItem/>
+                        <ShopItem/>
+                        <ShopItem/>
+                        <ShopItem/>
+                        <ShopItem/>
+                        <ShopItem/>
+                        <ShopItem/>
+                        <ShopItem/>
+                        <ShopItem/>
+                        <ShopItem/>
+                        <ShopItem/>
+                </div>
         </div>
     )
 }

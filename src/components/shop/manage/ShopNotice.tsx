@@ -85,9 +85,11 @@ const ShopNotice = () : JSX.Element => {
                     <MoreVertIcon />
                 </div>
                 <div className={style.page_wrap}>
-                    <ArrowBackIosIcon style={{fontSize:'17px'}}/>
-                    <span className={style.notice_insert} onClick={onRegNoticeClickHandler}>공지사항 추가</span>
-                    <ArrowBackIosIcon style={{transform:'rotateY(180deg)',fontSize:'17px'}}/>
+                    <div className={style.page_box}>
+                        <ArrowBackIosIcon style={{fontSize:'17px'}}/>
+                        <span className={style.notice_insert} onClick={onRegNoticeClickHandler}>공지사항 추가</span>
+                        <ArrowBackIosIcon style={{transform:'rotateY(180deg)',fontSize:'17px'}}/>
+                    </div>
                 </div>
             </>
             {openModal && <ShopRegNoticeModal closeModal={closeModal}/>}
