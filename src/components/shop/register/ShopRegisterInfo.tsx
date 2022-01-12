@@ -4,9 +4,9 @@ import {ChangeEvent, CSSProperties, useState} from "react";
 import useShopRegister from "src/store/modules/shopRegister/shopRegisterHook";
 import ShopRegNumCertifyModal from "src/components/modals/shop/ShopRegNumCertifyModal";
 
-const daumPostStyle : CSSProperties = {width : '400px', height : '500px'}
+const daumPostStyle: CSSProperties = {width: '400px', height: '500px'}
 
-const ShopRegisterInfo = () : JSX.Element => {
+const ShopRegisterInfo = (): JSX.Element => {
     const shopRegister = useShopRegister();
     const [openPost, setOpenPost] = useState(false);
     const [openRegNumCertifyModal, setOpenRegNumCertifyModal] = useState(false);
@@ -19,13 +19,14 @@ const ShopRegisterInfo = () : JSX.Element => {
         setOpenPost(true);
     }
 
-    const handleDaumPostClose = (data : any) => {
+    const handleDaumPostClose = (data: any) => {
         setOpenPost(false);
         shopRegister.onSetAddress(data.address);
         shopRegister.onSetSubAddress('');
+        shopRegister.onSetRegionId(data.bcode);
     }
 
-    const handleChangeSubAddress = (e : ChangeEvent<HTMLInputElement>) => {
+    const handleChangeSubAddress = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         shopRegister.onSetSubAddress(value);
     }
@@ -46,7 +47,7 @@ const ShopRegisterInfo = () : JSX.Element => {
                 <textarea
                     className={style.textarea}
                     value={shopRegister.description}
-                    onChange={(e)=> shopRegister.onSetDescription(e.target.value)}
+                    onChange={(e) => shopRegister.onSetDescription(e.target.value)}
                 />
             </div>
             <div className={style.input_box}>

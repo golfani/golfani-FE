@@ -1,23 +1,34 @@
 import style from 'src/components/board/item/boardList.module.css';
 import BoardItem from 'src/components/board/item/BoardItem';
-import {getBoard, IBoardData} from "src/apis/Board";
+import {getBoard, getHotPost, getPinnedPost, IBoardData} from "src/apis/Board";
 import {IBoardTypeProps} from "../BoardMain";
 import {useQuery} from "react-query";
 import {IPages} from "src/domain/Page";
 import {useRouter} from "next/router";
 import {EBoardType} from "src/domain/board";
 import BoardPageNav from "src/components/board/page/BoardPageNav";
-import React from "react";
 
-const BoardList = (boardType : IBoardTypeProps) : JSX.Element => {
+const BoardList = ({boardType}: IBoardTypeProps): JSX.Element => {
     const router = useRouter();
     const {page} = router.query;
 
-    const boardQuery = useQuery<IPages<IBoardData>>(['board', [boardType.boardType,Number(page)]], () => getBoard(boardType.boardType, Number(page), 20), {
-        enabled: boardType.boardType !== EBoardType.HOME
+    const fetchBoard = async () => {
+        if (boardType === EBoardType.HOT) {
+            return await getHotPost(Number(page), 20)
+        } else {
+            return await getBoard(boardType, Number(page), 20);
+        }
+    }
+
+    const boardQuery = useQuery<IPages<IBoardData>>(['board', [boardType, Number(page)]], fetchBoard, {
+        enabled: boardType !== EBoardType.HOME
     });
 
-    return(
+    const pinnedPostQuery = useQuery<IBoardData[]>(['pinned', boardType], () => getPinnedPost(boardType!),{
+        enabled : boardType !== undefined
+    })
+
+    return (
         <div className={style.container}>
             <div className={style.post_box}>
                 <div className={style.title_box}>
@@ -27,6 +38,11 @@ const BoardList = (boardType : IBoardTypeProps) : JSX.Element => {
                     <span className={style.like_txt}>추천</span>
                     <span className={style.visit_txt}>조회</span>
                     <span className={style.date_txt}>작성일</span>
+                </div>
+                <div>
+                    {pinnedPostQuery.data?.map((board) => (
+                        <BoardItem board={board} key={board.id} pinned={true}/>
+                    ))}
                 </div>
                 <div>
                     {boardQuery.data?.totalPages ?

@@ -1,11 +1,10 @@
 import style from './entireItem.module.css';
-import * as faker from "faker";
 
 const EntireItem = () : JSX.Element => {
     return (
         <div>
             <div className={style.item_box}>
-                <img className={style.img} src={faker.image.avatar()}/>
+                <img className={style.img}/>
                 <div className={style.main_box}>
                     <span className={style.category_txt}>아이언</span>
                     <span className={style.brand_txt}>Mizuno</span>
@@ -15,7 +14,7 @@ const EntireItem = () : JSX.Element => {
                 <span className={style.price_txt}>169,000 원</span>
             </div>
             <div className={style.item_box}>
-                <img className={style.img} src={faker.image.avatar()}/>
+                <img className={style.img}/>
                 <div className={style.main_box}>
                     <span className={style.category_txt}>아이언</span>
                     <span className={style.brand_txt}>Mizuno</span>
@@ -25,7 +24,7 @@ const EntireItem = () : JSX.Element => {
                 <span className={style.price_txt}>169,000 원</span>
             </div>
             <div className={style.item_box}>
-                <img className={style.img} src={faker.image.avatar()}/>
+                <img className={style.img}/>
                 <div className={style.main_box}>
                     <span className={style.category_txt}>아이언</span>
                     <span className={style.brand_txt}>Mizuno</span>
