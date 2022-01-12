@@ -7,16 +7,19 @@ import Modal from "../Modal";
 import {SHOP_REGISTER_STATUS} from "src/domain/Shop";
 import useShopRegister from "src/store/modules/shopRegister/shopRegisterHook";
 import ShopRegisterCertify from "src/components/shop/register/ShopRegisterCertify";
+import {IShopDto, registerShop} from "src/apis/Shop";
+import {getCookie} from "src/utils/cookieUtil";
 
 interface IShopRegisterModalProps {
-    setModalOpen : (state : boolean) => void
+    setModalOpen: (state: boolean) => void
 }
 
-const ShopRegisterModal = (props : IShopRegisterModalProps) : JSX.Element => {
+const ShopRegisterModal = (props: IShopRegisterModalProps): JSX.Element => {
     const shopRegister = useShopRegister();
     const modalRef = useRef<HTMLDivElement>(null)
     const [messageModalOpen, setMessageModalOpen] = useState(false);
     const [titleMsg, setTitleMsg] = useState('스토어 등록');
+    const userId = getCookie('userId');
 
     const onCloseModal = () => {
         props.setModalOpen(false);
@@ -40,7 +43,7 @@ const ShopRegisterModal = (props : IShopRegisterModalProps) : JSX.Element => {
         }
     }
 
-    const handleClickNextButton = () => {
+    const handleClickNextButton = async () => {
         switch (shopRegister.step) {
             case SHOP_REGISTER_STATUS.INFO:
                 shopRegister.checkValidInputs() ? shopRegister.onSetStep(SHOP_REGISTER_STATUS.IMAGE) : alert('정보를 입력해 주세요');
@@ -48,18 +51,39 @@ const ShopRegisterModal = (props : IShopRegisterModalProps) : JSX.Element => {
             case SHOP_REGISTER_STATUS.IMAGE:
                 shopRegister.img.length ? shopRegister.onSetStep(SHOP_REGISTER_STATUS.CERTIFY) : alert('대표사진을 등록해 주세요');
                 break;
+            case SHOP_REGISTER_STATUS.CERTIFY:
+                await fetchRegisterShop();
+                break;
         }
     }
 
     const fetchRegisterShop = async () => {
         //todo
+        try {
+            const shop: Partial<IShopDto> = {
+                isApproved: false,
+                userId: userId,
+                shopName: shopRegister.shopName,
+                description: shopRegister.description,
+                location: shopRegister.address,
+                subLocation: shopRegister.subAddress,
+                regionId : shopRegister.regionId,
+                registrationNumber: shopRegister.registrationNumber,
+                telephone: shopRegister.contactFirst + '-' + shopRegister.contactMiddle + '-' + shopRegister.contactLast
+            }
+            await registerShop(shop, shopRegister.img[0], shopRegister.certifyImg[0]);
+            await onCloseModal();
+            alert('스토어 등록 신청이 완료되었습니다.');
+        } catch (e) {
+
+        }
     }
 
-    handleClickRefOutSide(modalRef,onMessageModalShow);
+    handleClickRefOutSide(modalRef, onMessageModalShow);
 
     useEffect(() => {
         return () => shopRegister.onInitState();
-    },[]);
+    }, []);
 
     useEffect(() => {
         switch (shopRegister.step) {
@@ -73,7 +97,7 @@ const ShopRegisterModal = (props : IShopRegisterModalProps) : JSX.Element => {
                 setTitleMsg('사업자등록증 등록');
                 break;
         }
-    },[shopRegister.step])
+    }, [shopRegister.step])
 
     return (
         <div className={style.container}>
@@ -96,7 +120,8 @@ const ShopRegisterModal = (props : IShopRegisterModalProps) : JSX.Element => {
                     {shopRegister.step === SHOP_REGISTER_STATUS.IMAGE && <ShopRegisterImage/>}
                     {shopRegister.step === SHOP_REGISTER_STATUS.CERTIFY && <ShopRegisterCertify/>}
                 </div>
-                {messageModalOpen && <Modal message={'스토어 등록을 취소하시겠습니까?'} setModalOpen={setMessageModalOpen} successCallback={onCloseModal}/>}
+                {messageModalOpen && <Modal message={'스토어 등록을 취소하시겠습니까?'} setModalOpen={setMessageModalOpen}
+                                            successCallback={onCloseModal}/>}
             </div>
         </div>
     );

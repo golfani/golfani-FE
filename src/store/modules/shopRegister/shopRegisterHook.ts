@@ -10,6 +10,7 @@ import {
     setContactMiddle,
     setContactLast,
     setStep,
+    setRegionId,
     addImg,
     deleteImg,
     IShopRegisterImg,
@@ -31,6 +32,7 @@ const useShopRegister = () => {
     const description = useSelector((state : RootState) => state.shopRegister.inputs.description);
     const certifyImg = useSelector((state : RootState) => state.shopRegister.certifyImg);
     const registrationNumber = useSelector((state : RootState) => state.shopRegister.inputs.registrationNumber);
+    const regionId = useSelector((state : RootState) => state.shopRegister.inputs.regionId);
 
     const dispatch = useDispatch();
 
@@ -68,6 +70,10 @@ const useShopRegister = () => {
 
     const onSetStep = (step : SHOP_REGISTER_STATUS) => {
         dispatch(setStep(step));
+    }
+
+    const onSetRegionId = (regionId : number) => {
+        dispatch(setRegionId(regionId));
     }
 
     const onAddImg = (img : IShopRegisterImg) => {
@@ -110,6 +116,7 @@ const useShopRegister = () => {
         contactLast,
         certifyImg,
         registrationNumber,
+        regionId,
         onInitState,
         onSetDescription,
         onSetShopName,
@@ -122,6 +129,7 @@ const useShopRegister = () => {
         onSetContactFirst,
         onSetContactMiddle,
         onSetContactLast,
+        onSetRegionId,
         onAddCertifyImg,
         onDeleteCertifyImg,
         onSetRegistrationNumber,
