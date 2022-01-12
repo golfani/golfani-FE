@@ -9,7 +9,7 @@ const ShopManageMenu = () : JSX.Element => {
                 <Link href="#notice" scroll={true}>
                     <div className={style.menu_box} style={{backgroundColor: "#C4F2CE"}}>공지사항</div>
                 </Link>
-                <div className={style.menu_box} style={{backgroundColor: "#9FEBED"}}>판매상품 등록</div>
+                <div className={style.menu_box} style={{backgroundColor: "#9FEBED"}}>판매상품 관리</div>
                 <div className={style.menu_box} style={{backgroundColor: "#80CEBE"}}>광고배너</div>
                 <div className={style.menu_box} style={{backgroundColor: "#C3E2DD"}}>방문예약 관리</div>
                 <div className={style.menu_box}></div>
