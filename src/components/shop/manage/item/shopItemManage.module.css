@@ -1,5 +1,4 @@
 .container{
-    margin:100px;
     text-align: center;
 }
 
@@ -38,3 +37,8 @@
     line-height: 50px;
     font-weight: bold;
 }
+
+/*.item_list_wrap{*/
+/*    width: 100%;*/
+/*    align-items: center;*/
+/*}*/

@@ -1,4 +1,4 @@
-import style from 'src/components/shop/manage/shopItemManage.module.css';
+import style from 'src/components/shop/manage/item/shopItemManage.module.css';
 import {useState} from "react";
 import ShopManageItemList from "./ShopManageItemList";
 
