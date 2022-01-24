@@ -1,0 +1,14 @@
+.container{
+    background-color: #fff;
+    margin-top: 20px;
+}
+
+.item_wrap{
+    display: flex;
+    flex-wrap: wrap;
+    margin : auto;
+    max-width: 1220px;
+    min-width: 1220px;
+    padding:10px;
+    justify-content: center;
+}

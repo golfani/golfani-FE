@@ -1,0 +1,41 @@
+.container{
+
+}
+
+
+.statistic_time_wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.statistic_time{
+    font-size: 17px;
+    text-align: center;
+    opacity: 0.5;
+    margin-right: 5px;
+}
+
+.visit_wrap{
+    /*margin-top:10px;*/
+    /*padding: 20px 100px;*/
+    align-items: center;
+}
+
+.visit_txt{
+    font-size:20px;
+    font-weight: bold;
+}
+
+.view_box{
+    min-width: 789px;
+    height: 400px;
+    background-color: #ebecef;
+}
+
+.box_wrap{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px;
+}
