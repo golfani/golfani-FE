@@ -1,0 +1,29 @@
+.container{
+
+}
+
+.time_box{
+    width: 90px;
+    height: 40px;
+    border: 1px solid #000;
+    border-radius: 5%;
+    margin:2px;
+    line-height: 40px;
+    cursor:pointer;
+    background-color: #9bd2ff;
+}
+
+.time_box_sold{
+    width: 90px;
+    height: 40px;
+    border: 1px solid #000;
+    border-radius: 5%;
+    margin:2px;
+    line-height: 40px;
+    background-color: #f0f2f5;
+    opacity: 0.5;
+}
+
+.time_box:hover{
+    transform: scale(1.1);
+}

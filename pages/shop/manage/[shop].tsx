@@ -10,6 +10,7 @@ const ShopManagePage = () : JSX.Element =>{
             <Navbar/>
             <ShopInfo/>
             <ShopManageMenu/>
+            <ShopNotice/>
         </div>
     )
 }
