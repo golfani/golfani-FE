@@ -1,0 +1,61 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    align-items: center;
+}
+
+.item_table{
+    display: flex;
+    border: 1px solid #000;
+    padding:10px
+}
+
+.item_img{
+    width: 150px;
+    height: 100px;
+}
+
+.item_info{
+    display: flex;
+    min-width: 400px;
+    flex-direction: column;
+}
+
+.item_name_txt{
+    font-size:17px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.item_price_txt{
+    font-size:17px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.item_condition_txt{
+    font-size:17px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.question_box{
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    height: 100px;
+    border: 1px solid #000;
+}
+
+.connect_btn{
+    width: 80px;
+    height: 30px;
+    padding: 2px;
+    border: 1px solid #000;
+    text-align: center;
+    margin-top: 10px;
+    border-radius: 10%;
+    background-color: #fff44f;
+    cursor: pointer;
+}

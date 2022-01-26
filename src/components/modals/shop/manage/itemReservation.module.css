@@ -1,0 +1,202 @@
+.container{
+    display: flex;
+    top: 0; right: 0; left: 0; bottom:0 ;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0, 0.2);
+    position:fixed;
+}
+
+.modal_box{
+    display: flex;
+    flex-direction: column;
+    max-width: 1080px;
+    height: 600px;
+    /*margin: 200px auto;*/
+    background-color: #fff;
+    box-shadow: 0px 0px 5px rgba(0,0,0, 0.3);
+    border-radius: 8px;
+    position: relative;
+}
+
+.header_box{
+    display: flex;
+    width: 100%;
+}
+
+.date_box{
+    display: flex;
+    width:100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.date_txt{
+    font-size: 21px;
+    border-bottom: 1px solid #000;
+    margin: 0 20px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.arrow_icon{
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.reservation_time_txt{
+    cursor: pointer;
+    text-align: center;
+    flex: initial;
+}
+
+.reservation_info_txt{
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    flex:initial;
+    background-color: #fff;
+    font-weight: 500;
+    border-bottom: 1px solid #ddd;
+}
+
+.table_wrap{
+    display: flex;
+    margin-top: 10px    ;
+    height: 100%;
+}
+
+.time_table{
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #000;
+    width: 100%;
+    height: 550px;
+    flex:2;
+    border-right: 1px solid #8a8a8a;
+}
+
+.morning_box{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    flex: 3;
+    border-bottom: 1px solid #000;
+}
+
+.lunch_box{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    flex: 1;
+    border-bottom: 1px solid #000;
+}
+
+.evening_box{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    flex: 3;
+    border-bottom: 1px solid #000;
+}
+
+.time_txt{
+    font-size: 17px;
+    font-weight: 500;
+    margin: 5px;
+}
+
+.time_box{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.info_table{
+    display: flex;
+    border-top: 1px solid #000;
+    flex-direction: column;
+    height: 550px;
+    flex:3;
+    /*align-items: center;*/
+}
+
+.info_box{
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+}
+
+.reservation_list_box{
+    display: flex;
+    padding: 0px 30px;
+    cursor:pointer;
+}
+
+.reservation_item_box{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 5px;
+    margin-top: 10px;
+    background-color: #fff;
+}
+
+.reservation_name_txt{
+    font-size: 14px;
+    width: 80px;
+    text-align: center;
+    padding: 5px;
+}
+
+.reservation_name_txt:hover{
+    background-color: #f0f2f5;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.reservation_item_txt{
+    font-size: 17px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.reservation_name_txt_click{
+    background-color: #f0f2f5;
+    font-size: 14px;
+    width: 80px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: #222222;
+}
+
+.reservation_date_txt{
+    margin-left: 10px;
+}
+
+.cancel_btn{
+    position: absolute;
+    top:-10px;left:0px;
+    padding: 10px;
+    width: 100px;
+    height: 80px;
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.confirm_btn{
+    position: absolute;
+    top:-10px;right:0px;
+    padding: 10px;
+    width: 100px;
+    height: 80px;
+    font-size: 16px;
+    color: #0A4A95;
+    font-weight: bold;
+}
