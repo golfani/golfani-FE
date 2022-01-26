@@ -20,6 +20,7 @@
     "@material-ui/icons": "^5.0.0-beta.1",
     "@reduxjs/toolkit": "^1.6.1",
     "@stomp/stompjs": "^6.1.2",
+    "@types/navermaps": "^3.0.13",
     "@types/react-redux": "^7.1.18",
     "@types/react-slick": "^0.23.5",
     "@types/redux-logger": "^3.0.9",
