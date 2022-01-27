@@ -14,7 +14,7 @@ export interface IShopDto {
     telephone: string
     location: string
     subLocation: string
-    regionId: number
+    regCode: number
     description: string
     latitude: number
     longitude: number

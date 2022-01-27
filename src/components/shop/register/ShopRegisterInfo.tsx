@@ -23,7 +23,7 @@ const ShopRegisterInfo = (): JSX.Element => {
         setOpenPost(false);
         shopRegister.onSetAddress(data.address);
         shopRegister.onSetSubAddress('');
-        shopRegister.onSetRegionId(data.bcode);
+        shopRegister.onSetRegCode(data.bcode);
     }
 
     const handleChangeSubAddress = (e: ChangeEvent<HTMLInputElement>) => {

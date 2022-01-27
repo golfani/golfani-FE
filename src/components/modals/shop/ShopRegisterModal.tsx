@@ -67,7 +67,7 @@ const ShopRegisterModal = (props: IShopRegisterModalProps): JSX.Element => {
                 description: shopRegister.description,
                 location: shopRegister.address,
                 subLocation: shopRegister.subAddress,
-                regionId : shopRegister.regionId,
+                regCode : shopRegister.regCode,
                 registrationNumber: shopRegister.registrationNumber,
                 telephone: shopRegister.contactFirst + '-' + shopRegister.contactMiddle + '-' + shopRegister.contactLast
             }
