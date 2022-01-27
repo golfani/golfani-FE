@@ -39,3 +39,13 @@ export const registerShop = async (shopDto: Partial<IShopDto>, shopImg: IShopReg
     const response = await securityAxios.post(API_URL, formData);
     return response.data;
 }
+
+export const searchShop = async (regCode: number, shopName?: string, page = 0, size = 4) => {
+    let response;
+    if (shopName) {
+        response = await axios.get(`${API_URL}/search?payload=${shopName}&regCode=${regCode}&page=${page}&size=${size}`);
+    } else {
+        response = await axios.get(`${API_URL}/search?regCode=${regCode}&page=${page}&size=${size}`);
+    }
+    return response.data;
+}
