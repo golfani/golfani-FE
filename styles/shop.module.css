@@ -1,6 +1,7 @@
 .container {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     position: relative;
 }
@@ -11,17 +12,6 @@
     align-items: center;
     width: 100%;
     margin-top: 100px;
-}
-
-.shop_txt {
-    display: inline-block;
-    width: 100%;
-    color: white;
-    background-color: black;
-    font-size: 25px;
-    font-weight: 500;
-    padding: 10px;
-    margin: 10px 0;
 }
 
 .shop_add_container {

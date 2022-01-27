@@ -1,6 +1,9 @@
 import style from './shopStoreList.module.css';
 import ShopStoreItem from "./ShopStoreItem";
 import NaverMapInit from "src/components/naver/NaverMapInit";
+import {InfiniteData, useInfiniteQuery} from "react-query";
+import {IShopDto, searchShop} from "src/apis/Shop";
+import {IPages} from "src/domain/Page";
 
 export interface IShopStoreDto {
     id: number
@@ -36,7 +39,13 @@ const dummyData: IShopStoreDto[] = [
     },
 ]
 
-const ShopStoreList = (): JSX.Element => {
+interface IShopStoreListProps {
+    regCode: number
+}
+
+const ShopStoreList = ({regCode}: IShopStoreListProps): JSX.Element => {
+    const regSearchShopQuery = useInfiniteQuery<InfiniteData<IPages<IShopDto>>>(['regSearchShop', regCode], () => searchShop(regCode));
+
     return (
         <div className={style.container}>
             <NaverMapInit/>
