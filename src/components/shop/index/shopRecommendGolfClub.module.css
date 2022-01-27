@@ -1,22 +1,20 @@
 .container {
+    display: flex;
+    flex-direction: column;
+    width: 1240px;
     margin-bottom: 80px;
 }
 
 .recommend_title_txt {
     display: inline-block;
-    width: 100%;
-    text-align: center;
     font-size: 30px;
     font-weight: 700;
     letter-spacing: -1.0px;
-    color: #333;
     margin-bottom: 15px;
 }
 
 .select_box {
-    width: 100%;
     display: flex;
-    justify-content: center;
     margin-bottom: 25px;
 }
 
@@ -27,6 +25,8 @@
     font-weight: 500;
     font-size: 16px;
     letter-spacing: -0.5px;
+    border: 1px solid #e0e1e3;
+    border-radius: 25px;
 }
 
 .select_btn:hover {
@@ -49,4 +49,11 @@
 
 .item_container {
     display: flex;
+}
+
+.item_row_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: auto;
 }

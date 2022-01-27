@@ -1,6 +1,6 @@
 import style from './shopStoreList.module.css';
 import ShopStoreItem from "./ShopStoreItem";
-import NaverMapInit from "../../naver/NaverMapInit";
+import NaverMapInit from "src/components/naver/NaverMapInit";
 
 export interface IShopStoreDto {
     id: number
@@ -39,9 +39,9 @@ const dummyData: IShopStoreDto[] = [
 const ShopStoreList = (): JSX.Element => {
     return (
         <div className={style.container}>
+            <NaverMapInit/>
             <span className={style.title_txt}>검색결과</span>
             <span className={style.store_list_txt}>4개 매장 리스트</span>
-            <NaverMapInit/>
             <div className={style.store_item_container}>
                 {dummyData.map((store) => (
                     <ShopStoreItem key={store.id} store={store}/>

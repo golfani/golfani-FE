@@ -3,7 +3,7 @@ import Script from 'next/script'
 const NaverMapInit = (): JSX.Element => {
     const clientId = 'tekcukac4f';
 
-    const naverCallback = () => {
+    const naverCallback = async () => {
         const map = new naver.maps.Map('map', {
             center: new naver.maps.LatLng(37.3089444, 127.0025879),
             zoom: 15
@@ -34,7 +34,7 @@ const NaverMapInit = (): JSX.Element => {
         <div>
             <Script src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${clientId}`}
                     onLoad={naverCallback}/>
-            <div id='map' style={{width: '100%', height: 400, borderRadius: 12}}>
+            <div id='map' style={{width: '100%', height: 400}}>
 
             </div>
         </div>
