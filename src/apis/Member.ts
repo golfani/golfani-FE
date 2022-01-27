@@ -5,7 +5,7 @@ import {securityAxios} from "src/security/axios";
 
 export interface IMember {
     id : number
-    locationId : number
+    regCode: number
     password : string
     role : string
     userId : string
@@ -134,7 +134,7 @@ export const findUserPw = async (userId : string, email : string) => {
  * @param userId
  */
 export const getMember = async (userId : string) => {
-    const response = await axios.get(`${API_URL}/${userId}`);
+    const response = await axios.get<IMember>(`${API_URL}/${userId}`);
     return response.data;
 }
 
@@ -202,5 +202,14 @@ export const registerOauthSignUp = async (member : Partial<IMember>) => {
  */
 export const searchByUserId = async (userId : string) => {
     const response = await axios.get(`${API_URL}/search/${userId}`);
+    return response.data;
+}
+
+/**
+ * 유저 RegCode 변경
+ * @param member
+ */
+export const modifyRegCode = async (member : IMember) => {
+    const response = await securityAxios.put(`${API_URL}/regCode`, member);
     return response.data;
 }
