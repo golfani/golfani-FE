@@ -1,12 +1,13 @@
 import ShopSearchMenu from "./ShopSearchMenu";
 import ShopMap from "./ShopMap";
 import ShopStoreList from "./ShopStoreList";
+import style from './shopSearch.module.css'
 
-const ShopSearch = () : JSX.Element => {
+const ShopSearch = (): JSX.Element => {
     return (
-        <div>
-            <ShopMap/>
-            <ShopSearchMenu/>
+        <div className={style.container}>
+            {/*<ShopMap/>*/}
+            {/*<ShopSearchMenu/>*/}
             <ShopStoreList/>
         </div>
     );

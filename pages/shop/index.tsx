@@ -45,7 +45,7 @@ const Shop = (): JSX.Element => {
         <div className={style.container}>
             <Navbar/>
             <div className={style.shop_main_box}>
-                <span className={style.shop_txt}>SHOP</span>
+                {/*<span className={style.shop_txt}>SHOP</span>*/}
                 <ShopSearch/>
                 <ShopHotStoreList/>
                 <ShopRecommendGolfClub/>
