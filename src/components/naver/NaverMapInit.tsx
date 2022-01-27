@@ -1,9 +1,11 @@
 import Script from 'next/script'
+import {useEffect} from "react";
 
 const NaverMapInit = (): JSX.Element => {
     const clientId = 'tekcukac4f';
 
     const naverCallback = async () => {
+        console.log('naverCallback');
         const map = new naver.maps.Map('map', {
             center: new naver.maps.LatLng(37.3089444, 127.0025879),
             zoom: 15
@@ -29,6 +31,11 @@ const NaverMapInit = (): JSX.Element => {
             infoWindow.getMap() ? infoWindow.close() : infoWindow.open(map, marker)
         })
     }
+
+    useEffect(() => {
+        if (typeof naver != "undefined")
+            naver && naverCallback();
+    },[])
 
     return (
         <div>
