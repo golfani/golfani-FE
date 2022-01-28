@@ -40,7 +40,7 @@ const ShopSearch = (): JSX.Element => {
 
     return (
         <div className={style.container}>
-            <span className={style.title_txt}>지역기반검색 서비스</span>
+            <span className={style.title_txt}>지역기반 검색 서비스</span>
             {/*<ShopMap/>*/}
             {/*<ShopSearchMenu/>*/}
             {userId ? regCode ? <ShopStoreList regCode={regCode}/>

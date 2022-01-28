@@ -4,7 +4,7 @@
     top: 0;
     display: flex;
     flex-direction: column;
-    width: 350px;
+    width: 400px;
     height: 100%;
     border: 1px solid #ccc;
     background-color: #fff;
@@ -17,7 +17,7 @@
     top: 0;
     display: flex;
     flex-direction: column;
-    width: 350px;
+    width: 400px;
     height: 100%;
     border: 1px solid #ccc;
     background-color: #fff;
@@ -93,7 +93,7 @@
 
 @keyframes slideIn {
     from {
-        right: -350px
+        right: -400px
     }
     to {
         right: 0;
@@ -105,6 +105,6 @@
         right: 0;
     }
     to {
-        right: -350px;
+        right: -400px;
     }
 }
