@@ -1,41 +1,110 @@
 .container {
-    position: absolute;
-    right: 70px;
+    position: fixed;
+    right: 0;
     top: 0;
     display: flex;
     flex-direction: column;
-    width: 300px;
-    height: 184px;
+    width: 350px;
+    height: 100%;
     border: 1px solid #ccc;
     background-color: #fff;
+    animation: 0.5s slideIn forwards;
+}
+
+.container_close {
+    position: fixed;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    animation: 0.2s slideOut forwards;
+}
+
+.title_box {
+    display: flex;
+    height: 50px;
+    padding: 0 15px;
+    align-items: center;
+    border-bottom: 1px solid #eff0f2;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.title_txt {
+    display: inline-block;
+    margin-left: 15px;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.item_container {
+    margin-top: 15px;
+    padding: 0 15px;
+    overflow-y: auto;
 }
 
 .item_box {
-    flex: 1;
+    position: relative;
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 0 15px;
+    border: 1px solid #eff0f2;
+    margin-bottom: 15px;
+    cursor: pointer;
 }
 
-.item_box:nth-child(2n) {
-    background-color: #eff0f2;
+.item_box:hover {
+    border: 1px solid black;
 }
-
 
 .item_img {
     width: 60px;
+    margin-right: 10px;
 }
 
 .item_txt {
+    flex: 1;
     font-size: 14px;
     font-weight: 500;
     display: inline-block;
 }
 
-.move_btn {
-    margin-left: auto;
-    color: #2196F3;
-    font-weight: 500;
-    font-size: 13px;
+.delete_btn {
+    display: none;
+    position: absolute;
+    background-color: black;
+    color: white;
+    width: 15px;
+    height: 15px;
+    top: 0;
+    right: 0;
+}
+
+.item_box:hover > .delete_btn {
+    display: initial;
+}
+
+@keyframes slideIn {
+    from {
+        right: -350px
+    }
+    to {
+        right: 0;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        right: 0;
+    }
+    to {
+        right: -350px;
+    }
 }
