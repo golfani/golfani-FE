@@ -3,21 +3,40 @@ import Navbar from "src/components/common/navbar/Navbar";
 import ShopSearch from "src/components/shop/index/ShopSearch";
 import ShopHotStoreList from "src/components/shop/index/ShopHotStoreList";
 import ShopRecommendGolfClub from "src/components/shop/index/ShopRecommendGolfClub";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ShopRegisterModal from "src/components/modals/shop/ShopRegisterModal";
 import ShopFloatingMenu from "src/components/shop/floatingMenu/ShopFloatingMenu";
+import {getCookie} from "src/utils/cookieUtil";
 
 const Shop = (): JSX.Element => {
     const [openShopRegisterModal, setOpenShopRegisterModal] = useState(false);
-    const [shopRegisterMenuOpen, setShopRegisterMenuOpen] = useState(true);
+    const [shopRegisterMenuOpen, setShopRegisterMenuOpen] = useState<boolean>(false);
+    const userId = getCookie('userId');
 
     const handleClickShopAddButton = () => {
         setOpenShopRegisterModal(true);
     }
 
     const handleClickCloseRegisterMenuButton = () => {
-        setShopRegisterMenuOpen(false);
+        if (confirm("스토어 등록이 사이트에서 표시되지 않습니다.\n스토어 등록시 마이페이지를 이용해 주세요.")) {
+            window.localStorage.setItem('storeRegister', 'true');
+            setShopRegisterMenuOpen(false);
+        }
+        else {
+        }
     }
+
+    const checkShopRegister = () : boolean => {
+        return !!window.localStorage.getItem('storeRegister');
+    }
+
+    useEffect(()=> {
+        if (checkShopRegister()) {
+            setShopRegisterMenuOpen(false);
+        } else {
+            setShopRegisterMenuOpen(true);
+        }
+    },[])
 
     return (
         <div className={style.container}>
@@ -28,7 +47,7 @@ const Shop = (): JSX.Element => {
                 <ShopRecommendGolfClub/>
                 {openShopRegisterModal && <ShopRegisterModal setModalOpen={setOpenShopRegisterModal}/>}
             </div>
-            {shopRegisterMenuOpen &&
+            {shopRegisterMenuOpen && userId &&
             <div className={style.shop_add_container}>
                 <button className={style.close_btn} onClick={handleClickCloseRegisterMenuButton}>X</button>
                 <div className={style.shop_add_box} onClick={handleClickShopAddButton}>
