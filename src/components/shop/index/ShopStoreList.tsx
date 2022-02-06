@@ -45,6 +45,7 @@ interface IShopStoreListProps {
 
 const ShopStoreList = ({regCode}: IShopStoreListProps): JSX.Element => {
     const regSearchShopQuery = useInfiniteQuery<InfiniteData<IPages<IShopDto>>>(['regSearchShop', regCode], () => searchShop(regCode));
+    console.log(regSearchShopQuery.data);
 
     return (
         <div className={style.container}>

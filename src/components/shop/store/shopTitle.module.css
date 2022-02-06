@@ -1,11 +1,9 @@
 .container {
-    width: 100%;
+    width: 1240px;
     height: 200px;
     display: flex;
     align-items: center;
     margin-top: 80px;
-    padding: 0 160px;
-    border-bottom: 1px solid #e2e2e2;
 }
 
 .shop_name_title_txt {
