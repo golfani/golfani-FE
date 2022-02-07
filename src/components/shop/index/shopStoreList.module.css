@@ -29,3 +29,34 @@
     display: flex;
     justify-content: space-between;
 }
+
+.page_box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+
+.page_number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 35px;
+    margin: 0 5px;
+    cursor: pointer;
+    color: #8f8f8f;
+}
+
+.page_number_active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 37px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-weight: 500;
+    border-bottom: 2px solid black;
+}
