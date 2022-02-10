@@ -15,7 +15,6 @@ import Head from "next/head";
 import useFCM from "src/hooks/fcmHook";
 import NotificationPermissionModal from "src/components/modals/NotificationPermissionModal";
 import {isMobile} from "src/utils/detectDevice";
-import {userInfoPostMessage} from "../src/utils/mobile";
 
 const queryClient = new QueryClient();
 const reduxStore = store();
@@ -59,7 +58,6 @@ function MyApp({Component, pageProps}: AppProps) {
 
     useEffect(() => {
         if(userId) {
-            userInfoPostMessage();
             // 로그인 상태일시 silentRefresh 진행
             onSilentRefresh(userId);
             // 로그인 상태일시 소켓연결 실행

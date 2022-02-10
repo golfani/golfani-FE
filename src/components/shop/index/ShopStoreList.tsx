@@ -1,49 +1,62 @@
 import style from './shopStoreList.module.css';
 import ShopStoreItem from "./ShopStoreItem";
+import NaverMapInit from "src/components/naver/NaverMapInit";
+import {useInfiniteQuery} from "react-query";
+import {IShopDto, searchShop} from "src/apis/Shop";
+import {IPages} from "src/domain/Page";
+import {useEffect, useState} from "react";
 
-export interface IShopStoreDto {
-    id : number
-    name : string
-    location : string
-    review : number
+interface IShopStoreListProps {
+    regCode: number
 }
 
-const dummyData : IShopStoreDto[] = [
-    {
-        id : 0,
-        name : '골프프렌드 수원 송죽점',
-        location : '수원시 장안구 조원동 16-9',
-        review : 4
-    },
-    {
-        id : 1,
-        name : '수원 골프백화점',
-        location : '수원시 장안구 조원동 16-9',
-        review : 2
-    },
-    {
-        id : 2,
-        name : '아일랜드골프 수원 인계점',
-        location : '수원시 장안구 조원동 16-9',
-        review : 3
-    },
-    {
-        id : 3,
-        name : '골마켓 수원 조원점',
-        location : '수원시 장안구 조원동 16-9',
-        review : 5
-    },
-]
+const ShopStoreList = ({regCode}: IShopStoreListProps): JSX.Element => {
+    const [nowPage, setNowPage] = useState(1)
+    const [page, setPage] = useState(0);
+    const [itemCount, setItemCount] = useState(0);
+    const regSearchShopQuery = useInfiniteQuery<IPages<IShopDto>>(['regSearchShop', regCode], ({pageParam = 0}) => searchShop(regCode, pageParam), {
+        getNextPageParam: (lastPage) => {
+            const currentPage = lastPage.pageable.pageNumber;
+            if (currentPage + 1 >= lastPage.totalPages) {
+                return undefined;
+            }
+            return currentPage + 1;
+        }
+    });
 
-const ShopStoreList = () : JSX.Element => {
+    useEffect(() => {
+        if (regSearchShopQuery.isSuccess) {
+            setPage(regSearchShopQuery.data.pages[0].totalPages);
+            setItemCount(regSearchShopQuery.data.pages[0].totalElements);
+        }
+    }, [regSearchShopQuery.isSuccess]);
+
+    const handleClickPage = async (page: number) => {
+        await regSearchShopQuery.fetchNextPage();
+        setNowPage(page + 1);
+    }
+
     return (
         <div className={style.container}>
+            {regSearchShopQuery.data &&
+            <NaverMapInit regCode={regCode} shopList={regSearchShopQuery.data?.pages[nowPage - 1].content!}/>}
             <span className={style.title_txt}>검색결과</span>
-            <span className={style.store_list_txt}>4개 매장 리스트</span>
+            <span className={style.store_list_txt}>{`${itemCount}개 매장 리스트`}</span>
             <div className={style.store_item_container}>
-            {dummyData.map((store) => (
-                <ShopStoreItem key={store.id} store={store}/>
-            ))}
+                {regSearchShopQuery.data?.pages.map((page, idx) => {
+                    if (idx == nowPage - 1) {
+                        return (
+                            page.content.map((store) => (
+                                <ShopStoreItem key={store.id} store={store}/>
+                            )))
+                    }
+                })}
+            </div>
+            <div className={style.page_box}>
+                {[...Array(page)].map((value, idx) => (
+                    <span key={idx} className={nowPage === idx + 1 ? style.page_number_active : style.page_number}
+                          onClick={() => handleClickPage(idx)}>{idx + 1}</span>
+                ))}
             </div>
         </div>
     );

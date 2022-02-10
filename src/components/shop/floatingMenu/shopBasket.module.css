@@ -1,0 +1,271 @@
+.container {
+    position: fixed;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    width: 550px;
+    height: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    animation: 0.5s slideIn forwards;
+}
+
+.container_close {
+    position: fixed;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    width: 550px;
+    height: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    animation: 0.2s slideOut forwards;
+}
+
+.title_box {
+    display: flex;
+    height: 50px;
+    padding: 0 15px;
+    align-items: center;
+    border-bottom: 1px solid #eff0f2;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.title_txt {
+    display: inline-block;
+    margin-left: 15px;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.describe_box {
+    display: flex;
+    margin-top: 10px;
+    padding: 0 15px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.d_product_txt {
+    display: inline-block;
+    width: 270px;
+    margin-right: 20px;
+    text-align: center;
+}
+
+.d_price_txt {
+    display: inline-block;
+    width: 60px;
+    margin-right: 30px;
+    text-align: center;
+}
+
+.d_quantity_txt {
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+}
+
+.d_total_txt {
+    display: inline-block;
+    width: 65px;
+    margin-left: auto;
+    text-align: center;
+}
+
+.item_container {
+    flex: 1;
+    margin-top: 15px;
+    padding: 0 15px;
+    overflow-y: auto;
+    border-bottom: 1px solid #eff0f2;
+}
+
+.item_box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/*.item_box:hover {*/
+/*    border: 1px solid black;*/
+/*}*/
+
+.item_img {
+    width: 60px;
+    margin-right: 10px;
+}
+
+.item_info_box {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 60px;
+    margin-right: 20px;
+}
+
+.item_brand_txt {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.item_txt {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    max-height: 40px;
+    margin-bottom: 3px;
+    overflow: hidden;
+    line-height: 20px;
+}
+
+.item_option_txt {
+    font-size: 13px;
+    opacity: 0.6;
+}
+
+.item_price_txt {
+    display: inline-block;
+    width: 60px;
+    font-size: 13px;
+    margin-right: 30px;
+    text-align: center;
+}
+
+.item_quantity_box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 40px;
+    height: 25px;
+    border: 1px solid black;
+    padding: 0 5px;
+}
+
+.item_quantity_txt {
+    display: inline-block;
+    font-size: 13px;
+    width: 15px;
+}
+
+.item_quantity_txt:before {
+    top: 5px;
+    right: 5px;
+    border-bottom: 5px solid #666;
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    cursor: pointer;
+}
+
+.item_quantity_txt:after {
+    bottom: 5px;
+    right: 5px;
+    border-bottom: 5px solid #666;
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    cursor: pointer;
+    transform: scaleY(-1);
+}
+
+.item_total_price_txt {
+    display: inline-block;
+    font-size: 13px;
+    color: #2196F3;
+    font-weight: 500;
+    margin-left: auto;
+    width: 65px;
+    text-align: center;
+}
+
+.result_box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 150px;
+    padding: 10px 15px;
+}
+
+.price_result_box {
+    display: flex;
+    align-items: center;
+}
+
+.price_result_txt {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.total_price_txt {
+    display: inline-block;
+    height: 35px;
+    margin-left: auto;
+    margin-right: 3px;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.won_txt {
+    display: inline-block;
+    font-size: 16px;
+    line-height: 45px;
+    height: 35px;
+}
+
+.result_btn_box {
+    margin-top: auto;
+    display: flex;
+}
+
+.clear_btn {
+    width: 120px;
+    height: 60px;
+    background-color: #de4343;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.order_btn {
+    width: 180px;
+    height: 60px;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: auto;
+}
+
+@keyframes slideIn {
+    from {
+        right: -500px
+    }
+    to {
+        right: 0;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        right: 0;
+    }
+    to {
+        right: -500px;
+    }
+}

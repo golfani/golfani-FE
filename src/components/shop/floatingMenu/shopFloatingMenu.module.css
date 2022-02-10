@@ -1,9 +1,11 @@
 .container {
     position: fixed;
-    right: 10px;
-    bottom: 150px;
+    right: 15px;
+    bottom: 120px;
     width: 60px;
-    border: 1px solid #ccc;
+    border-radius: 50px;
+    z-index: 100;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
 }
 
 .menu_box {
@@ -34,4 +36,12 @@
     cursor: pointer;
     text-align: center;
     user-select: none;
+}
+
+.menu_list:nth-child(1) > .menu_txt {
+    border-radius: 50px 50px 0 0;
+}
+
+.menu_list:nth-last-child(1) > .menu_txt {
+    border-radius: 0 0 50px 50px;
 }

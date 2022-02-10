@@ -15,7 +15,7 @@ export interface IShopRegisterInputs {
     contactMiddle: string
     contactLast: string
     registrationNumber: string
-    regionId: number
+    regCode: number
 }
 
 interface IShopRegisterState {
@@ -37,7 +37,7 @@ const initialState: IShopRegisterState = {
         contactMiddle: '',
         contactLast: '',
         registrationNumber: '',
-        regionId: 0
+        regCode: 0
     },
     certifyImg: []
 }
@@ -58,7 +58,7 @@ export const shopRegisterSlice = createSlice({
                 contactMiddle: '',
                 contactLast: '',
                 registrationNumber: '',
-                regionId: 0
+                regCode: 0
             };
             state.certifyImg = [];
         },
@@ -89,8 +89,8 @@ export const shopRegisterSlice = createSlice({
         setRegistrationNumber(state: IShopRegisterState, action: PayloadAction<string>) {
             state.inputs.registrationNumber = action.payload;
         },
-        setRegionId(state: IShopRegisterState, action: PayloadAction<number>) {
-            state.inputs.regionId = action.payload;
+        setRegCode(state: IShopRegisterState, action: PayloadAction<number>) {
+            state.inputs.regCode = action.payload;
         },
         addImg(state: IShopRegisterState, action: PayloadAction<IShopRegisterImg>) {
             state.img.push(action.payload);
@@ -118,7 +118,7 @@ export const {
     setContactLast,
     setShopName,
     setStep,
-    setRegionId,
+    setRegCode,
     addImg,
     deleteImg,
     addCertifyImg,

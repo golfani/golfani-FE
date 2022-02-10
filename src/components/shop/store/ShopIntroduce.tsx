@@ -1,7 +1,7 @@
 import ShopPromotion from "./ShopPromotion";
 import ShopNoticeList from "./ShopNoticeList";
 import ShopSpecialList from "./ShopSpecialList";
-import ShopHotList from "../index/ShopHotList";
+import ShopHotList from "./ShopHotList";
 
 const ShopIntroduce = () : JSX.Element => {
     return (

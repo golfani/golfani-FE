@@ -14,11 +14,12 @@ export interface IShopDto {
     telephone: string
     location: string
     subLocation: string
-    regionId: number
+    regCode: number
     description: string
     latitude: number
     longitude: number
     registrationNumber: string
+    imgSrc: string
 }
 
 export const validateRegistrationNumber = async (data: IBusinessData) => {
@@ -37,5 +38,15 @@ export const registerShop = async (shopDto: Partial<IShopDto>, shopImg: IShopReg
     formData.append('shopDto', JSON.stringify(shopDto));
 
     const response = await securityAxios.post(API_URL, formData);
+    return response.data;
+}
+
+export const searchShop = async (regCode: number, page = 0, size = 4, shopName?: string,) => {
+    let response;
+    if (shopName) {
+        response = await axios.get(`${API_URL}/search?payload=${shopName}&regCode=${regCode}&page=${page}&size=${size}`);
+    } else {
+        response = await axios.get(`${API_URL}/search?regCode=${regCode}&page=${page}&size=${size}`);
+    }
     return response.data;
 }

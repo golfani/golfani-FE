@@ -1,5 +1,5 @@
 import style from './shopHotList.module.css';
-import ShopItem from "../store/ShopItem";
+import ShopItem from "./ShopItem";
 
 const ShopHotList = () : JSX.Element => {
     return (

@@ -65,3 +65,60 @@ textarea {
     user-select: auto;
   }
 }
+
+.marker_box {
+  padding: 10px;
+  display: flex;
+  width: 300px;
+}
+
+.marker_info_box {
+  display: flex;
+  flex-direction: column;
+  margin-right: 15px;
+}
+
+.marker_shop_name_txt {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.marker_shop_sub_txt {
+  display: inline-block;
+  margin-top: auto;
+  margin-bottom: 5px;
+  font-size: 13px;
+  letter-spacing: -0.5px;
+}
+
+.marker_btn {
+  width: auto;
+  font-size: 12px;
+  letter-spacing: -0.5px;
+  color: white;
+  background-color: #81B147;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.marker_shop_img {
+  margin-top: auto;
+  margin-left: auto;
+  width: 100px;
+  height: 100px;
+}
+
+.modal_container {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  top: 0; right: 0; left: 0; bottom: 0;
+  background-color: rgba(0,0,0, 0.5);
+}
+
+.no_bgc {
+  background-color: transparent;
+}
