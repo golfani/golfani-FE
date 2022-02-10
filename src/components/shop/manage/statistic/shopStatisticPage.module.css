@@ -1,0 +1,125 @@
+.container{
+    padding-top: 100px;
+    background-color: #f0f2f5;
+}
+
+.statistic_box{
+    margin: 10px 100px;
+    align-items: center;
+    /*padding-top: 60px;*/
+}
+
+.statistic_time_wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.statistic_time{
+    font-size: 17px;
+    text-align: center;
+    opacity: 0.5;
+    margin-right: 5px;
+}
+
+.comprehensive_indicator_box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 1080px;
+    height: 400px;
+    background-color: #fff;
+    margin:0 auto;
+    padding: 10px;
+}
+
+.date_wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.date_txt{
+    font-size: 21px;
+    font-weight: 500;
+}
+
+.shop_statistic_box{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.box_wrap{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 125px;
+    background-color: #fff;
+    border-right: 1px solid #8a8a8a;
+    padding: 10px;
+}
+
+.statistic_main_txt{
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.amount_gap_txt{
+    font-size: 12px;
+    opacity: 0.5;
+}
+
+.accumulated_amount_txt{
+    margin-top: 20px;
+    font-size: 21px;
+    font-weight: 800;
+    color: #000;
+}
+
+.statistic_wrap{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.statistic_header{
+    display: flex;
+    line-height: 34px;
+    justify-content: center;
+    min-width: 600px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 20px;
+}
+
+.statistic_menu{
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+
+}
+
+.month_statistic_txt{
+    font-size:20px;
+    font-weight: bold;
+    margin: 10px 0px;
+}
+
+.statistic_txt{
+    font-size: 18px;
+    height: 34px;
+}
+
+.statistic_txt_clicked{
+    font-size: 18px;
+    height: 34px;
+    color: #3CD95E;
+    border-bottom: 1px solid #3CD95E;
+}
+
+.statistic_menu:hover{
+    background-color: #e5e5e5;
+}
