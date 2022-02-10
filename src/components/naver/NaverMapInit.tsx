@@ -1,10 +1,10 @@
 import Script from 'next/script'
 import {useEffect} from "react";
 import {useQuery} from "react-query";
-import {getMap, IMapDto} from "src/apis/Map";
 import {IShopDto} from "src/apis/Shop";
+import {getPosition} from "src/apis/Region";
 
-const clientId = 'tekcukac4f';
+const clientId = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 
 interface INaverMapInitProps {
     regCode: number
@@ -12,18 +12,18 @@ interface INaverMapInitProps {
 }
 
 const NaverMapInit = ({regCode, shopList}: INaverMapInitProps): JSX.Element => {
-    const mapQuery = useQuery<IMapDto>(['map', regCode], () => getMap(regCode));
+    const centerRegionQuery = useQuery(['map', regCode], () => getPosition(regCode));
 
     const naverCallback = async () => {
         const map = new naver.maps.Map('map', {
-            center: new naver.maps.LatLng(37.2787794, 126.95581),
+            center: new naver.maps.LatLng(centerRegionQuery.data?.y!, centerRegionQuery.data?.x!),
             zoom: 12
         })
 
         const createMarker = () => {
             shopList.map((shop) => {
                 const marker = new naver.maps.Marker({
-                    position: new naver.maps.LatLng(shop.longitude, shop.latitude),
+                    position: new naver.maps.LatLng(shop.latitude, shop.longitude),
                     map: map
                 });
                 const infoWindow = new naver.maps.InfoWindow({
@@ -48,7 +48,7 @@ const NaverMapInit = ({regCode, shopList}: INaverMapInitProps): JSX.Element => {
     useEffect(() => {
         if (typeof naver != "undefined")
             naver && naverCallback();
-    }, [])
+    }, [centerRegionQuery.data])
 
     useEffect(() => {
         if (typeof naver != "undefined")
