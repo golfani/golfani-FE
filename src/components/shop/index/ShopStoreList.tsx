@@ -25,11 +25,11 @@ const ShopStoreList = ({regCode}: IShopStoreListProps): JSX.Element => {
     });
 
     useEffect(() => {
-        if (regSearchShopQuery.isSuccess) {
+        if (regSearchShopQuery.data) {
             setPage(regSearchShopQuery.data.pages[0].totalPages);
             setItemCount(regSearchShopQuery.data.pages[0].totalElements);
         }
-    }, [regSearchShopQuery.isSuccess]);
+    }, [regSearchShopQuery.data]);
 
     const handleClickPage = async (page: number) => {
         await regSearchShopQuery.fetchNextPage();

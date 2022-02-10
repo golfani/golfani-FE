@@ -82,16 +82,16 @@ const FavoriteRegionModal = (props: IFavoriteRegionModal): JSX.Element => {
                         null
                         :
                         <div className={style.district_box}>
-                            {highRegionQuery.data?.map((region) => (
-                                <button key={region.regCode} className={style.district_txt}
+                            {highRegionQuery.data?.map((region, idx) => (
+                                <button key={idx} className={style.district_txt}
                                         onClick={() => handleClickHighDistrict(region.region1)}>{region.region1}</button>
                             ))}
                         </div>
                     }
                     {highLevelDistrict && !lowLevelDistrict &&
                     <div className={style.district_box}>
-                        {lowRegionQuery.data?.map((region) => (
-                            <button key={region.regCode} className={style.district_txt}
+                        {lowRegionQuery.data?.map((region, idx) => (
+                            <button key={idx} className={style.district_txt}
                                     onClick={() => handleClickLowDistrict(region)}>{region.region2}</button>
                         ))}
                     </div>

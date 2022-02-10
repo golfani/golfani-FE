@@ -1,5 +1,3 @@
-import ShopSearchMenu from "./ShopSearchMenu";
-import ShopMap from "./ShopMap";
 import ShopStoreList from "./ShopStoreList";
 import style from './shopSearch.module.css'
 import {getCookie} from "src/utils/cookieUtil";
@@ -41,8 +39,7 @@ const ShopSearch = (): JSX.Element => {
     return (
         <div className={style.container}>
             <span className={style.title_txt}>지역기반 검색 서비스</span>
-            {/*<ShopMap/>*/}
-            {/*<ShopSearchMenu/>*/}
+            <button className={style.change_btn} onClick={onSetOpenModal}>지역 변경</button>
             {userId ? regCode ? <ShopStoreList regCode={regCode}/>
                 :
                 <div className={style.no_login_box}>

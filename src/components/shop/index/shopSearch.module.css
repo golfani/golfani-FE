@@ -10,6 +10,12 @@
     margin: 15px 0;
 }
 
+.change_btn {
+    margin-left: 15px;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
 .no_login_box {
     display: flex;
     flex-direction: column;
