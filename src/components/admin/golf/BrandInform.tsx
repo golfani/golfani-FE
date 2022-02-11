@@ -89,7 +89,7 @@ const BrandInform = ({brand} : IBrandInformProps) : JSX.Element => {
                 <button className={style.golfClub_add_btn} onClick={handleClickGolfClubAddButton}>장비추가</button>
             </div>
             <div className={style.golfClub_main_box}>
-                {openGolfClubAdd ? <GolfClubAdd setOpenGolfClubAdd={setOpenGolfClubAdd} brandId={brand.id}/> : <GolfClubList type={type} brandId={brand.id}/>}
+                {openGolfClubAdd ? <GolfClubAdd setOpenGolfClubAdd={setOpenGolfClubAdd} brand={brand}/> : <GolfClubList type={type} brandId={brand.id}/>}
             </div>
         </div>
     );
