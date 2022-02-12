@@ -1,7 +1,7 @@
 import style from 'styles/shop.module.css';
 import Navbar from "src/components/common/navbar/Navbar";
 import ShopSearch from "src/components/shop/index/ShopSearch";
-import ShopHotStoreList from "src/components/shop/index/ShopHotStoreList";
+import ShopHotReviewList from "src/components/shop/index/ShopHotReviewList";
 import ShopRecommendGolfClub from "src/components/shop/index/ShopRecommendGolfClub";
 import {useEffect, useState} from "react";
 import ShopRegisterModal from "src/components/modals/shop/ShopRegisterModal";
@@ -43,7 +43,7 @@ const Shop = (): JSX.Element => {
             <Navbar/>
             <div className={style.shop_main_box}>
                 <ShopSearch/>
-                <ShopHotStoreList/>
+                <ShopHotReviewList/>
                 <ShopRecommendGolfClub/>
                 {openShopRegisterModal && <ShopRegisterModal setModalOpen={setOpenShopRegisterModal}/>}
             </div>
