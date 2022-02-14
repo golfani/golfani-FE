@@ -5,6 +5,7 @@ import {useQuery} from "react-query";
 import {getBoardView, IBoardData} from "src/apis/Board";
 import {useEffect} from "react";
 import {getCookie} from "src/utils/cookieUtil";
+import Head from "next/head";
 
 const Modify = (): JSX.Element => {
     const userId = getCookie('userId');
@@ -23,6 +24,9 @@ const Modify = (): JSX.Element => {
 
     return(
         <div>
+            <Head>
+                <title>골아니 커뮤니티 - 게시글 수정</title>
+            </Head>
             <Navbar/>
             {boardQuery.data && <BoardPut board={boardQuery.data}/>}
         </div>

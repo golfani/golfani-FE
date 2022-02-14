@@ -9,9 +9,10 @@ import {
     validateById
 } from "src/apis/Member";
 import {signUpSchema} from "../src/utils/yupUtil";
-import {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import {useRouter} from "next/router";
 import {getCookie, removeCookie} from "../src/utils/cookieUtil";
+import Head from "next/head";
 
 type FormData = {
     id : string,
@@ -166,6 +167,13 @@ const SignUp = () : JSX.Element=> {
 
     return (
         <div className={style.container}>
+            <Head>
+                <title>골아니 : 회원가입</title>
+                <meta name="description" content="골아니 회원가입 페이지 입니다."/>
+                <meta name="og:title" content="골아니 회원가입"/>
+                <meta name="og:description" content="골아니 회원가입 페이지 입니다."/>
+                <meta name="og:url" content="https://golfani.com/signup"/>
+            </Head>
             <div>
                 <h1>GOLF ANI</h1>
                 {memberId ? <></> :

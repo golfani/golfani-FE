@@ -77,7 +77,13 @@ function MyApp({Component, pageProps}: AppProps) {
             <PersistGate persistor={persistor} loading={null}>
                 <Hydrate state={pageProps.dehydrateState}>
                     <Head>
+                        <title>GOLFANI</title>
                         <meta name={'viewport'} content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+                        <meta name={"og:image"} content="https://golfani.com/og_img.jpeg"/>
+                        <meta name="description" content="골프에 관심 있으신가요? 골아니에서 골프 정보를 찾아보세요~"/>
+                        <meta name="og:title" content="골아니"/>
+                        <meta name="og:description" content="골프에 관심 있으신가요? 골아니에서 골프 정보를 찾아보세요~"/>
+                        <meta name="og:url" content="https://golfani.com"/>
                     </Head>
                     {userId ? isSocketConnected ? <Component {...pageProps} /> : <SocketLoading/> : <Component {...pageProps}/>}
                     {openPermissionModal && <NotificationPermissionModal setOpenModal={setOpenPermissionModal}/>}

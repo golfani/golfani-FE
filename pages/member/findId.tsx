@@ -2,21 +2,21 @@ import style from 'styles/find.module.css';
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {emailSchema} from "src/utils/yupUtil";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {authMailForFindUser, fetchAuthCode, findUserIdByEmail} from "src/apis/Member";
 import Link from 'next/link';
-import useLogin from "src/store/modules/login/loginHook";
 import {useRouter} from "next/router";
-import {getCookie} from "../../src/utils/cookieUtil";
+import {getCookie} from "src/utils/cookieUtil";
+import Head from "next/head";
 
 interface IForm {
-    email : string
+    email: string
 }
 
-const FindId = () : JSX.Element => {
-    const {register,getValues, handleSubmit, formState : {errors}} = useForm<IForm>({
-        resolver : yupResolver(emailSchema),
-        mode : 'onChange'
+const FindId = (): JSX.Element => {
+    const {register, getValues, handleSubmit, formState: {errors}} = useForm<IForm>({
+        resolver: yupResolver(emailSchema),
+        mode: 'onChange'
     });
     const [bindInput, setBindInput] = useState(false);
     const [userId, setUserId] = useState('');
@@ -24,19 +24,17 @@ const FindId = () : JSX.Element => {
     const [authCodeError, setAuthCodeError] = useState('');
     const router = useRouter();
 
-    const onSendEmail = async (data : IForm) => {
+    const onSendEmail = async (data: IForm) => {
         try {
             setAuthCodeError('');
             const response = await authMailForFindUser(data.email);
-            if(response.status === 200) {
+            if (response.status === 200) {
                 setBindInput(true);
             }
-        }
-        catch (e) {
-            if(e.response.status === 409) {
+        } catch (e) {
+            if (e.response.status === 409) {
                 alert('존재하지 않는 이메일 입니다.');
-            }
-            else if(e.response.status === 500) {
+            } else if (e.response.status === 500) {
                 alert('잠시 후 다시 시도해 주세요.');
             }
         }
@@ -45,28 +43,33 @@ const FindId = () : JSX.Element => {
     const onFindUserId = async () => {
         const email = getValues('email');
         try {
-            const authResponse = await fetchAuthCode(email,authCode);
-            if(authResponse) {
+            const authResponse = await fetchAuthCode(email, authCode);
+            if (authResponse) {
                 const findResponse = await findUserIdByEmail(email);
                 setUserId(findResponse.data);
-            }
-            else {
+            } else {
                 setAuthCodeError('인증번호가 일치하지 않습니다');
             }
-        }
-        catch (e) {
+        } catch (e) {
             alert('잠시 후 다시 시도해 주세요.');
         }
     }
 
-    useEffect(()=> {
-        if(getCookie('userId')) {
+    useEffect(() => {
+        if (getCookie('userId')) {
             router.push('/');
         }
-    },[])
+    }, [])
 
     return (
         <div className={style.container}>
+            <Head>
+                <title>아이디 찾기</title>
+                <meta name="description" content="골아니 아이디 찾기 페이지 입니다."/>
+                <meta name="og:title" content="골아니 아이디 찾기"/>
+                <meta name="og:description" content="골아니 아이디 찾기 페이지 입니다."/>
+                <meta name="og:url" content="https://golfani.com/findId"/>
+            </Head>
             <div className={style.box}>
                 <div className={style.find_box}>
                     <span className={style.logo_txt}>GOLFANI</span>
