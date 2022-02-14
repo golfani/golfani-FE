@@ -9,6 +9,7 @@ import {isMobile} from "src/utils/detectDevice";
 import BoardBottomNav from "src/components/board/BoardBottomNav";
 import BoardMobileCategory from "src/components/board/mobile/BoardMobileCategory";
 import BoardMobileSearch from "src/components/board/mobile/BoardMobileSearch";
+import Head from "next/head";
 
 const Board = (): JSX.Element => {
     const router = useRouter();
@@ -36,6 +37,13 @@ const Board = (): JSX.Element => {
 
     return (
         <div className={type || payload ? style.container_white : style.container}>
+            <Head>
+                <title>골아니 커뮤니티</title>
+                <meta name="description" content="골프정보를 공유하는 커뮤니티 페이지 입니다."/>
+                <meta name="og:title" content="골아니 커뮤니티"/>
+                <meta name="og:description" content="골프정보를 공유하는 커뮤니티 페이지 입니다."/>
+                <meta name="og:url" content="https://golfani.com/board"/>
+            </Head>
             <Navbar/>
             <div className={style.main_box}>
                 {isMobile() ? <BoardBottomNav/> :

@@ -1,6 +1,6 @@
 import style from 'styles/login.module.css'
 import useLogin from "src/store/modules/login/loginHook";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {LoginMember} from "src/apis/Member";
 import {useRouter} from "next/router";
 import {useForm} from "react-hook-form";
@@ -8,6 +8,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {loginSchema} from "src/utils/yupUtil";
 import Link from "next/link";
 import {getCookie} from "src/utils/cookieUtil";
+import Head from "next/head";
 
 const Login = () : JSX.Element => {
     const {loginMember,error, isLoggedIn} = useLogin();
@@ -50,6 +51,13 @@ const Login = () : JSX.Element => {
 
     return (
         <div className={style.container}>
+            <Head>
+                <title>골아니 : 로그인</title>
+                <meta name="description" content="골아니 로그인 페이지 입니다."/>
+                <meta name="og:title" content="골아니 로그인"/>
+                <meta name="og:description" content="골아니 로그인 페이지 입니다."/>
+                <meta name="og:url" content="https://golfani.com/login"/>
+            </Head>
             <div className={style.box}>
                 <span className={style.logo_txt} onClick={handleClickLogo}>GOLF ANI</span>
                 <div className={style.login_box}>

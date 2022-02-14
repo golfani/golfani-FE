@@ -9,6 +9,7 @@ import ChatItem from "./ChatItem";
 import ArrowBackIosNewIcon from '@material-ui/icons/ArrowBackIosNew';
 import UserProfileImage from "src/components/common/UserProfileImage";
 import UserName from "src/components/common/UserName";
+import Head from "next/head";
 
 interface IChatProps {
     closeModal? : () => void;
@@ -68,6 +69,9 @@ const Chat = ({closeModal} : IChatProps) : JSX.Element => {
         <div className={style.container}>
             {chatRoom.activeChatRoom ?
                 <div className={style.flex_box}>
+                    <Head>
+                        <title>{chatRoom.activeChatRoom.receiver}</title>
+                    </Head>
                     <div className={style.chat_title_box}>
                         <div className={style.back_icon} onClick={handleClickBackIcon}>
                             <ArrowBackIosNewIcon/>

@@ -3,28 +3,29 @@ import Link from "next/link";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {emailSchema, passwordSchema} from "src/utils/yupUtil";
-import {FormEvent, useEffect, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import {authMailForFindUser, fetchAuthCode, findUserPw, modifyMemberPassword, validateById} from "src/apis/Member";
 import {useRouter} from "next/router";
 import {getCookie} from "src/utils/cookieUtil";
+import Head from "next/head";
 
 interface IEmailForm {
-    email : string
+    email: string
 }
 
 interface IPasswordForm {
-    password : string
-    checkPassword : string
+    password: string
+    checkPassword: string
 }
 
-const FindPw = () : JSX.Element => {
-    const {register,getValues, handleSubmit, formState : {errors}} = useForm<IEmailForm>({
-        resolver : yupResolver(emailSchema),
-        mode : 'onChange'
+const FindPw = (): JSX.Element => {
+    const {register, getValues, handleSubmit, formState: {errors}} = useForm<IEmailForm>({
+        resolver: yupResolver(emailSchema),
+        mode: 'onChange'
     });
     const passwordForm = useForm<IPasswordForm>({
-        resolver : yupResolver(passwordSchema),
-        mode : 'onChange'
+        resolver: yupResolver(passwordSchema),
+        mode: 'onChange'
     });
     const [userId, setUserId] = useState('');
     const [isValidUserId, setIsValidUserId] = useState(false);
@@ -37,30 +38,26 @@ const FindPw = () : JSX.Element => {
     const onValidUserId = async () => {
         try {
             const response = await validateById(userId);
-            if(response.data) {
+            if (response.data) {
                 setIsValidUserId(true);
-            }
-            else {
+            } else {
                 alert('존재하지 않는 아이디입니다.');
             }
-        }
-        catch (e) {
+        } catch (e) {
             alert('잠시 후 다시 시도해 주세요.');
         }
     }
 
-    const onSendEmail = async (data : IEmailForm) => {
+    const onSendEmail = async (data: IEmailForm) => {
         try {
             setAuthCodeError('');
             setIsAuth(true);
             const response = await authMailForFindUser(data.email);
-        }
-        catch (e) {
+        } catch (e) {
             setIsAuth(false);
-            if(e.response.status === 409) {
+            if (e.response.status === 409) {
                 alert('존재하지 않는 이메일 입니다.');
-            }
-            else if(e.response.status === 500) {
+            } else if (e.response.status === 500) {
                 alert('잠시 후 다시 시도해 주세요.');
             }
         }
@@ -69,45 +66,40 @@ const FindPw = () : JSX.Element => {
     const onFindUserPw = async () => {
         const email = getValues('email');
         try {
-            const authResponse = await fetchAuthCode(email,authCode);
-            if(authResponse) {
+            const authResponse = await fetchAuthCode(email, authCode);
+            if (authResponse) {
                 try {
                     const findResponse = await findUserPw(userId, email);
-                    if(findResponse.status === 200) {
+                    if (findResponse.status === 200) {
                         setIsCertified(true);
                     }
-                }
-                catch (e) {
-                    if(e.response.status === 409) {
+                } catch (e) {
+                    if (e.response.status === 409) {
                         alert('해당ID와 Email 정보가 일치하지 않습니다.');
-                    }
-                    else  {
+                    } else {
                         alert('잠시 후 다시 시도해 주세요.');
                     }
                 }
-            }
-            else {
+            } else {
                 setAuthCodeError('인증번호가 일치하지 않습니다');
             }
-        }
-        catch (e) {
+        } catch (e) {
             alert('잠시 후 다시 시도해 주세요.');
         }
     }
 
     const onModifyPassword = async () => {
         try {
-            const response = await modifyMemberPassword(userId,passwordForm.getValues('password'));
-            if(response?.status === 200) {
+            const response = await modifyMemberPassword(userId, passwordForm.getValues('password'));
+            if (response?.status === 200) {
                 await router.push('/login');
             }
-        }
-        catch (e) {
+        } catch (e) {
             alert('잠시 후 다시 시도해 주세요.');
         }
     }
 
-    const handleClickUserId = async (e : FormEvent) => {
+    const handleClickUserId = async (e: FormEvent) => {
         e.preventDefault();
         await onValidUserId();
     }
@@ -116,14 +108,21 @@ const FindPw = () : JSX.Element => {
         await onModifyPassword();
     }
 
-    useEffect(()=> {
-        if(getCookie('userId')) {
+    useEffect(() => {
+        if (getCookie('userId')) {
             router.push('/');
         }
-    },[])
+    }, [])
 
     return (
         <div className={style.container}>
+            <Head>
+                <title>비밀번호 찾기</title>
+                <meta name="description" content="골아니 비밀번호 찾기 페이지 입니다."/>
+                <meta name="og:title" content="골아니 비밀번호 찾기"/>
+                <meta name="og:description" content="골아니 비밀번호 찾기 페이지 입니다."/>
+                <meta name="og:url" content="https://golfani.com/findPw"/>
+            </Head>
             <div className={style.box}>
                 <div className={style.find_box}>
                     <span className={style.logo_txt}>GOLFANI</span>
@@ -140,7 +139,7 @@ const FindPw = () : JSX.Element => {
                                type={'text'}
                                placeholder={'GOLFANI 아이디'}
                                value={userId}
-                               onChange={(e)=> setUserId(e.target.value)}
+                               onChange={(e) => setUserId(e.target.value)}
                                readOnly={isValidUserId}
                         />
                         <button className={style.mail_btn} disabled={!userId}>다음</button>

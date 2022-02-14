@@ -10,6 +10,7 @@ import {dehydrate, Hydrate} from "react-query/hydration";
 import {ParsedUrlQuery} from "querystring";
 import {useRouter} from "next/router";
 import Custom404 from "pages/404";
+import Head from "next/head";
 
 export interface IProfileMemberProps {
     member : IMember
@@ -22,6 +23,9 @@ const Profile = () : JSX.Element => {
 
     return (
         <div className={style.container}>
+            <Head>
+                <title>{userId} 프로필 페이지</title>
+            </Head>
             <Navbar/>
             {member ?
                 <div className={style.main_container}>

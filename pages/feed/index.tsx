@@ -10,6 +10,7 @@ import {useRouter} from "next/router";
 import useFeedType from "src/store/modules/feedType/feedTypeHook";
 import {useEffect} from "react";
 import FeedSearch from "src/components/feed/FeedSearch";
+import Head from "next/head";
 
 const Feed = () : JSX.Element => {
     const router = useRouter();
@@ -26,6 +27,13 @@ const Feed = () : JSX.Element => {
 
     return (
         <div className={style.home_container}>
+            <Head>
+                <title>골아니 피드</title>
+                <meta name="description" content="나만의 골프라이프를 공유해 보세요~"/>
+                <meta name="og:title" content="골아니 피드"/>
+                <meta name="og:description" content="나만의 골프라이프를 공유해 보세요~"/>
+                <meta name="og:url" content="https://golfani.com/feed"/>
+            </Head>
             {feedType.type === 'MOBILE_SEARCH' ? <FeedSearch/> : <FeedNavBar/> }
             <div className={style.main_container}>
                 <FeedLeftSideBar/>
