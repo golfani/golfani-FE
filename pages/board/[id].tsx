@@ -35,9 +35,9 @@ const ViewPage = (): JSX.Element => {
             <Head>
                 <title>{boardQuery.data?.title}</title>
                 <meta name="description" content="골프정보를 공유하는 커뮤니티 페이지 입니다."/>
-                <meta property="og:title" name="og:title" content="골아니 커뮤니티"/>
-                <meta property="og:description" name="og:description" content="골프정보를 공유하는 커뮤니티 페이지 입니다."/>
-                <meta property="og:url" name="og:url"
+                <meta property="og:title" key="ogtitle" content="골아니 커뮤니티"/>
+                <meta property="og:description" key="ogdesc" content="골프정보를 공유하는 커뮤니티 페이지 입니다."/>
+                <meta property="og:url" key="ogurl"
                       content={`https://golfani.com/board/${boardQuery.data?.id}?type=${boardQuery.data?.boardType}&page=0`}/>
             </Head>
             <Navbar/>

@@ -30,9 +30,9 @@ const Feed = (): JSX.Element => {
             <Head>
                 <title>골아니 피드</title>
                 <meta name="description" content="나만의 골프라이프를 공유해 보세요~"/>
-                <meta property="og:title" name="og:title" content="골아니 피드"/>
-                <meta property="og:description" name="og:description" content="나만의 골프라이프를 공유해 보세요~"/>
-                <meta property="og:url" name="og:url" content="https://golfani.com/feed"/>
+                <meta property="og:title" key="ogtitle" content="골아니 피드"/>
+                <meta property="og:description" key="ogdesc" content="나만의 골프라이프를 공유해 보세요~"/>
+                <meta property="og:url" key="ogurl" content="https://golfani.com/feed"/>
             </Head>
             {feedType.type === 'MOBILE_SEARCH' ? <FeedSearch/> : <FeedNavBar/>}
             <div className={style.main_container}>

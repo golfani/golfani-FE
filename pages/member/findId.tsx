@@ -66,9 +66,9 @@ const FindId = (): JSX.Element => {
             <Head>
                 <title>아이디 찾기</title>
                 <meta name="description" content="골아니 아이디 찾기 페이지 입니다."/>
-                <meta property="og:title" name="og:title" content="골아니 아이디 찾기"/>
-                <meta property="og:description" name="og:description" content="골아니 아이디 찾기 페이지 입니다."/>
-                <meta property="og:url" name="og:url" content="https://golfani.com/findId"/>
+                <meta property="og:title" key="ogtitle" content="골아니 아이디 찾기"/>
+                <meta property="og:description" key="ogdesc" content="골아니 아이디 찾기 페이지 입니다."/>
+                <meta property="og:url" key="ogurl" content="https://golfani.com/findId"/>
             </Head>
             <div className={style.box}>
                 <div className={style.find_box}>

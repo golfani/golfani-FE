@@ -164,9 +164,9 @@ const SignUp = (): JSX.Element => {
             <Head>
                 <title>골아니 : 회원가입</title>
                 <meta name="description" content="골아니 회원가입 페이지 입니다."/>
-                <meta property="og:title" name="og:title" content="골아니 회원가입"/>
-                <meta property="og:description" name="og:description" content="골아니 회원가입 페이지 입니다."/>
-                <meta property="og:url" name="og:url" content="https://golfani.com/signup"/>
+                <meta property="og:title" key="ogtitle" content="골아니 회원가입"/>
+                <meta property="og:description" key="ogdesc" content="골아니 회원가입 페이지 입니다."/>
+                <meta property="og:url" key="ogurl" content="https://golfani.com/signup"/>
             </Head>
             <div>
                 <h1>GOLF ANI</h1>
