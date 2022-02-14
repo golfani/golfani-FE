@@ -10,37 +10,37 @@ import Link from "next/link";
 import {getCookie} from "src/utils/cookieUtil";
 import Head from "next/head";
 
-const Login = () : JSX.Element => {
-    const {loginMember,error, isLoggedIn} = useLogin();
-    const {register, getValues, handleSubmit, formState : {errors}} = useForm({
-        resolver : yupResolver(loginSchema),
-        mode : "onChange"
+const Login = (): JSX.Element => {
+    const {loginMember, error, isLoggedIn} = useLogin();
+    const {register, getValues, handleSubmit, formState: {errors}} = useForm({
+        resolver: yupResolver(loginSchema),
+        mode: "onChange"
     });
     const router = useRouter();
 
 
     const handleLogin = () => {
-        const member : LoginMember = {
-            userId : getValues('id'),
-            password : getValues('password')
+        const member: LoginMember = {
+            userId: getValues('id'),
+            password: getValues('password')
         }
         loginMember(member);
     }
 
-    useEffect(()=> {
-        if(getCookie('userId')) {
+    useEffect(() => {
+        if (getCookie('userId')) {
             router.back();
         }
-    },[]);
+    }, []);
 
     const onRouteNaverLoginPage = () => {
-        if(typeof window !== 'undefined') {
+        if (typeof window !== 'undefined') {
             window.location.href = 'https://golfani.com:8080/oauth2/authorization/naver';
         }
     }
 
     const onRouteKakaoLoginPage = () => {
-        if(typeof window !== 'undefined') {
+        if (typeof window !== 'undefined') {
             window.location.href = 'https://golfani.com:8080/oauth2/authorization/kakao';
         }
     }
@@ -54,9 +54,9 @@ const Login = () : JSX.Element => {
             <Head>
                 <title>골아니 : 로그인</title>
                 <meta name="description" content="골아니 로그인 페이지 입니다."/>
-                <meta name="og:title" content="골아니 로그인"/>
-                <meta name="og:description" content="골아니 로그인 페이지 입니다."/>
-                <meta name="og:url" content="https://golfani.com/login"/>
+                <meta property="og:title" name="og:title" content="골아니 로그인"/>
+                <meta property="og:description" name="og:description" content="골아니 로그인 페이지 입니다."/>
+                <meta property="og:url" name="og:url" content="https://golfani.com/login"/>
             </Head>
             <div className={style.box}>
                 <span className={style.logo_txt} onClick={handleClickLogo}>GOLF ANI</span>
@@ -67,7 +67,8 @@ const Login = () : JSX.Element => {
                             <span className={style.input_error_txt}>{errors.id?.message}</span>
                         </div>
                         <div className={style.input_box}>
-                            <input {...register('password')} type="password" className={style.input} placeholder="비밀번호"/>
+                            <input {...register('password')} type="password" className={style.input}
+                                   placeholder="비밀번호"/>
                             <span className={style.input_error_txt}>{errors.password?.message}</span>
                         </div>
                         {error && <span className={style.login_error_txt}>{error.error}</span>}

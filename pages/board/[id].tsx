@@ -8,7 +8,7 @@ import BoardView from "src/components/board/view/BoardView";
 import Custom404 from "../404";
 import Head from "next/head";
 
-const ViewPage = () : JSX.Element => {
+const ViewPage = (): JSX.Element => {
     const router = useRouter()
     const {id} = router.query;
 
@@ -16,8 +16,7 @@ const ViewPage = () : JSX.Element => {
         try {
             const response = await onClickBoard(id as string);
             //await queryClient.invalidateQueries(['board', id]);
-        }
-        catch (e) {
+        } catch (e) {
 
         }
     }
@@ -28,7 +27,7 @@ const ViewPage = () : JSX.Element => {
 
     const boardQuery = useQuery<IBoardData>(['board', id], () => getBoardView(id as string), {
         enabled: id !== undefined,
-        retry : false
+        retry: false
     });
 
     return (
@@ -36,9 +35,10 @@ const ViewPage = () : JSX.Element => {
             <Head>
                 <title>{boardQuery.data?.title}</title>
                 <meta name="description" content="골프정보를 공유하는 커뮤니티 페이지 입니다."/>
-                <meta name="og:title" content="골아니 커뮤니티"/>
-                <meta name="og:description" content="골프정보를 공유하는 커뮤니티 페이지 입니다."/>
-                <meta name="og:url" content={`https://golfani.com/board/${boardQuery.data?.id}?type=${boardQuery.data?.boardType}&page=0`}/>
+                <meta property="og:title" name="og:title" content="골아니 커뮤니티"/>
+                <meta property="og:description" name="og:description" content="골프정보를 공유하는 커뮤니티 페이지 입니다."/>
+                <meta property="og:url" name="og:url"
+                      content={`https://golfani.com/board/${boardQuery.data?.id}?type=${boardQuery.data?.boardType}&page=0`}/>
             </Head>
             <Navbar/>
             {boardQuery.error

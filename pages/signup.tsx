@@ -15,23 +15,23 @@ import {getCookie, removeCookie} from "../src/utils/cookieUtil";
 import Head from "next/head";
 
 type FormData = {
-    id : string,
-    password : string,
-    checkPw : string,
-    name : string,
-    gender : string,
-    year : number,
-    month : number,
-    day : number,
-    email : string
-    authCode : number,
+    id: string,
+    password: string,
+    checkPw: string,
+    name: string,
+    gender: string,
+    year: number,
+    month: number,
+    day: number,
+    email: string
+    authCode: number,
 }
 
-const SignUp = () : JSX.Element=> {
+const SignUp = (): JSX.Element => {
     const memberId = getCookie('memberId');
-    const {register,getValues, handleSubmit, formState : {errors}} = useForm<FormData>({
-        resolver : yupResolver(signUpSchema),
-        mode : "onChange",
+    const {register, getValues, handleSubmit, formState: {errors}} = useForm<FormData>({
+        resolver: yupResolver(signUpSchema),
+        mode: "onChange",
     });
     const id = register("id"); // input id 변수입니다.
     const [duplicate, setDuplicate] = useState(false); // 아이디 중복검사 변수입니다.
@@ -41,33 +41,29 @@ const SignUp = () : JSX.Element=> {
     const [isSendMail, setIsSendMail] = useState(false);
 
     // ID 중복 검사
-    const onValidateId = async (e : ChangeEvent) => {
+    const onValidateId = async (e: ChangeEvent) => {
         try {
             const response = await validateById(getValues('id'))
             const data = response.data;
-            if(data) {
+            if (data) {
                 setDuplicate(true);
-            }
-            else {
+            } else {
                 setDuplicate(false);
             }
-        }
-        catch (error) {
+        } catch (error) {
             console.log(error);
         }
     }
 
     // 이메일 인증코드 받기
     const sendMail = async () => {
-        if(errors.email || getValues('email').trim().length === 0) {
+        if (errors.email || getValues('email').trim().length === 0) {
             console.log("이메일 입력");
-        }
-        else {
+        } else {
             try {
                 setIsSendMail(true);
                 const response = await authEmail(getValues('email'));
-            }
-            catch (error) {
+            } catch (error) {
                 console.log(error)
             }
         }
@@ -76,19 +72,17 @@ const SignUp = () : JSX.Element=> {
     // 인증코드로 인증하기
     const onAuth = async () => {
         const authCode = getValues('authCode');
-        if(authCode) {
+        if (authCode) {
             try {
                 const response = await fetchAuthCode(getValues('email'), authCode.toString());
-                if(response) {
+                if (response) {
                     setReadOnly(true);
                     setAuth(true);
-                }
-                else {
+                } else {
                     setReadOnly(false);
                     setAuth(null);
                 }
-            }
-            catch (e) {
+            } catch (e) {
                 console.log(e);
             }
         }
@@ -98,16 +92,16 @@ const SignUp = () : JSX.Element=> {
         await onAuth();
     }
 
-    const onSingUp = async (data : FormData) => {
-        const member  : Partial<IMember> = {
-            userId : data.id,
-            password : data.password,
-            username : data.name,
-            gender : data.gender,
-            year : data.year,
-            month : data.month,
-            day : data.day,
-            email : data.email
+    const onSingUp = async (data: FormData) => {
+        const member: Partial<IMember> = {
+            userId: data.id,
+            password: data.password,
+            username: data.name,
+            gender: data.gender,
+            year: data.year,
+            month: data.month,
+            day: data.day,
+            email: data.email
         }
 
         if (auth) {
@@ -122,17 +116,17 @@ const SignUp = () : JSX.Element=> {
         }
     }
 
-    const onOauthSignUp = async (data : FormData) => {
-        const member  : Partial<IMember> = {
-            id : Number(memberId),
-            userId : data.id,
-            password : data.password,
-            username : data.name,
-            gender : data.gender,
-            year : data.year,
-            month : data.month,
-            day : data.day,
-            email : data.email
+    const onOauthSignUp = async (data: FormData) => {
+        const member: Partial<IMember> = {
+            id: Number(memberId),
+            userId: data.id,
+            password: data.password,
+            username: data.name,
+            gender: data.gender,
+            year: data.year,
+            month: data.month,
+            day: data.day,
+            email: data.email
         }
 
         if (auth) {
@@ -149,18 +143,18 @@ const SignUp = () : JSX.Element=> {
     }
 
     // 회원가입 버튼 클릭
-    const onSubmit = async (data : FormData) => {
+    const onSubmit = async (data: FormData) => {
         memberId ? await onOauthSignUp(data) : await onSingUp(data);
     };
 
     const onRouteNaverLoginPage = () => {
-        if(typeof window !== 'undefined') {
+        if (typeof window !== 'undefined') {
             window.location.href = 'https://golfani.com:8080/oauth2/authorization/naver';
         }
     }
 
     const onRouteKakaoLoginPage = () => {
-        if(typeof window !== 'undefined') {
+        if (typeof window !== 'undefined') {
             window.location.href = 'https://golfani.com:8080/oauth2/authorization/kakao';
         }
     }
@@ -170,24 +164,27 @@ const SignUp = () : JSX.Element=> {
             <Head>
                 <title>골아니 : 회원가입</title>
                 <meta name="description" content="골아니 회원가입 페이지 입니다."/>
-                <meta name="og:title" content="골아니 회원가입"/>
-                <meta name="og:description" content="골아니 회원가입 페이지 입니다."/>
-                <meta name="og:url" content="https://golfani.com/signup"/>
+                <meta property="og:title" name="og:title" content="골아니 회원가입"/>
+                <meta property="og:description" name="og:description" content="골아니 회원가입 페이지 입니다."/>
+                <meta property="og:url" name="og:url" content="https://golfani.com/signup"/>
             </Head>
             <div>
                 <h1>GOLF ANI</h1>
                 {memberId ? <></> :
-                <div className={style.sns_box}>
-                    <span className={style.sns_main_txt}>SNS 계정을 보유하고 계신가요?</span>
-                    <span className={style.sns_sub_txt}>SNS 계졍을 이용해 로그인</span>
-                    <span className={style.kakao_login_btn} onClick={onRouteKakaoLoginPage}>카카오 로그인</span>
-                    <span className={style.naver_login_btn} onClick={onRouteNaverLoginPage}>네이버 로그인</span>
-                </div>
+                    <div className={style.sns_box}>
+                        <span className={style.sns_main_txt}>SNS 계정을 보유하고 계신가요?</span>
+                        <span className={style.sns_sub_txt}>SNS 계졍을 이용해 로그인</span>
+                        <span className={style.kakao_login_btn} onClick={onRouteKakaoLoginPage}>카카오 로그인</span>
+                        <span className={style.naver_login_btn} onClick={onRouteNaverLoginPage}>네이버 로그인</span>
+                    </div>
                 }
                 <form className={style.form_box} onSubmit={handleSubmit(onSubmit)}>
                     <div className={style.input_box}>
                         <span className={style.input_title_txt}>아이디</span>
-                        <input name="id" onChange={(e)=>{id.onChange(e); onValidateId(e)}} className={style.input} ref={id.ref}/>
+                        <input name="id" onChange={(e) => {
+                            id.onChange(e);
+                            onValidateId(e)
+                        }} className={style.input} ref={id.ref}/>
                         <span className={style.input_error_txt}>{errors.id?.message}</span>
                         {duplicate && <span className={style.input_error_txt}>중복된 아이디입니다.</span>}
                     </div>
@@ -222,12 +219,14 @@ const SignUp = () : JSX.Element=> {
                             <input className={style.birth_input} placeholder="월" {...register("month")}/>
                             <input className={style.birth_input} placeholder="일" {...register("day")}/>
                         </div>
-                        <span className={style.input_error_txt}>{errors.year?.message || errors.month?.message || errors.day?.message}</span>
+                        <span
+                            className={style.input_error_txt}>{errors.year?.message || errors.month?.message || errors.day?.message}</span>
                     </div>
                     <div className={style.input_box}>
                         <span className={style.input_title_txt}>본인인증</span>
                         <div>
-                            <input readOnly={readOnly} className={style.input} placeholder="@email.com" {...register("email")}/>
+                            <input readOnly={readOnly} className={style.input}
+                                   placeholder="@email.com" {...register("email")}/>
                             <span className={style.input_error_txt}>{errors.email?.message}</span>
                             <div>
                                 <span className={style.email_send_txt} onClick={sendMail}>인증코드 전송</span>
@@ -235,8 +234,11 @@ const SignUp = () : JSX.Element=> {
                             </div>
                             <div className={style.code_box}>
                                 <div>
-                                    <input readOnly={readOnly} className={style.code_input} placeholder="인증번호 입력 (6자리)" {...register("authCode")}/>
-                                    <button onClick={handleClickAuthCode} type="button" className={style.code_ok_btn}>확인</button>
+                                    <input readOnly={readOnly} className={style.code_input}
+                                           placeholder="인증번호 입력 (6자리)" {...register("authCode")}/>
+                                    <button onClick={handleClickAuthCode} type="button"
+                                            className={style.code_ok_btn}>확인
+                                    </button>
                                 </div>
                                 {auth && <span className={style.input_success_txt}>인증되었습니다.</span>}
                                 {auth || <span className={style.input_error_txt}>본인인증이 완료되지 않았습니다.</span>}

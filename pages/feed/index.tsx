@@ -12,29 +12,29 @@ import {useEffect} from "react";
 import FeedSearch from "src/components/feed/FeedSearch";
 import Head from "next/head";
 
-const Feed = () : JSX.Element => {
+const Feed = (): JSX.Element => {
     const router = useRouter();
     const feedType = useFeedType();
     const {search} = router.query;
 
-    useEffect(()=> {
+    useEffect(() => {
         search
             ? feedType.onChangeSearchView()
             : feedType.type === 'LIST' || feedType.type === 'SEARCH'
-                ? feedType.onChangeListView()
-                : feedType.onChangeCardView();
-    },[search])
+            ? feedType.onChangeListView()
+            : feedType.onChangeCardView();
+    }, [search])
 
     return (
         <div className={style.home_container}>
             <Head>
                 <title>골아니 피드</title>
                 <meta name="description" content="나만의 골프라이프를 공유해 보세요~"/>
-                <meta name="og:title" content="골아니 피드"/>
-                <meta name="og:description" content="나만의 골프라이프를 공유해 보세요~"/>
-                <meta name="og:url" content="https://golfani.com/feed"/>
+                <meta property="og:title" name="og:title" content="골아니 피드"/>
+                <meta property="og:description" name="og:description" content="나만의 골프라이프를 공유해 보세요~"/>
+                <meta property="og:url" name="og:url" content="https://golfani.com/feed"/>
             </Head>
-            {feedType.type === 'MOBILE_SEARCH' ? <FeedSearch/> : <FeedNavBar/> }
+            {feedType.type === 'MOBILE_SEARCH' ? <FeedSearch/> : <FeedNavBar/>}
             <div className={style.main_container}>
                 <FeedLeftSideBar/>
                 <FeedMain/>
@@ -43,18 +43,18 @@ const Feed = () : JSX.Element => {
     )
 };
 
-export const getServerSideProps : GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
     const queryClient = new QueryClient();
-    await queryClient.prefetchInfiniteQuery('feed',()=>getFeed(),{
-        staleTime : 1000 * 60
+    await queryClient.prefetchInfiniteQuery('feed', () => getFeed(), {
+        staleTime: 1000 * 60
     });
-    await queryClient.prefetchQuery('hotFeed',()=>getHotFeed(),{
-        staleTime : 1000 * 60 * 10
+    await queryClient.prefetchQuery('hotFeed', () => getHotFeed(), {
+        staleTime: 1000 * 60 * 10
     });
 
     return {
-        props : {
-            dehydrateState : JSON.parse(JSON.stringify(dehydrate(queryClient)))
+        props: {
+            dehydrateState: JSON.parse(JSON.stringify(dehydrate(queryClient)))
         }
     }
 }

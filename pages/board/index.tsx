@@ -40,9 +40,9 @@ const Board = (): JSX.Element => {
             <Head>
                 <title>골아니 커뮤니티</title>
                 <meta name="description" content="골프정보를 공유하는 커뮤니티 페이지 입니다."/>
-                <meta name="og:title" content="골아니 커뮤니티"/>
-                <meta name="og:description" content="골프정보를 공유하는 커뮤니티 페이지 입니다."/>
-                <meta name="og:url" content="https://golfani.com/board"/>
+                <meta property="og:title" name="og:title" content="골아니 커뮤니티"/>
+                <meta property="og:description" name="og:description" content="골프정보를 공유하는 커뮤니티 페이지 입니다."/>
+                <meta property="og:url" name="og:url" content="https://golfani.com/board"/>
             </Head>
             <Navbar/>
             <div className={style.main_box}>
