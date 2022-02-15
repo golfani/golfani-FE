@@ -13,6 +13,7 @@ import React, {ChangeEvent, useState} from "react";
 import {useRouter} from "next/router";
 import {getCookie, removeCookie} from "../src/utils/cookieUtil";
 import Head from "next/head";
+import LoadingModal from "src/components/modals/LoadingModal";
 
 type FormData = {
     id: string,
@@ -39,6 +40,7 @@ const SignUp = (): JSX.Element => {
     const [readOnly, setReadOnly] = useState(false); // input readOnly 상태 관리 변수입니다.
     const router = useRouter();
     const [isSendMail, setIsSendMail] = useState(false);
+    const [loadingModalOpen, setLoadingModalOpen] = useState(false);
 
     // ID 중복 검사
     const onValidateId = async (e: ChangeEvent) => {
@@ -106,12 +108,15 @@ const SignUp = (): JSX.Element => {
 
         if (auth) {
             try {
+                setLoadingModalOpen(true);
                 const response = await signUp(member);
                 if (response.status === 200) {
                     router.push("/");
                 }
             } catch (e) {
                 alert('[서버에러] 잠시 후 다시 시도해 주세요');
+            } finally {
+                setLoadingModalOpen(false);
             }
         }
     }
@@ -131,6 +136,7 @@ const SignUp = (): JSX.Element => {
 
         if (auth) {
             try {
+                setLoadingModalOpen(true)
                 const response = await registerOauthSignUp(member);
                 if (response.status === 200) {
                     removeCookie('memberId');
@@ -138,6 +144,8 @@ const SignUp = (): JSX.Element => {
                 }
             } catch (e) {
                 alert('[서버에러] 잠시 후 다시 시도해 주세요');
+            } finally {
+                setLoadingModalOpen(false)
             }
         }
     }
@@ -159,6 +167,10 @@ const SignUp = (): JSX.Element => {
         }
     }
 
+    const handleClickTitle = () => {
+        router.push('/');
+    }
+
     return (
         <div className={style.container}>
             <Head>
@@ -168,8 +180,8 @@ const SignUp = (): JSX.Element => {
                 <meta property="og:description" key="ogdesc" content="골아니 회원가입 페이지 입니다."/>
                 <meta property="og:url" key="ogurl" content="https://golfani.com/signup"/>
             </Head>
-            <div>
-                <h1>GOLF ANI</h1>
+            <div className={style.signup_box}>
+                <h1 className={style.title_txt} onClick={handleClickTitle}>GOLF ANI</h1>
                 {memberId ? <></> :
                     <div className={style.sns_box}>
                         <span className={style.sns_main_txt}>SNS 계정을 보유하고 계신가요?</span>
@@ -249,6 +261,7 @@ const SignUp = (): JSX.Element => {
                     <button type='submit' className={style.signup_btn}>회원가입</button>
                 </form>
             </div>
+            {loadingModalOpen && <LoadingModal/>}
         </div>
     )
 }

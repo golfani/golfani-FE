@@ -9,6 +9,7 @@ import useShopRegister from "src/store/modules/shopRegister/shopRegisterHook";
 import ShopRegisterCertify from "src/components/shop/register/ShopRegisterCertify";
 import {IShopDto, registerShop} from "src/apis/Shop";
 import {getCookie} from "src/utils/cookieUtil";
+import LoadingModal from "src/components/modals/LoadingModal";
 
 interface IShopRegisterModalProps {
     setModalOpen: (state: boolean) => void
@@ -20,6 +21,7 @@ const ShopRegisterModal = (props: IShopRegisterModalProps): JSX.Element => {
     const [messageModalOpen, setMessageModalOpen] = useState(false);
     const [titleMsg, setTitleMsg] = useState('스토어 등록');
     const userId = getCookie('userId');
+    const [loadingModalOpen, setLoadingModalOpen] = useState(false);
 
     const onCloseModal = () => {
         props.setModalOpen(false);
@@ -58,8 +60,8 @@ const ShopRegisterModal = (props: IShopRegisterModalProps): JSX.Element => {
     }
 
     const fetchRegisterShop = async () => {
-        //todo
         try {
+            setLoadingModalOpen(true);
             const shop: Partial<IShopDto> = {
                 isApproved: false,
                 userId: userId,
@@ -67,7 +69,7 @@ const ShopRegisterModal = (props: IShopRegisterModalProps): JSX.Element => {
                 description: shopRegister.description,
                 location: shopRegister.address,
                 subLocation: shopRegister.subAddress,
-                regCode : shopRegister.regCode,
+                regCode: shopRegister.regCode,
                 registrationNumber: shopRegister.registrationNumber,
                 telephone: shopRegister.contactFirst + '-' + shopRegister.contactMiddle + '-' + shopRegister.contactLast
             }
@@ -76,6 +78,8 @@ const ShopRegisterModal = (props: IShopRegisterModalProps): JSX.Element => {
             alert('스토어 등록 신청이 완료되었습니다.');
         } catch (e) {
 
+        } finally {
+            setLoadingModalOpen(false);
         }
     }
 
@@ -122,6 +126,7 @@ const ShopRegisterModal = (props: IShopRegisterModalProps): JSX.Element => {
                 </div>
                 {messageModalOpen && <Modal message={'스토어 등록을 취소하시겠습니까?'} setModalOpen={setMessageModalOpen}
                                             successCallback={onCloseModal}/>}
+                {loadingModalOpen && <LoadingModal/>}
             </div>
         </div>
     );

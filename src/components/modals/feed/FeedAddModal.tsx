@@ -11,20 +11,21 @@ import useFeedZIndex from "src/store/modules/feedZIndex/feedZIndexHook";
 import {handleClickRefOutSide} from "src/utils/clickUtil";
 import {bodyScrollActionForModal} from "src/utils/scrollUtil";
 import {isMobile} from "src/utils/detectDevice";
+import LoadingModal from "src/components/modals/LoadingModal";
 
 const FEED_ADD_STATUS = {
-    IMAGE : '사진 업로드',
-    CONTENT : '본문 작성하기',
-    OPTION : '설정하기'
+    IMAGE: '사진 업로드',
+    CONTENT: '본문 작성하기',
+    OPTION: '설정하기'
 } as const
 
 type FEED_ADD_STATUS = typeof FEED_ADD_STATUS[keyof typeof FEED_ADD_STATUS];
 
 interface IFeedAddModalProps {
-    setModalOpen : (state : boolean) => void
+    setModalOpen: (state: boolean) => void
 }
 
-const FeedAddModal = ({setModalOpen} : IFeedAddModalProps) : JSX.Element => {
+const FeedAddModal = ({setModalOpen}: IFeedAddModalProps): JSX.Element => {
     const [step, setStep] = useState<FEED_ADD_STATUS>(FEED_ADD_STATUS.IMAGE);
     const feedAdd = useFeedAdd();
     const [messageModalOpen, setMessageModalOpen] = useState(false);
@@ -32,6 +33,7 @@ const FeedAddModal = ({setModalOpen} : IFeedAddModalProps) : JSX.Element => {
     const feedZIndex = useFeedZIndex();
     const modalRef = useRef<HTMLDivElement>(null);
     const [isMobileClose, setIsMobileClose] = useState(false);
+    const [loadingModalOpen, setLoadingModalOpen] = useState(false);
 
     const handleClickPrevButton = () => {
         switch (step) {
@@ -63,12 +65,14 @@ const FeedAddModal = ({setModalOpen} : IFeedAddModalProps) : JSX.Element => {
 
     const onRegisterFeed = async () => {
         try {
+            setLoadingModalOpen(true);
             const response = await registerFeed(feedAdd.feedAddState);
             onCloseModal();
             await queryClient.invalidateQueries('feed');
-        }
-        catch (e) {
+        } catch (e) {
 
+        } finally {
+            setLoadingModalOpen(false);
         }
     }
 
@@ -77,10 +81,9 @@ const FeedAddModal = ({setModalOpen} : IFeedAddModalProps) : JSX.Element => {
     }
 
     const onCancelFeedAdd = () => {
-        if(isMobile()) {
+        if (isMobile()) {
             onMobileClose();
-        }
-        else {
+        } else {
             setMessageModalOpen(true);
         }
     }
@@ -91,28 +94,30 @@ const FeedAddModal = ({setModalOpen} : IFeedAddModalProps) : JSX.Element => {
 
     const onMobileClose = () => {
         setIsMobileClose(true);
-        setTimeout(()=> {
+        setTimeout(() => {
             onCloseModal();
         }, 300)
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         feedZIndex.onSetBelow();
         feedAdd.onInit();
-    },[])
+    }, [])
 
-    handleClickRefOutSide(modalRef,onCancelFeedAdd);
+    handleClickRefOutSide(modalRef, onCancelFeedAdd);
     bodyScrollActionForModal();
 
     return (
-        <div className={isMobileClose ? style.container_close :style.container}>
+        <div className={isMobileClose ? style.container_close : style.container}>
             <div className={style.modal_box} ref={modalRef}>
                 <div className={style.title_box}>
-                    <button className={style.title_prev_btn} onClick={handleClickPrevButton}>{step === FEED_ADD_STATUS.IMAGE ? '취소' : '이전'}</button>
+                    <button className={style.title_prev_btn}
+                            onClick={handleClickPrevButton}>{step === FEED_ADD_STATUS.IMAGE ? '취소' : '이전'}</button>
                     <span className={style.title_txt}>{step}</span>
                     {feedAdd.feedAddState.imgList.length
                         ?
-                        <button className={style.title_next_btn} onClick={handleClickNextButton}>{step === FEED_ADD_STATUS.OPTION ? '완료' : '다음'}</button>
+                        <button className={style.title_next_btn}
+                                onClick={handleClickNextButton}>{step === FEED_ADD_STATUS.OPTION ? '완료' : '다음'}</button>
                         :
                         null
                     }
@@ -122,7 +127,9 @@ const FeedAddModal = ({setModalOpen} : IFeedAddModalProps) : JSX.Element => {
                     {step === FEED_ADD_STATUS.CONTENT && <FeedAddContent/>}
                     {step === FEED_ADD_STATUS.OPTION && <FeedAddOption/>}
                 </div>
-                {messageModalOpen && <Modal message={'피드 작성을 취소하겠습니까?'} setModalOpen={setMessageModalOpen} successCallback={modalSuccessCallback}/>}
+                {messageModalOpen && <Modal message={'피드 작성을 취소하겠습니까?'} setModalOpen={setMessageModalOpen}
+                                            successCallback={modalSuccessCallback}/>}
+                {loadingModalOpen && <LoadingModal/>}
             </div>
         </div>
     );
