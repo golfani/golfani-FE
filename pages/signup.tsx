@@ -14,6 +14,7 @@ import {useRouter} from "next/router";
 import {getCookie, removeCookie} from "../src/utils/cookieUtil";
 import Head from "next/head";
 import LoadingModal from "src/components/modals/LoadingModal";
+import useLogin from "src/store/modules/login/loginHook";
 
 type FormData = {
     id: string,
@@ -41,6 +42,7 @@ const SignUp = (): JSX.Element => {
     const router = useRouter();
     const [isSendMail, setIsSendMail] = useState(false);
     const [loadingModalOpen, setLoadingModalOpen] = useState(false);
+    const {loginMember} = useLogin();
 
     // ID 중복 검사
     const onValidateId = async (e: ChangeEvent) => {
@@ -112,6 +114,10 @@ const SignUp = (): JSX.Element => {
                 const response = await signUp(member);
                 if (response.status === 200) {
                     router.push("/");
+                    loginMember({
+                        userId: member.userId!,
+                        password: member.password!
+                    });
                 }
             } catch (e) {
                 alert('[서버에러] 잠시 후 다시 시도해 주세요');
