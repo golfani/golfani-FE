@@ -7,6 +7,7 @@ import Modal from "src/components/modals/Modal"
 import {EBoardType} from "src//domain/board";
 import BoardWriteImage from "./BoardWriteImage";
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import LoadingModal from "src/components/modals/LoadingModal";
 
 const BoardWrite = (): JSX.Element => {
     const getUserId = getCookie('userId');
@@ -15,42 +16,44 @@ const BoardWrite = (): JSX.Element => {
     const [modalMsg, setModalMsg] = useState("");
     const {category} = router.query;
     const ref = useRef<HTMLTextAreaElement | null>(null);
+    const [loadingModalOpen, setLoadingModalOpen] = useState(false);
 
-    const setMsg = (msg : string) => {
+
+    const setMsg = (msg: string) => {
         setOpenModal(true);
         setModalMsg(msg);
     }
 
-    const [inputs , setInputs] = useState<Partial<IBoardData>>({
-        userId : getUserId,
+    const [inputs, setInputs] = useState<Partial<IBoardData>>({
+        userId: getUserId,
         boardType: category as EBoardType,
-        content : '',
-        title : ''
+        content: '',
+        title: ''
     })
 
-    const {userId, content, title, boardType}  = inputs;
+    const {userId, content, title, boardType} = inputs;
 
-    const onChange = (e : React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-        const { value , name } = e.target;
+    const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+        const {value, name} = e.target;
         setInputs({
             ...inputs,
-            [name] : value // 해당하는 title, content, type, userId 의 값을 변경 한다.
+            [name]: value // 해당하는 title, content, type, userId 의 값을 변경 한다.
         });
     }
 
     const [imgList, setImgList] = useState<File[]>([]);
-    const [fileURLs,setFileURLs] = useState<Array<string>>([]);
+    const [fileURLs, setFileURLs] = useState<Array<string>>([]);
 
     const handleChangeFile = (e: any) => {
-        const fileArr =  e.target.files;
+        const fileArr = e.target.files;
         const fileUrls = Array<string>();
-        for(let i =0 ; i < fileArr.length; i++){
+        for (let i = 0; i < fileArr.length; i++) {
             const fileURL = URL.createObjectURL(fileArr[i]); // 미리보기를 위한 변수화
             fileUrls.push(fileURL);
         }
         setFileURLs(fileURLs.concat(fileUrls));
         setImgList(imgList.concat(Array.from(fileArr)));
-        e.target.value=''; // 같은 파일 재입력시 onChange 이벤트 적용할 수 있도록 적용
+        e.target.value = ''; // 같은 파일 재입력시 onChange 이벤트 적용할 수 있도록 적용
     }
 
     const handleDeleteImg = (index: number) => {
@@ -60,41 +63,36 @@ const BoardWrite = (): JSX.Element => {
         setImgList(img);
     }
 
-    const onEnterPress = (e : React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if(e.key == 'Enter' && !e.shiftKey)
-        {
+    const onEnterPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key == 'Enter' && !e.shiftKey) {
             e.preventDefault(); // 엔터키 입력 방지
             ref.current?.focus();
         }
     }
 
     const handleOnSummit = async () => {
-        if(inputs.title!.length <= 0)
-        {
+        if (inputs.title!.length <= 0) {
             setMsg("제목을 입력해주세요");
-        }
-        else if(inputs.content!.length <= 0){
+        } else if (inputs.content!.length <= 0) {
             setMsg("내용을 입력해주세요");
-        }
-        else if(boardType === undefined)
-        {
+        } else if (boardType === undefined) {
             setMsg("게시판을 선택해주세요");
-        }
-
-        else {
-            try{
+        } else {
+            try {
+                setLoadingModalOpen(true);
                 const response = await registerBoard(inputs, imgList);
                 await router.push(`/board?type=${boardType}`);
-            }catch (e) {
-                console.log(e.response);
+            } catch (e) {
+            } finally {
+                setLoadingModalOpen(false);
             }
         }
     }
 
-    const handleClickCategory =  (type : EBoardType) => {
+    const handleClickCategory = (type: EBoardType) => {
         setInputs({
             ...inputs,
-            boardType : type
+            boardType: type
         })
     }
 
@@ -102,7 +100,7 @@ const BoardWrite = (): JSX.Element => {
         router.back();
     }
 
-    return(
+    return (
         <div className={style.container}>
             <div className={style.write_wrap}>
                 <div className={style.write_top}>
@@ -114,7 +112,8 @@ const BoardWrite = (): JSX.Element => {
                 </div>
                 <div className={style.board_write}>
                     <div className={style.title}>
-                        <textarea className={style.titleTextArea} placeholder="제목을 입력해 주세요" name = "title" value={title} onChange={onChange} onKeyPress={onEnterPress} autoFocus={true}> </textarea>
+                        <textarea className={style.titleTextArea} placeholder="제목을 입력해 주세요" name="title" value={title}
+                                  onChange={onChange} onKeyPress={onEnterPress} autoFocus={true}> </textarea>
                     </div>
                     <div className={style.select_type_wrap}>
                         <button
@@ -152,18 +151,19 @@ const BoardWrite = (): JSX.Element => {
                         <span className={style.writer}>글쓴이</span>
                         <span className={style.userId}>{userId}</span>
                     </div>
-                    <div className={style.photo_wrap} >
+                    <div className={style.photo_wrap}>
                         <label htmlFor="input-file" className={style.plus_img}>
                             <InsertPhotoIcon/>
                         </label>
                     </div>
                     <div className={style.content_wrap}>
                         <div className={style.content}>
-                            <textarea className={style.contentTextarea} placeholder="내용 입력을 입력해 주세요" name="content" value = {content} onChange={onChange} ref={ref}></textarea>
+                            <textarea className={style.contentTextarea} placeholder="내용 입력을 입력해 주세요" name="content"
+                                      value={content} onChange={onChange} ref={ref}/>
                         </div>
                         <div className={style.preview}>
                             {
-                                fileURLs.map((img,index) => (
+                                fileURLs.map((img, index) => (
                                     <BoardWriteImage index={index} src={img} handleDeleteImg={handleDeleteImg}/>
                                 ))}
                         </div>
@@ -174,12 +174,13 @@ const BoardWrite = (): JSX.Element => {
                             type="file"
                             multiple
                             id="input-file"
-                            accept =".jpg, .jpeg, .png"
+                            accept=".jpg, .jpeg, .png"
                             onChange={handleChangeFile}
                         />
                     </div>
                 </div>
                 {openModal && <Modal message={modalMsg} setModalOpen={setOpenModal}/>}
+                {loadingModalOpen && <LoadingModal/>}
             </div>
         </div>
     )

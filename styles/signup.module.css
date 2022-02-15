@@ -8,19 +8,24 @@
     background-color: #F4F4F4;
 }
 
-.container > div {
+.signup_box {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 800px;
+    width: 600px;
     height: 100%;
     background-color: #fff;
+}
+
+.title_txt {
+    cursor: pointer;
 }
 
 .sns_box {
     width: 300px;
     margin-bottom: 20px;
 }
+
 .sns_main_txt {
     display: block;
     text-align: center;
@@ -173,4 +178,10 @@
     border: none;
     outline: none;
     padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .signup_box {
+        width: 100%;
+    }
 }
