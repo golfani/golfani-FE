@@ -33,7 +33,12 @@ export interface IChatMessageDto {
  * 해당 유저의 채팅방 목록을 요청하는 API
  */
 export const getAllChatRooms = async () => {
-    const response = await securityAxios.get(`${API_URL}/room/${userId}`);
+    const response = await securityAxios.get(`${API_URL}/rooms/${userId}`);
+    return response.data;
+}
+
+export const getChatRoom = async (roomId: number) => {
+    const response = await securityAxios.get(`${API_URL}/room/${roomId}?userId=${userId}`);
     return response.data;
 }
 
@@ -50,9 +55,9 @@ export const getChatMessageByRoomId = async (roomId : number, page : number = 0,
  * 해당 유저와 개설된 채팅방이 존재하는지 요청하는 API
  * @param receiver
  */
-export const getChatRoom = async (receiver : string) => {
+export const getChatRoomIdByUser = async (receiver : string) => {
     const response = await securityAxios.get(`${API_URL}/user?sender=${userId}&receiver=${receiver}`);
-    return response;
+    return response.data;
 }
 
 /**
@@ -83,7 +88,6 @@ export const sendChatBySocket = async (chatRoomId : number, receiver : string, m
         receiver : receiver,
         message : message
     }
-
     await publishChatMessage(chatMessageDto);
 }
 
