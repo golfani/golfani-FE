@@ -11,7 +11,6 @@ import feedMenu from "./feedMenu/feedMenu";
 import feedAdd from "./feedAdd/feedAdd";
 import {searchSaga} from "./search/saga";
 import search from "./search/search";
-import chatRoom from "./chat/chatRoom";
 import feedZIndex from "./feedZIndex/feedZIndex";
 import shopRegister from "./shopRegister/shopRegister";
 
@@ -27,7 +26,6 @@ const rootReducer = combineReducers({
     feedMenu : feedMenu,
     feedAdd : feedAdd,
     search : search,
-    chatRoom : chatRoom,
     feedZIndex : feedZIndex,
     shopRegister : shopRegister,
 })
