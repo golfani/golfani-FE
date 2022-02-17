@@ -33,6 +33,7 @@ const Message = (): JSX.Element => {
             console.log(e);
         } finally {
             await queryClient.invalidateQueries('chatRoom');
+            await queryClient.invalidateQueries(['chatMessage', roomId]);
         }
     }
 
