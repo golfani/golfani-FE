@@ -56,7 +56,7 @@ const Message = (): JSX.Element => {
         }
         onMount();
         return () => unMount();
-    }, []);
+    }, [roomId]);
 
     return (
         <div className={style.container}>
