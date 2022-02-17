@@ -2,25 +2,26 @@ import style from './messageSendModal.module.css';
 import {getProfileImage, IMember} from "src/apis/Member";
 import {ChangeEvent, useRef, useState} from "react";
 import {getCookie} from "src/utils/cookieUtil";
-import {createChatRoom, getChatRoom, sendChatBySocket} from "src/apis/Chat";
+import {createChatRoom, getChatRoomIdByUser, sendChatBySocket} from "src/apis/Chat";
+import {useRouter} from "next/router";
 
 interface IMessageSendProps {
-    member : IMember
-    setModalOpen : (state : boolean) => void
+    member: IMember
+    setModalOpen: (state: boolean) => void
 }
 
-const MessageSendModal = ({member,setModalOpen} : IMessageSendProps) : JSX.Element => {
+const MessageSendModal = ({member, setModalOpen}: IMessageSendProps): JSX.Element => {
     const userId = getCookie('userId');
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
-    const [chatText,setChatText] = useState("");
+    const [chatText, setChatText] = useState("");
+    const router = useRouter();
 
     const onModalClose = () => {
         setModalOpen(false);
     }
 
     const handleResizeHeight = () => {
-        if(window.innerWidth > 480)
-        {
+        if (window.innerWidth > 480) {
             if (textAreaRef.current) {
                 textAreaRef.current.style.height = '200px';
                 textAreaRef.current.style.height = textAreaRef.current?.scrollHeight + "px";
@@ -28,7 +29,7 @@ const MessageSendModal = ({member,setModalOpen} : IMessageSendProps) : JSX.Eleme
         }
     }
 
-    const handleChangeTextArea = (event : ChangeEvent) => {
+    const handleChangeTextArea = (event: ChangeEvent) => {
         const input = event.target as HTMLTextAreaElement;
         setChatText(input.value);
         handleResizeHeight();
@@ -36,12 +37,10 @@ const MessageSendModal = ({member,setModalOpen} : IMessageSendProps) : JSX.Eleme
 
     const getChatRoomId = async () => {
         try {
-            const response = await getChatRoom(member.userId);
-            const roomId = response.data;
+            const roomId = await getChatRoomIdByUser(member.userId);
             return roomId;
-        }
-        catch (e) {
-            if(e.response.status === 404) {
+        } catch (e) {
+            if (e.response.status === 404) {
                 const roomId = await createChatRoom(member.userId);
                 return roomId;
             }
@@ -51,16 +50,16 @@ const MessageSendModal = ({member,setModalOpen} : IMessageSendProps) : JSX.Eleme
     const sendMessage = async () => {
         try {
             const roomId = await getChatRoomId();
-            await sendChatBySocket(roomId,member.userId,chatText);
+            await router.push(`/message/${roomId}`);
+            await sendChatBySocket(roomId, member.userId, chatText);
             await onModalClose();
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e);
         }
     }
 
     const handleClickSendButton = async () => {
-        if(chatText.replace(/\s/g,'').length) {
+        if (chatText.replace(/\s/g, '').length) {
             await sendMessage();
         }
     }
@@ -76,7 +75,7 @@ const MessageSendModal = ({member,setModalOpen} : IMessageSendProps) : JSX.Eleme
                 </div>
                 <div className={style.main_box}>
                     <div className={style.user_box}>
-                        <img className={style.img} src={getProfileImage(userId,'MID')} width={30} height={30}/>
+                        <img className={style.img} src={getProfileImage(userId, 'MID')} width={30} height={30}/>
                         <span className={style.user_txt}>{userId}</span>
                     </div>
                     <textarea className={style.msg_input}
@@ -87,7 +86,7 @@ const MessageSendModal = ({member,setModalOpen} : IMessageSendProps) : JSX.Eleme
                               autoFocus={true}
                     />
                     <div className={style.send_box}>
-                        <img className={style.img} src={getProfileImage(member.userId,'MID')} width={30} height={30}/>
+                        <img className={style.img} src={getProfileImage(member.userId, 'MID')} width={30} height={30}/>
                         <span className={style.receiver_user}>{`${member.userId}`}</span>
                     </div>
                 </div>
