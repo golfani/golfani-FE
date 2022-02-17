@@ -40,18 +40,24 @@ export const subNoticeChannel = (callback : (data : IMessage) => void) => {
 }
 
 export const subChatChannel = (roomId : number, callback : () => void) => {
-    socket.chatRoomId = roomId;
-    const subId = `chat-sub-${roomId}`;
-    if (socket.socketClient.active && socket.socketClient.connected) {
-        const publish = socket.socketClient.publish({
-            destination: `/chat/subscribe/${roomId}`,
-            body: 'participate',
+    if (socket.chatRoomId === undefined) {
+        socket.chatRoomId = roomId;
+        const subId = `chat-sub-${roomId}`;
+        if (socket.socketClient.active && socket.socketClient.connected) {
+            const publish = socket.socketClient.publish({
+                destination: `/chat/subscribe/${roomId}`,
+                body: 'participate',
+            });
+        } else {
+            alert('socketClient not Connected');
+        }
+        const subscription = socket.socketClient.subscribe(`/topic/${roomId}`, callback, {
+            id: subId,
+            roomId: roomId.toString(),
+            userId: userId,
+            type: 'CHAT'
         });
     }
-    else {
-        alert('socketClient not Connected');
-    }
-    const subscription = socket.socketClient.subscribe(`/topic/${roomId}`,callback,{ id : subId, roomId : roomId.toString(), userId : userId, type : 'CHAT'});
 }
 
 export const unSubNoticeChannel= () => {

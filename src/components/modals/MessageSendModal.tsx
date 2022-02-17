@@ -4,6 +4,8 @@ import {ChangeEvent, useRef, useState} from "react";
 import {getCookie} from "src/utils/cookieUtil";
 import {createChatRoom, getChatRoomIdByUser, sendChatBySocket} from "src/apis/Chat";
 import {useRouter} from "next/router";
+import {subChatChannel} from "src/socket/socket";
+import {useQueryClient} from "react-query";
 
 interface IMessageSendProps {
     member: IMember
@@ -15,6 +17,7 @@ const MessageSendModal = ({member, setModalOpen}: IMessageSendProps): JSX.Elemen
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
     const [chatText, setChatText] = useState("");
     const router = useRouter();
+    const queryClient = useQueryClient();
 
     const onModalClose = () => {
         setModalOpen(false);
@@ -47,10 +50,15 @@ const MessageSendModal = ({member, setModalOpen}: IMessageSendProps): JSX.Elemen
         }
     }
 
+
     const sendMessage = async () => {
         try {
             const roomId = await getChatRoomId();
             await router.push(`/message/${roomId}`);
+            const callback = async () => {
+                await queryClient.invalidateQueries(['chatMessage', roomId]);
+            }
+            await subChatChannel(roomId, callback);
             await sendChatBySocket(roomId, member.userId, chatText);
             await onModalClose();
         } catch (e) {

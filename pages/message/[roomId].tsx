@@ -37,12 +37,12 @@ const Message = (): JSX.Element => {
     }
 
     const onMount = async () => {
+        await subChatChannel(roomId, callback);
         await onReadChatMessage();
         await queryClient.invalidateQueries('unReadMessage');
         // if(chatRoomItem.id !== chatRoom.activeChatRoom?.id) {
         //     chatRoom.activeChatRoom && unSubChatChannel(chatRoom.activeChatRoom.id!);
         // }
-        await subChatChannel(roomId, callback);
     }
 
     const unMount = () => {
