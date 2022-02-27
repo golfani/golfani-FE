@@ -159,11 +159,7 @@ export const modifyMemberPassword = async (userId : string, password : string) =
  * @param userId
  */
 export const regenerateAccessToken = async (userId : string) => {
-    const response = await axios.get(`${API_URL}/refresh?user_id=${userId}`,{
-        headers : {
-            Authorization : `Bearer ${getCookie('refreshToken')}`,
-        }
-    })
+    const response = await axios.get(`${API_URL}/refresh?user_id=${userId}`);
     return response;
 }
 

@@ -18,9 +18,9 @@ const onRegenerateAccessToken = async (userId : string) => {
 }
 
 export const onSilentRefresh = async (userId : string) => {
-    const ACCESS_TOKEN_EXPIRE = 1000 * 60 * 30; // ms
+    const ACCESS_TOKEN_EXPIRE = 1000 * 60 * 15; // ms
     await onRegenerateAccessToken(userId);
     setTimeout(async ()=> {
         await onSilentRefresh(userId);
-    },ACCESS_TOKEN_EXPIRE - 6000 * 10); // ms
+    },ACCESS_TOKEN_EXPIRE - 6000 * 5); // ms
 }
