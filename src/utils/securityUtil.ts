@@ -11,7 +11,6 @@ const onRegenerateAccessToken = async (userId : string) => {
     }
     catch (e) {
         removeCookie('userId');
-        removeCookie('refreshToken');
         window.location.href = 'login';
         alert('로그인 세션 만료, 다시 로그인 해주세요');
     }

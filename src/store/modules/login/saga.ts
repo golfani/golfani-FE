@@ -9,12 +9,6 @@ function* handleLoginSaga(action: PayloadAction<LoginMember>) {
     try {
         const user: IUser = yield call(login, action.payload);
         yield securityAxios.defaults.headers.common['Authorization'] = `Bearer ${user.accessToken}`;
-        yield setCookie('refreshToken', user.refreshToken, {
-            path: '/',
-            secure: true,
-            httpOnly: true,
-            maxAge: 60 * 60 * 24 * 7,
-        });
         yield setCookie('userId', user.userId, {
             path: '/',
             secure: false,
