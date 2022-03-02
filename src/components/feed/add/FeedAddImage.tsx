@@ -36,9 +36,9 @@ const FeedAddImage = () : JSX.Element => {
         for(let i = 0; i < input.files.length; i ++) {
             const file: File = input.files[i]; // file 추출하기
             const fileUrl = URL.createObjectURL(file); // file 로 URL 만들기
-            let canvas = window.document.createElement('canvas');
-            let ctx = canvas.getContext('2d');
-            let canvasImage = new Image();
+            const canvas = window.document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const canvasImage = new Image();
             canvasImage.src = fileUrl;
             const maxWidth = 1080;
             const maxHeight = 1080;
