@@ -10,34 +10,34 @@ import {getCookie} from "src/utils/cookieUtil";
 import {sendFCM} from "src/apis/FirebaseCloudMessage";
 
 interface IFeedLikeProps {
-    feed : IFeedContent
+    feed: IFeedContent
 }
 
-const FeedLike = ({feed} : IFeedLikeProps) : JSX.Element => {
+const FeedLike = ({feed}: IFeedLikeProps): JSX.Element => {
     const queryClient = useQueryClient();
-    const totalLikesQuery = useQuery<number,Error>(['feedLikes',feed.id], () => getFeedLikes(feed.id),{
-        staleTime : 1000 * 60
+    const totalLikesQuery = useQuery<number, Error>(['feedLikes', feed.id], () => getFeedLikes(feed.id), {
+        staleTime: 1000 * 60
     })
-    const userIsFeedLikes = useQuery<ILikesDto,Error>(['isFeedLikes',feed.id], () => getUserIsFeedLikes(feed.id),{
-        staleTime : 1000 * 60
+    const userIsFeedLikes = useQuery<ILikesDto, Error>(['isFeedLikes', feed.id], () => getUserIsFeedLikes(feed.id), {
+        staleTime: 1000 * 60
     })
-    const mutation = useMutation(()=> registerLikes("FEED",feed.id));
+    const mutation = useMutation(() => registerLikes("FEED", feed.id));
     const userId = getCookie('userId');
 
     const onRegisterLikes = useCallback(async () => {
         try {
-            const response = await mutation.mutateAsync();
-        } catch (e) {
-            console.log(e)
-        } finally {
-            await queryClient.invalidateQueries(['feedLikes', feed.id]);
-            await queryClient.invalidateQueries(['isFeedLikes', feed.id]);
+            await mutation.mutateAsync();
             try {
                 userIsFeedLikes.data?.likes || sendAlarmBySocket('LIKES', feed.userId, '피드를 좋아합니다. ', feed.id, null, 'FEED');
                 userIsFeedLikes.data?.likes || await sendFCM('피드를 좋아합니다.', feed.userId);
             } catch (e) {
 
             }
+        } catch (e) {
+            console.log(e)
+        } finally {
+            await queryClient.invalidateQueries(['feedLikes', feed.id]);
+            await queryClient.invalidateQueries(['isFeedLikes', feed.id]);
         }
     }, [mutation]);
 
@@ -45,7 +45,7 @@ const FeedLike = ({feed} : IFeedLikeProps) : JSX.Element => {
         await onRegisterLikes();
     }
 
-    return(
+    return (
         <div className={style.container} onClick={handleClick}>
             {userIsFeedLikes.data?.likes
                 ? <FavoriteIcon fontSize={'small'} color={'error'}/>

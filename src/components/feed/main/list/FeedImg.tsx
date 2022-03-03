@@ -11,27 +11,27 @@ import {IFeedItemProps} from "./FeedItem";
 import {isMobile} from "src/utils/detectDevice";
 import {sendFCM} from "src/apis/FirebaseCloudMessage";
 
-export const CustomNextArrow = ({className, style, onClick} : any) : JSX.Element=> {
+export const CustomNextArrow = ({className, style, onClick}: any): JSX.Element => {
     return (
         <div
             className={className}
-            style={{ ...style, display: "block", position : 'absolute', right : 10}}
+            style={{...style, display: "block", position: 'absolute', right: 10}}
             onClick={onClick}
         />
     )
 }
 
-export const CustomPrevArrow = ({className, style, onClick} : any) : JSX.Element=> {
+export const CustomPrevArrow = ({className, style, onClick}: any): JSX.Element => {
     return (
         <div
             className={className}
-            style={{ ...style, display: "block", position : 'absolute', left : 10, zIndex : 10}}
+            style={{...style, display: "block", position: 'absolute', left: 10, zIndex: 10}}
             onClick={onClick}
         />
     )
 }
 
-const FeedImg = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
+const FeedImg = ({feed, isModal}: IFeedItemProps): JSX.Element => {
     const queryClient = useQueryClient();
     const [toastModalOpen, setToastModalOpen] = useState(false);
     const settings = {
@@ -40,39 +40,39 @@ const FeedImg = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        nextArrow : <CustomNextArrow/>,
-        prevArrow : <CustomPrevArrow/>,
-        arrows : !isMobile()
+        nextArrow: <CustomNextArrow/>,
+        prevArrow: <CustomPrevArrow/>,
+        arrows: !isMobile()
     };
 
-    const likeMutation = useMutation(()=> registerLikes("FEED",feed.id));
+    const likeMutation = useMutation(() => registerLikes("FEED", feed.id));
 
     const onRegisterLikes = useCallback(async () => {
         const isLike = queryClient.getQueryData(['isFeedLikes', feed.id]);
         if (!isLike) {
             try {
-                const response = await likeMutation.mutateAsync();
-                await onToastMessage();
-            } catch (e) {
-                console.log(e)
-            } finally {
-                await queryClient.invalidateQueries(['feedLikes', feed.id]);
-                await queryClient.invalidateQueries(['isFeedLikes', feed.id]);
+                await likeMutation.mutateAsync();
+                onToastMessage();
                 try {
                     sendAlarmBySocket('LIKES', feed.userId, '피드를 좋아합니다.', feed.id, null, 'FEED');
                     await sendFCM('피드를 좋아합니다.', feed.userId);
                 } catch (e) {
 
                 }
+            } catch (e) {
+                console.log(e)
+            } finally {
+                await queryClient.invalidateQueries(['feedLikes', feed.id]);
+                await queryClient.invalidateQueries(['isFeedLikes', feed.id]);
             }
         }
     }, [likeMutation]);
 
     const onToastMessage = () => {
-        setToastModalOpen((toastModalOpen)=> true)
-        setTimeout(()=> {
-            setToastModalOpen((toastModalOpen)=> false);
-        },2300)
+        setToastModalOpen((toastModalOpen) => true)
+        setTimeout(() => {
+            setToastModalOpen((toastModalOpen) => false);
+        }, 2300)
     }
 
     const handleDoubleClick = async () => {
@@ -82,11 +82,12 @@ const FeedImg = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
     return (
         <div className={isModal ? style.modal_container : style.container}>
             <Slider {...settings}>
-                {feed.urlList.map((image,index)=> {
-                    if(index % 3 === 0) {
+                {feed.urlList.map((image, index) => {
+                    if (index % 3 === 0) {
                         return (
                             <div key={index}>
-                                <img id='feed_img' alt={image} className={style.img} src={image} onDoubleClick={handleDoubleClick}/>
+                                <img id='feed_img' alt={image} className={style.img} src={image}
+                                     onDoubleClick={handleDoubleClick}/>
                             </div>
                         )
                     }
