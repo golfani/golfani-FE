@@ -6,27 +6,28 @@ import {
 
 const useFCM = () => {
     const firebaseConfig = {
-        apiKey: "AIzaSyCslF4Q0fxcHKw0Gibc5v0fP4qb9zrs5BQ",
+        apiKey: process.env.NEXT_PUBLIC_FCM_APP_KEY,
         authDomain: "golfani.firebaseapp.com",
         projectId: "golfani",
         storageBucket: "golfani.appspot.com",
-        messagingSenderId: "754644573375",
-        appId: "1:754644573375:web:92b8afc4bd06032777ba0a",
-        measurementId: "G-SXKEJV1VYX"
+        messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+        appId: process.env.NEXT_PUBLIC_FCM_APP_ID,
+        measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
     };
     const app = initializeApp(firebaseConfig);
 
     const onGetToken = () => {
         const message = getMessaging();
-        onMessage(message, (payload)=> {
+
+        onMessage(message, (payload) => {
             const notification = new Notification(payload.notification?.title!, {body: payload.notification?.body});
         });
-        getToken(message, { vapidKey: 'BA2rpGOuAMUraL15Zjml-4pkQYD8z6l0jY96jtKF4E9ebC_kjqrPOXSRh7MXhmS_U8UoV1AeQEjUHxBBR50FJxM' }).then(async (currentToken) => {
+
+        getToken(message, {vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY}).then(async (currentToken) => {
             if (currentToken) {
                 try {
-                    const response = await manageNotificationGroup(currentToken);
-                }
-                catch (e) {
+                    await manageNotificationGroup(currentToken);
+                } catch (e) {
 
                 }
             } else {
@@ -42,8 +43,7 @@ const useFCM = () => {
         try {
             const deleteToken1 = await deleteToken(message);
             console.log(deleteToken1);
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e);
         }
     }
