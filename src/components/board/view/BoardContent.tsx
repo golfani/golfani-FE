@@ -18,43 +18,43 @@ import BoardNavigation from "./BoardNavigation";
 import {sendAlarmBySocket} from "src/apis/Alarm";
 import {sendFCM} from "src/apis/FirebaseCloudMessage";
 
-export interface IBoardProps{
-    board : IBoardData
+export interface IBoardProps {
+    board: IBoardData
 }
 
-const BoardContent = ({board} : IBoardProps): JSX.Element => {
+const BoardContent = ({board}: IBoardProps): JSX.Element => {
     const queryClient = useQueryClient();
     const router = useRouter();
     const [detailModalOpen, setDetailModalOpen] = useState(false);
     const [lottieLike, setLottieLike] = useState(false);
 
-    const likeMutation = useMutation(()=> registerLikes("POST",board.id));
+    const likeMutation = useMutation(() => registerLikes("POST", board.id));
 
     const onRegisterLikes = async () => {
         try {
-            const response = await likeMutation.mutateAsync();
+            await likeMutation.mutateAsync();
             likeQuery.data || setLottieLike(true);
+            try {
+                likeQuery.data || sendAlarmBySocket('LIKES', board.userId, '게시글을 좋아합니다. ', board.id, null, 'POST');
+                likeQuery.data || await sendFCM('게시글을 좋아합니다.', board.userId, false, board.boardType === EBoardType.ANONYMOUS);
+            } catch (e) {
+
+            }
         } catch (e) {
             console.log(e);
         } finally {
             await queryClient.invalidateQueries(['postLikes', board.id]);
             await queryClient.invalidateQueries(['board', String(board.id)]);
-            try {
-                likeQuery.data || sendAlarmBySocket('LIKES', board.userId, '게시글을 좋아합니다. ', board.id, null, 'POST');
-                likeQuery.data || await sendFCM('게시글을 좋아합니다.', board.userId,false, board.boardType === EBoardType.ANONYMOUS);
-            } catch (e) {
-
-            }
         }
     }
 
-    const likeQuery = useQuery(['postLikes',board.id],() => getPostLikes(board.id),{
-        staleTime : 1000 * 60
+    const likeQuery = useQuery(['postLikes', board.id], () => getPostLikes(board.id), {
+            staleTime: 1000 * 60
         }
     )
 
     const handleClickLikeButton = async () => {
-       await onRegisterLikes();
+        await onRegisterLikes();
     }
 
     const handleClickMenuButton = () => {
@@ -65,8 +65,7 @@ const BoardContent = ({board} : IBoardProps): JSX.Element => {
         try {
             await navigator.clipboard.writeText(`https://golfani.com${router.asPath}`);
             alert('게시글 링크가 복사되었습니다');
-        }
-        catch (e) {
+        } catch (e) {
 
         }
     }
@@ -75,28 +74,30 @@ const BoardContent = ({board} : IBoardProps): JSX.Element => {
         router.push(`/board?type=${board.boardType}&page=0`);
     }
 
-    useEffect(()=> {
-        setTimeout(()=> {
+    useEffect(() => {
+        setTimeout(() => {
             lottieLike && setLottieLike(false);
-        },2000)
-    },[lottieLike]);
+        }, 2000)
+    }, [lottieLike]);
 
     return (
         <div className={style.container}>
             <div className={style.title_box}>
-                <span className={style.category_txt} onClick={handleClickCategory}>{boardTypeToPostString(board.boardType) + ' >'}</span>
+                <span className={style.category_txt}
+                      onClick={handleClickCategory}>{boardTypeToPostString(board.boardType) + ' >'}</span>
                 <span className={style.title_txt}>{board.title}</span>
                 <span className={style.date_txt}>{dateDiff(board.createdTime)}</span>
             </div>
             <div className={style.info_box}>
                 <div className={style.user_box}>
-                    <img alt={'user_profile'} src={getProfileImage(board.userId,'MID')} className={style.user_img}/>
-                    <span className={style.user_txt}>{board.boardType === EBoardType.ANONYMOUS ? '익명' : board.userId}</span>
+                    <img alt={'user_profile'} src={getProfileImage(board.userId, 'MID')} className={style.user_img}/>
+                    <span
+                        className={style.user_txt}>{board.boardType === EBoardType.ANONYMOUS ? '익명' : board.userId}</span>
                 </div>
                 <div className={style.info_sub_box}>
-                    <FavoriteBorderIcon style={{fontSize : 16}} className={style.like_icon}/>
+                    <FavoriteBorderIcon style={{fontSize: 16}} className={style.like_icon}/>
                     <span className={style.like_count}>{board.likesCount}</span>
-                    <CloudQueueIcon style={{fontSize : 16}} className={style.reply_icon}/>
+                    <CloudQueueIcon style={{fontSize: 16}} className={style.reply_icon}/>
                     <span className={style.reply_txt}>{board.replyCount}</span>
                     <span className={style.visit_txt}>조회</span>
                     <span className={style.visit_count_txt}>{board.viewCount}</span>
@@ -107,20 +108,20 @@ const BoardContent = ({board} : IBoardProps): JSX.Element => {
                 <MoreHorizIcon className={style.menu_icon} onClick={handleClickMenuButton}/>
             </div>
             <div className={style.content_box}>
-                {board.content.split('\n').map((content,index)=> (
+                {board.content.split('\n').map((content, index) => (
                     <span className={style.content_txt} key={index}>{content}</span>
                 ))}
             </div>
             <div className={style.img_box}>
-                {board.urlList.map((img)=> (
-                    <img key={img} src={img} alt={img} onClick={()=>onHandleImgClick(img)} className={style.img}/>
+                {board.urlList.map((img) => (
+                    <img key={img} src={img} alt={img} onClick={() => onHandleImgClick(img)} className={style.img}/>
                 ))}
             </div>
             <div className={style.like_wrap}>
                 <div className={style.like_box} onClick={handleClickLikeButton}>
                     {likeQuery.data?.likes
-                        ? !lottieLike && <FavoriteIcon style={{fontSize : 24, color : '#ff6969'}}/>
-                        : !lottieLike && <FavoriteBorderIcon style={{fontSize : 24, color : '#ff6969'}}/>
+                        ? !lottieLike && <FavoriteIcon style={{fontSize: 24, color: '#ff6969'}}/>
+                        : !lottieLike && <FavoriteBorderIcon style={{fontSize: 24, color: '#ff6969'}}/>
                     }
                     {lottieLike && <LottieAnimation
                         width={140}

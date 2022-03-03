@@ -38,18 +38,18 @@ const BoardCommentItem = ({reply, board, replyRef}: IReplyProps) => {
 
     const onRegisterLikes = async () => {
         try {
-            const response = await registerLikesMutate.mutateAsync();
-        } catch (e) {
-            console.log(e);
-        } finally {
-            await queryClient.invalidateQueries(['replyLikes', reply.id]);
-            await queryClient.invalidateQueries(['isReplyLikes', reply.id]);
+            await registerLikesMutate.mutateAsync();
             try {
                 userIsReplyLikesQuery.data || sendAlarmBySocket('LIKES', reply.userId, '댓글을 좋아합니다. ', reply.postId, reply.payload, 'POST_REPLY', reply.id);
                 userIsReplyLikesQuery.data || await sendFCM('댓글을 좋아합니다.', reply.userId, false, isAnonymousRef.current);
             } catch (e) {
 
             }
+        } catch (e) {
+            console.log(e);
+        } finally {
+            await queryClient.invalidateQueries(['replyLikes', reply.id]);
+            await queryClient.invalidateQueries(['isReplyLikes', reply.id]);
         }
     };
 

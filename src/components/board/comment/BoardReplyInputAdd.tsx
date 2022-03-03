@@ -14,7 +14,13 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser, anonymous}: IPost
 
     const onRegisterComment = useCallback(async () => {
         try {
-            const response = await commentMutation.mutateAsync();
+            await commentMutation.mutateAsync();
+            try {
+                sendAlarmBySocket('REPLY', postUser!, "게시글에 댓글을 남겼습니다.", postId, replyPayload, 'POST');
+                await sendFCM(`게시글에 댓글을 남겼습니다. "${replyPayload}"`, postUser!, false, anonymous);
+            } catch (e) {
+
+            }
         } catch (e) {
             console.log(e);
         } finally {
@@ -22,18 +28,18 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser, anonymous}: IPost
             await queryClient.invalidateQueries(['postReply', postId]);
             await queryClient.invalidateQueries(['board', String(postId)]);
             await queryClient.invalidateQueries(['postAllReply', postId]);
-            try {
-                sendAlarmBySocket('REPLY', postUser!, "게시글에 댓글을 남겼습니다.", postId, replyPayload, 'POST');
-                await sendFCM(`게시글에 댓글을 남겼습니다. "${replyPayload}"`, postUser!, false, anonymous);
-            } catch (e) {
-
-            }
         }
     }, [commentMutation]);
 
     const onRegisterReply = useCallback(async () => {
         try {
-            const response = await replyMutation.mutateAsync();
+            await replyMutation.mutateAsync();
+            try {
+                sendAlarmBySocket('REPLY', refUser!, "댓글에 답글을 남겼습니다.", postId, replyPayload, 'POST_REPLY', refId!);
+                await sendFCM(`댓글에 답글을 남겼습니다. "${replyPayload}"`, refUser!, false, anonymous);
+            } catch (e) {
+
+            }
         } catch (e) {
             console.log(e);
         } finally {
@@ -41,12 +47,6 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser, anonymous}: IPost
             await queryClient.invalidateQueries(['replyQuery', refId]);
             await queryClient.invalidateQueries(['board', String(postId)]);
             await queryClient.invalidateQueries(['postAllReply', postId]);
-            try {
-                sendAlarmBySocket('REPLY', refUser!, "댓글에 답글을 남겼습니다.", postId, replyPayload, 'POST_REPLY', refId!);
-                await sendFCM(`댓글에 답글을 남겼습니다. "${replyPayload}"`, refUser!, false, anonymous);
-            } catch (e) {
-
-            }
         }
     }, [replyMutation]);
 
