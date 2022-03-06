@@ -28,7 +28,7 @@
     cursor: pointer;
 }
 
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 1079px){
      .bottom_menu_box {
          display: flex;
      }

@@ -14,8 +14,8 @@ enum SEARCH_TYPE {
 }
 
 interface IRecentSearch {
-    type : SEARCH_TYPE,
-    searchName : string
+    type: SEARCH_TYPE,
+    searchName: string
 }
 
 const FeedSearch = (): JSX.Element => {
@@ -73,7 +73,7 @@ const FeedSearch = (): JSX.Element => {
 
     const handleChangeInput = (e: ChangeEvent) => {
         const input = e.target as HTMLInputElement
-        setSearchName((searchName) => input.value.replace(/\s/g,''));
+        setSearchName((searchName) => input.value.replace(/\s/g, ''));
         onFetchSearchList(input.value);
     }
 
@@ -84,7 +84,7 @@ const FeedSearch = (): JSX.Element => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        if(searchName.replace(/\s/g,'').length) {
+        if (searchName.replace(/\s/g, '').length) {
             (document.activeElement as HTMLElement).blur(); // 현재 활성화된 element blur 처리
             onRoute(searchName);
             saveSearchHistory(SEARCH_TYPE.tag, searchName);
@@ -95,18 +95,18 @@ const FeedSearch = (): JSX.Element => {
         deleteSearchHistory(id);
     }
 
-    const saveSearchHistory = (type : SEARCH_TYPE, searchName : string) => {
-        if(typeof window !== 'undefined') {
-            const saveSearch : IRecentSearch = {
-                type : type,
-                searchName : searchName
+    const saveSearchHistory = (type: SEARCH_TYPE, searchName: string) => {
+        if (typeof window !== 'undefined') {
+            const saveSearch: IRecentSearch = {
+                type: type,
+                searchName: searchName
             }
-            recentSearchList.splice(0,0,saveSearch);
+            recentSearchList.splice(0, 0, saveSearch);
             window.localStorage.setItem("recent_tag", JSON.stringify(recentSearchList));
         }
     }
 
-    const deleteSearchHistory = (deleteId : number) => {
+    const deleteSearchHistory = (deleteId: number) => {
         const deleteTagList = recentSearchList.filter((tag, id) => (
             id !== deleteId
         ));
@@ -114,7 +114,7 @@ const FeedSearch = (): JSX.Element => {
         setRecentSearchList(deleteTagList);
     }
 
-    const handleClickSearchUser = (userId : string) => {
+    const handleClickSearchUser = (userId: string) => {
         onConflictRoute(`/profile/${userId}`);
         saveSearchHistory(SEARCH_TYPE.user, userId);
     }
@@ -125,62 +125,63 @@ const FeedSearch = (): JSX.Element => {
     handleClickRefOutSide(tagRef, onHideSearchBox);
 
     return (
-        <>
-            <div className={style.container} ref={tagRef}>
-                <SearchIcon className={style.search_icon}/>
-                <form className={style.form_box} onSubmit={handleSubmit}>
-                    <input onFocus={handleFocus}
-                           className={style.input}
-                           placeholder="원하는 #태그를 검색해 보세요!"
-                           value={searchName}
-                           onChange={handleChangeInput}
-                    />
-                    <div className={searchBox}>
-                        {
-                            searchName ?
-                                search.searchTag?.map((item) => (
-                                    <div className={style.tag_search_box} key={item.id}>
-                                        <div className={style.tag_search_txt_box}
-                                             onClick={() => handleClickTag(item.tagName)}>
-                                            <span className={style.tag_search_txt}>{`#${item.tagName}`}</span>
-                                            <span
-                                                className={style.tag_search_total_txt}>{`${item.totalCount}개 게시글`}</span>
-                                        </div>
+        <div className={style.container} ref={tagRef}>
+            <SearchIcon className={style.search_icon}/>
+            <form className={style.form_box} onSubmit={handleSubmit}>
+                <input onFocus={handleFocus}
+                       className={style.input}
+                       placeholder="원하는 #태그를 검색해 보세요!"
+                       value={searchName}
+                       onChange={handleChangeInput}
+                />
+                <div className={searchBox}>
+                    {
+                        searchName ?
+                            search.searchTag?.map((item) => (
+                                <div className={style.tag_search_box} key={item.id}>
+                                    <div className={style.tag_search_txt_box}
+                                         onClick={() => handleClickTag(item.tagName)}>
+                                        <span className={style.tag_search_txt}>{`#${item.tagName}`}</span>
+                                        <span
+                                            className={style.tag_search_total_txt}>{`${item.totalCount}개 게시글`}</span>
                                     </div>
-                                ))
-                                :
-                                <div className={style.recent_search_box}>
-                                    <span className={style.recent_tag_title_txt}>최근 검색어</span>
-                                    {recentSearchList.map((item, id) => (
-                                        <div className={style.recent_tag_box} key={id}>
-                                            {item.type === SEARCH_TYPE.tag &&
-                                            <span className={style.recent_tag_txt}
-                                                  onClick={() => handleClickTag(item.searchName)}>{`#${item.searchName}`}</span>
-                                            }
-                                            {item.type === SEARCH_TYPE.user &&
-                                                <div className={style.recent_user_search_box} onClick={() => handleClickSearchUser(item.searchName)}>
-                                                    <img src={getProfileImage(item.searchName,'MID')} className={style.user_profile_img}/>
-                                                    <span className={style.user_search_txt}>{item.searchName}</span>
-                                                </div>
-                                            }
-                                            <button type={"button"}
-                                                    className={style.recent_tag_delete_btn}
-                                                    onClick={() => handleClickDeleteRecentTag(id)}>삭제
-                                            </button>
-                                        </div>
-                                    ))}
                                 </div>
-                        }
-                        {searchName && search.searchUser?.map((user) => (
-                            <div key={user.id} className={style.user_search_box} onClick={()=>handleClickSearchUser(user.userId)}>
-                                <img src={getProfileImage(user.userId,'MID')} className={style.user_profile_img}/>
-                                <span className={style.user_search_txt}>{user.userId}</span>
+                            ))
+                            :
+                            <div className={style.recent_search_box}>
+                                <span className={style.recent_tag_title_txt}>최근 검색어</span>
+                                {recentSearchList.map((item, id) => (
+                                    <div className={style.recent_tag_box} key={id}>
+                                        {item.type === SEARCH_TYPE.tag &&
+                                        <span className={style.recent_tag_txt}
+                                              onClick={() => handleClickTag(item.searchName)}>{`#${item.searchName}`}</span>
+                                        }
+                                        {item.type === SEARCH_TYPE.user &&
+                                        <div className={style.recent_user_search_box}
+                                             onClick={() => handleClickSearchUser(item.searchName)}>
+                                            <img src={getProfileImage(item.searchName, 'MID')}
+                                                 className={style.user_profile_img}/>
+                                            <span className={style.user_search_txt}>{item.searchName}</span>
+                                        </div>
+                                        }
+                                        <button type={"button"}
+                                                className={style.recent_tag_delete_btn}
+                                                onClick={() => handleClickDeleteRecentTag(id)}>삭제
+                                        </button>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
-                </form>
-            </div>
-        </>
+                    }
+                    {searchName && search.searchUser?.map((user) => (
+                        <div key={user.id} className={style.user_search_box}
+                             onClick={() => handleClickSearchUser(user.userId)}>
+                            <img src={getProfileImage(user.userId, 'MID')} className={style.user_profile_img}/>
+                            <span className={style.user_search_txt}>{user.userId}</span>
+                        </div>
+                    ))}
+                </div>
+            </form>
+        </div>
     )
 };
 
