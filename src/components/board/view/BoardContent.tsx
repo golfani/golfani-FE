@@ -17,6 +17,7 @@ import LottieAnimation from "src/components/common/Lottie";
 import BoardNavigation from "./BoardNavigation";
 import {sendAlarmBySocket} from "src/apis/Alarm";
 import {sendFCM} from "src/apis/FirebaseCloudMessage";
+import Image from 'next/image'
 
 export interface IBoardProps {
     board: IBoardData
@@ -114,7 +115,10 @@ const BoardContent = ({board}: IBoardProps): JSX.Element => {
             </div>
             <div className={style.img_box}>
                 {board.urlList.map((img) => (
-                    <img key={img} src={img} alt={img} onClick={() => onHandleImgClick(img)} className={style.img}/>
+                    <div className={style.text_box}>
+                        <Image key={img} src={img} alt={img} onClick={() => onHandleImgClick(img)} layout={"fill"}
+                               className={style.img} objectFit={"contain"} priority={true}/>
+                    </div>
                 ))}
             </div>
             <div className={style.like_wrap}>
