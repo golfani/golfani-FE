@@ -19,19 +19,9 @@
     animation-fill-mode: forwards;
 }
 
-.test_box {
-    width: 100%;
-}
-
-.test_box > span {
-    position: unset !important;
-}
-
 .img {
-    width: 100% !important;
-    height: unset !important;
-    max-height: 600px !important;
-    position: relative !important;
+    width: 100%;
+    max-height: 600px;
     border-top-left-radius: 0.32rem;
     user-select: none;
     object-fit: contain;
@@ -55,13 +45,13 @@
     color: red;
 }
 
-@media screen and (max-width: 1080px){
+@media screen and (max-width: 1080px) {
     .modal_container {
         display: block;
     }
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
     .img {
         border-radius: 0;
     }

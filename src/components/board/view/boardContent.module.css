@@ -139,21 +139,11 @@
     align-items: center;
 }
 
-.text_box {
+.img {
     width: 100%;
     max-width: 450px;
     margin-bottom: 30px;
-}
-
-.text_box > span {
-    position: unset !important;
-}
-
-.img {
-    width: 100% !important;
     object-fit: contain;
-    position: relative !important;
-    height: unset !important;
     cursor: pointer;
 }
 
