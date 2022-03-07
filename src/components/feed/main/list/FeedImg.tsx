@@ -10,6 +10,7 @@ import {sendAlarmBySocket} from "src/apis/Alarm";
 import {IFeedItemProps} from "./FeedItem";
 import {isMobile} from "src/utils/detectDevice";
 import {sendFCM} from "src/apis/FirebaseCloudMessage";
+import Image from 'next/image';
 
 export const CustomNextArrow = ({className, style, onClick}: any): JSX.Element => {
     return (
@@ -85,9 +86,9 @@ const FeedImg = ({feed, isModal}: IFeedItemProps): JSX.Element => {
                 {feed.urlList.map((image, index) => {
                     if (index % 3 === 0) {
                         return (
-                            <div key={index}>
-                                <img id='feed_img' alt={image} className={style.img} src={image}
-                                     onDoubleClick={handleDoubleClick}/>
+                            <div key={index} className={style.test_box}>
+                                <Image id='feed_img' alt={image} layout={"fill"} className={style.img} src={image} objectFit={'contain'}
+                                     onDoubleClick={handleDoubleClick} priority={true}/>
                             </div>
                         )
                     }
