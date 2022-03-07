@@ -14,16 +14,15 @@ const ViewPage = (): JSX.Element => {
 
     const onLoadView = async () => {
         try {
-            const response = await onClickBoard(id as string);
-            //await queryClient.invalidateQueries(['board', id]);
+            await onClickBoard(id as string);
         } catch (e) {
 
         }
     }
 
     useEffect(() => {
-        onLoadView();
-    }, [])
+        id && onLoadView();
+    }, [id])
 
     const boardQuery = useQuery<IBoardData>(['board', id], () => getBoardView(id as string), {
         enabled: id !== undefined,
