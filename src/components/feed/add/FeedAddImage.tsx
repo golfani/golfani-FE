@@ -63,7 +63,7 @@ const FeedAddImage = () : JSX.Element => {
                 const resizeImageUrl = canvas.toDataURL('image/jpeg', 0.75);
                 const resizeImageFile = dataURLtoFile(resizeImageUrl, file.name);
                 const img: IImg = {
-                    imgFile: dataURLtoFile(resizeImageUrl, file.name),
+                    imgFile: resizeImageFile,
                     imgFileUrl: URL.createObjectURL(resizeImageFile)
                 }
                 feedAdd.onAddImg(img);
