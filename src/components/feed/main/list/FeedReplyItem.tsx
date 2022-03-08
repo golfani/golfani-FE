@@ -14,6 +14,7 @@ import DetailMenuModal from "src/components/modals/DetailMenuModal";
 import UserName from "src/components/common/UserName";
 import {sendAlarmBySocket} from "src/apis/Alarm";
 import {sendFCM} from "src/apis/FirebaseCloudMessage";
+import {getCookie} from "src/utils/cookieUtil";
 
 const FeedReplyItem = ({reply}: IReplyProps) => {
     const [detailMenuModalOpen, setDetailMenuModalOpen] = useState(false);
@@ -22,22 +23,24 @@ const FeedReplyItem = ({reply}: IReplyProps) => {
     const ref = useRef<HTMLDivElement>(null);
     const [isReplyAdd, setIsReplyAdd] = useState(false);
     const queryClient = useQueryClient();
+    const userId = getCookie('userId');
     const replyLikesQuery = useQuery<ILikesDto>(['replyLikes', reply.id], () => getReplyLikes(reply.id), {
         staleTime: 1000 * 60
-    })
+    });
 
     const userIsReplyLikesQuery = useQuery<ILikesDto>(['isReplyLikes', reply.id], () => getUserIsReplyLikes(reply.id), {
-        staleTime: 1000 * 60
-    })
+        staleTime: 1000 * 60,
+        enabled: userId !== undefined
+    });
 
     const replyQuery = useQuery<IReplyDto[]>(['reply', reply.id], () => getReply(reply.id), {
         staleTime: 1000 * 60,
         enabled: enableReplyQuery
-    })
+    });
 
     const totalReplyQuery = useQuery<number>(['totalReply', reply.id], () => getTotalReply(reply.id), {
         staleTime: 1000 * 60
-    })
+    });
 
     const registerLikesMutate = useMutation(() => registerLikes("REPLY", reply.id));
 
