@@ -1,5 +1,5 @@
 import style from 'src/components/board/write/boardWrite.module.css';
-import React, {useRef, useState} from 'react';
+import React, {ChangeEvent, useRef, useState} from 'react';
 import {IBoardData, registerBoard} from 'src/apis/Board';
 import {getCookie} from "src/utils/cookieUtil";
 import {useRouter} from "next/router";
@@ -8,6 +8,7 @@ import {EBoardType} from "src//domain/board";
 import BoardWriteImage from "./BoardWriteImage";
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import LoadingModal from "src/components/modals/LoadingModal";
+import {dataURLtoFile} from "src/utils/fileUtil";
 
 const BoardWrite = (): JSX.Element => {
     const getUserId = getCookie('userId');
@@ -17,7 +18,8 @@ const BoardWrite = (): JSX.Element => {
     const {category} = router.query;
     const ref = useRef<HTMLTextAreaElement | null>(null);
     const [loadingModalOpen, setLoadingModalOpen] = useState(false);
-
+    const [imgList, setImgList] = useState<File[]>([]);
+    const [fileURLs, setFileURLs] = useState<Array<string>>([]);
 
     const setMsg = (msg: string) => {
         setOpenModal(true);
@@ -29,7 +31,7 @@ const BoardWrite = (): JSX.Element => {
         boardType: category as EBoardType,
         content: '',
         title: ''
-    })
+    });
 
     const {userId, content, title, boardType} = inputs;
 
@@ -41,19 +43,45 @@ const BoardWrite = (): JSX.Element => {
         });
     }
 
-    const [imgList, setImgList] = useState<File[]>([]);
-    const [fileURLs, setFileURLs] = useState<Array<string>>([]);
-
-    const handleChangeFile = (e: any) => {
-        const fileArr = e.target.files;
-        const fileUrls = Array<string>();
-        for (let i = 0; i < fileArr.length; i++) {
-            const fileURL = URL.createObjectURL(fileArr[i]); // 미리보기를 위한 변수화
-            fileUrls.push(fileURL);
+    const onChangeImage = (event: ChangeEvent) => {
+        const input = event.target as HTMLInputElement;
+        if (!input.files?.length) { // 파일이 들어오지 않았을때 종료
+            return;
         }
-        setFileURLs(fileURLs.concat(fileUrls));
-        setImgList(imgList.concat(Array.from(fileArr)));
-        e.target.value = ''; // 같은 파일 재입력시 onChange 이벤트 적용할 수 있도록 적용
+
+        for (let i = 0; i < input.files.length; i++) {
+            const file: File = input.files[i]; // file 추출하기
+            const fileUrl = URL.createObjectURL(file); // file 로 URL 만들기
+            const canvas = window.document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const canvasImage = new Image();
+            canvasImage.src = fileUrl;
+            const maxWidth = 1080;
+            const maxHeight = 1080;
+
+            canvasImage.onload = () => {
+                let width = canvasImage.width;
+                let height = canvasImage.height;
+                if (width > height) {
+                    if (width > maxWidth) {
+                        height = height * maxWidth / width;
+                        width = maxWidth;
+                    }
+                } else {
+                    if (height > maxHeight) {
+                        width = width * maxHeight / height;
+                        height = maxHeight;
+                    }
+                }
+                canvas.width = width;
+                canvas.height = height;
+                ctx?.drawImage(canvasImage, 0, 0, width, height);
+                const resizeImageUrl = canvas.toDataURL('image/jpeg', 0.75);
+                const resizeImageFile = dataURLtoFile(resizeImageUrl, file.name);
+                setImgList((imgList) => imgList.concat(resizeImageFile));
+                setFileURLs((fileURLs) => fileURLs.concat(resizeImageUrl));
+            }
+        }
     }
 
     const handleDeleteImg = (index: number) => {
@@ -80,8 +108,8 @@ const BoardWrite = (): JSX.Element => {
         } else {
             try {
                 setLoadingModalOpen(true);
-                const response = await registerBoard(inputs, imgList);
-                await router.push(`/board?type=${boardType}`);
+                await registerBoard(inputs, imgList);
+                await router.push(`/board?type=${boardType}&page=0`);
             } catch (e) {
             } finally {
                 setLoadingModalOpen(false);
@@ -175,7 +203,7 @@ const BoardWrite = (): JSX.Element => {
                             multiple
                             id="input-file"
                             accept=".jpg, .jpeg, .png"
-                            onChange={handleChangeFile}
+                            onChange={onChangeImage}
                         />
                     </div>
                 </div>

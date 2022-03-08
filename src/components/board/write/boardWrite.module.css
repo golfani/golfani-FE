@@ -140,7 +140,7 @@
 .preview {
     display: flex;
     position: relative;
-    align-items: baseline;
+    align-items: center;
     overflow-x: scroll;
     z-index: 1;
 }
