@@ -15,14 +15,15 @@ interface IFeedLikeProps {
 
 const FeedLike = ({feed}: IFeedLikeProps): JSX.Element => {
     const queryClient = useQueryClient();
-    const totalLikesQuery = useQuery<number, Error>(['feedLikes', feed.id], () => getFeedLikes(feed.id), {
-        staleTime: 1000 * 60
-    })
-    const userIsFeedLikes = useQuery<ILikesDto, Error>(['isFeedLikes', feed.id], () => getUserIsFeedLikes(feed.id), {
-        staleTime: 1000 * 60
-    })
     const mutation = useMutation(() => registerLikes("FEED", feed.id));
     const userId = getCookie('userId');
+    const totalLikesQuery = useQuery<number, Error>(['feedLikes', feed.id], () => getFeedLikes(feed.id), {
+        staleTime: 1000 * 60
+    });
+    const userIsFeedLikes = useQuery<ILikesDto, Error>(['isFeedLikes', feed.id], () => getUserIsFeedLikes(feed.id), {
+        staleTime: 1000 * 60,
+        enabled: userId !== undefined
+    });
 
     const onRegisterLikes = useCallback(async () => {
         try {
