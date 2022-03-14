@@ -120,19 +120,19 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
         }
     }
 
-    const onScrap = async () => {
+    const onScrap = useCallback(async () => {
         try {
             const scrapDto: IScrapDto = {
                 userId: userId,
                 refId: props.target.id,
                 targetType: props.type
             }
-            const response = await scrapMutate.mutateAsync(scrapDto);
+            await scrapMutate.mutateAsync(scrapDto);
             await onModalClose();
         } catch (e) {
             console.log(e);
         }
-    }
+    }, [scrapMutate]);
 
     const handleClickScrap = async () => {
         await onScrap();

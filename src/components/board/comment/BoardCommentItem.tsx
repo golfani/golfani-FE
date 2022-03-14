@@ -1,5 +1,5 @@
 import style from 'src/components/board/comment/boardCommentItem.module.css';
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import UserName from "src/components/common/UserName";
 import {IReplyProps} from "src/domain/Reply";
 import BoardReplyInputAdd from "./BoardReplyInputAdd";
@@ -36,7 +36,7 @@ const BoardCommentItem = ({reply, board, replyRef}: IReplyProps) => {
 
     const registerLikesMutate = useMutation(() => registerLikes("REPLY", reply.id));
 
-    const onRegisterLikes = async () => {
+    const onRegisterLikes = useCallback(async () => {
         try {
             await registerLikesMutate.mutateAsync();
             try {
@@ -51,7 +51,7 @@ const BoardCommentItem = ({reply, board, replyRef}: IReplyProps) => {
             await queryClient.invalidateQueries(['replyLikes', reply.id]);
             await queryClient.invalidateQueries(['isReplyLikes', reply.id]);
         }
-    };
+    }, [registerLikesMutate]);
 
     const handleClickLike = async () => {
         await onRegisterLikes();

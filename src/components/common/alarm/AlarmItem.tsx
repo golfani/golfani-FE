@@ -13,48 +13,46 @@ import {getPostOne, IBoardData} from "src/apis/Board";
 import {EBoardType} from "src/domain/board";
 
 interface INoticeItemProps {
-    alarm : IAlarm
+    alarm: IAlarm
 }
 
-const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
+const AlarmItem = ({alarm}: INoticeItemProps): JSX.Element => {
     const queryClient = useQueryClient();
-    const alarmMutate = useMutation(()=>setAlarmRead(alarm.id));
-    const feedQuery = useQuery(['feed',alarm.feedId],()=>getFeedOne(alarm.feedId!),{
-        enabled : alarm.feedId !== null
+    const alarmMutate = useMutation(() => setAlarmRead(alarm.id));
+    const feedQuery = useQuery(['feed', alarm.feedId], () => getFeedOne(alarm.feedId!), {
+        enabled: alarm.feedId !== null
     });
-    const boardQuery = useQuery<IBoardData>(['post',alarm.postId], () => getPostOne(alarm.postId!), {
-        enabled : alarm.postId !== null
+    const boardQuery = useQuery<IBoardData>(['post', alarm.postId], () => getPostOne(alarm.postId!), {
+        enabled: alarm.postId !== null
     });
     const [openFeedModal, setOpenFeedModal] = useState(false);
     const {onSetBelow} = useFeedZIndex()
     const {onConflictRoute} = useCustomRouter();
 
-    const onSetAlarmRead = useCallback(async ()=> {
+    const onSetAlarmRead = useCallback(async () => {
         try {
-            const response = await alarmMutate.mutateAsync();
-        }
-        catch (e) {
+            await alarmMutate.mutateAsync();
+        } catch (e) {
 
-        }
-        finally {
+        } finally {
             await queryClient.invalidateQueries('alarm');
             await queryClient.invalidateQueries('unReadAlarm');
         }
-    },[alarmMutate])
+    }, [alarmMutate])
 
     const onRedirectAlarm = async () => {
-        if(alarm.feedId) {
+        if (alarm.feedId) {
             onSetBelow();
             onSetFeedModal(true);
-            await queryClient.invalidateQueries(['feedReply',alarm.feedId]);
-            await queryClient.invalidateQueries(['feedLikes',alarm.feedId]);
+            await queryClient.invalidateQueries(['feedReply', alarm.feedId]);
+            await queryClient.invalidateQueries(['feedLikes', alarm.feedId]);
         }
-        if(alarm.postId) {
+        if (alarm.postId) {
             await onConflictRoute(`/board/${alarm.postId}?type=${boardQuery.data?.boardType}&page=0`);
         }
     }
 
-    const onSetFeedModal = (state : boolean) => {
+    const onSetFeedModal = (state: boolean) => {
         setOpenFeedModal(state);
     }
 

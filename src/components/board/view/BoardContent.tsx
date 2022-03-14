@@ -1,5 +1,5 @@
 import style from 'src/components/board/view/boardContent.module.css';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {IBoardData} from "src/apis/Board";
 import {useRouter} from "next/router";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -30,7 +30,7 @@ const BoardContent = ({board}: IBoardProps): JSX.Element => {
 
     const likeMutation = useMutation(() => registerLikes("POST", board.id));
 
-    const onRegisterLikes = async () => {
+    const onRegisterLikes = useCallback(async () => {
         try {
             await likeMutation.mutateAsync();
             likeQuery.data || setLottieLike(true);
@@ -46,7 +46,7 @@ const BoardContent = ({board}: IBoardProps): JSX.Element => {
             await queryClient.invalidateQueries(['postLikes', board.id]);
             await queryClient.invalidateQueries(['board', String(board.id)]);
         }
-    }
+    }, [likeMutation]);
 
     const likeQuery = useQuery(['postLikes', board.id], () => getPostLikes(board.id), {
             staleTime: 1000 * 60 * 10
