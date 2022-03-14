@@ -1,6 +1,6 @@
 import {IPostReplyAddProps} from "src/domain/Reply";
 import {useMutation, useQueryClient} from "react-query";
-import {ChangeEvent, KeyboardEventHandler, useCallback, useState} from "react";
+import {ChangeEvent, useCallback, useEffect, useState, memo} from "react";
 import {registerReply} from "src/apis/Reply";
 import style from "src/components/board/comment/boardReplyInputAdd.module.css";
 import {sendAlarmBySocket} from "src/apis/Alarm";
@@ -78,4 +78,4 @@ const BoardReplyInputAdd = ({postId, postUser, refId, refUser, anonymous}: IPost
     )
 }
 
-export default BoardReplyInputAdd;
+export default memo(BoardReplyInputAdd);

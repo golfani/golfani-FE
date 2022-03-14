@@ -1,6 +1,7 @@
 import style from "./navbar.module.css";
 import NavbarMenu from "./NavbarMenu";
 import NavbarLink from "./NavbarLink";
+import {memo} from "react";
 
 const Navbar = () : JSX.Element => {
 
@@ -14,4 +15,4 @@ const Navbar = () : JSX.Element => {
     );
 };
 
-export default Navbar;
+export default memo(Navbar);

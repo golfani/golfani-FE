@@ -1,5 +1,5 @@
 import style from 'src/components/board/comment/boardCommentItem.module.css';
-import React, {useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import UserName from "src/components/common/UserName";
 import {IReplyProps} from "src/domain/Reply";
 import BoardReplyInputAdd from "./BoardReplyInputAdd";

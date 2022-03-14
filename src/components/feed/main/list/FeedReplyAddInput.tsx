@@ -1,6 +1,6 @@
 import style from "./feedReplyAddInput.module.css";
 import {useMutation, useQueryClient} from "react-query";
-import {ChangeEvent, useCallback, useRef, useState} from "react";
+import {ChangeEvent, useCallback, useRef, useState, memo} from "react";
 import {registerReply} from "src/apis/Reply";
 import {IFeedReplyAddProps} from "src/domain/Reply";
 import {sendAlarmBySocket} from "src/apis/Alarm";
@@ -87,4 +87,4 @@ const FeedReplyAddInput = ({feedId, feedUser, refId, refUser}: IFeedReplyAddProp
     );
 };
 
-export default FeedReplyAddInput;
+export default memo(FeedReplyAddInput);

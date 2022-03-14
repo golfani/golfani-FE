@@ -13,7 +13,7 @@ const FeedList = () : JSX.Element => {
             }
             return lastPage.content && lastPage.content[lastPage.content.length-1].id;
         },
-        staleTime : 1000 * 10
+        staleTime : 1000 * 10 * 60
     })
     const scrollRef = useRef<HTMLDivElement>(null);
     const observer = useRef<IntersectionObserver>();

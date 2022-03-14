@@ -1,5 +1,5 @@
 import style from './chatInput.module.css';
-import React, {ChangeEvent, useRef, useState} from "react";
+import React, {ChangeEvent, useRef, useState, memo} from "react";
 import {IChatRoomDto, sendChatBySocket} from "src/apis/Chat";
 import ArrowUpwardRoundedIcon from '@material-ui/icons/ArrowUpwardRounded';
 
@@ -80,4 +80,4 @@ const ChatInput = ({setIsSendBySelf, chatRoom}: IChatInput): JSX.Element => {
     );
 };
 
-export default ChatInput;
+export default memo(ChatInput);

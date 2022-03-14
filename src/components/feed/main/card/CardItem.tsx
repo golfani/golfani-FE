@@ -5,54 +5,52 @@ import {IFeedProps} from "src/domain/Feed";
 import {useQuery} from "react-query";
 import {getFeedReplyCount} from "src/apis/Reply";
 import FeedModal from "src/components/modals/feed/FeedModal";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState, memo} from "react";
 import UserName from "src/components/common/UserName";
 import {MID_LEVEL_FIRST_PICTURE} from "src/domain/Picture";
 import UserProfileImage from "src/components/common/UserProfileImage";
 import useCustomRouter from "src/hooks/routerHook";
 
-const CardItem = ({feed} : IFeedProps) : JSX.Element => {
-    const [feedModalOpen,setFeedModalOpen] = useState(false);
+const CardItem = ({feed}: IFeedProps): JSX.Element => {
+    const [feedModalOpen, setFeedModalOpen] = useState(false);
     const {onConflictRoute} = useCustomRouter();
     const [imgWidth, setImgWidth] = useState(150);
 
-    const replyTotalQuery = useQuery(['feedReplyCount',feed.id], ()=>getFeedReplyCount(feed.id), {
-        staleTime : 1000 * 60
+    const replyTotalQuery = useQuery(['feedReplyCount', feed.id], () => getFeedReplyCount(feed.id), {
+        staleTime: 1000 * 60
     })
 
-    const handleClickTag = (tag : string) => {
+    const handleClickTag = (tag: string) => {
         onConflictRoute(`/feed?search=${tag}`)
     }
 
-    const renderTagList = feed.tag.split('#').map((tag,index)=> {
-        if(index > 0) {
+    const renderTagList = feed.tag.split('#').map((tag, index) => {
+        if (index > 0) {
             return (
-                <span key={tag} className={style.main_txt} onClick={()=>handleClickTag(tag)}>{`#${tag}`}</span>
+                <span key={tag} className={style.main_txt} onClick={() => handleClickTag(tag)}>{`#${tag}`}</span>
             )
         }
     });
 
-    const handleImageClick = useCallback(()=> {
-        setFeedModalOpen((feedModalOpen)=> true);
-    },[feedModalOpen])
+    const handleImageClick = useCallback(() => {
+        setFeedModalOpen((feedModalOpen) => true);
+    }, [feedModalOpen])
 
 
-    useEffect(()=> {
+    useEffect(() => {
         const resizeListener = () => {
-            if(window.innerWidth < 768) {
+            if (window.innerWidth < 768) {
                 setImgWidth(window.innerWidth / 3);
-            }
-            else if(window.screen.width < 768) {
+            } else if (window.screen.width < 768) {
                 setImgWidth(window.screen.width / 3);
-            }
-            else {
+            } else {
                 setImgWidth(150);
             }
         }
         resizeListener();
-        window.addEventListener('resize',resizeListener);
-        return () => window.removeEventListener('resize',resizeListener);
-    },[]);
+        window.addEventListener('resize', resizeListener);
+        return () => window.removeEventListener('resize', resizeListener);
+    }, []);
 
     return (
         <div className={style.container}>
@@ -91,4 +89,4 @@ const CardItem = ({feed} : IFeedProps) : JSX.Element => {
     );
 };
 
-export default CardItem;
+export default memo(CardItem);
