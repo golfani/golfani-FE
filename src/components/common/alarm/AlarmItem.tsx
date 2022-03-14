@@ -4,7 +4,7 @@ import {IAlarm} from "src/domain/Alarm";
 import UserProfileImage from "src/components/common/UserProfileImage";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {setAlarmRead} from "src/apis/Alarm";
-import React, {useCallback, useState} from "react";
+import {useCallback, useState, memo} from "react";
 import {getFeedOne} from "src/apis/Feed";
 import FeedModal from "src/components/modals/feed/FeedModal";
 import useFeedZIndex from "src/store/modules/feedZIndex/feedZIndexHook";
@@ -98,4 +98,4 @@ const AlarmItem = ({alarm} : INoticeItemProps) : JSX.Element => {
     );
 };
 
-export default AlarmItem;
+export default memo(AlarmItem);

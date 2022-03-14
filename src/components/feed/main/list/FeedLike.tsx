@@ -4,7 +4,7 @@ import style from './feedLike.module.css';
 import {IFeedContent} from "src/apis/Feed";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getFeedLikes, getUserIsFeedLikes, ILikesDto, registerLikes} from "src/apis/Likes";
-import {useCallback} from "react";
+import {useCallback, memo} from "react";
 import {sendAlarmBySocket} from "src/apis/Alarm";
 import {getCookie} from "src/utils/cookieUtil";
 import {sendFCM} from "src/apis/FirebaseCloudMessage";
@@ -64,4 +64,4 @@ const FeedLike = ({feed}: IFeedLikeProps): JSX.Element => {
     );
 };
 
-export default FeedLike;
+export default memo(FeedLike);

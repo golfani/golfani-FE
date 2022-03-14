@@ -5,22 +5,23 @@ import FeedReply from "./FeedReply";
 import {IFeedContent} from "src/apis/Feed";
 import FeedSideMenu from "./FeedSideMenu";
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import {memo} from "react";
 
 export interface IFeedItemProps {
-    feed : IFeedContent
-    isModal : boolean
+    feed: IFeedContent
+    isModal: boolean
 }
 
-const FeedItem = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
+const FeedItem = ({feed, isModal}: IFeedItemProps): JSX.Element => {
 
-    return(
+    return (
         <div className={isModal ? style.container_modal : style.container} key={feed.id}>
             <FeedSideMenu feed={feed}/>
             <FeedImg feed={feed} isModal={isModal}/>
             <div className={style.item_main_box}>
                 <FeedMain feed={feed}/>
-                { feed.isReplyActive && <FeedReply feed={feed} isModal={isModal}/> }
-                { feed.isReplyActive ||
+                {feed.isReplyActive && <FeedReply feed={feed} isModal={isModal}/>}
+                {feed.isReplyActive ||
                 <div className={style.lock_box}>
                     <LockOutlinedIcon fontSize={"inherit"} className={style.lock_icon}/>
                     <span className={style.lock_txt}>댓글 기능이 비활성된 게시글입니다</span>
@@ -31,4 +32,4 @@ const FeedItem = ({feed, isModal} : IFeedItemProps) : JSX.Element => {
     );
 };
 
-export default FeedItem;
+export default memo(FeedItem);

@@ -1,15 +1,16 @@
 import style from './userProfileImage.module.css';
 import {useRouter} from "next/router";
 import {getProfileImage} from "src/apis/Member";
+import {memo} from "react";
 
 interface IUserProfileImageProps {
-    userId : string,
-    width : number
-    height : number
-    mr? : number
+    userId: string,
+    width: number
+    height: number
+    mr?: number
 }
 
-const UserProfileImage = ({userId,width,height,mr} : IUserProfileImageProps) : JSX.Element => {
+const UserProfileImage = ({userId, width, height, mr}: IUserProfileImageProps): JSX.Element => {
     const router = useRouter();
 
     const onRouteProfilePage = () => {
@@ -22,8 +23,8 @@ const UserProfileImage = ({userId,width,height,mr} : IUserProfileImageProps) : J
 
     return (
         <img
-            style={{minWidth : `${width}px`,marginRight : `${mr}px`}}
-            src={getProfileImage(userId,'MID')}
+            style={{minWidth: `${width}px`, marginRight: `${mr}px`}}
+            src={getProfileImage(userId, 'MID')}
             width={width}
             height={height}
             className={style.img}
@@ -33,4 +34,4 @@ const UserProfileImage = ({userId,width,height,mr} : IUserProfileImageProps) : J
     );
 };
 
-export default UserProfileImage;
+export default memo(UserProfileImage);

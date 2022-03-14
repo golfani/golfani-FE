@@ -49,7 +49,7 @@ const BoardContent = ({board}: IBoardProps): JSX.Element => {
     }
 
     const likeQuery = useQuery(['postLikes', board.id], () => getPostLikes(board.id), {
-            staleTime: 1000 * 60
+            staleTime: 1000 * 60 * 10
         }
     )
 

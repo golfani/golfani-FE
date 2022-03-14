@@ -8,7 +8,7 @@ import {MID_LEVEL_FIRST_PICTURE} from "src/domain/Picture";
 
 const UserFeed = ({member} : IProfileMemberProps) : JSX.Element => {
     const userFeedQuery = useQuery<IFeedContent[]>(['userFeed',member.userId],()=>getAllUserFeed(member.userId),{
-        staleTime : 6000
+        staleTime : 60 * 10 * 1000
     });
     const [feedModalOpen, setModalOpen] = useState(false);
     const [feedModalData, setFeedModalData] = useState<IFeedContent>();

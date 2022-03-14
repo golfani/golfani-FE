@@ -1,13 +1,14 @@
 import style from './userName.module.css';
 import {useRouter} from "next/router";
+import {memo} from "react";
 
 
 interface IUserNameProps {
-    userName : string
-    fontSize? : number
+    userName: string
+    fontSize?: number
 }
 
-const UserName = ({userName,fontSize} : IUserNameProps) : JSX.Element => {
+const UserName = ({userName, fontSize}: IUserNameProps): JSX.Element => {
     const router = useRouter();
 
     const onRouteProfilePage = () => {
@@ -20,9 +21,10 @@ const UserName = ({userName,fontSize} : IUserNameProps) : JSX.Element => {
 
     return (
         <div className={style.container}>
-            <span style={{fontSize : fontSize}} className={style.userName_txt} onClick={handleClickUserName}>{userName}</span>
+            <span style={{fontSize: fontSize}} className={style.userName_txt}
+                  onClick={handleClickUserName}>{userName}</span>
         </div>
     );
 };
 
-export default UserName;
+export default memo(UserName);

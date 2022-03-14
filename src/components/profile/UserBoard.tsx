@@ -7,12 +7,14 @@ import {useRouter} from "next/router";
 import {EBoardType} from "src/domain/board";
 import {getCookie} from "src/utils/cookieUtil";
 
-const UserBoard = ({member} : IProfileMemberProps) : JSX.Element => {
+const UserBoard = ({member}: IProfileMemberProps): JSX.Element => {
     const userId = getCookie('userId');
-    const userPostQuery = useQuery<IBoardData[]>(['userPost',member.userId], () => getAllUserPost(member.userId));
+    const userPostQuery = useQuery<IBoardData[]>(['userPost', member.userId], () => getAllUserPost(member.userId), {
+        staleTime: 60 * 10 * 1000
+    });
     const router = useRouter();
 
-    const handleClickPost = (id : number) => {
+    const handleClickPost = (id: number) => {
         router.push(`/board/${id}`);
     }
 
