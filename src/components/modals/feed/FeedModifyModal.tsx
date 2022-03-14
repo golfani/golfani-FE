@@ -1,21 +1,21 @@
 import style from './feedModifyModal.module.css';
 import {IFeedContent, modifyFeed} from "src/apis/Feed";
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {useMutation, useQueryClient} from "react-query";
 
 interface IFeedModifyModalProps {
-    feed : IFeedContent
-    setModalOpen : (state :boolean) => void
-    closeMenuModal : () => void
- }
+    feed: IFeedContent
+    setModalOpen: (state: boolean) => void
+    closeMenuModal: () => void
+}
 
-const FeedModifyModal = (props : IFeedModifyModalProps) : JSX.Element => {
+const FeedModifyModal = (props: IFeedModifyModalProps): JSX.Element => {
     const [content, setContent] = useState(props.feed.content);
-    const [isReplyActive , setIsReplyActive] = useState(props.feed.isReplyActive);
-    const [isLikesActive , setIsLikesActive] = useState(props.feed.isLikesActive);
+    const [isReplyActive, setIsReplyActive] = useState(props.feed.isReplyActive);
+    const [isLikesActive, setIsLikesActive] = useState(props.feed.isLikesActive);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
     const queryClient = useQueryClient();
-    const feedMutate = useMutation((feed : IFeedContent)=>modifyFeed(feed));
+    const feedMutate = useMutation((feed: IFeedContent) => modifyFeed(feed));
 
     const onCloseModal = async () => {
         await props.setModalOpen(false);
@@ -30,26 +30,29 @@ const FeedModifyModal = (props : IFeedModifyModalProps) : JSX.Element => {
         setIsLikesActive((isLikesActive) => !isLikesActive);
     }
 
-    const onModifyFeed = async () => {
+    const onModifyFeed = useCallback(async () => {
         try {
-            const newFeed : IFeedContent = {...props.feed, content : content, isLikesActive : isLikesActive, isReplyActive : isReplyActive};
-            const response = await feedMutate.mutateAsync(newFeed);
-        }
-        catch (e) {
+            const newFeed: IFeedContent = {
+                ...props.feed,
+                content: content,
+                isLikesActive: isLikesActive,
+                isReplyActive: isReplyActive
+            };
+            await feedMutate.mutateAsync(newFeed);
+        } catch (e) {
 
-        }
-        finally {
+        } finally {
             await queryClient.invalidateQueries('feed');
-            await queryClient.invalidateQueries(['userFeed',props.feed.userId]);
-            await queryClient.invalidateQueries(['recentFeed',props.feed.userId]);
+            await queryClient.invalidateQueries(['userFeed', props.feed.userId]);
+            await queryClient.invalidateQueries(['recentFeed', props.feed.userId]);
             await onCloseModal();
         }
-    }
+    }, [feedMutate]);
 
-    useEffect(()=> {
+    useEffect(() => {
         textAreaRef.current?.focus();
-        textAreaRef.current?.setSelectionRange(props.feed.content.length,props.feed.content.length);
-    },[]);
+        textAreaRef.current?.setSelectionRange(props.feed.content.length, props.feed.content.length);
+    }, []);
 
     const handleClickCloseButton = () => {
         onCloseModal();
@@ -67,11 +70,12 @@ const FeedModifyModal = (props : IFeedModifyModalProps) : JSX.Element => {
                     <span className={style.title_txt}>피드수정</span>
                     <span className={style.title_btn} onClick={handleClickModifyButton}>완료</span>
                 </div>
-                <img src={props.feed.urlList[0]} alt={props.feed.urlList[0]} width={300} height={300} className={style.img}/>
+                <img src={props.feed.urlList[0]} alt={props.feed.urlList[0]} width={300} height={300}
+                     className={style.img}/>
                 <textarea
                     ref={textAreaRef}
                     value={content}
-                    onChange={(e)=> setContent(e.target.value)}
+                    onChange={(e) => setContent(e.target.value)}
                     className={style.textArea}
                 />
                 <span className={style.tag}>{props.feed.tag}</span>

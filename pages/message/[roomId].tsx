@@ -7,7 +7,7 @@ import {getChatRoom, IChatRoomDto, setChatMessageRead} from "src/apis/Chat";
 import ChatRoomList from "src/components/message/ChatRoomList";
 import Chat from "src/components/message/Chat";
 import {subChatChannel, unSubChatChannel} from "src/socket/socket";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 const Message = (): JSX.Element => {
     // 현재 roomId
@@ -26,16 +26,16 @@ const Message = (): JSX.Element => {
         await queryClient.invalidateQueries(['chatMessage', roomId]);
     }
 
-    const onReadChatMessage = async () => {
+    const onReadChatMessage = useCallback(async () => {
         try {
-            const response = await chatMessageMutate.mutateAsync();
+            await chatMessageMutate.mutateAsync();
         } catch (e) {
             console.log(e);
         } finally {
             await queryClient.invalidateQueries('chatRoom');
             await queryClient.invalidateQueries(['chatMessage', roomId]);
         }
-    }
+    }, [chatMessageMutate]);
 
     const onMount = async () => {
         await subChatChannel(roomId, callback);
