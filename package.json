@@ -6,6 +6,7 @@
     "dev": "NODE_OPTIONS=--max_old_space_size=2048 next dev",
     "build": "NODE_OPTIONS=--max_old_space_size=2048 next build",
     "start": "NODE_OPTIONS=--max_old_space_size=2048 next start",
+    "analyze": "ANALYZE=true NODE_ENV=production next build",
     "lint": "next lint"
   },
   "dependencies": {
@@ -14,6 +15,7 @@
     "@hookform/resolvers": "^2.6.1",
     "@material-ui/core": "^5.0.0-beta.2",
     "@material-ui/icons": "^5.0.0-beta.1",
+    "@next/bundle-analyzer": "^12.1.0",
     "@reduxjs/toolkit": "^1.6.1",
     "@stomp/stompjs": "^6.1.2",
     "@types/navermaps": "^3.0.13",
@@ -21,6 +23,7 @@
     "@types/react-slick": "^0.23.5",
     "@types/redux-logger": "^3.0.9",
     "axios": "^0.21.1",
+    "compression-webpack-plugin": "^9.2.0",
     "firebase": "^9.6.1",
     "lottie-web": "^5.7.14",
     "next": "^12.1.0",
