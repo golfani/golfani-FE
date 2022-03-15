@@ -1,7 +1,9 @@
-import ShopStatisticPage from "src/components/shop/manage/statistic/ShopStatisticPage";
+import dynamic from "next/dynamic";
 
-const ShopStatistic = () : JSX.Element => {
-    return(
+const ShopStatisticPage = dynamic(() => import("src/components/shop/manage/statistic/ShopStatisticPage"));
+
+const ShopStatistic = (): JSX.Element => {
+    return (
         <div>
             <ShopStatisticPage/>
         </div>

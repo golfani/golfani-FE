@@ -4,9 +4,11 @@ import {getBoardView, IBoardData, onClickBoard} from "src/apis/Board";
 import {useQuery} from "react-query";
 import Navbar from "src/components/common/navbar/Navbar";
 import React, {useEffect} from "react";
-import BoardView from "src/components/board/view/BoardView";
-import Custom404 from "../404";
 import Head from "next/head";
+import dynamic from "next/dynamic";
+
+const Custom404 = dynamic(() => import('pages/404'));
+const BoardView = dynamic(() => import('src/components/board/view/BoardView'));
 
 const ViewPage = (): JSX.Element => {
     const router = useRouter()

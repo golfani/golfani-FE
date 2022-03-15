@@ -1,5 +1,8 @@
 import style from 'styles/404.module.css';
-import LottieAnimation from "src/components/common/Lottie";
+import dynamic from "next/dynamic";
+
+
+const LottieAnimation = dynamic(()=> import('src/components/common/Lottie'));
 
 const Custom404 = () : JSX.Element => {
     return (
