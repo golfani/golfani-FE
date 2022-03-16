@@ -67,29 +67,7 @@ function MyApp({Component, pageProps}: AppProps) {
                 fcm.onGetToken();
             }
         }
-        // Firebase SW 등록
-        if ("serviceWorker" in window.navigator) {
-            const firebaseConfig = encodeURIComponent(
-                JSON.stringify({
-                    apiKey: process.env.NEXT_PUBLIC_FCM_APP_KEY,
-                    authDomain: "golfani.firebaseapp.com",
-                    projectId: "golfani",
-                    storageBucket: "golfani.appspot.com",
-                    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
-                    appId: process.env.NEXT_PUBLIC_FCM_APP_ID,
-                    measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
-                })
-            );
-            window.navigator.serviceWorker
-                .register(
-                    `/firebase-messaging-sw.js?firebaseConfig=${firebaseConfig}`
-                )
-                .then(function (registration) {
-                })
-                .catch(function (err) {
-                    console.log("Service worker registration failed, error:", err);
-                });
-        }
+
         return () => socketDisconnect();
     }, []);
 
