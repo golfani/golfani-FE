@@ -24,9 +24,9 @@ const BoardList = ({boardType}: IBoardTypeProps): JSX.Element => {
         enabled: boardType !== EBoardType.HOME
     });
 
-    const pinnedPostQuery = useQuery<IBoardData[]>(['pinned', boardType], () => getPinnedPost(boardType!),{
-        enabled : boardType !== undefined
-    })
+    const pinnedPostQuery = useQuery<IBoardData[]>(['pinned', boardType], () => getPinnedPost(boardType!), {
+        enabled: boardType !== undefined && boardType !== 'HOT'
+    });
 
     return (
         <div className={style.container}>
