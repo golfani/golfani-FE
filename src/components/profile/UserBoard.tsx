@@ -14,8 +14,8 @@ const UserBoard = ({member}: IProfileMemberProps): JSX.Element => {
     });
     const router = useRouter();
 
-    const handleClickPost = (id: number) => {
-        router.push(`/board/${id}`);
+    const handleClickPost = (id: number, boardType: string) => {
+        router.push(`/board/${id}?type=${boardType}`);
     }
 
     return (
@@ -24,7 +24,7 @@ const UserBoard = ({member}: IProfileMemberProps): JSX.Element => {
                 post.boardType === EBoardType.ANONYMOUS && post.userId !== userId ?
                     null
                     :
-                    <div key={post.id} className={style.post_box} onClick={() => handleClickPost(post.id)}>
+                    <div key={post.id} className={style.post_box} onClick={() => handleClickPost(post.id, post.boardType)}>
                         <div className={style.post_title_box}>
                             <span className={style.board_type_txt}>{`[${boardTypeToString(post.boardType)}]`}</span>
                             <span className={style.post_title_txt}>{post.title}</span>
