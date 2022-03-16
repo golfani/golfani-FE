@@ -1,10 +1,10 @@
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import type {AppProps} from 'next/app'
 import {store, wrapper} from "src/store/modules";
 import {QueryClient, QueryClientProvider} from "react-query";
 import {Hydrate} from "react-query/hydration";
-import { PersistGate } from 'redux-persist/integration/react';
-import { persistStore } from "redux-persist";
+import {PersistGate} from 'redux-persist/integration/react';
+import {persistStore} from "redux-persist";
 import {useEffect, useState} from "react";
 import {getCookie} from "src/utils/cookieUtil";
 import {onSilentRefresh} from "src/utils/securityUtil";
@@ -20,13 +20,12 @@ const queryClient = new QueryClient();
 const reduxStore = store();
 const persistor = persistStore(reduxStore);
 
-const alarmCallback = async (data : IMessage) => {
+const alarmCallback = async (data: IMessage) => {
     const message = JSON.parse(data.body);
-    if(message.type === 'CHAT') {
+    if (message.type === 'CHAT') {
         await queryClient.invalidateQueries('chatRoom');
         await queryClient.invalidateQueries('unReadMessage');
-    }
-    else {
+    } else {
         await queryClient.invalidateQueries('alarm');
         await queryClient.invalidateQueries('unReadAlarm');
     }
@@ -38,37 +37,59 @@ function MyApp({Component, pageProps}: AppProps) {
     const [openPermissionModal, setOpenPermissionModal] = useState(false);
     const fcm = useFCM();
 
-    const onSetSocketConnect = (state : boolean) => {
+    const onSetSocketConnect = (state: boolean) => {
         setIsSocketConnected(state);
     }
 
     const chatCallback = async () => {
-        await queryClient.invalidateQueries(['chatMessage',socket.chatRoomId]);
+        await queryClient.invalidateQueries(['chatMessage', socket.chatRoomId]);
     }
 
     const subForActivatedChat = () => {
-        socket.chatRoomId && subChatChannel(socket.chatRoomId,chatCallback);
+        socket.chatRoomId && subChatChannel(socket.chatRoomId, chatCallback);
     }
 
     const checkPermission = () => {
-        if(Notification.permission === 'denied' || Notification.permission === 'default') {
+        if (Notification.permission === 'denied' || Notification.permission === 'default') {
             setOpenPermissionModal(true);
         }
     }
 
     useEffect(() => {
-        if(userId) {
+        if (userId) {
             // 로그인 상태일시 silentRefresh 진행
             onSilentRefresh(userId);
             // 로그인 상태일시 소켓연결 실행
-            socketConnect(alarmCallback,onSetSocketConnect,subForActivatedChat);
-            if(!isMobile()) {
+            socketConnect(alarmCallback, onSetSocketConnect, subForActivatedChat);
+            if (!isMobile()) {
                 checkPermission();
                 // 로그인 상태일시 FCM
                 fcm.onGetToken();
             }
         }
-
+        // Firebase SW 등록
+        if ("serviceWorker" in window.navigator) {
+            const firebaseConfig = encodeURIComponent(
+                JSON.stringify({
+                    apiKey: process.env.NEXT_PUBLIC_FCM_APP_KEY,
+                    authDomain: "golfani.firebaseapp.com",
+                    projectId: "golfani",
+                    storageBucket: "golfani.appspot.com",
+                    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+                    appId: process.env.NEXT_PUBLIC_FCM_APP_ID,
+                    measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
+                })
+            );
+            window.navigator.serviceWorker
+                .register(
+                    `/firebase-messaging-sw.js?firebaseConfig=${firebaseConfig}`
+                )
+                .then(function (registration) {
+                })
+                .catch(function (err) {
+                    console.log("Service worker registration failed, error:", err);
+                });
+        }
         return () => socketDisconnect();
     }, []);
 
@@ -78,14 +99,16 @@ function MyApp({Component, pageProps}: AppProps) {
                 <Hydrate state={pageProps.dehydrateState}>
                     <Head>
                         <title>GOLFANI</title>
-                        <meta name={'viewport'} content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+                        <meta name={'viewport'}
+                              content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
                         <meta name="description" content="골프에 관심 있으신가요? 골아니에서 골프 정보를 찾아보세요~"/>
                         <meta property="og:image" key="ogimage" content="https://golfani.com/og_img.jpeg"/>
                         <meta property="og:title" key="ogtitle" content="골아니"/>
                         <meta property="og:description" key="ogdesc" content="골프에 관심 있으신가요? 골아니에서 골프 정보를 찾아보세요~"/>
                         <meta property="og:url" key="ogurl" content="https://golfani.com"/>
                     </Head>
-                    {userId ? isSocketConnected ? <Component {...pageProps} /> : <SocketLoading/> : <Component {...pageProps}/>}
+                    {userId ? isSocketConnected ? <Component {...pageProps} /> : <SocketLoading/> :
+                        <Component {...pageProps}/>}
                     {openPermissionModal && <NotificationPermissionModal setOpenModal={setOpenPermissionModal}/>}
                 </Hydrate>
             </PersistGate>
