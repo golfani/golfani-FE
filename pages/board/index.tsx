@@ -5,16 +5,17 @@ import React, {useEffect, useState} from "react";
 import {EBoardType} from "src/domain/board";
 import {useRouter} from "next/router";
 import style from 'styles/board.module.css';
-import {isMobile} from "src/utils/detectDevice";
 import BoardBottomNav from "src/components/board/BoardBottomNav";
 import BoardMobileCategory from "src/components/board/mobile/BoardMobileCategory";
 import BoardMobileSearch from "src/components/board/mobile/BoardMobileSearch";
 import Head from "next/head";
+import useDevice from "src/hooks/deviceHook";
 
 const Board = (): JSX.Element => {
     const router = useRouter();
     const {type} = router.query;
     const {payload} = router.query;
+    const {isMobile} = useDevice();
 
     const [boardType, setBoardType] = useState<EBoardType>(type as EBoardType);
 
@@ -46,7 +47,7 @@ const Board = (): JSX.Element => {
             </Head>
             <Navbar/>
             <div className={style.main_box}>
-                {isMobile() ? <BoardBottomNav/> :
+                {isMobile ? <BoardBottomNav/> :
                     <BoardCategory onSetBoardType={onSetBoardType} boardType={boardType}/>}
                 {renderBoardContent()}
             </div>
