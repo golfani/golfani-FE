@@ -5,10 +5,10 @@ import {dateDiff} from "src/utils/dateUtil";
 import {EBoardType} from "src/domain/board";
 import ImageIcon from '@material-ui/icons/Image';
 import CloudQueueIcon from "@material-ui/icons/CloudQueue";
-import {isMobile} from "src/utils/detectDevice";
 import {getProfileImage} from "src/apis/Member";
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import useDevice from "src/hooks/deviceHook";
 
 interface IBoardItemProps {
     board: IBoardData;
@@ -18,6 +18,7 @@ interface IBoardItemProps {
 const BoardItem = ({board, pinned}: IBoardItemProps): JSX.Element => {
     const router = useRouter();
     const {page} = router.query;
+    const {isMobile} = useDevice();
 
     const onRoutePost = async () => {
         await router.push(`/board/${board.id}?type=${board.boardType}&page=${page}`);
@@ -29,7 +30,7 @@ const BoardItem = ({board, pinned}: IBoardItemProps): JSX.Element => {
     }
 
     const handleClickPost = async () => {
-        isMobile() && await onRoutePost();
+        isMobile && await onRoutePost();
     }
 
     return (
@@ -54,13 +55,13 @@ const BoardItem = ({board, pinned}: IBoardItemProps): JSX.Element => {
                 }
             </div>
             <div className={pinned ? style.pinned_info_box : style.info_box}>
-                {isMobile() &&
+                {isMobile &&
                 <img src={getProfileImage('default', 'MID')} alt={'user_icon'} className={style.user_img}/>}
                 <span
                     className={style.writer_txt}>{board.boardType !== EBoardType.ANONYMOUS ? board.userId : '익명'}</span>
-                {isMobile() && <FavoriteBorderOutlinedIcon style={{fontSize: 14}} className={style.like_icon}/>}
+                {isMobile && <FavoriteBorderOutlinedIcon style={{fontSize: 14}} className={style.like_icon}/>}
                 <span className={style.like_txt}>{board.likesCount}</span>
-                {isMobile() && <VisibilityIcon style={{fontSize: 14}} className={style.view_icon}/>}
+                {isMobile && <VisibilityIcon style={{fontSize: 14}} className={style.view_icon}/>}
                 <span className={style.visit_txt}>{board.viewCount}</span>
                 <span className={style.date_txt}>{dateDiff(board.createdTime)}</span>
             </div>

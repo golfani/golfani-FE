@@ -8,7 +8,7 @@ import BoardPageNav from "../page/BoardPageNav";
 import {useRouter} from "next/router";
 import BoardListHead from "../item/BoardListHead";
 import {EBoardType, TSelectMenu} from "src/domain/board";
-import {isMobile} from "src/utils/detectDevice";
+import useDevice from "src/hooks/deviceHook";
 
 interface IBoardSearchProps {
     selectMenu: TSelectMenu
@@ -18,6 +18,7 @@ interface IBoardSearchProps {
 const BoardSearch = ({selectMenu, payload}: IBoardSearchProps): JSX.Element => {
     const router = useRouter();
     const {page, boardType} = router.query;
+    const {isMobile} = useDevice();
 
     const boardQuery = useQuery<IPages<IBoardData>>(['searchResult', [boardType, payload, Number(page)]], () => searchBoard(selectMenu as TSelectMenu, payload as string, boardType as EBoardType, Number(page)), {
         enabled: selectMenu !== undefined
@@ -31,7 +32,7 @@ const BoardSearch = ({selectMenu, payload}: IBoardSearchProps): JSX.Element => {
 
     return (
         <div className={style.container}>
-            {isMobile() || <BoardListHead/>}
+            {isMobile || <BoardListHead/>}
             <div className={style.post_box}>
                 <div className={style.title_box}>
                     <span className={style.no_txt}>번호</span>

@@ -1,10 +1,8 @@
 import '../styles/globals.css'
 import type {AppProps} from 'next/app'
-import {store, wrapper} from "src/store/modules";
+import {wrapper} from "src/store/modules";
 import {QueryClient, QueryClientProvider} from "react-query";
 import {Hydrate} from "react-query/hydration";
-import {PersistGate} from 'redux-persist/integration/react';
-import {persistStore} from "redux-persist";
 import {useEffect, useState} from "react";
 import {getCookie} from "src/utils/cookieUtil";
 import {onSilentRefresh} from "src/utils/securityUtil";
@@ -17,8 +15,6 @@ import NotificationPermissionModal from "src/components/modals/NotificationPermi
 import {isMobile} from "src/utils/detectDevice";
 
 const queryClient = new QueryClient();
-const reduxStore = store();
-const persistor = persistStore(reduxStore);
 
 const alarmCallback = async (data: IMessage) => {
     const message = JSON.parse(data.body);
@@ -73,23 +69,21 @@ function MyApp({Component, pageProps}: AppProps) {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <PersistGate persistor={persistor} loading={null}>
-                <Hydrate state={pageProps.dehydrateState}>
-                    <Head>
-                        <title>GOLFANI</title>
-                        <meta name={'viewport'}
-                              content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-                        <meta name="description" content="골프에 관심 있으신가요? 골아니에서 골프 정보를 찾아보세요~"/>
-                        <meta property="og:image" key="ogimage" content="https://golfani.com/og_img.jpeg"/>
-                        <meta property="og:title" key="ogtitle" content="골아니"/>
-                        <meta property="og:description" key="ogdesc" content="골프에 관심 있으신가요? 골아니에서 골프 정보를 찾아보세요~"/>
-                        <meta property="og:url" key="ogurl" content="https://golfani.com"/>
-                    </Head>
-                    {userId ? isSocketConnected ? <Component {...pageProps} /> : <SocketLoading/> :
-                        <Component {...pageProps}/>}
-                    {openPermissionModal && <NotificationPermissionModal setOpenModal={setOpenPermissionModal}/>}
-                </Hydrate>
-            </PersistGate>
+            <Hydrate state={pageProps.dehydrateState}>
+                <Head>
+                    <title>GOLFANI</title>
+                    <meta name={'viewport'}
+                          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+                    <meta name="description" content="골프에 관심 있으신가요? 골아니에서 골프 정보를 찾아보세요~"/>
+                    <meta property="og:image" key="ogimage" content="https://golfani.com/og_img.jpeg"/>
+                    <meta property="og:title" key="ogtitle" content="골아니"/>
+                    <meta property="og:description" key="ogdesc" content="골프에 관심 있으신가요? 골아니에서 골프 정보를 찾아보세요~"/>
+                    <meta property="og:url" key="ogurl" content="https://golfani.com"/>
+                </Head>
+                {userId ? isSocketConnected ? <Component {...pageProps} /> : <SocketLoading/> :
+                    <Component {...pageProps}/>}
+                {openPermissionModal && <NotificationPermissionModal setOpenModal={setOpenPermissionModal}/>}
+            </Hydrate>
         </QueryClientProvider>
     )
 }
