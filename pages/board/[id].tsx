@@ -43,10 +43,10 @@ const ViewPage: NextPage<IBoardSSRProps> = ({board}) => {
                 <title>{board.title}</title>
                 <meta name="description" content={board.content}/>
                 <meta property="og:title" key="ogtitle" content={board.title}/>
-                <meta property="og:description" key="ogdesc" content="골프정보를 공유하는 커뮤니티 페이지 입니다."/>
+                <meta property="og:description" key="ogdesc" content={board.content}/>
                 <meta property="og:url" key="ogurl"
                       content={`https://golfani.com/board/${boardQuery.data?.id}?type=${boardQuery.data?.boardType}&page=0`}/>
-                <meta property="og:image" key="ogimage" content={board.urlList ? board.urlList[0] : "https://golfani.com/og_img.png"}/>
+                <meta property="og:image" key="ogimage" content={board.urlList.length > 0 ? board.urlList[0] : 'https://golfani.com/og_img.png'}/>
             </Head>
             <Navbar/>
             {boardQuery.error
