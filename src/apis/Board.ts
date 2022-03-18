@@ -18,7 +18,7 @@ export interface IBoardData {
     isDeleted: boolean,
     SearchType: string,
     replyCount: number,
-    urlList: [],
+    urlList: string[],
     hasImage: boolean,
     isHot: boolean,
     pinned: boolean

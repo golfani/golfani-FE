@@ -75,7 +75,7 @@ function MyApp({Component, pageProps}: AppProps) {
                     <meta name={'viewport'}
                           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
                     <meta name="description" content="골프에 관심 있으신가요? 골아니에서 골프 정보를 찾아보세요~"/>
-                    <meta property="og:image" key="ogimage" content="https://golfani.com/og_img.jpeg"/>
+                    <meta property="og:image" key="ogimage" content="https://golfani.com/og_img.png"/>
                     <meta property="og:title" key="ogtitle" content="골아니"/>
                     <meta property="og:description" key="ogdesc" content="골프에 관심 있으신가요? 골아니에서 골프 정보를 찾아보세요~"/>
                     <meta property="og:url" key="ogurl" content="https://golfani.com"/>
