@@ -31,7 +31,9 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
     const [feedModifyModalOpen, setFeedModifyModalOpen] = useState(false);
     const scrapMutate = useMutation((scrapDto: IScrapDto) => registerScrap(scrapDto));
     const [isMobileClose, setIsMobileClose] = useState(false);
-    const isScrappedQuery = useQuery(['isScrapped', props.type, props.target.id], () => isScrapped(props.type, props.target.id));
+    const isScrappedQuery = useQuery(['isScrapped', props.type, props.target.id], () => isScrapped(props.type, props.target.id), {
+        enabled: userId !== undefined || props.type === 'FEED' || props.type == 'POST'
+    });
     const deleteScrapMutate = useMutation((id: number) => deleteScrap(id));
     const deletePostReplyMutate = useMutation(() => deletePostReply(props.target.id));
     const deletePostMutate = useMutation(() => deleteBoard(props.target.id));
