@@ -74,6 +74,14 @@ const BoardContent = ({board}: IBoardProps): JSX.Element => {
         router.push(`/board?type=${board.boardType}&page=0`);
     }
 
+    const getWriterProfileImage = (userId: string) => {
+        if (board.boardType === EBoardType.ANONYMOUS) {
+            return getProfileImage(' ', 'MID');
+        } else {
+            return getProfileImage(userId, 'MID');
+        }
+    }
+
     useEffect(() => {
         setTimeout(() => {
             lottieLike && setLottieLike(false);
@@ -90,7 +98,7 @@ const BoardContent = ({board}: IBoardProps): JSX.Element => {
             </div>
             <div className={style.info_box}>
                 <div className={style.user_box}>
-                    <img alt={'user_profile'} src={getProfileImage(board.userId, 'MID')} className={style.user_img}/>
+                    <img alt={'user_profile'} src={getWriterProfileImage(board.userId)} className={style.user_img}/>
                     <span
                         className={style.user_txt}>{board.boardType === EBoardType.ANONYMOUS ? '익명' : board.userId}</span>
                 </div>

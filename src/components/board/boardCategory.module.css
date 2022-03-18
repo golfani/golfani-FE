@@ -1,4 +1,4 @@
-.container{
+.container {
     display: flex;
     align-items: center;
     width: 70%;
@@ -11,13 +11,22 @@
     padding: 0 15px;
 }
 
-.menu_category{
+.menu_category {
     display: flex;
     width: auto;
     align-items: center;
 }
 
-.board_menu_default{
+.home_icon_default {
+    margin-right: 5px;
+}
+
+.home_icon_clicked {
+    color: white;
+    margin-right: 5px;
+}
+
+.board_menu_default {
     width: 70px;
     display: flex;
     justify-content: center;
@@ -30,7 +39,7 @@
     font-weight: 500;
 }
 
-.board_menu_clicked{
+.board_menu_clicked {
     width: 70px;
     display: flex;
     justify-content: center;
@@ -40,7 +49,7 @@
     cursor: pointer;
     font-weight: 500;
     letter-spacing: -0.5px;
-    color:white;
+    color: white;
     margin-right: 5px;
 }
 

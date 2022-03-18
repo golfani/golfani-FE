@@ -31,7 +31,7 @@ const BoardCategory = ({onSetBoardType, boardType}: IBoardTypeProps): JSX.Elemen
     return(
         <div className={style.container}>
             <ul className={style.menu_category}>
-                <HomeIcon className={boardType === EBoardType.HOME ? style.board_menu_clicked : style.board_menu_default} onClick={() => {menuClicked(EBoardType.HOME)}}/>
+                <HomeIcon className={boardType === EBoardType.HOME ? style.home_icon_clicked : style.home_icon_default} onClick={() => {menuClicked(EBoardType.HOME)}}/>
                 <li className={boardType === EBoardType.FREE ? style.board_menu_clicked : style.board_menu_default} onClick={() => {menuClicked(EBoardType.FREE)}}>자유게시판</li>
                 <li className={boardType === EBoardType.ANONYMOUS ? style.board_menu_clicked : style.board_menu_default} onClick={() => {menuClicked(EBoardType.ANONYMOUS)}}>익명게시판</li>
                 <li className={boardType === EBoardType.TIP ? style.board_menu_clicked : style.board_menu_default} onClick={() => {menuClicked(EBoardType.TIP)}}>정보게시판</li>
