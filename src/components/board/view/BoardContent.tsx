@@ -62,11 +62,25 @@ const BoardContent = ({board}: IBoardProps): JSX.Element => {
     }
 
     const handleClickLinkShare = async () => {
-        try {
-            await navigator.clipboard.writeText(`https://golfani.com${router.asPath}`);
-            alert('게시글 링크가 복사되었습니다');
-        } catch (e) {
+        const url = `https://golfani.com${router.asPath}`;
 
+        if (typeof navigator.share !== 'undefined') {
+            try {
+                await navigator.share({
+                    title: 'GOLFANI',
+                    text: `${board.userId}님의 게시글을 공유합니다.`,
+                    url: url
+                });
+            } catch (e) {
+
+            }
+        } else {
+            try {
+                await navigator.clipboard.writeText(url);
+                alert('게시글 링크가 복사되었습니다');
+            } catch (e) {
+
+            }
         }
     }
 
@@ -112,7 +126,7 @@ const BoardContent = ({board}: IBoardProps): JSX.Element => {
                 </div>
             </div>
             <div className={style.menu_box}>
-                <button className={style.link_share_btn} onClick={handleClickLinkShare}>URL 복사</button>
+                <button className={style.link_share_btn} onClick={handleClickLinkShare}>공유하기</button>
                 <MoreHorizIcon className={style.menu_icon} onClick={handleClickMenuButton}/>
             </div>
             <div className={style.content_box}>

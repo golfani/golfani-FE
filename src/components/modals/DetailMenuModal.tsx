@@ -172,6 +172,37 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
         return board.pinned;
     }
 
+    const handleClickShareItem = async () => {
+        let url = '';
+
+        if (props.type === 'FEED') {
+            url = `https://golfani.com/feed/${props.target.id}`;
+        } else if (props.type === 'POST') {
+            url = `https://golfani.com${router.asPath}`;
+        }
+
+        if (typeof navigator.share !== 'undefined') {
+            try {
+                await navigator.share({
+                    title: 'GOLFANI',
+                    text: `${props.target.userId}님의 컨텐츠를 공유합니다.`,
+                    url: url
+                });
+                onModalClose();
+            } catch (e) {
+
+            }
+        } else {
+            try {
+                await navigator.clipboard.writeText(url);
+                alert('링크가 복사되었습니다');
+                onModalClose();
+            } catch (e) {
+                
+            }
+        }
+    }
+
     handleClickRefOutSide(ref, onModalClose);
 
     return (
@@ -189,6 +220,9 @@ const DetailMenuModal = (props: DetailMenuModalProps): JSX.Element => {
                 }
                 {(props.type === 'FEED' || props.type === 'POST') && isScrappedQuery.data &&
                 <button className={style.menu_btn} onClick={handleClickDeleteScrap}>스크랩 취소</button>
+                }
+                {(props.type === 'FEED' || props.type === 'POST') &&
+                <button className={style.menu_btn} onClick={handleClickShareItem}>공유하기</button>
                 }
                 {props.type === 'POST' &&
                 <button className={style.menu_btn}
