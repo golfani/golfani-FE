@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-type TFeedType = "LIST" | "CARD" | "HOT" | "SEARCH" | "MOBILE_SEARCH"
+export type TFeedType = "LIST" | "CARD" | "HOT" | "SEARCH" | "MOBILE_SEARCH"
 
 export interface IFeedTypeState {
     type : TFeedType
