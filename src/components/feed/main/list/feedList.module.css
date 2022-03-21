@@ -4,11 +4,16 @@
     max-width: 640px;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
-    overflow-y: hidden;
 }
 
 .scroll_ref {
     position: absolute;
     bottom: 500px;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
 }
