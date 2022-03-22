@@ -1,5 +1,6 @@
 .container {
-    width: 1240px;
+    width: 100%;
+    max-width: 1240px;
 }
 
 .title_txt {
@@ -42,4 +43,25 @@
     font-weight: 500;
     color: #81B147;
     text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 0 10px;
+    }
+
+    .title_txt {
+        font-size: 22px;
+    }
+
+    .no_login_box {
+        margin-bottom: 30px;
+    }
+
+    .no_login_txt {
+        width: 70%;
+        font-size: 18px;
+        text-align: center;
+        padding: 10px;
+    }
 }

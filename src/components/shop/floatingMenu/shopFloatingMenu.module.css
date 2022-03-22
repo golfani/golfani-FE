@@ -45,3 +45,9 @@
 .menu_list:nth-last-child(1) > .menu_txt {
     border-radius: 0 0 50px 50px;
 }
+
+@media screen and (max-width: 768px) {
+    .container {
+        display: none;
+    }
+}

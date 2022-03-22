@@ -8,7 +8,8 @@
 }
 
 .box {
-    width: 1240px;
+    width: 100%;
+    max-width: 1240px;
 }
 
 .review_list_txt {
@@ -56,4 +57,35 @@
     color: white;
     background-color: #2196F3;
     border-radius: 25px;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 20px 10px;
+        margin-bottom: 30px;
+    }
+
+    .review_list_txt {
+        font-size: 22px;
+    }
+
+    .review_item_container {
+        flex-direction: column;
+    }
+
+    .select_box {
+        margin-bottom: 10px;
+    }
+
+    .select_btn {
+        font-size: 14px;
+        width: 80px;
+        height: 30px;
+    }
+
+    .select_btn_active {
+        font-size: 14px;
+        width: 80px;
+        height: 30px;
+    }
 }
