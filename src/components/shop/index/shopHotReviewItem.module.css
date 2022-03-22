@@ -71,3 +71,10 @@
     display: inline-block;
     margin-right: 5px;
 }
+
+@media screen and (max-width: 768px) {
+    .container {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}

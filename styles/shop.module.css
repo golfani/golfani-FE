@@ -68,3 +68,9 @@
     display: inline-block;
     font-size: 12px;
 }
+
+@media screen and (max-width: 768px) {
+    .shop_main_box {
+        margin-top: 55px;
+    }
+}

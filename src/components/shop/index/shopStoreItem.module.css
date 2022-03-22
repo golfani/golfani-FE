@@ -37,3 +37,13 @@
     font-size: 14px;
     color: gray;
 }
+
+@media screen and (max-width: 768px) {
+    .container {
+        width: calc(100% / 2 - 10px)
+    }
+
+    .img {
+        height: 100px;
+    }
+}

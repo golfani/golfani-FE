@@ -60,3 +60,17 @@
     font-weight: 500;
     border-bottom: 2px solid black;
 }
+
+@media screen and (max-width: 768px) {
+    .container {
+        margin-bottom: 0;
+    }
+
+    .store_list_txt {
+        font-size: 22px;
+    }
+
+    .store_item_container {
+        flex-wrap: wrap;
+    }
+}

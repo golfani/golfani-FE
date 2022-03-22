@@ -1,7 +1,8 @@
 .container {
     display: flex;
     flex-direction: column;
-    width: 1240px;
+    width: 100%;
+    max-width: 1240px;
     margin-bottom: 80px;
 }
 
@@ -56,4 +57,40 @@
     flex-direction: column;
     justify-content: space-between;
     margin-left: auto;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 0 10px;
+        margin-bottom: 0;
+    }
+
+    .recommend_title_txt {
+        font-size: 22px;
+    }
+
+    .item_container {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .item_row_container {
+        width: 100%;
+    }
+
+    .select_box {
+        margin-bottom: 10px;
+    }
+
+    .select_btn {
+        font-size: 14px;
+        width: 120px;
+        height: 30px;
+    }
+
+    .select_btn_active {
+        font-size: 14px;
+        width: 120px;
+        height: 30px;
+    }
 }
