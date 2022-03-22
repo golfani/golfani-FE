@@ -41,8 +41,8 @@
 }
 
 .img_row {
-    width: 100%;
-    height: 100%;
+    width: 130px;
+    height: 130px;
     object-fit: contain;
     margin-right: 15px;
 }
@@ -106,11 +106,6 @@
         height: 130px;
         object-fit: contain;
         margin: 0 15px 0 0;
-    }
-
-    .img_row {
-        width: 130px;
-        height: 130px;
     }
 
     .container_row {
