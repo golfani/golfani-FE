@@ -33,54 +33,54 @@ const FeedSearch = (): JSX.Element => {
         const recentSearchList: IRecentSearch[] = JSON.parse(output as string);
         recentSearchList ? setRecentSearchList(recentSearchList) : setRecentSearchList([]);
         feedType.type === 'MOBILE_SEARCH' && setSearchBox(style.search_box);
-    }, [])
+    }, []);
 
     // input inFocus 됬을때
     const handleFocus = () => {
         setSearchBox(style.search_box);
         onHideMenu();
-    }
+    };
 
     // css 스타일 바꾸기
     const onHideSearchBox = () => {
         setSearchBox(style.hide);
-    }
+    };
 
     // leftSideMenu 숨기기
     const onHideMenu = () => {
         feedMenu.menu && feedMenu.onChangeMenu('NONE');
-    }
+    };
 
     // 검색결과 가져오기
     const onFetchSearchList = (payload: string) => {
         payload.length && search.onGetTagList(payload);
         payload.length && search.onGetUserList(payload);
-    }
+    };
 
     // 검색한 태그 페이지로 이동하기
     const onRoute = (tag: string) => {
         onHideSearchBox();
         onConflictRoute(`/feed?search=${tag}`);
         onInitInput();
-    }
+    };
 
     // 검색 태그 초기화
     const onInitInput = () => {
         setSearchName("");
         search.onInitTagList();
         search.onInitSearchUserList();
-    }
+    };
 
     const handleChangeInput = (e: ChangeEvent) => {
         const input = e.target as HTMLInputElement
         setSearchName((searchName) => input.value.replace(/\s/g, ''));
         onFetchSearchList(input.value);
-    }
+    };
 
     const handleClickTag = (tag: string) => {
         onRoute(tag);
         saveSearchHistory(SEARCH_TYPE.tag, tag);
-    }
+    };
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -89,11 +89,11 @@ const FeedSearch = (): JSX.Element => {
             onRoute(searchName);
             saveSearchHistory(SEARCH_TYPE.tag, searchName);
         }
-    }
+    };
 
     const handleClickDeleteRecentTag = (id: number) => {
         deleteSearchHistory(id);
-    }
+    };
 
     const saveSearchHistory = (type: SEARCH_TYPE, searchName: string) => {
         if (typeof window !== 'undefined') {
@@ -101,10 +101,13 @@ const FeedSearch = (): JSX.Element => {
                 type: type,
                 searchName: searchName
             }
-            recentSearchList.splice(0, 0, saveSearch);
-            window.localStorage.setItem("recent_tag", JSON.stringify(recentSearchList));
+            if (recentSearchList.findIndex((item) =>
+                item.searchName == saveSearch.searchName && item.type == saveSearch.type) == -1) {
+                recentSearchList.splice(0, 0, saveSearch);
+                window.localStorage.setItem("recent_tag", JSON.stringify(recentSearchList));
+            }
         }
-    }
+    };
 
     const deleteSearchHistory = (deleteId: number) => {
         const deleteTagList = recentSearchList.filter((tag, id) => (
@@ -112,12 +115,12 @@ const FeedSearch = (): JSX.Element => {
         ));
         window.localStorage.setItem("recent_tag", JSON.stringify(deleteTagList));
         setRecentSearchList(deleteTagList);
-    }
+    };
 
     const handleClickSearchUser = (userId: string) => {
         onConflictRoute(`/profile/${userId}`);
         saveSearchHistory(SEARCH_TYPE.user, userId);
-    }
+    };
 
     /**
      * 원하는 영역 바깥 클릭 감지
